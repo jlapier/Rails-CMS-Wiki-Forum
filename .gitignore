@@ -1,0 +1,13 @@
+log/*.log
+tmp/**/*
+.DS_Store
+config/database.yml
+db/schema.rb
+db/*.sqlite3
+db/development_structure.sql
+*~
+cache
+.*.swp
+.*.swo
+nbproject/
+spec/spec.opts.netbeans

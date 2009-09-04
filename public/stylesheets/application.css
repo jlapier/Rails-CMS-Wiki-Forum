@@ -1,0 +1,121 @@
+body, p, ol, ul, td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size:   12px;
+    line-height: 150%;
+}
+
+body { background: #998d7b; }
+
+p { padding: 8px 0px; }
+
+h1 { font-size: 2em; padding: 20px 4px; text-align:center; }
+h2 { font-size: 1.8em; padding: 12px 4px; margin: 10px 0; border-bottom: 1px solid #993 }
+h3 { font-size: 1.6em; padding: 16px 4px; }
+h3 { font-size: 1.4em; padding: 14px 4px; }
+h1 img, h2 img { vertical-align:middle; }
+
+a:link, a:visited, a:active { color: #33C; text-decoration:none; }
+a:hover { color: #00F; text-decoration:underline; }
+
+input { font-size: 11px; }
+
+ul { }
+
+li { margin-left: 20px; }
+
+#top_banner {
+  text-align:center; height: 210px;
+}
+
+#main_content_box {
+    margin-left: auto; 
+    margin-right:auto;
+    padding: 20px;
+    height: 100%;
+    min-height: 600px;
+    width: 800px; 
+    background: white; 
+    -moz-box-shadow: 0px 0px 40px #333;
+    box-shadow: 0px 0px 40px #333;
+}
+
+.base_content {
+  clear:both;
+}
+
+/* embeds the openid image in the text field */
+input#user_openid_identifier, input#user_session_openid_identifier {
+    background: url(http://openid.net/images/login-bg.gif) no-repeat;
+    background-color: #fff;
+    background-position: 0 50%;
+    color: #000;
+    padding-left: 18px;
+}
+
+.center {
+    margin: auto;
+    text-align: center;
+}
+
+.center_box {
+    margin: auto;
+}
+
+.form_label {
+    text-align: right;
+    font-weight: bold;
+}
+
+.big_button {
+  font-size: 16px;
+  border: 1px solid #009;
+  padding: 4px 8px;
+  margin: 8px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.big_button:hover { background: #FF9; }
+
+#user_box {
+  width: 200px;
+  font-size: 10px;
+  text-align:left;
+  position: relative;
+  top: -200px;
+  left: 570px;
+  border: 1px solid #998d7b;
+  padding: 4px 8px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+.user_link_box {
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    -webkit-border-bottom-left-radius:5px;
+    -webkit-border-bottom-right-radius:5px;
+    background-color:#DDD;
+    margin-bottom:-4px;
+    margin-left:-8px;
+    margin-right:-8px;
+    margin-top:5px;
+    text-align:center;
+}
+
+.user_link_box a:link, .user_link_box a:visited { color: #009; }
+.user_link_box a:hover { color: #00F; }
+
+
+.link_box {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    background-color:#DDD;
+    text-align:center;
+    padding: 4px 8px;
+}
+
+
+.link_box a:link, .link_box a:visited { color: #009; }
+.link_box a:hover { color: #00F; }
+
