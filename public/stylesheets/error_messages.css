@@ -16,6 +16,11 @@
   clear:both;
 }
 
+.warning_message {
+  border-color: #FC3;
+  color: #630;
+}
+
 .error_message {
   border-color: #F33;
   color: #200;

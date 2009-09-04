@@ -30,6 +30,9 @@
       <% if flash[:notice] -%>
         <div class="flash_message notice_message"><%= flash[:notice] %></div>
       <% end -%>
+      <% if flash[:warning] -%>
+        <div class="flash_message warning_message"><%= flash[:warning] %></div>
+      <% end -%>
       <% if flash[:error] -%>
         <div class="flash_message error_message"><%= flash[:error] %></div>
       <% end -%>

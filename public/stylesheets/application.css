@@ -4,7 +4,9 @@ body, p, ol, ul, td {
     line-height: 150%;
 }
 
-body { background: #998d7b; }
+body {
+  background-color: #84be7d;
+}
 
 p { padding: 8px 0px; }
 
@@ -24,7 +26,7 @@ ul { }
 li { margin-left: 20px; }
 
 #top_banner {
-  text-align:center; height: 210px;
+  text-align:center; height: 100px;
 }
 
 #main_content_box {
@@ -82,7 +84,6 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   font-size: 10px;
   text-align:left;
   position: relative;
-  top: -200px;
   left: 570px;
   border: 1px solid #998d7b;
   padding: 4px 8px;
