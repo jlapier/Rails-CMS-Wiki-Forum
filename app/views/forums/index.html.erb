@@ -1,0 +1,110 @@
+<h1>Forums</h1>
+
+<div style="float:right">
+  <% form_tag({ :controller => "/messages", :action => :seek },  :method => :get  ) do %>
+    <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
+    <%= submit_tag "Go" %>
+  <% end %>
+</div>
+
+<p>
+  Please follow the common rules of etiquette when using these forums. Remember that when you logged in, you
+  agreed to abide by the rules.
+  The management reserves the right to delete any post and possibly disable accounts at its own discretion.
+</p>
+
+<table class="forums">
+  <% for forum in @forums -%>
+    <tr>
+      <td style="border-bottom: 2px solid #DDE;">
+        <p><strong><%= link_to forum.title, :action => :forum, :forum_id => forum %></strong></p>
+        <span class="small_text"><%= forum.description %></span>
+      </td>
+      <td style="text-align: right; border-bottom: 2px solid #DDE; width:225px">
+        <p class="small_text" style="color: #666;">Most recent:
+          <% if forum.most_recent_post -%>
+            <%= link_to forum.most_recent_post.subject, :action => :thread,
+                  :thread_id => forum.most_recent_post.thread_id || forum.most_recent_post.id,
+                  :page => Message.last_page_number_for(:thread_id => forum.most_recent_post.thread_id || forum.most_recent_post.id),
+                  :anchor => "bottom" %><br/>
+            by <%= link_to forum.most_recent_post.user.name, :action => :log,
+                    :login => forum.most_recent_post.user.login %>
+            posted <%= post_time forum.most_recent_post.created_at %>
+          <% else -%>
+            <em>no messages</em>
+          <% end -%>
+        </p>
+      </td>
+    </tr>
+  <% end -%>
+
+  <% if logged_in? -%>
+    <tr>
+      <td style="border-bottom: 2px solid #DDE;">
+        <p><strong><%= link_to "My Log", :action => :log %></strong></p>
+        <span class="small_text">Your own personal log, where you can scribe about whatever you want.</span>
+      </td>
+      <td style="text-align: right; border-bottom: 2px solid #DDE;">
+        <p class="small_text" style="color: #666;">Most recent post:
+          <% if current_user.newest_log_message -%>
+            <%= link_to current_user.newest_log_message.subject, :action => :thread, :thread_id => current_user.newest_log_message, :mark_read => 1 %><br/>
+            <%= "by #{current_user.newest_log_message.user.name} posted #{post_time current_user.newest_log_message.created_at}" %>
+          <% else -%>
+            <em>no messages</em>
+          <% end -%>
+        </p>
+        <em style="color: #C60;">Cost to post: free</em>
+      </td>
+    </tr>
+  <% end -%>
+  <tr>
+    <td style="border-bottom: 2px solid #DDE;">
+      <p><strong><%= link_to "Other Logs", :action => :all_logs %></strong></p>
+      <span class="small_text">Other personal logs - read what other players are writing about.</span>
+    </td>
+    <td style="text-align: right; border-bottom: 2px solid #DDE;">
+      <p class="small_text" style="color: #666;">Most recent post:
+        <% most_recent = Message.find_recent_log_posts(1).first %>
+        <%= link_to most_recent.subject, :action => :thread, :thread_id => most_recent %><br/>
+        <%= "by #{most_recent.user.login} posted #{post_time most_recent.created_at}" %>
+      </p>
+      <em style="color: #C60;">Cost to post: free</em>
+    </td>
+  </tr>
+
+</table>
+
+   
+
+
+
+<h1>Listing forums</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Position</th>
+    <th>Moderator only</th>
+    <th>Newest message post</th>
+  </tr>
+
+<% @forums.each do |forum| %>
+  <tr>
+    <td><%=h forum.title %></td>
+    <td><%=h forum.description %></td>
+    <td><%=h forum.position %></td>
+    <td><%=h forum.moderator_only %></td>
+    <td><%=h forum.newest_message_post_id %></td>
+    <td><%= link_to 'Show', forum %></td>
+    <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
+    <td><%= link_to 'Destroy', forum, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if current_user.is_admin? %>
+  <%= link_to 'create a new forum', new_forum_path %>
+<% end %>

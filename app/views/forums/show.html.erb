@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @forum.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @forum.description %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%=h @forum.position %>
+</p>
+
+<p>
+  <b>Moderator only:</b>
+  <%=h @forum.moderator_only %>
+</p>
+
+<p>
+  <b>Newest message post:</b>
+  <%=h @forum.newest_message_post_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_forum_path(@forum) %> |
+<%= link_to 'Back', forums_path %>

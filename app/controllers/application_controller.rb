@@ -20,8 +20,25 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:notice] = "You must be logged in to access this page"
+        flash[:warning] = "You must be logged in to access this page."
         redirect_to new_user_session_url
+        return false
+      end
+    end
+
+    def require_admin_user
+      unless current_user and current_user.is_admin?
+        flash[:error] = "You do not have permission to access that page."
+        redirect_to '/'
+        return false
+      end
+    end
+
+    def require_moderator_user
+      get_forum
+      unless current_user and current_user.is_moderator_for_forum?(@forum)
+        flash[:error] = "You do not have permission to access that page."
+        redirect_to '/'
         return false
       end
     end
@@ -29,7 +46,7 @@ class ApplicationController < ActionController::Base
     def require_no_user
       if current_user
         store_location
-        flash[:notice] = "You must be logged out to access this page"
+        flash[:warning] = "You must be logged out to access this page."
         redirect_to account_url
         return false
       end

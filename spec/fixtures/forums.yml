@@ -1,0 +1,30 @@
+# == Schema Information
+# Schema version: 20090904211126
+#
+# Table name: forums
+#
+#  id                     :integer       not null, primary key
+#  title                  :string(255)   
+#  description            :text          
+#  position               :integer       
+#  moderator_only         :boolean       
+#  newest_message_post_id :integer       
+#  created_at             :datetime      
+#  updated_at             :datetime      
+# End Schema
+
+classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyText
+  position: 1
+  moderator_only: false
+  newest_message_post_id: 1
+
+two:
+  title: MyString
+  description: MyText
+  position: 1
+  moderator_only: false
+  newest_message_post_id: 1
