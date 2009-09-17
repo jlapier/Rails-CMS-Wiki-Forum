@@ -1,0 +1,32 @@
+<h1>
+  <% if @message_post.forum %>
+    <%= link_to "Forums", forums_path %>:
+    <%= link_to @message_post.forum.title, @message_post.forum %>
+  <% else %>
+    Message
+  <% end -%>
+</h1>
+
+<table class="messages" style="margin-bottom:10px;">
+  <%= render :partial => "whole_message", :locals => { :message => @message_post } %>
+</table>
+
+<div style="text-align:center;"><%= will_paginate @child_posts %></div>
+
+<table class="messages">
+  <% for message_post in @child_posts -%>
+    <%= render :partial => "whole_message", :locals => { :message => message_post } %>
+  <% end -%>
+</table>
+
+<a name="bottom"></a>
+
+<div style="text-align:center;"><%= will_paginate @child_posts %></div>
+
+<br/>
+
+<h3>Reply to this thread:</h3>
+<%= render :partial => "message_form", 
+      :locals => { :message_post => MessagePost.new(:thread => @message_post, :subject => "RE: #{@message_post.subject}") } %>
+
+

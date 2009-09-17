@@ -2,30 +2,9 @@
 
 <% form_for(@forum) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.label :position %><br />
-    <%= f.text_field :position %>
-  </p>
-  <p>
-    <%= f.label :moderator_only %><br />
-    <%= f.check_box :moderator_only %>
-  </p>
-  <p>
-    <%= f.label :newest_message_post_id %><br />
-    <%= f.text_field :newest_message_post_id %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', forums_path %>
+  Title of forum: <%= f.text_field :title %><br/>
+  Moderator only? <%= f.check_box :moderator_only %><br/>
+  Description:
+  <%= f.text_area :description, :rows => 5, :cols => 80 %><br/>
+  <%= submit_tag "Make this Forum!" %>
+<% end -%>

@@ -1,0 +1,10 @@
+planex:
+  id: 1
+  name: Planet Express
+  abbrev: PlanEx
+  descriptors: Shipping, Delivery
+moms:
+  id: 2
+  name: "Mom's Friendly Robots"
+  abbrev: MomCorp
+  descriptors: Mom, Robots, World Domination

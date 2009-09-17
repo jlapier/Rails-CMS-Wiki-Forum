@@ -1,7 +1,7 @@
 <h1>Forums</h1>
 
 <div style="float:right">
-  <% form_tag({ :controller => "/messages", :action => :seek },  :method => :get  ) do %>
+  <% form_tag({ :controller => "/message_posts", :action => :search },  :method => :get  ) do %>
     <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
     <%= submit_tag "Go" %>
   <% end %>
@@ -17,7 +17,7 @@
   <% for forum in @forums -%>
     <tr>
       <td style="border-bottom: 2px solid #DDE;">
-        <p><strong><%= link_to forum.title, :action => :forum, :forum_id => forum %></strong></p>
+        <p><strong><%= link_to forum.title, forum %></strong></p>
         <span class="small_text"><%= forum.description %></span>
       </td>
       <td style="text-align: right; border-bottom: 2px solid #DDE; width:225px">
@@ -36,75 +36,20 @@
         </p>
       </td>
     </tr>
-  <% end -%>
-
-  <% if logged_in? -%>
+    <% if current_user and current_user.is_admin? %>
     <tr>
-      <td style="border-bottom: 2px solid #DDE;">
-        <p><strong><%= link_to "My Log", :action => :log %></strong></p>
-        <span class="small_text">Your own personal log, where you can scribe about whatever you want.</span>
-      </td>
-      <td style="text-align: right; border-bottom: 2px solid #DDE;">
-        <p class="small_text" style="color: #666;">Most recent post:
-          <% if current_user.newest_log_message -%>
-            <%= link_to current_user.newest_log_message.subject, :action => :thread, :thread_id => current_user.newest_log_message, :mark_read => 1 %><br/>
-            <%= "by #{current_user.newest_log_message.user.name} posted #{post_time current_user.newest_log_message.created_at}" %>
-          <% else -%>
-            <em>no messages</em>
-          <% end -%>
-        </p>
-        <em style="color: #C60;">Cost to post: free</em>
+      <td class="small_text" colspan="2">
+        <%= link_to 'edit details of this forum', edit_forum_path(forum) %> |
+        <%= link_to 'delete this forum', forum, :confirm => 'Are you sure you want to delete this forum and all the messages in it?', :method => :delete %>
       </td>
     </tr>
+    <% end %>
   <% end -%>
-  <tr>
-    <td style="border-bottom: 2px solid #DDE;">
-      <p><strong><%= link_to "Other Logs", :action => :all_logs %></strong></p>
-      <span class="small_text">Other personal logs - read what other players are writing about.</span>
-    </td>
-    <td style="text-align: right; border-bottom: 2px solid #DDE;">
-      <p class="small_text" style="color: #666;">Most recent post:
-        <% most_recent = Message.find_recent_log_posts(1).first %>
-        <%= link_to most_recent.subject, :action => :thread, :thread_id => most_recent %><br/>
-        <%= "by #{most_recent.user.login} posted #{post_time most_recent.created_at}" %>
-      </p>
-      <em style="color: #C60;">Cost to post: free</em>
-    </td>
-  </tr>
-
 </table>
 
    
-
-
-
-<h1>Listing forums</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Position</th>
-    <th>Moderator only</th>
-    <th>Newest message post</th>
-  </tr>
-
-<% @forums.each do |forum| %>
-  <tr>
-    <td><%=h forum.title %></td>
-    <td><%=h forum.description %></td>
-    <td><%=h forum.position %></td>
-    <td><%=h forum.moderator_only %></td>
-    <td><%=h forum.newest_message_post_id %></td>
-    <td><%= link_to 'Show', forum %></td>
-    <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
-    <td><%= link_to 'Destroy', forum, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
 <br />
 
-<% if current_user.is_admin? %>
+<% if current_user and current_user.is_admin? %>
   <%= link_to 'create a new forum', new_forum_path %>
 <% end %>

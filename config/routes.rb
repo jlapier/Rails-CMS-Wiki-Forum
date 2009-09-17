@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :message_posts, :collection => { :search => :get }
+
   map.resources :forums
 
   map.resource :account, :controller => "users"

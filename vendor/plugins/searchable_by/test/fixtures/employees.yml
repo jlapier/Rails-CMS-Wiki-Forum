@@ -1,0 +1,28 @@
+fry:
+  first_name: Philip
+  last_name: Fry
+  occupation: Delivery Boy
+  company_id: 1
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  updated_at:
+leela:
+  first_name: Turanga
+  last_name: Leela
+  occupation: Captain
+  company_id: 1
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  updated_at:
+bender:
+  first_name: Bender
+  last_name: Rodriguez
+  occupation: Bending Unit
+  company_id: 1
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  updated_at:
+walt:
+  first_name: Walt
+  last_name: Unknown
+  occupation: Stooge
+  company_id: 2
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  updated_at:

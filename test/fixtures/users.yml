@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090904211126
+# Schema version: 20090908180148
 #
 # Table name: users
 #
@@ -20,6 +20,5 @@
 #  last_login_ip     :string(255)   
 #  current_login_ip  :string(255)   
 #  is_admin          :boolean       
-#  is_moderator      :boolean       
 # End Schema
 

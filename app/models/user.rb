@@ -2,7 +2,7 @@
 
 
 # == Schema Information
-# Schema version: 20090904211126
+# Schema version: 20090908180148
 #
 # Table name: users
 #
@@ -23,17 +23,22 @@
 #  last_login_ip     :string(255)   
 #  current_login_ip  :string(255)   
 #  is_admin          :boolean       
-#  is_moderator      :boolean       
 # End Schema
 
 class User < ActiveRecord::Base
   attr_protected :is_admin
   attr_protected :is_moderator
+  has_many :message_posts
   
   acts_as_authentic
 
   # TODO define this
   def is_moderator_for_forum?(forum)
     false
+  end
+
+
+  def name
+    display_name.blank? ? login : display_name
   end
 end

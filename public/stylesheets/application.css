@@ -1,11 +1,11 @@
 body, p, ol, ul, td {
     font-family: verdana, arial, helvetica, sans-serif;
-    font-size:   12px;
     line-height: 150%;
 }
 
 body {
-  background-color: #84be7d;
+  background-color: #805c4f;
+  font-size: 12px;
 }
 
 p { padding: 8px 0px; }
@@ -24,6 +24,8 @@ input { font-size: 11px; }
 ul { }
 
 li { margin-left: 20px; }
+
+textarea { font-family: Arial, sans-serif; font-size: 12px; vertical-align:top; }
 
 #top_banner {
   text-align:center; height: 100px;
@@ -120,3 +122,69 @@ input#user_openid_identifier, input#user_session_openid_identifier {
 .link_box a:link, .link_box a:visited { color: #009; }
 .link_box a:hover { color: #00F; }
 
+
+
+
+/*    forum stuff */
+
+
+table.forums { background: #DDE; width: 100%; border-spacing: 0px; }
+table.forums tr { background: #F6F6FF;  }
+table.forums td { padding: 10px; font-size: 12px;  }
+table.forums strong { font-size: 18px; font-weight: bold; }
+table.forums strong a {border: none; }
+table.forums td.small_text { font-size: 10px; }
+
+table.messages { background: #DDE; min-width: 600px; border-spacing: 4px; border-collapse: separate; }
+table.messages tr { background: #F6F6FF; border-spacing: 4px; }
+table.messages td { padding: 10px; font-size: 11px;  }
+table.messages li { font-size: 11px;  }
+table.messages strong { font-size: 12px; font-weight: bold; }
+table.messages td small_text { font-size: 10px; }
+table.messages blockquote { background: white; color: #333; border-left: 2px solid #999; padding-left: 6px;  }
+table.messages tr td.leftside { text-align: right; vertical-align: top; border-left: 3px solid #AAA;
+  background: #DDE; font-size: 11px; width: 120px;
+}
+table.messages tr:hover td.leftside { border-left: 3px solid #009; }
+table.messages .lightgreen { color: #090; }
+
+.tag_list form { font-size: 9px; }
+.tag_list input { font-size: 10px; }
+#message_tag_list { font-size: 9px;  }
+#tags_for_user { float: right; font-size: 10px; min-width: 50px;
+  padding: 10px; margin: 11px; border: 1px solid #009; background: #EEF;
+  text-align: right;
+}
+
+
+
+/* pagination */
+
+
+.pagination {
+  padding: 3px;
+  margin: 3px;
+}
+.pagination a {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #aaaadd;
+  text-decoration: none;
+  color: #000099;
+  background-color: #FFF;
+}
+.pagination a:hover, .pagination a:active {
+  border: 1px solid #000099;
+  color: #000;
+}
+.pagination span.current {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #000099;
+  font-weight: bold;
+  background-color: #000099;
+  color: #FFF;
+}
+.pagination span.disabled {
+  display:none;
+}

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090904211126
+# Schema version: 20090908180148
 #
 # Table name: forums
 #
@@ -15,4 +15,7 @@
 
 class Forum < ActiveRecord::Base
   validates_presence_of :title
+
+  belongs_to :most_recent_post, :class_name => 'MessagePost', :foreign_key => :newest_message_post_id
+  has_many :message_posts, :dependent => :destroy
 end

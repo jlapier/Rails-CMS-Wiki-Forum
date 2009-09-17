@@ -1,0 +1,24 @@
+<tr>
+  <td class="leftside">
+    <div style="float:left; padding: 2px 4px;">
+      <%= gravatar_for message.user, :size => 50 %>
+    </div>
+    posted <%= post_time message.created_at  %> by
+    <strong><%= link_to message.user.name, '#TODO_link_to_users_profile'  %></strong>
+  </td>
+  <td><strong><%= link_to message.subject, message %>:</strong>
+    <span class="gray"><%=h truncate( message.body, 200 ) %></span>
+  </td>
+  <td class="message_last_reply">
+    Last Reply:
+      <% if message.most_recent_reply %>
+        <%= link_to message.most_recent_reply.subject, message,
+              :page => MessagePost.last_page_number_for(:thread_id => message),
+              :anchor => "bottom" %> <br/>
+        <em><%= message.most_recent_reply.user.name %></em>
+        <em><%= post_time message.most_recent_reply.created_at %></em>
+      <% else -%>
+        <em>no replies</em>
+      <% end -%>
+  </td>
+</tr>

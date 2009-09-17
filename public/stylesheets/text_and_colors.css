@@ -1,0 +1,44 @@
+
+.red { color: red }
+.blue { color: blue }
+.green { color: green }
+.purple { color: #9F009C }
+.gold { color: #FFD700 }
+.yellow { color: #FD3; }
+.brown { color: #630; }
+.white { color: #FFF; }
+.lightbrown { color: #FC9; }
+.lightblue { color: #CCF; }
+.lightgreen { color: #90EE90; }
+.lightred { color: #F66; }
+.lightpurple { color: #9F339C }
+.lightgray { color: #aaa }
+.gray { color: #999 }
+.darkred { color: #900; }
+.darkblue { color: #009; }
+.darkgreen { color: #090; }
+.smalltext { font-size: 11px; }
+.small_text { font-size: 11px; }
+.big_text { font-size: 16px; line-height: 150% }
+.large_text { font-size: 18px; line-height: 150%  }
+.huge_text { font-size: 22px; line-height: 150% }
+.tiny_text { font-size: 9px; }
+.pink_background { background: #FDD; }
+.aqua_background { background: #DFF; }
+div.smalltext ul { font-size: 11px; }
+
+table.nice_table { background: #660;  }
+table.nice_table th { background: #CC9; padding: 2px; font-size: 12px;}
+table.nice_table tr { background: #FFF; }
+table.nice_table td { padding: 4px; font-size: 11px;}
+
+table.nice_data_table { background: #660;  }
+table.nice_data_table th { background: #CC9; padding: 4px 8px; font-size: 13px;}
+table.nice_data_table tr { background: #FFF; }
+table.nice_data_table td { padding: 4px; font-size: 12px; text-align:right; }
+
+
+table.small_table td { padding: 3px; margin: 1px; font-size: 11px;  }
+table.small_table_narrow td { padding: 2px; margin: 0px; font-size: 11px;  }
+table.tiny_table td { padding: 0px 2px; margin: 0px 2px; font-size: 9px;  }
+

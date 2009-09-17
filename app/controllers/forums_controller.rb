@@ -16,6 +16,8 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.xml
   def show
+    @message_posts = @forum.message_posts.paginate :page => params[:page], :order => 'created_at DESC'
+    @new_message_post = MessagePost.new :forum => @forum
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @forum }
