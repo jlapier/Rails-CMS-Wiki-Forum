@@ -18,4 +18,16 @@
   <p><em>If you were <%= link_to "logged in", login_path %> you could post.</em></p>
 <% end -%>
 
+<script type="text/javascript">
+  //<![CDATA[
+
+    CKEDITOR.replace( 'message_post[body]',
+      {
+        skin : 'v2'
+      });
+
+  //]]>
+</script>
+
+
 <div style="clear:both"></div>

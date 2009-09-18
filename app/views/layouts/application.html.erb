@@ -3,12 +3,23 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title><%= ["A Forum", @page_title].reject(&:blank?).join(' - ') %></title>
-    <%= stylesheet_link_tag 'reset' %>
+    <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/silksprite/sprite.css" type="text/css" />
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
     <%= stylesheet_link_tag 'error_messages' %>
     <%= stylesheet_link_tag 'text_and_colors' %>
     <%= stylesheet_link_tag 'application' %>
-    <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
-    <%= javascript_include_tag 'jquery.min' %>
+    <% if RAILS_ENV == "production" %>
+      <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
+    <% else %>
+      <!-- RAILS_ENV: <%= RAILS_ENV %>-->
+      <%= javascript_include_tag 'jquery-1.3.2.min' %>
+    <% end %>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
   </head>
   <body>
     <div id="main_content_box">

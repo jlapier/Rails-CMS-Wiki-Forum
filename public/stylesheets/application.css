@@ -1,31 +1,14 @@
-body, p, ol, ul, td {
-    font-family: verdana, arial, helvetica, sans-serif;
-    line-height: 150%;
-}
-
 body {
   background-color: #805c4f;
-  font-size: 12px;
 }
 
-p { padding: 8px 0px; }
+h1 { text-shadow: 2px 2px 3px #999; }
 
-h1 { font-size: 2em; padding: 20px 4px; text-align:center; }
-h2 { font-size: 1.8em; padding: 12px 4px; margin: 10px 0; border-bottom: 1px solid #993 }
-h3 { font-size: 1.6em; padding: 16px 4px; }
-h3 { font-size: 1.4em; padding: 14px 4px; }
 h1 img, h2 img { vertical-align:middle; }
 
 a:link, a:visited, a:active { color: #33C; text-decoration:none; }
 a:hover { color: #00F; text-decoration:underline; }
 
-input { font-size: 11px; }
-
-ul { }
-
-li { margin-left: 20px; }
-
-textarea { font-family: Arial, sans-serif; font-size: 12px; vertical-align:top; }
 
 #top_banner {
   text-align:center; height: 100px;
