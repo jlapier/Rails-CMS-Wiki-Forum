@@ -1,5 +1,5 @@
 <% if current_user -%>
-  <div id="message_box"  style="float:left">
+  <div id="message_box">
     <% form_for message_post do |f| %>
       <%= f.error_messages %>
       <%= f.hidden_field(:forum_id) %>
@@ -9,11 +9,6 @@
       <p><%= submit_tag "Post it!" %></p>
     <% end %>
   </div>
-
-  <div style="float:right; width: 200px;" class="small_text">
-    <%= render :partial => '/forums/textile_ref'  %>
-  </div>
-
 <% else -%>
   <p><em>If you were <%= link_to "logged in", login_path %> you could post.</em></p>
 <% end -%>
@@ -23,7 +18,9 @@
 
     CKEDITOR.replace( 'message_post[body]',
       {
-        skin : 'v2'
+        skin : 'kama',
+        uiColor : '#819033'
+
       });
 
   //]]>

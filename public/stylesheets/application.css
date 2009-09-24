@@ -1,14 +1,15 @@
 body {
-  background-color: #805c4f;
+  background-color: #9aa45f;
 }
 
-h1 { text-shadow: 2px 2px 3px #999; }
+h1 { text-shadow: 1px 1px 4px #CCFFCC; }
 
 h1 img, h2 img { vertical-align:middle; }
 
-a:link, a:visited, a:active { color: #33C; text-decoration:none; }
-a:hover { color: #00F; text-decoration:underline; }
+a:link, a:visited, a:active { color: #514573; text-decoration:none; }
+a:hover { color: #736795; text-decoration:underline; }
 
+textarea { vertical-align: top; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 #top_banner {
   text-align:center; height: 100px;
@@ -37,6 +38,23 @@ input#user_openid_identifier, input#user_session_openid_identifier {
     background-position: 0 50%;
     color: #000;
     padding-left: 18px;
+}
+
+.top_menu { 
+  border: 4px solid #FFF;
+  margin: 20px 0;
+  padding: 16px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+
+.side_menu {
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  margin-right: 15px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
 }
 
 .center {
@@ -111,24 +129,28 @@ input#user_openid_identifier, input#user_session_openid_identifier {
 /*    forum stuff */
 
 
-table.forums { background: #DDE; width: 100%; border-spacing: 0px; }
+table.forums { background: #DDE; width: 100%; border-spacing: 0px; -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; border: 1px solid #DDE; }
 table.forums tr { background: #F6F6FF;  }
 table.forums td { padding: 10px; font-size: 12px;  }
 table.forums strong { font-size: 18px; font-weight: bold; }
 table.forums strong a {border: none; }
 table.forums td.small_text { font-size: 10px; }
 
-table.messages { background: #DDE; min-width: 600px; border-spacing: 4px; border-collapse: separate; }
-table.messages tr { background: #F6F6FF; border-spacing: 4px; }
+table.messages { background: #a8a8a8; min-width: 600px; border-spacing: 4px; border-collapse: separate;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+table.messages tr { background: #F9F9F9; border-spacing: 4px; }
 table.messages td { padding: 10px; font-size: 11px;  }
 table.messages li { font-size: 11px;  }
 table.messages strong { font-size: 12px; font-weight: bold; }
 table.messages td small_text { font-size: 10px; }
 table.messages blockquote { background: white; color: #333; border-left: 2px solid #999; padding-left: 6px;  }
 table.messages tr td.leftside { text-align: right; vertical-align: top; border-left: 3px solid #AAA;
-  background: #DDE; font-size: 11px; width: 120px;
+  background: #a8a8a8; font-size: 11px; width: 120px;
 }
-table.messages tr:hover td.leftside { border-left: 3px solid #009; }
+table.messages tr:hover td.leftside { border-left: 3px solid #817f73; }
 table.messages .lightgreen { color: #090; }
 
 .tag_list form { font-size: 9px; }

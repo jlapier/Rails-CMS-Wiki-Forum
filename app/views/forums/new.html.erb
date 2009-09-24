@@ -1,10 +1,3 @@
 <h1>New forum</h1>
 
-<% form_for(@forum) do |f| %>
-  <%= f.error_messages %>
-  Title of forum: <%= f.text_field :title %><br/>
-  Moderator only? <%= f.check_box :moderator_only %><br/>
-  Description:
-  <%= f.text_area :description, :rows => 5, :cols => 80 %><br/>
-  <%= submit_tag "Make this Forum!" %>
-<% end -%>
+<%= render :partial => 'form' %>

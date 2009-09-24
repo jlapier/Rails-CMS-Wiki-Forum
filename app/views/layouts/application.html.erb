@@ -22,35 +22,58 @@
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
   </head>
   <body>
-    <div id="main_content_box">
-      <div id="top_banner">
-        <div id="user_box" class="session_management">
-          <%= pluralize User.logged_in.count, "user" %> currently logged in<br /> 
+    <div class="container">
+      <div class="span-24 last">
+        <div class="top_menu bg_palette_1 text_palette_8">
+          some other links
+        </div>
+      </div>
+
+      <div class="span-6">
+        <div class="large-text">Logo</div>
+
+        <div class="side_menu bg_palette_5 border_palette_5 text_palette_8">
+          <ul>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+          </ul>
+        </div>
+        <br/><br/><br/>
+        <div class="side_menu bg_palette_5 border_palette_5 text_palette_8" >
+          <%= pluralize User.logged_in.count, "user" %> currently logged in<br />
 
           <% if !current_user %>
             <%= link_to "Register", new_account_path %> |
             <%= link_to "Log In", new_user_session_path %> |
           <% else %>
             <%= link_to "My Account", account_path %> |
-            <%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %>
+            <%= link_to "Logout", user_session_path, :method => :delete,
+                  :confirm => "Are you sure you want to logout?" %>
           <% end %>
         </div>
+
       </div>
       
       
 
-      <% if flash[:notice] -%>
-        <div class="flash_message notice_message"><%= flash[:notice] %></div>
-      <% end -%>
-      <% if flash[:warning] -%>
-        <div class="flash_message warning_message"><%= flash[:warning] %></div>
-      <% end -%>
-      <% if flash[:error] -%>
-        <div class="flash_message error_message"><%= flash[:error] %></div>
-      <% end -%>
+      <div class="span-18 last">
+        <% if flash[:notice] -%>
+          <div class="flash_message notice_message"><%= flash[:notice] %></div>
+        <% end -%>
+        <% if flash[:warning] -%>
+          <div class="flash_message warning_message"><%= flash[:warning] %></div>
+        <% end -%>
+        <% if flash[:error] -%>
+          <div class="flash_message error_message"><%= flash[:error] %></div>
+        <% end -%>
 
-      <div class="base_content">
-        <%= yield %>
+        <div class="base_content">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>
