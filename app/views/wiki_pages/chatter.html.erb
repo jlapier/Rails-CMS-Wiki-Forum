@@ -1,0 +1,12 @@
+<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Recent Comments</h1>
+
+<% for comment in @comments %>
+  <div class="wiki_page_body">
+    <p>
+      <span class="darkgray">
+        On <%= link_to comment.wiki_page.title, wiki_page_show_path(:title => comment.wiki_page.url_title) %>,
+        <strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>: &nbsp;</span>
+      <%= textilize_without_paragraph comment.body %>
+    </p>
+  </div><br/>
+<% end %>

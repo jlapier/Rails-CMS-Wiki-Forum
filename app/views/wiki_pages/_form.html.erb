@@ -1,0 +1,29 @@
+<% form_for(@wiki_page) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <b>Title</b>:
+    <%= f.text_field :title, :size => 50 %>
+  </p>
+
+  <p>
+    <%= f.text_area :body, :rows => 10, :cols => 80 %>
+  </p>
+
+  <p>
+    Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %>
+  </p>
+
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
+<script type="text/javascript">
+  //<![CDATA[
+    CKEDITOR.replace( 'wiki_page[body]',
+      {
+        skin : 'kama',
+        uiColor : '#819033'
+      });
+  //]]>
+</script>

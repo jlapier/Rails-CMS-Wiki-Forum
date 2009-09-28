@@ -1,0 +1,29 @@
+<p><em>search results</em></p>
+
+<table>
+  <tr>
+    <td valign="top" class="small_text">
+    <% unless @wiki_pages.empty? %>
+      matching pages:
+      <div style="margin: 5px; border: 1px #F99 dashed; padding:4px;">
+        <% for wiki_page in @wiki_pages %>
+          <p><%= link_to wiki_page.title, wiki_page_show_path(:title => wiki_page.url_title) %></p>
+        <% end %>
+      </div>
+    <% end -%>
+    </td>
+    <td valign="top" class="small_text">
+    <% unless @wiki_tags.empty? %>
+      matching tags:
+        <div style="margin: 5px; border: 1px #F99 dashed; padding:4px;">
+          <% for wiki_tag in @wiki_tags -%>
+          <p>
+            <%= link_to wiki_tag.name, wiki_page_tag_path(:tag_name => wiki_tag.name) %> 
+            (<%= pluralize wiki_tag.wiki_pages_count, "page" %>)
+          </p>
+          <% end %>
+      </div>
+    <% end -%>
+    </td>
+  </tr>
+</table>

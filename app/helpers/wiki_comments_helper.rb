@@ -1,0 +1,2 @@
+module WikiCommentsHelper
+end

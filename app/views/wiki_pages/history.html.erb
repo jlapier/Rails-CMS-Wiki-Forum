@@ -1,0 +1,52 @@
+<div style="float:right">
+  [<%= link_to 'back to current version', wiki_page_show_path(:title => @wiki_page.url_title) %>]
+</div>
+
+<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Showing History: <%= @wiki_page.title %></h1>
+
+<% for wiki_page_version in @wiki_page_versions %>
+  <div class="wiki_page_version" id="wiki_page_version_<%= wiki_page_version.version %>">
+    <em class="tiny_text" style="float:right;">
+      Edited by <%= wiki_page_version.modifying_user.name %> on 
+      <%= wiki_page_version.updated_at.strftime "%m/%d/%Y at %I:%M%p" %>
+    </em>
+    <h3 class="version_title"><%= wiki_page_version.title %>: Version <%= wiki_page_version.version %></h3>
+    <div class="body_to_diff" style="display:none">
+      <%= wiki_page_version.body_for_display %>
+    </div>
+  </div><br/>
+<% end %>
+
+<% content_for :javascript do %>
+<%= javascript_include_tag 'jsdiff' %>
+
+<script type="text/javascript">
+  var diffed;
+  var prev_text;
+  var Versionator = Behavior.create({
+    initialize: function(prefix) {
+      this.prefix = prefix;
+      this.version = this.element.identify().gsub(prefix + '_version_', '');
+      this.body_text = this.element.down('.body_to_diff').innerHTML;
+    },
+    onclick: Event.delegate({
+    '.version_title': function(e) {
+      $$('.diff_text').invoke('remove');
+      compare_to_el = $(this.prefix + '_version_' + (this.version - 1) )
+      if(compare_to_el != null) {
+        prev_text = compare_to_el.down('.body_to_diff').innerHTML;
+        diffed = diffString(prev_text, this.body_text);
+        diffed = diffed.gsub('&lt;','<').gsub('&gt;','>');
+        diffdiv = DOM.Builder.fromHTML('<div class="diff_text">' + diffed + '</div>');
+        this.element.insert( diffdiv );
+      }
+
+    }})
+  })
+
+  Event.addBehavior({
+    '.wiki_page_version': Versionator('wiki_page')
+  });
+</script>
+
+<% end %>

@@ -1,0 +1,22 @@
+<h1>Tag Index</h1>
+
+<table style="width:100%">
+  <tr>
+    <td style="font-size: 12px; vertical-align:top">
+      <% for wiki_tag in @wiki_tags -%>
+      <p>
+        <%= link_to wiki_tag.name, wiki_page_tag_path(:tag_name => wiki_tag.name) %> 
+        (<%= pluralize wiki_tag.wiki_pages_count, "page" %>)
+      </p>
+      <% end %><br/>
+      <p>[<%= link_to "create new page", wiki_page_new_path %>]</p>
+    </td>
+
+    <td style="width:410px; vertical-align:top">
+      <div id="flashcontent">This will be shown to users with no Flash or Javascript.</div>
+    </td>
+  </tr>
+</table>
+
+
+<%= render :partial => 'tag_cloud_loader' %>

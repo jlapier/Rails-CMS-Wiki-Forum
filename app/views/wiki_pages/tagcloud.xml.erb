@@ -1,0 +1,6 @@
+<tag>
+  <% for tag in @wiki_tags %>
+    <a href="/wiki/tag/<%= tag.name %>" class="tag-link-66" title="<%= tag.wiki_pages.count %> topics" rel="tag" 
+    style="font-size: 9pt;"><%= tag.name %></a>
+  <% end %>
+</tag>
