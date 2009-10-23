@@ -13,14 +13,12 @@
 #  version           :integer(4)    
 #
 
-#require 'diff/lcs'
 class WikiPage < ActiveRecord::Base
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
   
   validates_presence_of :title, :url_title
   
   has_and_belongs_to_many :wiki_tags
-  #has_many :wiki_tags, :through => :wiki_taggings
   has_many :wiki_comments
   
   before_validation :set_url_title
@@ -46,13 +44,6 @@ class WikiPage < ActiveRecord::Base
       body.gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2) }.
         gsub( /(\[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_link_to($2) }
     end
-
-#    def body_diffs_from_version(ver)
-#      old_version = versions.find_by_version ver
-#      newlines = body.split("\n").map { |line| line.strip }
-#      oldlines = old_version.body.split("\n").map { |line| line.strip }
-#      Diff::LCS.diff newlines, oldlines
-#    end
   end
   
   class << self
