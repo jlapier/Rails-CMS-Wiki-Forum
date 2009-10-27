@@ -11,8 +11,7 @@ class WikiTag < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
-  has_many :wiki_taggings
-  has_many :wiki_pages, :through => :wiki_taggings, :order => "updated_at DESC"
+  has_and_belongs_to_many :wiki_pages
   
   def wiki_pages_count
     @wiki_pages_count ||= wiki_pages.count

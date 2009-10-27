@@ -1,4 +1,4 @@
-<%= link_to "post a comment:", { :action => :show, :show => 'comment_form' }, :class => 'show_hide_link' %>
+<%= link_to "post a comment:", { :show => 'comment_form' }, :class => 'show_hide_link' %>
 <div class="comment_form" style="display:none">
 <% form_remote_for(:wiki_comment, WikiComment.new(:wiki_page_id => @wiki_page.id), :url => {  :controller => '/wiki_comments', :action => :create }) do |f|  %>
   <%= f.hidden_field :wiki_page_id  %>

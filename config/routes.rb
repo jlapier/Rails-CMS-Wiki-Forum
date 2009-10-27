@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     wiki_page.tag       'tag/:tag_name',    :action => 'list_by_tag'
     wiki_page.tag_index 'tag_index',        :action => 'tag_index'
     wiki_page.history   'history/:title',   :action => 'history'
-    wiki_page.bookmark  'bookmark/:title',  :action => 'bookmark'
+    wiki_page.live_search  'live_search',   :action => 'live_search'
     wiki_page.show      ':title',           :action => 'show_by_title'
   end
 

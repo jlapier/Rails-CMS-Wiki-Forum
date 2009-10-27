@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe WikiComment do
   before(:each) do
     @valid_attributes = {
-      
+      :wiki_page_id => 1, :user_id => 1, :body => "test comment"
     }
   end
 

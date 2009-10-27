@@ -7,7 +7,7 @@
 <% for wiki_page_version in @wiki_page_versions %>
   <div class="wiki_page_version" id="wiki_page_version_<%= wiki_page_version.version %>">
     <em class="tiny_text" style="float:right;">
-      Edited by <%= wiki_page_version.modifying_user.name %> on 
+      Edited by <%= wiki_page_version.modifying_user ? wiki_page_version.modifying_user.name : 'System' %> on
       <%= wiki_page_version.updated_at.strftime "%m/%d/%Y at %I:%M%p" %>
     </em>
     <h3 class="version_title"><%= wiki_page_version.title %>: Version <%= wiki_page_version.version %></h3>
@@ -23,30 +23,32 @@
 <script type="text/javascript">
   var diffed;
   var prev_text;
-  var Versionator = Behavior.create({
+  var Versionator = $.klass({
     initialize: function(prefix) {
       this.prefix = prefix;
-      this.version = this.element.identify().gsub(prefix + '_version_', '');
-      this.body_text = this.element.down('.body_to_diff').innerHTML;
+      this.version = $.string(this.element[0].id).gsub(prefix + '_version_', '');
+      this.body_text = $(this.element[0]).children('.body_to_diff').innerHTML;
     },
-    onclick: Event.delegate({
+    onclick: $.delegate({
     '.version_title': function(e) {
-      $$('.diff_text').invoke('remove');
-      compare_to_el = $(this.prefix + '_version_' + (this.version - 1) )
-      if(compare_to_el != null) {
-        prev_text = compare_to_el.down('.body_to_diff').innerHTML;
+      $('.diff_text').remove();
+      compare_to_el = $('#' + this.prefix + '_version_' + (this.version - 1) )
+      if(compare_to_el.length > 0) {
+        console.log(compare_to_el.children('.body_to_diff'))
+        prev_text = compare_to_el.children('.body_to_diff')[0].innerHTML;
         diffed = diffString(prev_text, this.body_text);
         diffed = diffed.gsub('&lt;','<').gsub('&gt;','>');
         diffdiv = DOM.Builder.fromHTML('<div class="diff_text">' + diffed + '</div>');
-        this.element.insert( diffdiv );
+        $(this.element[0]).insert( diffdiv );
       }
 
     }})
   })
 
-  Event.addBehavior({
-    '.wiki_page_version': Versionator('wiki_page')
+  jQuery(function($) {
+    $('.wiki_page_version').attach(Versionator, 'wiki_page');
   });
+
 </script>
 
 <% end %>

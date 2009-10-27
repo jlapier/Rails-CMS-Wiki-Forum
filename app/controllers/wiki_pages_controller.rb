@@ -43,7 +43,6 @@ class WikiPagesController < ApplicationController
   def show_by_title
     @wiki_page = WikiPage.find_by_url_title params[:title]
     if @wiki_page
-      @bookmarked = current_user.has_bookmarked?(@wiki_page)
       render :action => :show
     else
       flash[:notice] = "<em>#{params[:title]}</em> was not found. You may create this page now if you wish."
@@ -149,6 +148,8 @@ class WikiPagesController < ApplicationController
   end
   
   def homepage
+    @wiki_page = WikiPage.find_or_create_by_title("Home Page")
+    render :action => :show
   end
   
   def chatter
