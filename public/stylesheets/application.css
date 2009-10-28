@@ -57,6 +57,8 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   -webkit-border-radius: 8px;
 }
 
+.top_menu p { margin: 0; }
+
 .side_menu {
   border-style: solid;
   border-width: 1px;

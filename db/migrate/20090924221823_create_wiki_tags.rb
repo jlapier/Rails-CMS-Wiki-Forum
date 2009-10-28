@@ -6,7 +6,7 @@ class CreateWikiTags < ActiveRecord::Migration
 
     add_index "wiki_tags", ["name"], :name => "index_wiki_tags_on_name"
 
-    create_table "wiki_pages_wiki_tags", :force => true do |t|
+    create_table "wiki_pages_wiki_tags", :id => false, :force => true do |t|
       t.integer "wiki_tag_id"
       t.integer "wiki_page_id"
     end

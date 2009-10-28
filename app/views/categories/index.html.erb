@@ -1,0 +1,27 @@
+<h1>Listing categories</h1>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th></th>
+  </tr>
+
+<% @categories.each do |category| %>
+  <tr>
+    <td><%= category.name %></td>
+    <td><%= link_to 'Delete', category, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<h2>Create a new Category</h2>
+
+<% form_for(@category) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.text_field :name %>
+    <%= f.submit 'add category' %>
+  </p>
+<% end %>

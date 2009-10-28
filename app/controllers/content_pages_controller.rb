@@ -53,9 +53,13 @@ class ContentPagesController < ApplicationController
   # POST /content_pages.xml
   def create
     @content_page = ContentPage.new(params[:content_page])
-
     respond_to do |format|
       if @content_page.save
+        if params[:new_category] and !params[:new_category].blank?
+          cat = Category.find_or_create_by_name params[:new_category]
+          @content_page.categories << cat
+          @content_page.save
+        end
         flash[:notice] = 'ContentPage was successfully created.'
         format.html { redirect_to(@content_page) }
         format.xml  { render :xml => @content_page, :status => :created, :location => @content_page }
@@ -70,9 +74,13 @@ class ContentPagesController < ApplicationController
   # PUT /content_pages/1.xml
   def update
     @content_page = ContentPage.find(params[:id])
-
     respond_to do |format|
       if @content_page.update_attributes(params[:content_page])
+        if params[:new_category] and !params[:new_category].blank?
+          cat = Category.find_or_create_by_name params[:new_category]
+          @content_page.categories << cat
+          @content_page.save
+        end
         flash[:notice] = 'ContentPage was successfully updated.'
         format.html { redirect_to(@content_page) }
         format.xml  { head :ok }

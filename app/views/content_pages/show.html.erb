@@ -1,6 +1,17 @@
 <h1><%=h @content_page.name %></h1>
 
-<%= @content_page.body %>
+<%= @content_page.body_for_display %>
 
-<%= link_to 'Edit', edit_content_page_path(@content_page) %> |
-<%= link_to 'List of Pages', content_pages_path %>
+<% unless @content_page.categories.empty? %>
+  <p>
+    Categories: <%= @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ') %>
+  </p>
+<% end %>
+
+
+<% if current_user and current_user.is_admin? %>
+  <p>
+    <%= link_to 'Edit', edit_content_page_path(@content_page) %> |
+    <%= link_to 'List of Pages', content_pages_path %>
+  </p>
+<% end %>

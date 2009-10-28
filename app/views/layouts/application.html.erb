@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title><%= ["A Forum", @page_title].reject(&:blank?).join(' - ') %></title>
+    <title><%= [@site_title, @page_title].reject(&:blank?).join(' - ') %></title>
     <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
@@ -27,7 +27,7 @@
     <div class="container">
       <div class="span-24 last">
         <div class="top_menu bg_palette_1 text_palette_8">
-          some other links
+          <%= @top_menu ? @top_menu.body_for_display : "TODO: create the top menu" %>
         </div>
       </div>
 
@@ -35,14 +35,7 @@
         <div class="large-text">Logo</div>
 
         <div class="side_menu bg_palette_5 border_palette_5 text_palette_8">
-          <ul>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-            <li>Menu Item</li>
-          </ul>
+          <%= @side_menu ? @side_menu.body_for_display : "TODO: create the side menu" %>
         </div>
         <br/><br/><br/>
         <div class="side_menu bg_palette_5 border_palette_5 text_palette_8" >

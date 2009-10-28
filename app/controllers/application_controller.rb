@@ -6,7 +6,15 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   filter_parameter_logging :password, :password_confirmation
   
+  before_filter :get_site_settings
+
   private
+    def get_site_settings
+      @site_title = "Title of the site"
+      @side_menu = ContentPage.find :first, :conditions => { :special => 'Side Bar'}
+      @top_menu = ContentPage.find :first, :conditions => { :special => 'Top Bar'}
+    end
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find

@@ -11,7 +11,11 @@
   </p>
 
   <p>
-    Categories: (to do)
+    Categories: (check as many as you want)<br/>
+    <% for category in Category.find(:all) %>
+      <%= check_box_tag "content_page[category_ids][]", category.id  %> <%= category.name %><br/>
+    <% end %>
+    New category: <%= text_field_tag "new_category" %>
   </p>
 
   <p>

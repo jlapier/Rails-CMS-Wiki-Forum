@@ -6,7 +6,7 @@ class CreateCategories < ActiveRecord::Migration
       t.timestamps
     end
     
-    create_table "categories_content_pages", :force => true do |t|
+    create_table "categories_content_pages", :id => false, :force => true do |t|
       t.integer "category_id"
       t.integer "content_page_id"
     end

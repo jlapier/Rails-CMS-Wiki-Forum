@@ -1,0 +1,10 @@
+<h1><%= @category.name %></h1>
+
+<ul>
+<% @category.content_pages.each do |content_page| %>
+  <li>
+    <%= link_to content_page.name, content_page %><br/>
+    <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
+  </li>
+<% end %>
+</ul>
