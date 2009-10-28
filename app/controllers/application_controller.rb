@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       unless current_user
         store_location
         flash[:warning] = "You must be logged in to access this page."
-        redirect_to new_user_session_url
+        redirect_to login_path
         return false
       end
     end
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     def require_admin_user
       unless current_user and current_user.is_admin?
         flash[:error] = "You do not have permission to access that page."
-        redirect_to '/'
+        redirect_to login_path
         return false
       end
     end

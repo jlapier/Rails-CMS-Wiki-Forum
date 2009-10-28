@@ -2,7 +2,9 @@ body {
   background-color: #9aa45f;
 }
 
-h1 { text-shadow: 1px 1px 4px #CCFFCC; }
+/* h1 { text-shadow: 1px 1px 4px #CCFFCC; } */
+
+h1 { text-shadow: 1px 1px 4px #9aa45f; }
 
 h1 img, h2 img { vertical-align:middle; }
 
@@ -10,6 +12,8 @@ a:link, a:visited, a:active { color: #514573; text-decoration:none; }
 a:hover { color: #736795; text-decoration:underline; }
 
 textarea { vertical-align: top; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
+
+p + p { margin-top: -0.8em; }
 
 #top_banner {
   text-align:center; height: 100px;
@@ -29,6 +33,11 @@ textarea { vertical-align: top; font-family:"Helvetica Neue", Arial, Helvetica, 
 
 .base_content {
   clear:both;
+  background: #fff;
+  border: 4px solid #FFF;
+  padding: 8px 16px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
 }
 
 /* embeds the openid image in the text field */
@@ -160,6 +169,16 @@ table.messages .lightgreen { color: #090; }
   padding: 10px; margin: 11px; border: 1px solid #009; background: #EEF;
   text-align: right;
 }
+
+
+table.nice_table { background: #EEE;  }
+table.nice_table th { background: #EEE; padding: 2px 4px; font-size: 13px; }
+table.nice_table th.sorted_down { background: #CCF; }
+table.nice_table th.sorted_up { background: #FCC; }
+table.nice_table tr { background: #FFF; }
+table.nice_table tr:hover { background: #EEE; }
+table.nice_table td { padding: 4px; font-size: 11px;}
+table.nice_table td input, table.nice_table td select { font-size: 11px; border: 1px solid #999 }
 
 
 

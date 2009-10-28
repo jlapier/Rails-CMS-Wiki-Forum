@@ -1,9 +1,14 @@
 class ContentPagesController < ApplicationController
-  before_filter :require_admin_user, :except => [:index, :show]
+  before_filter :require_admin_user, :except => [:home, :index, :show]
   
   def home
-    @content_page = ContentPage.find :first, :conditions => { :front_page => true }
-    render :action => :show
+    @content_page = ContentPage.find :first, :conditions => { :special => 'Front Page' }
+    if @content_page
+      render :action => :show
+    else
+      flash[:warning] = "No front page has been created yet."
+      redirect_to :action => :new
+    end
   end
 
   # GET /content_pages

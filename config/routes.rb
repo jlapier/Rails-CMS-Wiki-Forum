@@ -31,5 +31,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   map.register '/register', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'user_sessions', :action => "new"
-  map.root :controller => 'wiki_pages', :action => 'homepage'
+  map.root :controller => 'content_pages', :action => 'home'
 end

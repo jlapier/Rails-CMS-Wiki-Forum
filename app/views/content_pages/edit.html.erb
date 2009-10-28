@@ -1,24 +1,5 @@
-<h1>Editing content_page</h1>
+<h1>Editing page</h1>
 
-<% form_for(@content_page) do |f| %>
-  <%= f.error_messages %>
+<%= render :partial => 'form'  %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.label :category_id %><br />
-    <%= f.text_field :category_id %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @content_page %> |
-<%= link_to 'Back', content_pages_path %>
+<p>[<%= link_to 'Back to List of Pages', content_pages_path %>]</p>

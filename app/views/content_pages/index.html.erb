@@ -1,24 +1,29 @@
-<h1>Listing content_pages</h1>
+<h1>Content Pages</h1>
 
-<table>
+<table cellspacing="2px" cellpadding="0" class="nice_table">
   <tr>
-    <th>Name</th>
-    <th>Body</th>
-    <th>Category</th>
+    <th style="white-space:nowrap;">Page Name</th>
+    <th>Body (excerpt)</th>
+    <th>Categories</th>
+    <th></th>
   </tr>
 
 <% @content_pages.each do |content_page| %>
   <tr>
     <td><%=h content_page.name %></td>
-    <td><%=h content_page.body %></td>
-    <td><%=h content_page.category_id %></td>
-    <td><%= link_to 'Show', content_page %></td>
-    <td><%= link_to 'Edit', edit_content_page_path(content_page) %></td>
-    <td><%= link_to 'Destroy', content_page, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= truncate strip_tags(content_page.body), :length => 200 %></td>
+    <td><%=h content_page.categories.map(&:name).join(',') %></td>
+    <td style="white-space:nowrap;">
+      <%= link_to 'view', content_page %> |
+      <%= link_to 'edit', edit_content_page_path(content_page) %> |
+      <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
+              :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'New content_page', new_content_page_path %>
+<p>
+  <%= link_to 'Create a New Page', new_content_page_path %>
+</p>
