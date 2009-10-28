@@ -1,4 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://ar.rubyonrails.org/# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: wiki_pages
+#
+#  id                :integer       not null, primary key
+#  title             :string(255)   
+#  url_title         :string(255)   
+#  modifying_user_id :integer       
+#  body              :text          
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  version           :integer       
+# End Schema
+
+classes/Fixtures.html
 
 # one:
 #   column: value

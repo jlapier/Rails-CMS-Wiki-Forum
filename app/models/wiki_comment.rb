@@ -11,6 +11,20 @@
 #  updated_at   :datetime      
 #
 
+# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: wiki_comments
+#
+#  id                 :integer       not null, primary key
+#  wiki_page_id       :integer       
+#  user_id            :integer       
+#  body               :text          
+#  looking_at_version :integer       
+#  created_at         :datetime      
+#  updated_at         :datetime      
+# End Schema
+
 class WikiComment < ActiveRecord::Base
   belongs_to :user
   belongs_to :wiki_page

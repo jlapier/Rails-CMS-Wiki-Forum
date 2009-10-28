@@ -7,6 +7,15 @@
 #  name :string(255)   
 #
 
+# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: wiki_tags
+#
+#  id   :integer       not null, primary key
+#  name :string(255)   
+# End Schema
+
 class WikiTag < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name

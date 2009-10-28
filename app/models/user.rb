@@ -2,7 +2,7 @@
 
 
 # == Schema Information
-# Schema version: 20090908180148
+# Schema version: 20091027220707
 #
 # Table name: users
 #

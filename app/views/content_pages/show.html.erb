@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @content_page.name %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @content_page.body %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%=h @content_page.category_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_content_page_path(@content_page) %> |
+<%= link_to 'Back', content_pages_path %>

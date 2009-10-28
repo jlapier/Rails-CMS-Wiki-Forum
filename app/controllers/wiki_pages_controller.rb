@@ -1,4 +1,6 @@
 class WikiPagesController < ApplicationController
+  before_filter :require_admin_user, :except => [:index, :show]
+  
   def index
     @wiki_pages = WikiPage.paginate :all, :page => params[:page],
       :order => "updated_at DESC", :select => "id, title, url_title, updated_at"

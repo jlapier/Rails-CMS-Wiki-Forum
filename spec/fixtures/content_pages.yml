@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: content_pages
+#
+#  id          :integer       not null, primary key
+#  name        :string(255)   
+#  body        :text          
+#  category_id :integer       
+#  created_at  :datetime      
+#  updated_at  :datetime      
+# End Schema
+
+classes/Fixtures.html
+
+one:
+  name: MyString
+  body: MyText
+  category_id: 1
+
+two:
+  name: MyString
+  body: MyText
+  category_id: 1

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :content_pages
+
   map.resources :wiki_comments
 
   map.resources :wiki_pages

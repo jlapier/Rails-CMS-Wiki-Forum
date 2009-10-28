@@ -13,6 +13,21 @@
 #  version           :integer(4)    
 #
 
+# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: wiki_pages
+#
+#  id                :integer       not null, primary key
+#  title             :string(255)   
+#  url_title         :string(255)   
+#  modifying_user_id :integer       
+#  body              :text          
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  version           :integer       
+# End Schema
+
 class WikiPage < ActiveRecord::Base
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
   

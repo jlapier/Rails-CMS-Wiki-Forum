@@ -1,0 +1,30 @@
+<% form_for(@content_page) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <b>Name</b>:
+    <%= f.text_field :name, :size => 50 %><br/>
+    Special: <%= f.select :special, ['Front Page', 'Top Bar', 'Side Bar'], :include_blank => true %>
+  </p>
+
+  <p>
+    <%= f.text_area :body, :rows => 10, :cols => 80 %>
+  </p>
+
+  <p>
+    Categories: (to do)
+  </p>
+
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
+<script type="text/javascript">
+  //<![CDATA[
+    CKEDITOR.replace( 'content_page[body]',
+      {
+        skin : 'kama',
+        uiColor : '#819033'
+      });
+  //]]>
+</script>
