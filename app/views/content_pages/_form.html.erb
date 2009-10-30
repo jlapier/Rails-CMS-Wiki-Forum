@@ -31,10 +31,11 @@
   //<![CDATA[
     CKEDITOR.replace( 'content_page[body]',
       {
-        skin : 'kama',
         uiColor : '#819033',
-        filebrowserUploadUrl : '<%#= upload_handler_content_page_path(@content_page) %>'
+        filebrowserUploadUrl : '<%= upload_handler_content_page_path(@content_page) %>',
+        toolbar : 'Mid'
       });
   //]]>
 </script>
+  <%# TODO: filebrowserBrowseUrl : '/something' %>
 <% end %>

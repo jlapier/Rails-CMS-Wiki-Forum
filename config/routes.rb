@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :content_pages
+  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post }
 
   map.resources :categories
 

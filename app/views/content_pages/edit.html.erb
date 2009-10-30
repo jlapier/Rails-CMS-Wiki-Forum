@@ -2,4 +2,24 @@
 
 <%= render :partial => 'form'  %>
 
+<br/>
+
+<h3>Assets in this Page</h3>
+<% if @assets.empty? %>
+  <p><em>no assets found</em></p>
+<% else %>
+  <ul>
+    <% for asset in @assets %>
+      <li>
+        <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp; 
+        <%= link_to "X", delete_asset_content_page_path(@content_page, :asset => asset),
+          :confirm => "Really delete this file?", :method => :post, 
+          :style => 'color:#F00' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<br/>
+
 <p>[<%= link_to 'Back to List of Pages', content_pages_path %>]</p>
