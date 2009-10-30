@@ -7,6 +7,15 @@
 #  name :string(255)   
 # End Schema
 
+# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: wiki_tags
+#
+#  id   :integer       not null, primary key
+#  name :string(255)   
+# End Schema
+
 classes/Fixtures.html
 
 # one:

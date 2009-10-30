@@ -3,32 +3,38 @@
   <p>
     <b>Name</b>:
     <%= f.text_field :name, :size => 50 %><br/>
-    Special: <%= f.select :special, ['Front Page', 'Top Bar', 'Side Bar'], :include_blank => true %>
+    Special: <%= f.select :special, ['Front Page', 'Top Menu', 'Side Menu'], :include_blank => true %>
   </p>
 
   <p>
     <%= f.text_area :body, :rows => 10, :cols => 80 %>
   </p>
 
+  <% unless @content_page.special =~ /Menu/ %>
   <p>
     Categories: (check as many as you want)<br/>
     <% for category in Category.find(:all) %>
-      <%= check_box_tag "content_page[category_ids][]", category.id  %> <%= category.name %><br/>
+      <%= check_box_tag "content_page[category_ids][]", category.id, @content_page.categories.include?(category)  %>
+      <%= category.name %><br/>
     <% end %>
     New category: <%= text_field_tag "new_category" %>
   </p>
-
+  <% end %>
+  
   <p>
     <%= f.submit "Save" %>
   </p>
 <% end %>
 
+<% unless @content_page.special =~ /Menu/ %>
 <script type="text/javascript">
   //<![CDATA[
     CKEDITOR.replace( 'content_page[body]',
       {
         skin : 'kama',
-        uiColor : '#819033'
+        uiColor : '#819033',
+        filebrowserUploadUrl : '<%#= upload_handler_content_page_path(@content_page) %>'
       });
   //]]>
 </script>
+<% end %>

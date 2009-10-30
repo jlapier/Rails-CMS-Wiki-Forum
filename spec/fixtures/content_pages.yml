@@ -11,6 +11,19 @@
 #  updated_at  :datetime      
 # End Schema
 
+# == Schema Information
+# Schema version: 20091027220707
+#
+# Table name: content_pages
+#
+#  id         :integer       not null, primary key
+#  name       :string(255)   
+#  body       :text          
+#  special    :string(255)   
+#  created_at :datetime      
+#  updated_at :datetime      
+# End Schema
+
 classes/Fixtures.html
 
 one:

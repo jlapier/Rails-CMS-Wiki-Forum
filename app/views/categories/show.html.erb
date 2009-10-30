@@ -8,3 +8,10 @@
   </li>
 <% end %>
 </ul>
+
+<% if current_user and current_user.is_admin? %>
+  <p class="admin_links">
+    <%= link_to 'List of Pages', content_pages_path %> |
+    <%= link_to 'List of Categories', categories_path %>
+  </p>
+<% end %>

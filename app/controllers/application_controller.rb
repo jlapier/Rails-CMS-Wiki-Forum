@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
   private
     def get_site_settings
       @site_title = "Title of the site"
-      @side_menu = ContentPage.find :first, :conditions => { :special => 'Side Bar'}
-      @top_menu = ContentPage.find :first, :conditions => { :special => 'Top Bar'}
+      @side_menu = ContentPage.get_side_menu
+      @top_menu = ContentPage.get_top_menu
     end
 
     def current_user_session
