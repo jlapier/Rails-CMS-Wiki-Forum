@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title><%= [@site_title, @page_title].reject(&:blank?).join(' - ') %></title>
+    <title><%= [site_title, @page_title].reject(&:blank?).join(' - ') %></title>
     <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
@@ -33,7 +33,7 @@
       </div>
 
       <div class="span-6">
-        <div class="large-text">Logo</div>
+        <div><%= logo_image %></div>
 
         <div class="side_menu bg_palette_5 border_palette_5 text_palette_8">
           <%= side_menu %>
@@ -62,6 +62,13 @@
           <%= yield %>
         </div>
       </div>
+
+      <div class="span-24 last">
+        <div class="footer bg_palette_1 text_palette_8">
+          <%= site_footer %>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>

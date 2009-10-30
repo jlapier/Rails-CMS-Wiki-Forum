@@ -9,6 +9,23 @@ module ApplicationHelper
     @side_menu ? @side_menu.body_for_display : "TODO: create the side menu"
   end
 
+  def logo_image
+    image_tag(site_logo)
+  end
+
+  def site_title
+    @site_title ||= SiteSetting.read_setting('site title') || "A Site"
+  end
+
+  def site_logo
+    @site_logo ||= SiteSetting.read_setting('site logo') || "GenericLogo.png"
+  end
+
+  def site_footer
+    @site_footer ||= SiteSetting.read_setting('site footer') ||
+      "Content on this site is the copyright of the owners of #{request.host} and is provided as-is without warranty."
+  end
+
   def user_box
     out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
 
@@ -20,5 +37,9 @@ module ApplicationHelper
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
     end
+  end
+
+  def images_list
+    Dir[File.join(RAILS_ROOT, 'public', 'images', "*.{png,jpg,gif}")].map { |f| File.basename f }.sort
   end
 end

@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
   private
     def get_site_settings
-      @site_title = "Title of the site"
       @side_menu = ContentPage.get_side_menu
       @top_menu = ContentPage.get_top_menu
     end

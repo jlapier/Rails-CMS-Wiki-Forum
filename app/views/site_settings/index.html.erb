@@ -1,0 +1,35 @@
+<h1>Site-wide Configuration</h1>
+
+<div class="edit_content_box">
+
+  <% form_tag( { :action => :update_site_settings } ) do  %>
+    <p>
+      <strong>Title:</strong>
+      <%= text_field_tag :site_title, site_title, :size => 80 %>
+    </p>
+    <p>
+      <strong>Logo:</strong>
+      <%= select_tag :site_logo, options_for_select( images_list, site_logo ) %> 
+      <%= image_tag site_logo, :id => 'image_of_logo', :style => 'vertical-align:top; margin-left: 25px;' %>
+    </p>
+    <p>
+      <strong>Footer:</strong>
+      <%= text_area_tag :site_footer, site_footer, :cols => 80, :rows => 3,
+        :style => "vertical-align:middle; height: 40px; width: 80%;" %>
+    </p>
+    <p>
+      <%= submit_tag "save changes" %>
+    </p>
+  <% end %>
+
+</div>
+
+<script type="text/javascript">
+  <%# TODO: write the jquery version of this %>
+  Event.observe(window, 'load', function() {
+    Event.addBehavior({
+      '#site_logo:change': function(e) { $('image_of_logo').src = '/images/' + e.element().value; }
+    });
+  });
+
+</script>
