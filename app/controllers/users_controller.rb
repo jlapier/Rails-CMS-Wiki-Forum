@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
+    reg_pass = SiteSetting.read_setting 'registration password'
+    if !reg_pass.blank? and reg_pass != params[:p]
+      flash[:warning] = "Registration is currently password protected on this site."
+      redirect_to :action => :reg_pass_required
+    end
     @user = User.new
   end
   

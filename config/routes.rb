@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :forums
 
   map.resource :account, :controller => "users"
-  map.resources :users
+  map.resources :users, :collection => { :reg_pass_required => :get }
   map.resource :user_session
   map.register '/register', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'user_sessions', :action => "new"

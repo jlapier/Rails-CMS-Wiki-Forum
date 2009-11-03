@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
       t.string :login, :null => false
       t.string :email, :null => false
-      t.string :display_name
       t.string :crypted_password, :null => false
       t.string :password_salt, :null => false
       t.string :persistence_token, :null => false
@@ -16,6 +15,16 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_login_ip
       t.string :current_login_ip
       t.boolean :is_admin
+      t.string :first_name
+      t.string :last_name
+      t.string :state
+      t.string :role
+      t.string :agency
+      t.string :mailing_address
+      t.string :mailing_city
+      t.string :mailing_state
+      t.string :mailing_zip
+      t.string :phone_number
     end
     
     add_index :users, :login
