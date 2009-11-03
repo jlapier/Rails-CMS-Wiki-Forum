@@ -3,7 +3,7 @@
 <%= @content_page.body_for_display %>
 
 <% unless @content_page.categories.empty? %>
-  <p>
+  <p class="category_links">
     Categories: <%= @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ') %>
   </p>
 <% end %>

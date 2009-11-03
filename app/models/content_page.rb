@@ -38,14 +38,19 @@ class ContentPage < ActiveRecord::Base
     end
 
 
+    # functions:
+    #   ListCategories    // lists all categories
+    #   ListPagesInCategory Some Kind of Category    // list all pages in the category called "Some Kind of Category"
+    #   LinkPage Page Name  // links directly to the page specified
+    #   LinkCategory Some Kind of Category    // links to the category index page
     def function(function_string)
-      function_name, param = function_string.downcase.split(' ')
-      case function_name
+      function_name, param = function_string.split(' ', 2)
+      case function_name.downcase
       when "listcategories"
         categories = Category.find(:all)
         out = "<ul>\n"
 
-        if param and param == "withhome"
+        if param and param.downcase == "withhome"
           out += "<li><a href=\"/\">Home</a></li>\n"
         end
 
@@ -59,8 +64,43 @@ class ContentPage < ActiveRecord::Base
 
         out += "</ul>\n"
         out
+      when "listpagesincategory"
+        category = Category.find_by_name param
+        out = "<ul>\n"
+
+        if category
+          pages = category.content_pages
+          if pages.empty?
+              out += "<li><em>No pages were found in the category: #{param}</em></li>\n"
+          else
+            out += pages.map { |page|
+              "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
+            }.join("\n")
+          end
+
+          out += "</ul>\n"
+          out
+        else
+          ""
+        end
+      when "linkpage"
+        page = ContentPage.find_by_name param
+
+        if page
+          "<a href=\"/content_pages/#{page.id}\">#{page.name}</a>"
+        else
+          "<em>No page found named: #{param}</em>"
+        end
+      when "linkcategory"
+        category = Category.find_by_name param
+
+        if category
+          "<a href=\"/categories/#{category.id}\">#{category.name}</a>"
+        else
+          "<em>No category found named: #{param}</em>"
+        end
       else
-        ""
+        "<em>Unknown function: #{function_name}</em>"
       end
     end
   end
