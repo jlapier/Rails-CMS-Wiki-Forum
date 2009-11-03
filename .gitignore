@@ -11,3 +11,4 @@ cache
 .*.swo
 nbproject/
 spec/spec.opts.netbeans
+public/content_page_assets/

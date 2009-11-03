@@ -12,7 +12,7 @@
   <tr>
     <td><%=h content_page.name %></td>
     <td><%= truncate strip_tags(content_page.body), :length => 200 %></td>
-    <td><%=h content_page.categories.map(&:name).join(',') %></td>
+    <td><%=h content_page.categories.map(&:name).join(', ') %></td>
     <td style="white-space:nowrap;">
       <%= link_to 'view', content_page %> |
       <%= link_to 'edit', edit_content_page_path(content_page) %> |

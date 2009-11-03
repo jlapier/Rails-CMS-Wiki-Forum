@@ -7,7 +7,7 @@
     <strong><%= link_to message.user.name, '#TODO_link_to_users_profile'  %></strong>
   </td>
   <td><strong><%= link_to message.subject, message %>:</strong>
-    <span class="gray"><%=h truncate( message.body, 200 ) %></span>
+    <span class="gray"><%=h truncate( strip_tags(message.body), 200 ) %></span>
   </td>
   <td class="message_last_reply">
     Last Reply:

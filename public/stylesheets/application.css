@@ -8,6 +8,8 @@ h1 { text-shadow: 1px 1px 4px #9aa45f; }
 
 h1 img, h2 img { vertical-align:middle; }
 
+h4 { color: #819033; font-weight: bold; }
+
 a:link, a:visited, a:active { color: #514573; text-decoration:none; }
 a:hover { color: #736795; text-decoration:underline; }
 
@@ -87,6 +89,16 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   -webkit-border-radius: 16px;
 }
 
+.side_menu h3 {
+  margin-bottom: 0.5em;
+}
+
+.side_menu h4 {
+  color: #444;
+  margin-bottom: 0.5em;
+}
+
+
 .center {
     margin: auto;
     text-align: center;
@@ -149,6 +161,8 @@ input#user_openid_identifier, input#user_session_openid_identifier {
     padding: 4px 8px;
 }
 
+.admin_links { margin: 24px; }
+
 .admin_links a:link, .admin_links a:visited {
   font-family: Verdana, sans-serif;
   font-size: 9px;
@@ -162,6 +176,7 @@ input#user_openid_identifier, input#user_session_openid_identifier {
 .link_box a:link, .link_box a:visited { color: #009; }
 .link_box a:hover { color: #00F; }
 
+.category_links { margin: 24px; padding: 12px 0px; border: 1px solid #CCC; background: #EEE; color: #333; }
 
 
 
