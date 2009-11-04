@@ -1,5 +1,6 @@
 # = User - you know what it is
-
+# has a special field called 'user defined fields' - should be a hash
+# a SiteSetting can be used to set up those fields
 
 # == Schema Information
 # Schema version: 20091030224557
@@ -30,7 +31,15 @@ class User < ActiveRecord::Base
   attr_protected :is_moderator
   has_many :message_posts
   
+  before_create :make_admin_if_first_user
+
+  serialize :user_defined_fields
+
   acts_as_authentic
+
+  def after_initialize
+    self.user_defined_fields ||= {}
+  end
 
   # TODO define this
   def is_moderator_for_forum?(forum)
@@ -39,6 +48,14 @@ class User < ActiveRecord::Base
 
 
   def name
-    display_name.blank? ? login : display_name
+    first_name.blank? ? login : first_name
+  end
+
+  private
+  def make_admin_if_first_user
+    self.is_admin = true if User.count == 0
   end
 end
+
+
+User.partial_updates = false

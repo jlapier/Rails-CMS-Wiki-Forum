@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   filter_parameter_logging :password, :password_confirmation
   
-  before_filter :get_site_settings
+  before_filter :get_menus
 
   private
-    def get_site_settings
+    def get_menus
       @side_menu = ContentPage.get_side_menu
       @top_menu = ContentPage.get_top_menu
     end

@@ -1,37 +1,19 @@
-<p>
-  <b>Login:</b>
-  <%=h @user.login %>
-</p>
+<table>
+  <% for field in %w( login first_name last_name email) %>
+    <tr>
+      <td><%= field.titleize %>:</td>
+      <td><%= @user[field] %></td>
+    </tr>
+  <% end %>
 
-<p>
-  <b>Login count:</b>
-  <%=h @user.login_count %>
-</p>
+  <% for field in (SiteSetting.read_setting('user fields') || []) %>
+    <tr>
+      <td><%= field.titleize %>:</td>
+      <td><%= @user.user_defined_fields[field] %></td>
+    </tr>
+  <% end %>
+</table>
 
-<p>
-  <b>Last request at:</b>
-  <%=h @user.last_request_at %>
-</p>
-
-<p>
-  <b>Last login at:</b>
-  <%=h @user.last_login_at %>
-</p>
-
-<p>
-  <b>Current login at:</b>
-  <%=h @user.current_login_at %>
-</p>
-
-<p>
-  <b>Last login ip:</b>
-  <%=h @user.last_login_ip %>
-</p>
-
-<p>
-  <b>Current login ip:</b>
-  <%=h @user.current_login_ip %>
-</p>
-
-
-<%= link_to 'Edit', edit_account_path %>
+<% if current_user == @user %>
+  <p><%= link_to 'Edit your Contact Information', edit_account_path %></p>
+<% end %>
