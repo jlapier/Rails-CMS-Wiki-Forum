@@ -19,7 +19,13 @@
     </p>
     <p>
       <strong>Registration Password:</strong> (leave blank if none required)
-      <%= text_field_tag :registration_password, @registration_password, :size => 80 %>
+      <%= text_field_tag :registration_password, @registration_password, :size => 80 %><br/>
+      <em>Registration link:</em>
+      <% if @registration_password.blank? %>
+        <%= link_to register_url, register_url %>
+      <% else %>
+        <%= link_to register_url(:p => @registration_password), register_url(:p => @registration_password) %>
+      <% end %>
     </p>
     <p>
       <strong>Additional User Fields (comma separated):</strong>

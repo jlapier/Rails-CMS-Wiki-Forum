@@ -20,13 +20,13 @@
   <% end %>
   <tr>
     <td>
-      <%= form.label :password, form.object.new_record? ? nil : "Change password (leave blank for no change)" %>:<br/>
-      <%= form.label :password_confirmation %>:
+      <%= form.label :password, form.object.new_record? ? nil : "Change password <em>(leave blank for no change)</em>" %>:
     </td>
-    <td>
-      <%= form.password_field :password %><br />
-      <%= form.password_field :password_confirmation %>
-    </td>
+    <td><%= form.password_field :password %></td>
+  </tr>
+  <tr>
+    <td><%= form.label :password_confirmation %>:</td>
+    <td><%= form.password_field :password_confirmation %></td>
   </tr>
 </table>
 
