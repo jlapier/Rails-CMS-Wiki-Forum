@@ -1,0 +1,42 @@
+<table>
+  <% for field in %w( login first_name last_name email) %>
+    <tr>
+      <td><%= form.label field %>:</td>
+      <td><%= form.text_field field %></td>
+    </tr>
+  <% end %>
+
+  <% for field in (SiteSetting.read_setting('user fields') || []) %>
+    <tr>
+      <td><%= form.label field %>:</td>
+      <td>
+        <% if USER_FIELDS[field] %>
+          <%= select_tag "user[user_defined_fields][#{field}]", options_for_select(USER_FIELDS[field], :selected => @user.user_defined_fields[field]) %>
+        <% else %>
+          <%= text_field_tag "user[user_defined_fields][#{field}]", @user.user_defined_fields[field] %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <%= form.label :password, form.object.new_record? ? nil : "Change password <em>(leave blank for no change)</em>" %>:
+    </td>
+    <td><%= form.password_field :password %></td>
+  </tr>
+  <tr>
+    <td><%= form.label :password_confirmation %>:</td>
+    <td><%= form.password_field :password_confirmation %></td>
+  </tr>
+</table>
+
+<%#
+state
+role
+agency
+mailing_address
+mailing_city
+mailing_state
+mailing_zip
+phone_number
+%>

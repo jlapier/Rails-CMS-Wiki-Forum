@@ -17,14 +17,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :is_admin
       t.string :first_name
       t.string :last_name
-      t.string :state
-      t.string :role
-      t.string :agency
-      t.string :mailing_address
-      t.string :mailing_city
-      t.string :mailing_state
-      t.string :mailing_zip
-      t.string :phone_number
+      t.text :user_defined_fields
     end
     
     add_index :users, :login

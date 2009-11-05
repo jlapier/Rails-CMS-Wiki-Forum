@@ -58,3 +58,6 @@ class SiteSetting < ActiveRecord::Base
     end
   end
 end
+
+
+SiteSetting.partial_updates = false

@@ -5,7 +5,7 @@
   <% form_tag( { :action => :update_site_settings } ) do  %>
     <p>
       <strong>Title:</strong>
-      <%= text_field_tag :site_title, site_title, :size => 80 %>
+      <%= text_field_tag :site_title, site_title, :size => 70 %>
     </p>
     <p>
       <strong>Logo:</strong>
@@ -15,6 +15,21 @@
     <p>
       <strong>Footer:</strong>
       <%= text_area_tag :site_footer, site_footer, :cols => 80, :rows => 3,
+        :style => "vertical-align:middle; height: 40px; width: 80%;" %>
+    </p>
+    <p>
+      <strong>Registration Password:</strong> (leave blank if none required)
+      <%= text_field_tag :registration_password, @registration_password, :size => 80 %><br/>
+      <em>Registration link:</em>
+      <% if @registration_password.blank? %>
+        <%= link_to register_url, register_url %>
+      <% else %>
+        <%= link_to register_url(:p => @registration_password), register_url(:p => @registration_password) %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Additional User Fields (comma separated):</strong>
+      <%= text_area_tag :user_fields, @user_fields.join(', '), :cols => 70, :rows => 3,
         :style => "vertical-align:middle; height: 40px; width: 80%;" %>
     </p>
     <p>

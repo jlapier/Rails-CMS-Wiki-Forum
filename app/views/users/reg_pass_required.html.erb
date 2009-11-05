@@ -1,5 +1,5 @@
-<% form_tag register_path, :html => { :method => :get } do %>
+<% form_tag register_path, :method => :get do %>
   Registration Passcode:
-  <%= text_field_tag :p %>
+  <%= password_field_tag :p %>
   <%= submit_tag 'go' %>
 <% end %>
