@@ -3,7 +3,7 @@ class SiteSettingsController < ApplicationController
 
   def index
     @registration_password = SiteSetting.read_setting 'registration password'
-    @user_fields = SiteSetting.read_setting 'user fields'
+    @user_fields = SiteSetting.read_setting('user fields') || []
   end
 
   def update_site_settings

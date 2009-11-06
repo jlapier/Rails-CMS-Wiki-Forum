@@ -6,8 +6,20 @@
     Special: <%= f.select :special, ['Front Page', 'Top Menu', 'Side Menu'], :include_blank => true %>
   </p>
 
+  <% if @content_page.special =~ /Menu/ %>
+  <strong>Functions:</strong>
+  <ul>
+    <li>ListCategories &nbsp; &nbsp; <em>lists all categories</em></li>
+    <li>ListPagesInCategory Some Kind of Category &nbsp; &nbsp;
+      <em>list all pages in the category called "Some Kind of Category"</em></li>
+    <li>LinkPage Page Name &nbsp; &nbsp; <em>links directly to the page specified</em></li>
+    <li>LinkCategory Some Kind of Category &nbsp; &nbsp; <em>links to the category index page</em></li>
+  </ul>
+
+  <% end %>
+
   <p>
-    <%= f.text_area :body, :rows => 10, :cols => 80 %>
+    <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
   </p>
 
   <% unless @content_page.special =~ /Menu/ %>
