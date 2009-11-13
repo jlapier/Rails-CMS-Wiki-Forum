@@ -42,4 +42,8 @@ module ApplicationHelper
   def images_list
     Dir[File.join(RAILS_ROOT, 'public', 'images', "*.{png,jpg,gif}")].map { |f| File.basename f }.sort
   end
+
+  def theme_layouts_list
+    Dir[File.join(RAILS_ROOT, 'themes', 'layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
+  end
 end

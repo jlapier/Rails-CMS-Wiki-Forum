@@ -6,12 +6,20 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   filter_parameter_logging :password, :password_confirmation
   
-  before_filter :get_menus
+  before_filter :get_menus, :get_layout
 
   private
     def get_menus
       @side_menu = ContentPage.get_side_menu
       @top_menu = ContentPage.get_top_menu
+    end
+    
+    def get_layout
+      @theme_base = SiteSetting.read_setting('theme base') || "default"
+      @theme_layout = SiteSetting.read_setting('theme layout') || "default"
+      @layout_file = File.join(RAILS_ROOT, "/themes/layouts/#{@theme_layout}.html.erb")
+      @theme_colors = SiteSetting.read_setting('theme colors') || "black and white"
+
     end
 
     def current_user_session

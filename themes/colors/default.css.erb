@@ -1,0 +1,20 @@
+<%
+
+colors = %w(
+  #819033
+  #d0e621
+  #514573
+  #a8a8a8
+  #ed8201
+  #817f73
+  #169083
+  #ffffff
+)
+
+%>
+
+<% (0...colors.size).each do |n| %>
+  <%= ".bg_palette_#{n} { background-color: #{colors[n]}; }" %>
+  <%= ".text_palette_#{n} { color: #{colors[n]}; }" %>
+  <%= ".border_palette_#{n} { border-color: #{colors[n]}; }" %>
+<% end %>

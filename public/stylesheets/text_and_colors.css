@@ -1,31 +1,3 @@
-.bg_palette_1 { background-color: #819033; }
-.bg_palette_2 { background-color: #d0e621; }
-.bg_palette_3 { background-color: #514573; }
-.bg_palette_4 { background-color: #a8a8a8; }
-.bg_palette_5 { background-color: #ed8201; }
-.bg_palette_6 { background-color: #817f73; }
-.bg_palette_7 { background-color: #169083; }
-.bg_palette_8 { background-color: #ffffff; }
-
-.text_palette_1 { color: #819033; }
-.text_palette_2 { color: #d0e621; }
-.text_palette_3 { color: #514573; }
-.text_palette_4 { color: #a8a8a8; }
-.text_palette_5 { color: #ed8201; }
-.text_palette_6 { color: #817f73; }
-.text_palette_7 { color: #169083; }
-.text_palette_8 { color: #ffffff; }
-
-.border_palette_1 { border-color: #819033; }
-.border_palette_2 { border-color: #d0e621; }
-.border_palette_3 { border-color: #514573; }
-.border_palette_4 { border-color: #a8a8a8; }
-.border_palette_5 { border-color: #ed8201; }
-.border_palette_6 { border-color: #817f73; }
-.border_palette_7 { border-color: #169083; }
-.border_palette_8 { border-color: #ffffff; }
-
-
 .red { color: red }
 .blue { color: blue }
 .green { color: green }

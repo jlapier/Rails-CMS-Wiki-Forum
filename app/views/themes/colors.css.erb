@@ -1,0 +1,19 @@
+body {
+  background-color: <%= @colors[5] %>;
+}
+
+h1 { text-shadow: 1px 1px 4px <%= @colors[5] %>; color: <%= @colors[6] %>  }
+
+h4 { color: <%= @colors[1] %>; }
+
+a:link, a:visited, a:active { color: <%= @colors[2] %>; }
+a:hover { color: <%= @colors[0] %> }
+
+.base_content { background-color: <%= @colors[7] || '#FFF' %> }
+
+<% (0...@colors.size).each do |n| %>
+  <%= ".bg_palette_#{n+1} { background-color: #{@colors[n]}; }" %>
+  <%= ".text_palette_#{n+1} { color: #{@colors[n]}; }" %>
+  <%= ".border_palette_#{n+1} { border-color: #{@colors[n]}; }" %>
+<% end %>
+

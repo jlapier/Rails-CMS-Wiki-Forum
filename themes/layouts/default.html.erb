@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="span-24 last">
+    <div class="top_menu bg_palette_1 text_palette_8">
+      <%= top_menu %>
+    </div>
+  </div>
+
+  <div class="span-6">
+    <div><%= logo_image %></div>
+
+    <div class="side_menu bg_palette_5 border_palette_5 text_palette_8">
+      <%= side_menu %>
+    </div>
+    <br/><br/><br/>
+    <div class="side_menu bg_palette_5 border_palette_5 text_palette_8" >
+      <%= user_box %>
+    </div>
+
+  </div>
+
+
+
+  <div class="span-18 last">
+    <% if flash[:notice] -%>
+      <div class="flash_message notice_message"><%= flash[:notice] %></div>
+    <% end -%>
+    <% if flash[:warning] -%>
+      <div class="flash_message warning_message"><%= flash[:warning] %></div>
+    <% end -%>
+    <% if flash[:error] -%>
+      <div class="flash_message error_message"><%= flash[:error] %></div>
+    <% end -%>
+
+    <div class="base_content">
+      <%= yield %>
+    </div>
+  </div>
+
+  <div class="span-24 last">
+    <div class="footer bg_palette_1 text_palette_8">
+      <%= site_footer %>
+    </div>
+  </div>
+
+</div>

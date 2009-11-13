@@ -1,17 +1,11 @@
-body {
-  background-color: #9aa45f;
-}
-
-/* h1 { text-shadow: 1px 1px 4px #CCFFCC; } */
-
-h1 { text-shadow: 1px 1px 4px #9aa45f; }
+h1 { text-shadow: 1px 1px 4px #999; }
 
 h1 img, h2 img { vertical-align:middle; }
 
-h4 { color: #819033; font-weight: bold; }
+h4 { font-weight: bold; }
 
-a:link, a:visited, a:active { color: #514573; text-decoration:none; }
-a:hover { color: #736795; text-decoration:underline; }
+a:link, a:visited, a:active { text-decoration:none; }
+a:hover { text-decoration:underline; }
 
 textarea { vertical-align: top; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
 
@@ -19,18 +13,6 @@ p + p { margin-top: -0.8em; }
 
 #top_banner {
   text-align:center; height: 100px;
-}
-
-#main_content_box {
-    margin-left: auto; 
-    margin-right:auto;
-    padding: 20px;
-    height: 100%;
-    min-height: 600px;
-    width: 800px; 
-    background: white; 
-    -moz-box-shadow: 0px 0px 40px #333;
-    box-shadow: 0px 0px 40px #333;
 }
 
 .base_content {
@@ -257,3 +239,6 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 .pagination span.disabled {
   display:none;
 }
+
+
+.CodeMirror-wrapping { border: 1px solid #CCC; }

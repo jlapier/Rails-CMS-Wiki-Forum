@@ -45,14 +45,14 @@ class ContentPage < ActiveRecord::Base
     #   LinkCategory Some Kind of Category    // links to the category index page
     def function(function_string)
       function_name, param = function_string.split(' ', 2)
+      use_homelink = (param and param.downcase.include?("withhome"))
+      (param.gsub!(/withhome/i, '') and param.strip!) if param
       case function_name.downcase
       when "listcategories"
         categories = Category.find(:all)
         out = "<ul>\n"
 
-        if param and param.downcase == "withhome"
-          out += "<li><a href=\"/\">Home</a></li>\n"
-        end
+        out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
 
         if categories.empty?
           out += "<li><em>No categories were found</em></li>\n"
@@ -62,12 +62,14 @@ class ContentPage < ActiveRecord::Base
           }.join("\n")
         end
 
-        out += "</ul>\n"
+        out += "\n</ul>\n"
         out
       when "listpagesincategory"
         category = Category.find_by_name param
         out = "<ul>\n"
 
+        out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
+        
         if category
           pages = category.content_pages
           if pages.empty?
@@ -78,7 +80,7 @@ class ContentPage < ActiveRecord::Base
             }.join("\n")
           end
 
-          out += "</ul>\n"
+          out += "\n</ul>\n"
           out
         else
           ""
