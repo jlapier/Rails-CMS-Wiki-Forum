@@ -118,31 +118,6 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   -webkit-border-radius: 6px;
 }
 
-.user_link_box {
-    -moz-border-radius-bottomleft:5px;
-    -moz-border-radius-bottomright:5px;
-    -webkit-border-bottom-left-radius:5px;
-    -webkit-border-bottom-right-radius:5px;
-    background-color:#DDD;
-    margin-bottom:-4px;
-    margin-left:-8px;
-    margin-right:-8px;
-    margin-top:5px;
-    text-align:center;
-}
-
-.user_link_box a:link, .user_link_box a:visited { color: #009; }
-.user_link_box a:hover { color: #00F; }
-
-
-.link_box {
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    background-color:#DDD;
-    text-align:center;
-    padding: 4px 8px;
-}
-
 .admin_links { margin: 24px; }
 
 .admin_links a:link, .admin_links a:visited {
