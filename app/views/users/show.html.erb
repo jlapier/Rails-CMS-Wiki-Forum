@@ -20,7 +20,8 @@
 
 <% if current_user and current_user.is_admin? %>
   <p class="admin_links">
-    <%= link_to 'Site Settings', site_settings_path %> | 
+    <%= link_to 'Site Settings', site_settings_path %> |
+    <%= link_to 'Theme/Styling', :controller => :themes %> |
     <%= link_to 'List of Pages', content_pages_path %> |
     <%= link_to 'List of Categories', categories_path %>
   </p>

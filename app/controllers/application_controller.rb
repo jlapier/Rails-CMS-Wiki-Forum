@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
       @theme_layout = SiteSetting.read_setting('theme layout') || "default"
       @layout_file = File.join(RAILS_ROOT, "/themes/layouts/#{@theme_layout}.html.erb")
       @theme_colors = SiteSetting.read_setting('theme colors') || "black and white"
-
+      @css_override = SiteSetting.read_setting('css override')
+      @css_override_timestamp = SiteSetting.read_setting('css override timestamp')
     end
 
     def current_user_session

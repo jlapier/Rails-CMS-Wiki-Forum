@@ -1,5 +1,5 @@
 class ThemesController < ApplicationController
-  before_filter :require_admin_user, :only => [ :index, :update_theme_settings ]
+  before_filter :require_admin_user, :except => [ :colors, :css, :images ]
 
   def index
     @custom_colors = SiteSetting.read_setting('custom colors') || []

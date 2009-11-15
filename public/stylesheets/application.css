@@ -216,4 +216,4 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 }
 
 
-.CodeMirror-wrapping { border: 1px solid #CCC; }
+.CodeMirror-wrapping { border: 1px solid #CCC; background: #FFF; }
