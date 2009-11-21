@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/# == Schema Information
+# Schema version: 20091120223316
+#
+# Table name: user_groups
+#
+#  id   :integer       not null, primary key
+#  name :string(255)   
+# End Schema
+
+classes/Fixtures.html
+
+one:
+  name: MyString
+
+two:
+  name: MyString

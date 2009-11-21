@@ -58,7 +58,7 @@ class ContentPagesController < ApplicationController
           @content_page.save
         end
         flash[:notice] = 'ContentPage was successfully created.'
-        format.html { redirect_to(@content_page) }
+        format.html { redirect_to(edit_content_page_path(@content_page)) }
         format.xml  { render :xml => @content_page, :status => :created, :location => @content_page }
       else
         format.html { render :action => "new" }
@@ -127,5 +127,11 @@ class ContentPagesController < ApplicationController
       flash[:error] = "Unable to delete #{File.basename(file)}."
     end
     redirect_to edit_content_page_path(@content_page)
+  end
+
+  def search
+    @search_phrase = params[:q]
+    @content_pages = ContentPage.search @search_phrase 
+    render :action => :index
   end
 end

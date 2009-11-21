@@ -42,8 +42,6 @@
 
 
 <p class="admin_links">
-  <%= link_to 'Site Settings', site_settings_path %> |
-  <%= link_to 'Custom CSS', :controller => :themes, :action => :css_editor %> |
-  <%= link_to 'List of Pages', content_pages_path %> |
-  <%= link_to 'List of Categories', categories_path %>
+  <%= link_to 'Site Administration', admin_site_settings_path %> |
+  <%= link_to 'Custom CSS', :controller => :themes, :action => :css_editor %>
 </p>

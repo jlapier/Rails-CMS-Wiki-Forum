@@ -3,9 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'themes/:action', :controller => 'themes'
   map.connect 'themes/:action/:name.:format', :controller => 'themes'
   
-  map.resources :site_settings, :collection => { :update_site_settings => :post }
+  map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
 
-  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post }
+  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post }, :collection => { :search => :get }
 
   map.resources :categories
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091030224557
+# Schema version: 20091120223316
 #
 # Table name: content_pages
 #
@@ -14,6 +14,7 @@
 class ContentPage < ActiveRecord::Base
   validates_presence_of :name
   has_and_belongs_to_many :categories
+  searchable_by :name, :body
 
   class << self
     def find_or_create_by_name(name)
@@ -101,9 +102,18 @@ class ContentPage < ActiveRecord::Base
         else
           "<em>No category found named: #{param}</em>"
         end
+      when "searchbox"
+        # TODO make an option to include category dropdown
+        <<-END
+          <form action="/content_pages/search" method="get" name="site_search_box" id="site_search_box">
+            <input type="text" name="q" size="20">
+            <input type="submit" value="search">
+          </form>
+        END
       else
         "<em>Unknown function: #{function_name}</em>"
       end
+
     end
   end
 

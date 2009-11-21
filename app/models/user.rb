@@ -3,34 +3,36 @@
 # a SiteSetting can be used to set up those fields
 
 # == Schema Information
-# Schema version: 20091030224557
+# Schema version: 20091120223316
 #
 # Table name: users
 #
-#  id                :integer       not null, primary key
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#  login             :string(255)   not null
-#  email             :string(255)   not null
-#  display_name      :string(255)   
-#  crypted_password  :string(255)   not null
-#  password_salt     :string(255)   not null
-#  persistence_token :string(255)   not null
-#  perishable_token  :string(255)   not null
-#  login_count       :integer       default(0), not null
-#  last_request_at   :datetime      
-#  last_login_at     :datetime      
-#  current_login_at  :datetime      
-#  last_login_ip     :string(255)   
-#  current_login_ip  :string(255)   
-#  is_admin          :boolean       
+#  id                  :integer       not null, primary key
+#  created_at          :datetime      
+#  updated_at          :datetime      
+#  login               :string(255)   not null
+#  email               :string(255)   not null
+#  crypted_password    :string(255)   not null
+#  password_salt       :string(255)   not null
+#  persistence_token   :string(255)   not null
+#  perishable_token    :string(255)   not null
+#  login_count         :integer       default(0), not null
+#  last_request_at     :datetime      
+#  last_login_at       :datetime      
+#  current_login_at    :datetime      
+#  last_login_ip       :string(255)   
+#  current_login_ip    :string(255)   
+#  is_admin            :boolean       
+#  first_name          :string(255)   
+#  last_name           :string(255)   
+#  user_defined_fields :text          
 # End Schema
 
 class User < ActiveRecord::Base
   attr_protected :is_admin
   attr_protected :is_moderator
   has_many :message_posts
-  
+  has_and_belongs_to_many :user_groups
   before_create :make_admin_if_first_user
 
   serialize :user_defined_fields
@@ -49,6 +51,10 @@ class User < ActiveRecord::Base
 
   def name
     first_name.blank? ? login : first_name
+  end
+
+  def fullname
+    first_name.blank? ? login : "#{first_name} #{last_name}"
   end
 
   private

@@ -6,6 +6,9 @@ class SiteSettingsController < ApplicationController
     @user_fields = SiteSetting.read_setting('user fields') || []
   end
 
+  def admin
+  end
+
   def update_site_settings
     SiteSetting.write_setting 'site title', params[:site_title]
     SiteSetting.write_setting 'site logo', params[:site_logo]

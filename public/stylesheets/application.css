@@ -174,12 +174,12 @@ table.messages .lightgreen { color: #090; }
 
 
 table.nice_table { background: #EEE;  }
-table.nice_table th { background: #EEE; padding: 2px 4px; font-size: 13px; }
+table.nice_table th { background: #EEE; padding: 2px 4px; font-size: 13px;  border-bottom: 1px solid #CCC; }
 table.nice_table th.sorted_down { background: #CCF; }
 table.nice_table th.sorted_up { background: #FCC; }
 table.nice_table tr { background: #FFF; }
-table.nice_table tr:hover { background: #EEE; }
-table.nice_table td { padding: 4px; font-size: 11px;}
+table.nice_table tr:hover { background: #EEE;  }
+table.nice_table td { padding: 4px; font-size: 11px; border-bottom: 1px solid #CCC; vertical-align: top; }
 table.nice_table td input, table.nice_table td select { font-size: 11px; border: 1px solid #999 }
 
 

@@ -1,7 +1,16 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
-  
+  before_filter :require_admin_user, :only => [:index, :update_password, :password_reset]
+
+  def index
+    if params[:disabled] == "1"
+      @users = UserGroup.find_or_create_by_name('Disabled Users').users
+    else
+      @users = User.find(:all, :include => :user_groups, :order => 'first_name ASC' )
+    end
+  end
+
   def new
     reg_pass = SiteSetting.read_setting 'registration password'
     if !reg_pass.blank? and reg_pass != params[:p]
@@ -22,20 +31,41 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = @current_user
+    if params[:id]
+      require_admin_user
+      @user = User.find(params[:id])
+    else
+      @user = @current_user
+    end
   end
 
   def edit
-    @user = @current_user
+    if params[:id]
+      require_admin_user
+      @user = User.find(params[:id])
+    else
+      @user = @current_user
+    end
   end
   
   def update
-    @user = @current_user # makes our views "cleaner" and more consistent
+    if params[:id]
+      require_admin_user
+      @user = User.find(params[:id])
+    else
+      @user = @current_user
+    end
+    
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
-      redirect_to account_url
+      if params[:id]
+        redirect_to users_path
+      else
+        redirect_to account_url
+      end
     else
       render :action => :edit
     end
   end
+
 end

@@ -1,0 +1,31 @@
+<h1>Users</h1>
+
+<table class="nice_table">
+  <tr>
+    <th>Login (Full Name)</th>
+		<th>Email</th>
+		<th style="text-align:center;">Admin</th>
+		<th colspan="3" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+  	<td><%= link_to user.login, :action => 'edit', :id => user %> (<%= user.fullname %>)</td>
+		<td><%= user.email %></td>
+		<td style="text-align:center"><%= "X" if user.is_admin? %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+		<td><%= link_to 'Delete', user_path(user), :confirm => 'Are you sure you want to permanently delete this user account?',
+                :method => "delete" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p>
+  <% if params[:disabled] == "1" %>
+    <%= link_to 'List Enabled Users', users_path %>
+  <% else %>
+    <%= link_to 'List Disabled Users', users_path(:disabled => 1) %>
+  <% end %>
+</p>

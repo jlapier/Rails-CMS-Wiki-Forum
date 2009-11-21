@@ -3,7 +3,9 @@
   <p>
     <b>Name</b>:
     <%= f.text_field :name, :size => 50 %><br/>
-    Special: <%= f.select :special, ['Front Page', 'Top Menu', 'Side Menu'], :include_blank => true %>
+    <% unless @content_page.special.blank? %>
+      <em>This page is a special page: <%= @content_page.special %></em>
+    <% end %>
   </p>
 
   <% if @content_page.special =~ /Menu/ %>
@@ -14,12 +16,17 @@
       <em>list all pages in the category called "Some Kind of Category"</em></li>
     <li>LinkPage Page Name &nbsp; &nbsp; <em>links directly to the page specified</em></li>
     <li>LinkCategory Some Kind of Category &nbsp; &nbsp; <em>links to the category index page</em></li>
+    <li>SearchBox &nbsp; &nbsp; <em>displays a search form</em></li>
   </ul>
 
   <% end %>
 
   <p>
-    <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
+    <% if @content_page.new_record? %>
+      <em>Note: after creating this new page, you will be able to edit the body</em>
+    <% else %>
+      <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
+    <% end %>
   </p>
 
   <% unless @content_page.special =~ /Menu/ %>

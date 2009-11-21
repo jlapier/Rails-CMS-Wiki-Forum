@@ -4,11 +4,13 @@
   <tr>
     <th>Category</th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @categories.each do |category| %>
   <tr>
     <td><%= category.name %></td>
+    <th><%= link_to pluralize(category.content_pages.count, 'page'), category %></th>
     <td><%= link_to 'Delete', category, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

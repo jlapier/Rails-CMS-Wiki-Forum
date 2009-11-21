@@ -1,0 +1,10 @@
+<h1>Site Administration</h1>
+
+<ul>
+  <li><%= link_to 'List of Content Pages', content_pages_path %></li>
+  <li><%= link_to 'List of Categories', categories_path %></li>
+  <li><%= link_to 'Site-wide Settings', site_settings_path %></li>
+  <li><%= link_to 'User Management', users_path %></li>
+  <li><%= link_to 'Theme/Styling', :controller => :themes %></li>
+  <li><%= link_to 'Custom CSS', :controller => :themes, :action => :css_editor %></li>
+</ul>
