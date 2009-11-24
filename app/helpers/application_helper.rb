@@ -33,12 +33,12 @@ module ApplicationHelper
       out += link_to("My Account", account_path)  + " | " +
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
+      if current_user.is_admin?
+        out += " | " + link_to('Site Admin', admin_site_settings_path)
+      end
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
-    end
-    if current_user.is_admin?
-      out += " | " + link_to('Site Admin', admin_site_settings_path)
     end
     out
   end
