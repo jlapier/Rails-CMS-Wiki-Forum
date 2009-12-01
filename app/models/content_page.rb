@@ -118,6 +118,6 @@ class ContentPage < ActiveRecord::Base
   end
 
   def body_for_display
-    body.gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
+    (body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
   end
 end

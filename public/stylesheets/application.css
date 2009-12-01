@@ -184,6 +184,32 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 
 
 
+/* wiki stuff */
+
+.wiki_page_version { background:white; padding: 12px; border: 1px #999 solid; }
+.wiki_page_body { background:white; padding: 12px; border: 1px #999 solid; }
+.wiki_page_body p { text-indent: 0; }
+.wiki_comments { background:white; padding: 0px 12px; border: 1px #999 solid; }
+.wiki_comments p { font-size: 11px; }
+.wiki_comments textarea { font-size: 11px; width: 220px; }
+.wiki_comments input { font-size: 10px; border: 1px solid #999; background: #EEE; margin: 2px;}
+
+.wiki_top_links { float:right; vertical-align:middle; text-align:right; background: #EEE; border: 1px solid #999;
+    padding: 2px 8px 4px 8px; }
+.wiki_top_links a { border:none;text-decoration: none; }
+.wiki_top_links img { border:none;text-decoration: none; vertical-align:middle; }
+.wiki_top_links input { border:1px solid #999; }
+
+
+.diff_text ins { background-color: #AFA; }
+.diff_text del { background-color: #FBB; color: #666; }
+
+th.sorted_by { background: #99C; }
+
+
+
+
+
 /* pagination */
 
 

@@ -19,8 +19,6 @@
 
 <br/>
 
-<div style="clear:both; min-width:800px;">
-
 <div id="wiki_right_side" style="float:right; width: 25%; margin-left: 15px;">
   <div id="message" class="tiny-text red"></div>
   <div id="comments" class="wiki_comments">
@@ -36,4 +34,4 @@
   <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_page_tag_path(:tag_name => wt.name) }.join(", ") %></p>
 </div>
 
-</div>
+<div style="clear:both"></div>
