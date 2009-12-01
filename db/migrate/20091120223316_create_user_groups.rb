@@ -2,6 +2,7 @@ class CreateUserGroups < ActiveRecord::Migration
   def self.up
     create_table :user_groups do |t|
       t.string :name
+      t.string :special
     end
 
     create_table :user_groups_users, :id => false do |t|

@@ -1,0 +1,29 @@
+<h1>Addding Users to Group: <%= @user_group.name %></h1>
+
+<% form_tag add_users_user_group_path(@user_group) do %>
+  <table class="nice_table">
+    <tr>
+      <th>Login (Full Name)</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+
+  <% @users_not_in_group.each do |user|  %>
+    <tr>
+      <td><%= link_to user.login, :action => 'edit', :id => user %> (<%= user.fullname %>)</td>
+      <td><%= user.email %></td>
+      <td><%= check_box_tag "user_ids[]", user.id %></td>
+    </tr>
+  <% end %>
+  </table>
+  <p style="text-align:right">
+    <%= submit_tag "add selected users to this group" %>
+  </p>
+<% end %>
+
+
+<p class="admin_links">
+  <%= link_to 'edit group name', edit_user_group_path(@user_group) %> |
+  <%= link_to 'list users in this group', @user_group %> |
+  <%= link_to 'list of user groups', user_groups_path %>
+</p>

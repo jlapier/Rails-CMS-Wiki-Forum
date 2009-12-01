@@ -22,6 +22,6 @@ CKEDITOR.editorConfig = function( config )
       '/',
       ['Bold','Italic','Underline'],
       ['Format','Font','FontSize','TextColor','BGColor'],
-      ['Link','Unlink','Image']
+      ['Link','Unlink','Image', 'Table']
   ];
 };

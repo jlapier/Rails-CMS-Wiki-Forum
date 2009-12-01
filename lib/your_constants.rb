@@ -32,4 +32,8 @@ module YourConstants
 
   }.freeze
 
+
+
+
+  USER_GROUPS_SPECIAL = [ 'Wiki Reader', 'Wiki Editor', 'Forum Poster', 'Forum Moderator' ]
 end

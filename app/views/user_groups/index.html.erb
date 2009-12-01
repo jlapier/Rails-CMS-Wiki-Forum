@@ -1,0 +1,32 @@
+<h1>User groups</h1>
+
+<% if @user_groups.empty? %>
+  <p><em>No user groups created yet</em></p>
+<% else %>
+  <table class="nice_table">
+    <tr>
+      <th>Group name</th>
+      <th>Special Access</th>
+      <th></th>
+    </tr>
+
+  <% @user_groups.each do |user_group| %>
+    <tr>
+      <td><%= user_group.name %></td>
+      <td><%= user_group.special %></td>
+      <td style="text-align:right">
+        <%= link_to 'list members', user_group %> &nbsp;
+        <%= link_to 'edit name', edit_user_group_path(user_group) %> &nbsp;
+        <%= link_to 'delete', user_group, :confirm => "Are you sure you want to delete the group called #{user_group.name}?", :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+
+<br />
+
+<p class="admin_links">
+  <%= link_to 'create a new user group', new_user_group_path %> |
+  <%= link_to 'full list of users', users_path %>
+</p>

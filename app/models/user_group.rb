@@ -3,8 +3,9 @@
 #
 # Table name: user_groups
 #
-#  id   :integer       not null, primary key
-#  name :string(255)   
+#  id      :integer       not null, primary key
+#  name    :string(255)   
+#  special :string(255)   
 # End Schema
 
 class UserGroup < ActiveRecord::Base
@@ -19,5 +20,11 @@ class UserGroup < ActiveRecord::Base
     def find_or_create_by_name(name)
       find_by_name(name) || create(:name => name)
     end
+  end
+
+  def drop_users(drop_user_ids)
+    drop_user_ids = [*drop_user_ids].compact.map(&:to_i)
+    self.user_ids = user_ids - drop_user_ids
+    self.save
   end
 end

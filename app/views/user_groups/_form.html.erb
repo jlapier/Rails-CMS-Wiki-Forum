@@ -1,0 +1,9 @@
+<p>
+  <strong>Group Name</strong>:
+  <%= form.text_field :name, :size => 50 %>
+</p>
+
+<p>
+  <strong>Grants Special Access:</strong>
+  <%= form.select :special, options_for_select(USER_GROUPS_SPECIAL), :include_blank => true %>
+</p>

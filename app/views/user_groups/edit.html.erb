@@ -1,0 +1,12 @@
+<h1>Editing user group</h1>
+
+<% form_for(@user_group) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit 'Save Changes' %>
+<% end %>
+
+<p class="admin_links">
+  <%= link_to 'List Users in this Group', @user_group %> |
+  <%= link_to 'List of User Groups', user_groups_path %>
+</p>

@@ -28,15 +28,14 @@
     <td><%= form.label :password_confirmation %>:</td>
     <td><%= form.password_field :password_confirmation %></td>
   </tr>
+  <% if current_user.is_admin? %>
+  <tr>
+    <td><%= form.label 'Group Memebership' %>:</td>
+    <td>
+      <% UserGroup.find(:all).each do |user_group| %>
+        <%= check_box_tag "user[user_group_ids][]", user_group.id, @user.user_groups.include?(user_group) %> <%= user_group.name %><br/>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
 </table>
-
-<%#
-state
-role
-agency
-mailing_address
-mailing_city
-mailing_state
-mailing_zip
-phone_number
-%>

@@ -20,12 +20,6 @@
 <% end %>
 </table>
 
-<br />
-
-<p>
-  <% if params[:disabled] == "1" %>
-    <%= link_to 'List Enabled Users', users_path %>
-  <% else %>
-    <%= link_to 'List Disabled Users', users_path(:disabled => 1) %>
-  <% end %>
+<p class="admin_links">
+  <%= link_to "Manage User Groups", user_groups_path %>
 </p>

@@ -4,11 +4,7 @@ class UsersController < ApplicationController
   before_filter :require_admin_user, :only => [:index, :update_password, :password_reset]
 
   def index
-    if params[:disabled] == "1"
-      @users = UserGroup.find_or_create_by_name('Disabled Users').users
-    else
-      @users = User.find(:all, :include => :user_groups, :order => 'first_name ASC' )
-    end
+    @users = User.find(:all, :order => 'first_name ASC' )
   end
 
   def new
