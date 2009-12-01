@@ -1,5 +1,11 @@
 <h1>User Group: <%= @user_group.name %></h1>
 
+<% unless @user_group.special.empty? %>
+<p>
+  <strong>Grants access to:</strong> <%= @user_group.access_string %>
+</p>
+<% end %>
+
 <% if @user_group.users.empty? %>
   <p><em>No users are in this group</em></p>
 <% else %>
@@ -30,6 +36,6 @@
 <p><%= link_to 'add users to this group', add_members_user_group_path(@user_group) %></p>
 
 <p class="admin_links">
-  <%= link_to 'edit group name', edit_user_group_path(@user_group) %> |
+  <%= link_to 'edit group name/access', edit_user_group_path(@user_group) %> |
   <%= link_to 'list of user groups', user_groups_path %>
 </p>

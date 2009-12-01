@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe UserGroup do
   before(:each) do
     @valid_attributes = {
-      :name => "value for name"
+      :name => "value for name",
+      :special => [0,2]
     }
   end
 
@@ -28,5 +29,11 @@ describe UserGroup do
     ug.users.size.should == 2
     ug.users.should_not include(users[0])
     ug.users.should_not include(users[1])
+  end
+
+  it "should generate an access string" do
+    expected_access = 'Wiki Reader, Forum Poster'
+    ug = UserGroup.create!(@valid_attributes)
+    ug.access_string.should == expected_access
   end
 end

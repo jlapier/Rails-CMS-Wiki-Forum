@@ -4,6 +4,9 @@
 </p>
 
 <p>
-  <strong>Grants Special Access:</strong>
-  <%= form.select :special, options_for_select(USER_GROUPS_SPECIAL), :include_blank => true %>
+  <strong>Grants Special Access:</strong><br/>
+  <% UserGroup::SPECIAL_ACCESS.each_with_index do |access, index| %>
+    <%= check_box_tag "user_group[special][]", index, (@user_group.special || []).include?(index) %>
+    <%= access %><br/>
+  <% end %>
 </p>

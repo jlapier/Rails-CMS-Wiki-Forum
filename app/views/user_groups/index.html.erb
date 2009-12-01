@@ -13,10 +13,10 @@
   <% @user_groups.each do |user_group| %>
     <tr>
       <td><%= user_group.name %></td>
-      <td><%= user_group.special %></td>
+      <td><%= user_group.access_string %></td>
       <td style="text-align:right">
         <%= link_to 'list members', user_group %> &nbsp;
-        <%= link_to 'edit name', edit_user_group_path(user_group) %> &nbsp;
+        <%= link_to 'edit name/access', edit_user_group_path(user_group) %> &nbsp;
         <%= link_to 'delete', user_group, :confirm => "Are you sure you want to delete the group called #{user_group.name}?", :method => :delete %>
       </td>
     </tr>
