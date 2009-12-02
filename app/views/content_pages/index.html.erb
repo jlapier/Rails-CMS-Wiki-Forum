@@ -4,30 +4,32 @@
   <h4>Search query: <%= @search_phrase %></h4>
 <% end %>
 
-<table cellspacing="2px" cellpadding="0" class="nice_table">
-  <tr>
-    <th style="white-space:nowrap;">Page Name</th>
-    <th>Body (excerpt)</th>
-    <th>Categories</th>
-    <th></th>
-  </tr>
-
-<% @content_pages.each do |content_page| %>
-  <tr>
-    <td><%=h content_page.name %></td>
-    <td><%= @search_phrase ? highlight(excerpt(strip_tags(content_page.body), @search_phrase), @search_phrase) :
-                truncate(strip_tags(content_page.body), :length => 200) %></td>
-    <td><%=h content_page.categories.map(&:name).join(', ') %></td>
-    <td style="white-space:nowrap;">
-      <%= link_to 'view', content_page %>
-      <% if current_user.is_admin? %> |
-        <%= link_to 'edit', edit_content_page_path(content_page) %> |
-        <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
-                :method => :delete %>
-      <% end %>
-    </td>
-  </tr>
-<% end %>
+<table cellspacing="2px" cellpadding="0" class="nice_table tablesorter">
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Body (excerpt)</th>
+      <th>Categories</th>
+      <% if current_user.is_admin? %><th></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @content_pages.each do |content_page| %>
+      <tr>
+        <td><%= link_to content_page.name, content_page %></td>
+        <td><%= @search_phrase ? highlight(excerpt(strip_tags(content_page.body), @search_phrase), @search_phrase) :
+                    truncate(strip_tags(content_page.body), :length => 200) %></td>
+        <td><%= content_page.categories.map { |cat| link_to cat.name, cat }.join(', ') %></td>
+        <% if current_user.is_admin? %>
+          <td style="white-space:nowrap;">
+            <%= link_to 'edit', edit_content_page_path(content_page) %> |
+            <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
+                    :method => :delete %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <% if current_user.is_admin? %>
@@ -36,3 +38,12 @@
   <%= link_to 'List of Categories', categories_path %>
 </p>
 <% end %>
+
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    $(".nice_table").tablesorter( { widgets: ['zebra'] });
+  }
+);
+</script>

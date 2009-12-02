@@ -15,6 +15,7 @@ class ContentPage < ActiveRecord::Base
   validates_presence_of :name
   has_and_belongs_to_many :categories
   searchable_by :name, :body
+  before_create :set_preview_only
 
   class << self
     def find_or_create_by_name(name)
@@ -72,7 +73,7 @@ class ContentPage < ActiveRecord::Base
         out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
         
         if category
-          pages = category.content_pages
+          pages = category.content_pages.find :all, :conditions => { :is_preview_only => false }
           if pages.empty?
               out += "<li><em>No pages were found in the category: #{param}</em></li>\n"
           else
@@ -119,5 +120,12 @@ class ContentPage < ActiveRecord::Base
 
   def body_for_display
     (body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
+  end
+
+
+  private
+
+  def set_preview_only
+    self.is_preview_only = true
   end
 end

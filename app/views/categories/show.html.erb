@@ -2,10 +2,19 @@
 
 <ul>
 <% @category.content_pages.each do |content_page| %>
-  <li>
-    <%= link_to content_page.name, content_page %><br/>
-    <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
-  </li>
+  <% if content_page.is_preview_only? %>
+    <% if current_user and current_user.is_admin? %>
+      <li>
+        <%= link_to content_page.name, content_page %> <em>(preview/draft)</em><br/>
+        <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
+      </li>
+    <% end %>
+  <% else %>
+    <li>
+      <%= link_to content_page.name, content_page %><br/>
+      <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
+    </li>
+  <% end %>
 <% end %>
 </ul>
 

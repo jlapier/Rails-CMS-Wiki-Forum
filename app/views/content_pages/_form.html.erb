@@ -8,18 +8,17 @@
     <% end %>
   </p>
 
-  <% if @content_page.special =~ /Menu/ %>
-  <strong>Functions:</strong>
-  <ul>
-    <li>ListCategories &nbsp; &nbsp; <em>lists all categories</em></li>
-    <li>ListPagesInCategory Some Kind of Category &nbsp; &nbsp;
-      <em>list all pages in the category called "Some Kind of Category"</em></li>
-    <li>LinkPage Page Name &nbsp; &nbsp; <em>links directly to the page specified</em></li>
-    <li>LinkCategory Some Kind of Category &nbsp; &nbsp; <em>links to the category index page</em></li>
-    <li>SearchBox &nbsp; &nbsp; <em>displays a search form</em></li>
-  </ul>
-
-  <% end %>
+  <div class="small_text" style="border: 1px solid #666; background: #FFD; padding: 4px 8px 0; margin-bottom: 12px;">
+    <strong>Functions:</strong>
+    <ul>
+      <li>[[ListCategories]] &nbsp; &nbsp; <em>lists all categories</em></li>
+      <li>[[ListPagesInCategory Some Kind of Category]] &nbsp; &nbsp;
+        <em>list all pages in the category called "Some Kind of Category"</em></li>
+      <li>[[LinkPage Page Name]] &nbsp; &nbsp; <em>links directly to the page specified</em></li>
+      <li>[[LinkCategory Some Kind of Category]] &nbsp; &nbsp; <em>links to the category index page</em></li>
+      <li>[[SearchBox]] &nbsp; &nbsp; <em>displays a search form</em></li>
+    </ul>
+  </div>
 
   <p>
     <% if @content_page.new_record? %>
@@ -30,19 +29,21 @@
   </p>
 
   <% unless @content_page.special =~ /Menu/ %>
-  <p>
-    Categories: (check as many as you want)<br/>
-    <% for category in Category.find(:all) %>
-      <%= check_box_tag "content_page[category_ids][]", category.id, @content_page.categories.include?(category)  %>
-      <%= category.name %><br/>
-    <% end %>
-    New category: <%= text_field_tag "new_category" %>
-  </p>
+    <p>
+      Categories: (check as many as you want)<br/>
+      <% for category in Category.find(:all) %>
+        <%= check_box_tag "content_page[category_ids][]", category.id, @content_page.categories.include?(category)  %>
+        <%= category.name %><br/>
+      <% end %>
+      New category: <%= text_field_tag "new_category" %>
+    </p>
+
+    <p>
+      <%= f.select :is_preview_only, options_for_select( [ ["Draft/Preview", 1], ["Final/Publish", 0] ],
+              @content_page.is_preview_only.to_i ) %> &nbsp;
+      <%= f.submit "Save" %>
+    </p>
   <% end %>
-  
-  <p>
-    <%= f.submit "Save" %>
-  </p>
 <% end %>
 
 <% unless @content_page.special =~ /Menu/ or @content_page.new_record? %>
