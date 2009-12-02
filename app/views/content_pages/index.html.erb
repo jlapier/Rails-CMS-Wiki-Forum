@@ -10,17 +10,17 @@
       <th>Page</th>
       <th>Body (excerpt)</th>
       <th>Categories</th>
-      <% if current_user.is_admin? %><th></th><% end %>
+      <% if is_admin? %><th></th><% end %>
     </tr>
   </thead>
   <tbody>
     <% @content_pages.each do |content_page| %>
       <tr>
-        <td><%= link_to content_page.name, content_page %></td>
-        <td><%= @search_phrase ? highlight(excerpt(strip_tags(content_page.body), @search_phrase), @search_phrase) :
-                    truncate(strip_tags(content_page.body), :length => 200) %></td>
+        <td style="width:20%;"><%= link_to content_page.name, content_page %></td>
+        <td><%= @search_phrase ? highlight(excerpt(strip_tags(content_page.body), @search_phrase, :radius => 75), @search_phrase) :
+                    truncate(strip_tags(content_page.body), :length => 150) %></td>
         <td><%= content_page.categories.map { |cat| link_to cat.name, cat }.join(', ') %></td>
-        <% if current_user.is_admin? %>
+        <% if is_admin? %>
           <td style="white-space:nowrap;">
             <%= link_to 'edit', edit_content_page_path(content_page) %> |
             <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
@@ -32,7 +32,7 @@
   </tbody>
 </table>
 
-<% if current_user.is_admin? %>
+<% if is_admin? %>
 <p class="admin_links">
   <%= link_to 'Create a New Page', new_content_page_path %> |
   <%= link_to 'List of Categories', categories_path %>

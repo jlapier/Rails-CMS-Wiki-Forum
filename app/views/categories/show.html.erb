@@ -1,26 +1,44 @@
-<h1><%= @category.name %></h1>
+<h1>Pages in Category: <%= @category.name %></h1>
 
-<ul>
-<% @category.content_pages.each do |content_page| %>
-  <% if content_page.is_preview_only? %>
-    <% if current_user and current_user.is_admin? %>
-      <li>
-        <%= link_to content_page.name, content_page %> <em>(preview/draft)</em><br/>
-        <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
-      </li>
+<table cellspacing="2px" cellpadding="0" class="nice_table tablesorter">
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Body (excerpt)</th>
+      <th>Categories</th>
+      <% if is_admin? %><th></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @category.content_pages.each do |content_page| %>
+      <tr>
+        <td style="width:20%;"><%= link_to content_page.name, content_page %></td>
+        <td><%= truncate(strip_tags(content_page.body), :length => 150) %></td>
+        <td style="width:20%;"><%= content_page.categories.map { |cat| link_to cat.name, cat }.join(', ') %></td>
+        <% if is_admin? %>
+          <td style="white-space:nowrap;">
+            <%= link_to 'edit', edit_content_page_path(content_page) %> |
+            <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
+                    :method => :delete %>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
-  <% else %>
-    <li>
-      <%= link_to content_page.name, content_page %><br/>
-      <em><%= truncate strip_tags(content_page.body), :length => 100 %></em>
-    </li>
-  <% end %>
-<% end %>
-</ul>
+  </tbody>
+</table>
 
-<% if current_user and current_user.is_admin? %>
+<% if is_admin? %>
   <p class="admin_links">
     <%= link_to 'List of Pages', content_pages_path %> |
     <%= link_to 'List of Categories', categories_path %>
   </p>
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    $(".nice_table").tablesorter( { widgets: ['zebra'] });
+  }
+);
+</script>
+

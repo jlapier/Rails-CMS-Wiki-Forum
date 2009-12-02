@@ -12,6 +12,13 @@
       <td><%= @user.user_defined_fields[field] %></td>
     </tr>
   <% end %>
+
+  <% unless @user.user_groups.empty? %>
+    <tr>
+      <td>Groups:</td>
+      <td><%= @user.user_groups.map(&:name).join(', ') %></td>
+    </tr>
+  <% end %>
 </table>
 
 <% if current_user == @user %>

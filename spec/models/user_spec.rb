@@ -21,4 +21,12 @@ describe User do
     u_again.user_defined_fields['role'].should be_kind_of(String)
     u_again.user_defined_fields['role'].should == "Director"
   end
+
+  it "should have access based on groups" do
+    wiki_reader_user_group = UserGroup.new :name => "Wiki Reader Access", :special => [0]
+    u = User.create!(@valid_attributes)
+    u.stub!(:user_groups).and_return([wiki_reader_user_group])
+    assert u.has_access_to?('wiki')
+    assert !u.has_access_to?('forum')
+  end
 end

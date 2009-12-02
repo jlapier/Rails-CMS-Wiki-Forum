@@ -1,5 +1,5 @@
 class ContentPagesController < ApplicationController
-  before_filter :require_admin_user, :except => [:home, :index, :show]
+  before_filter :require_admin_user, :except => [:home, :index, :show, :search]
   
   def home
     @content_page = ContentPage.get_front_page

@@ -27,15 +27,20 @@ module ApplicationHelper
   end
 
   def user_box
-    out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
+    #out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
+    out = ""
 
     if current_user
+      out += "Welcome, #{current_user.first_name}!<br />\n"
       out += link_to("My Account", account_path)  + " | " +
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
-      if current_user.is_admin?
-        out += " | " + link_to('Site Admin', admin_site_settings_path)
-      end
+      out += "<br/>"
+      other_links = []
+      other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
+      other_links << link_to('Wiki', wiki_pages_path) if current_user.has_access_to?('wiki')
+      other_links << link_to('Forums', forums_path) if current_user.has_access_to?('forum')
+      out += other_links.join(' | ')
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
@@ -49,5 +54,9 @@ module ApplicationHelper
 
   def theme_layouts_list
     Dir[File.join(RAILS_ROOT, 'themes', 'layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
+  end
+
+  def is_admin?
+    current_user and current_user.is_admin?
   end
 end

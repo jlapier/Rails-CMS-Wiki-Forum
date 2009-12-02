@@ -8,8 +8,11 @@
 #  special :string(255)   
 # End Schema
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+wiki_reader:
+  name: Wiki Reader Access
+  special: ---
+  - 0
+wiki_editor:
+  name: Wiki Editor Access
+  special: ---
+  - 1
