@@ -5,7 +5,7 @@
     <tr>
       <th>Page</th>
       <th>Body (excerpt)</th>
-      <th>Categories</th>
+      <th style="white-space:nowrap;">Pub. Date &nbsp; &nbsp; </th>
       <% if is_admin? %><th></th><% end %>
     </tr>
   </thead>
@@ -14,12 +14,14 @@
       <tr>
         <td style="width:20%;"><%= link_to content_page.name, content_page %></td>
         <td><%= truncate(strip_tags(content_page.body), :length => 150) %></td>
-        <td style="width:20%;"><%= content_page.categories.map { |cat| link_to cat.name, cat }.join(', ') %></td>
+        <td><%= content_page.publish_on ? content_page.publish_on.strftime('%m/%d/%Y') : '' %></td>
         <% if is_admin? %>
-          <td style="white-space:nowrap;">
-            <%= link_to 'edit', edit_content_page_path(content_page) %> |
-            <%= link_to 'delete', content_page, :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
-                    :method => :delete %>
+          <td>
+            <%= link_to '<span class="ui-icon ui-icon-document"/>', edit_content_page_path(content_page),
+                    :title => "click to edit" %>
+            <%= link_to '<span class="ui-icon ui-icon-closethick"/>', content_page,
+                    :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
+                    :method => :delete, :title => "click to delete" %>
           </td>
         <% end %>
       </tr>
@@ -38,7 +40,7 @@
 <script type="text/javascript">
 $(document).ready(function()
   {
-    $(".nice_table").tablesorter( { widgets: ['zebra'] });
+    $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 1:{sorter: false}, 3:{sorter: false}} });
   }
 );
 </script>
