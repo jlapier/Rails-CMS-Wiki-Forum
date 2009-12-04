@@ -42,6 +42,9 @@ class ContentPagesController < ApplicationController
   # GET /content_pages/1/edit
   def edit
     @content_page = ContentPage.find(params[:id])
+    unless @content_page.editing_user
+      @content_page.update_attributes :editing_user => current_user, :started_editing_at => Time.now
+    end
     @rel_dir = File.join "content_page_assets", "content_page_#{@content_page.id}"
     @assets = Dir[File.join(RAILS_ROOT, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
   end
@@ -57,7 +60,7 @@ class ContentPagesController < ApplicationController
           @content_page.categories << cat
           @content_page.save
         end
-        flash[:notice] = 'ContentPage was successfully created.'
+        flash[:notice] = "Page <em>#{@content_page.name}</em> was created."
         format.html { redirect_to(edit_content_page_path(@content_page)) }
         format.xml  { render :xml => @content_page, :status => :created, :location => @content_page }
       else
@@ -73,12 +76,13 @@ class ContentPagesController < ApplicationController
     @content_page = ContentPage.find(params[:id])
     respond_to do |format|
       if @content_page.update_attributes(params[:content_page])
+        @content_page.update_attributes :editing_user => nil, :started_editing_at => nil
         if params[:new_category] and !params[:new_category].blank?
           cat = Category.find_or_create_by_name params[:new_category]
           @content_page.categories << cat
           @content_page.save
         end
-        flash[:notice] = 'ContentPage was successfully updated.'
+        flash[:notice] = "Page <em>#{@content_page.name}</em> was updated."
         format.html { redirect_to(@content_page) }
         format.xml  { head :ok }
       else

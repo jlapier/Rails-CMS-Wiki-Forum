@@ -40,8 +40,8 @@
 
     <p>
       <%= f.select :is_preview_only, options_for_select( [ ["Draft/Preview", 1], ["Final/Publish", 0] ],
-              @content_page.is_preview_only.to_i ) %> &nbsp;
-      <%= f.submit "Save" %>
+              @content_page.is_preview_only? ? 1 : 0 ) %> &nbsp;
+      <%= f.submit "Save", :onclick => "needToConfirm = false;" %>
     </p>
   <% end %>
 <% end %>

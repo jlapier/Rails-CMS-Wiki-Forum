@@ -1,5 +1,17 @@
 <h1>Editing page</h1>
 
+<% if @content_page.editing_user and @content_page.editing_user != current_user %>
+  <div class="flash_message error_message">
+    <em>
+      <strong>Warning:</strong>
+      Someone else is already editing this document!
+    </em>
+    <br/>
+    <%= @content_page.editing_user.fullname %> started editing this page
+    <%= time_ago_in_words @content_page.started_editing_at %> ago.
+  </div>
+<% end %>
+
 <%= render :partial => 'form'  %>
 
 <br/>
@@ -27,3 +39,15 @@
   <%= link_to 'List of Pages', content_pages_path %> |
   <%= link_to 'List of Categories', categories_path %>
 </p>
+
+
+<script type="text/javascript">
+  var needToConfirm = true;
+
+  window.onbeforeunload = confirmExit;
+  function confirmExit() {
+    if (needToConfirm) {
+      return "You may have unsaved changes.";
+    }
+  }
+</script>
