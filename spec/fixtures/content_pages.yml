@@ -12,16 +12,20 @@
 # End Schema
 
 # == Schema Information
-# Schema version: 20091120223316
+# Schema version: 20091202222916
 #
 # Table name: content_pages
 #
-#  id         :integer       not null, primary key
-#  name       :string(255)   
-#  body       :text          
-#  special    :string(255)   
-#  created_at :datetime      
-#  updated_at :datetime      
+#  id                 :integer       not null, primary key
+#  name               :string(255)   
+#  body               :text          
+#  special            :string(255)   
+#  created_at         :datetime      
+#  updated_at         :datetime      
+#  is_preview_only    :boolean       
+#  started_editing_at :datetime      
+#  editing_user_id    :integer       
+#  publish_on         :date          
 # End Schema
 
 classes/Fixtures.html

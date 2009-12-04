@@ -10,6 +10,11 @@
 
 
 <% if current_user and current_user.is_admin? %>
+  <% unless @content_page.publish_on.nil? %>
+    <div style="float:right; text-align:right;">
+      <em>Published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+    </div>
+  <% end %>
   <p class="admin_links">
     <%= link_to 'Edit this Page', edit_content_page_path(@content_page) %> |
     <%= link_to 'List of Pages', content_pages_path %> |

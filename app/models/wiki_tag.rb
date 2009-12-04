@@ -8,7 +8,7 @@
 #
 
 # == Schema Information
-# Schema version: 20091120223316
+# Schema version: 20091202222916
 #
 # Table name: wiki_tags
 #

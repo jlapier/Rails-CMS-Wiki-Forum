@@ -21,10 +21,14 @@ class ContentPagesController < ApplicationController
   # GET /content_pages/1.xml
   def show
     @content_page = ContentPage.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @content_page }
+    if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @content_page }
+      end
+    else
+      flash[:warning] = "That page is currently unavailable."
+      redirect_to content_pages_path
     end
   end
 

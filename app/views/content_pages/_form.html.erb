@@ -18,6 +18,11 @@
       <li>[[LinkCategory Some Kind of Category]] &nbsp; &nbsp; <em>links to the category index page</em></li>
       <li>[[SearchBox]] &nbsp; &nbsp; <em>displays a search form</em></li>
     </ul>
+    <div style="padding-left: 25px;">
+      Options for List functions <em>(add to end before closing brackets)</em>:
+      WithHome, SortByDate, SortByDateReverse
+      SortByAlpha, SortByAlphaReverse
+    </div>
   </div>
 
   <p>
@@ -32,15 +37,31 @@
     <p>
       Categories: (check as many as you want)<br/>
       <% for category in Category.find(:all) %>
-        <%= check_box_tag "content_page[category_ids][]", category.id, @content_page.categories.include?(category)  %>
+        <%= check_box_tag "content_page[category_ids][]", category.id,
+              (@content_page.categories.include?(category) or
+                (params[:category_id] and params[:category_id].to_i == category.id) ) %>
         <%= category.name %><br/>
       <% end %>
       New category: <%= text_field_tag "new_category" %>
     </p>
 
+    <% unless @content_page.new_record? %>
+      <p>
+        Publish Date (optional):
+        <%= text_field_tag "content_page[publish_on]",
+              @content_page.publish_on ? @content_page.publish_on.strftime("%m/%d/%Y") : '' %>
+      </p>
+    <% end %>
+
     <p>
-      <%= f.select :is_preview_only, options_for_select( [ ["Draft/Preview", 1], ["Final/Publish", 0] ],
-              @content_page.is_preview_only? ? 1 : 0 ) %> &nbsp;
+      <% unless @content_page.new_record? %>
+        <%= f.select :is_preview_only, options_for_select( [ ["Draft/Preview", 1], ["Final/Publish", 0] ],
+                @content_page.is_preview_only? ? 1 : 0 ) %> &nbsp;
+      <% end %>
+      <%= f.submit "Save", :onclick => "needToConfirm = false;" %>
+    </p>
+  <% else %>
+    <p>
       <%= f.submit "Save", :onclick => "needToConfirm = false;" %>
     </p>
   <% end %>
@@ -55,6 +76,8 @@
         filebrowserUploadUrl : '<%= upload_handler_content_page_path(@content_page) %>',
         toolbar : 'Mid'
       });
+
+      $('#content_page_publish_on').datepicker();
   //]]>
 </script>
   <%# TODO: filebrowserBrowseUrl : '/something' %>
