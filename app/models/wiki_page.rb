@@ -30,7 +30,9 @@
 
 class WikiPage < ActiveRecord::Base
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
-  
+
+  searchable_by :title, :body
+
   validates_presence_of :title, :url_title
   
   has_and_belongs_to_many :wiki_tags

@@ -1,13 +1,4 @@
 # == Schema Information
-# Schema version: 20090922222035
-#
-# Table name: wiki_tags
-#
-#  id   :integer(4)    not null, primary key
-#  name :string(255)   
-#
-
-# == Schema Information
 # Schema version: 20091202222916
 #
 # Table name: wiki_tags
@@ -17,6 +8,8 @@
 # End Schema
 
 class WikiTag < ActiveRecord::Base
+  searchable_by :name
+
   validates_presence_of :name
   validates_uniqueness_of :name
   

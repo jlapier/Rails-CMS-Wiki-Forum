@@ -1,14 +1,4 @@
-<div class="wiki_top_links">
-  <form name="wiki_search" id="wiki_search">
-  <%= link_to 'new', wiki_page_new_path %> &nbsp;
-  <input name="name" id="name" size="6" value="search" onclick="if ( $('name').value == 'search') $('name').value = '';">
-  </form>
-  <div id="results" style="position:absolute; z-index: 9; background:#FFE; display:none; border: 1px solid #999; padding: 4px;"></div>
-</div>
-
-<%= observe_form "wiki_search", :url => { :action => "live_search" },
-                  :frequency => 0.5, :update => "results", :success => "$('results').show()" %>
-
+<%= render :partial => "top_links" %>
 
 <% if @wiki_tag %>
   <h1>Pages Tagged: <%= @wiki_tag.name %></h1>
@@ -26,22 +16,15 @@
     </td>
 
     <td style="width:410px; vertical-align:top">
-      tad cloud goes here
+      <%= render :partial => 'tag_cloud' %>
     </td>
   </tr>
 </table>
 
-
-
-
-
-<%= render :partial => 'tag_cloud_loader' %>
-
-
 <script type="text/javascript">
-  Event.observe(window, 'load', function() {
-    Event.addBehavior({
-      '#wiki_pages_table': SortableTable
-    })
-  })
+  $(document).ready(function()
+    {
+      $("#wiki_pages_table").tablesorter( { widgets: ['zebra'] });
+    }
+  );
 </script>

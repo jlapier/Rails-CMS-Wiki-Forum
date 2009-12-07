@@ -18,12 +18,7 @@ class WikiPagesController < ApplicationController
     all_wiki_tags = WikiTag.find :all
     @wiki_tags, to_delete = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
     to_delete.map(&:destroy)
-    @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages.count }.reverse[0..30]
-#    counts = @wiki_tags.map { |wt| wt.wiki_pages.count }
-#    @min_count = counts.min
-#    max_count = counts.max
-#    middle_count = counts.reject { |cnt| cnt == @min_count or cnt == max_count }
-#    @count_factor = 14 / (middle_count.size + 1)
+    render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages.count } }
   end
   
   def list_by_tag
@@ -134,7 +129,8 @@ class WikiPagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+  # TODO: write the js to call this via ajax
   def live_search
     # only search if we have at least 3 letters
     if params[:name].length > 2
@@ -147,6 +143,12 @@ class WikiPagesController < ApplicationController
     else
       render :nothing => true
     end
+  end
+
+  def search
+    @name_part = params[:name]
+    @wiki_pages = WikiPage.search @name_part
+    @wiki_tags = WikiTag.search @name_part
   end
   
   def homepage

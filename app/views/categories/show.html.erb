@@ -12,7 +12,7 @@
   <tbody>
     <% @category.content_pages.each do |content_page| %>
       <tr>
-        <td style="width:20%;"><%= link_to content_page.name, content_page %></td>
+        <td style="width:20%;"><%= link_to truncate(content_page.name, :length => 75), content_page %></td>
         <td><%= truncate(strip_tags(content_page.body), :length => 150) %></td>
         <td><%= content_page.publish_on ? content_page.publish_on.strftime('%m/%d/%Y') : '' %></td>
         <% if is_admin? %>

@@ -53,6 +53,7 @@ class ContentPage < ActiveRecord::Base
     #   LinkPage Page Name  // links directly to the page specified
     #   LinkCategory Some Kind of Category    // links to the category index page
     def function(function_string)
+      function_string.gsub! "&nbsp;", " "
       function_name, param = function_string.split(' ', 2)
       if param
         use_homelink = param.downcase.include?("withhome")

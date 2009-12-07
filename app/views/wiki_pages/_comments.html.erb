@@ -1,25 +1,16 @@
-<%= link_to "post a comment:", { :show => 'comment_form' }, :class => 'show_hide_link' %>
-<div class="comment_form" style="display:none">
-<% form_remote_for(:wiki_comment, WikiComment.new(:wiki_page_id => @wiki_page.id), :url => {  :controller => '/wiki_comments', :action => :create }) do |f|  %>
+<em>post a comment:</em>
+<div class="comment_form">
+<% form_remote_for(:wiki_comment, WikiComment.new(:wiki_page_id => @wiki_page.id),
+      :url => {  :controller => '/wiki_comments', :action => :create }) do |f|  %>
   <%= f.hidden_field :wiki_page_id  %>
-  <%= f.text_area :body, :rows => 2, :class => 'expandable', :style => 'width:180px;' %><br/>
+  <%= f.text_area :body, :rows => 2, :class => 'expandable', :style => 'width:92%; height: 70px;' %><br/>
   <%= submit_tag "post it" %>
 <% end %>
 </div>
 
-<% for comment in @wiki_page.wiki_comments.reverse %>
+<% for comment in @wiki_page.wiki_comments %>
   <p>
     <em><strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>:</em> &nbsp; 
     <%= textilize_without_paragraph comment.body %>
   </p>
 <% end %>
-
-
-<script type="text/javascript">
-  Event.observe(window, 'load', function() {
-    Event.addBehavior({
-      '.show_hide_link': ShowHideLink
-    });
-  });
-  Event.addBehavior.reassignAfterAjax = true;
-</script>

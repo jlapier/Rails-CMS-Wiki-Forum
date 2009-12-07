@@ -1,19 +1,4 @@
-<div class="wiki_top_links">
-  <form name="wiki_search" id="wiki_search" action="">
-    <%= link_to 'history', wiki_page_history_path(:title => @wiki_page.url_title) %> &nbsp;
-    <%= link_to 'edit', wiki_page_edit_path(@wiki_page) %> &nbsp;
-    <%= link_to 'delete', { :controller => '/wiki_pages', :action => :destroy, :id => @wiki_page },
-          :confirm => "Are you really sure you want to delete this wiki page?", :method => :delete %> &nbsp;
-    <%= link_to 'new', wiki_page_new_path %> &nbsp;
-    <%= link_to 'chatter', wiki_page_chatter_path %> &nbsp;
-    <input name="name" id="name" size="6" value="search" onclick="if ( $('name').value == 'search') $('name').value = '';">
-  </form>
-  <em class="tiny_text">page last updated: <%= @wiki_page.updated_at.strftime "%m/%d/%y"  %></em>
-  <div id="results" style="position:absolute; z-index: 9; background:#FFE; display:none; border: 1px solid #999; padding: 4px;"></div>
-</div>
-
-<%= observe_form "wiki_search", :url => { :controller => '/wiki_pages', :action => "live_search" },
-                  :frequency => 0.5, :update => "results", :success => "$('results').show()" %>
+<%= render :partial => "top_links" %>
 
 <h1><%= link_to "Wiki", wiki_page_show_home_path %>: <%= @wiki_page.title %></h1>
 

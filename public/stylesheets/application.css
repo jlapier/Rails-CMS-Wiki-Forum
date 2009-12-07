@@ -133,7 +133,8 @@ input#user_openid_identifier, input#user_session_openid_identifier {
 .link_box a:link, .link_box a:visited { color: #009; }
 .link_box a:hover { color: #00F; }
 
-.category_links { margin: 24px; padding: 12px 0px; border: 1px solid #CCC; background: #EEE; color: #333; }
+.category_links { margin: 24px; padding: 12px; border: 1px solid #CCC;
+                 background: #EEE; color: #333; text-indent: 0; }
 
 
 
@@ -190,7 +191,7 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 .wiki_page_body { background:white; padding: 12px; border: 1px #999 solid; }
 .wiki_page_body p { text-indent: 0; }
 .wiki_comments { background:white; padding: 0px 12px; border: 1px #999 solid; }
-.wiki_comments p { font-size: 11px; }
+.wiki_comments p { font-size: 11px; text-indent: 0; }
 .wiki_comments textarea { font-size: 11px; width: 220px; }
 .wiki_comments input { font-size: 10px; border: 1px solid #999; background: #EEE; margin: 2px;}
 
@@ -206,7 +207,21 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 
 th.sorted_by { background: #99C; }
 
-
+#tagCloud {
+  width:300px; background-color:#EEE; text-align:center; padding:5px;
+  overflow:auto; font-size:70%; font-family: Arial, sans-serif;
+  -moz-box-shadow: 0 0 50px #CCC;
+  -webkit-box-shadow: 0 0 50px #CCC;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  margin:20px;
+}
+#tagList { margin:0; padding:0; }
+#tagList li {
+  list-style-type:none; float:left; margin:0 10px; height:35px;
+}
+#tagList li a { text-decoration:none; color:#333; }
+#tagList li a:hover { text-decoration:underline; }  
 
 
 
