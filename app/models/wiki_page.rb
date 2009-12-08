@@ -58,7 +58,7 @@ class WikiPage < ActiveRecord::Base
     
     # sub out [[wiki-words]] with links to pages
     def body_for_display
-      body.gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2) }.
+      (body || '').gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2) }.
         gsub( /(\[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_link_to($2) }
     end
   end
