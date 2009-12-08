@@ -20,7 +20,7 @@
 
     <% @user_group.users.each do |user|  %>
       <tr>
-        <td><%= link_to user.login, :action => 'edit', :id => user %> (<%= user.fullname %>)</td>
+        <td><%= link_to user.login, edit_user_path(user) %> (<%= user.fullname %>)</td>
         <td><%= user.email %></td>
         <td><%= link_to "drop from group", drop_user_user_group_path(@user_group, :user_id => 1), :method => :post %></td>
         <td><%= check_box_tag "user_ids[]", user.id %></td>
