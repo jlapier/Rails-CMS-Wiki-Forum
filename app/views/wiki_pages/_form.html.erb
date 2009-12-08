@@ -6,9 +6,13 @@
   </p>
 
   <p>
-    <%= f.text_area :body, :rows => 10, :cols => 80 %>
+    <% if @wiki_page.new_record? %>
+      <em>Note: after creating this new wiki page, you will be able to edit the body</em>
+    <% else %>
+      <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
+    <% end %>
   </p>
-
+  
   <p>
     Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %>
   </p>
@@ -18,6 +22,7 @@
   </p>
 <% end %>
 
+<% unless @wiki_page.new_record? %>
 <script type="text/javascript">
   //<![CDATA[
     CKEDITOR.replace( 'wiki_page[body]',
@@ -27,3 +32,4 @@
       });
   //]]>
 </script>
+<% end %>

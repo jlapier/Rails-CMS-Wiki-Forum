@@ -30,7 +30,7 @@ class UserGroup < ActiveRecord::Base
   end
 
   def access_string
-    special.map { |i| SPECIAL_ACCESS[i] }.join(', ')
+    (special || []).map { |i| SPECIAL_ACCESS[i] }.join(', ')
   end
 
   def drop_users(drop_user_ids)
@@ -42,6 +42,6 @@ class UserGroup < ActiveRecord::Base
   private
 
   def integerize_special_index
-    self.special = special.map { |n| n.to_i }
+    self.special = special.map { |n| n.to_i } if special
   end
 end

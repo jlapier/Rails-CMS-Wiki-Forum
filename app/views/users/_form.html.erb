@@ -30,7 +30,7 @@
   </tr>
   <% if current_user.is_admin? %>
   <tr>
-    <td><%= form.label 'Group Memebership' %>:</td>
+    <td><%= form.label 'Group Membership' %>:</td>
     <td>
       <% UserGroup.find(:all).each do |user_group| %>
         <%= check_box_tag "user[user_group_ids][]", user_group.id, @user.user_groups.include?(user_group) %> <%= user_group.name %><br/>

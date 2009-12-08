@@ -1,6 +1,6 @@
 <h1>User Group: <%= @user_group.name %></h1>
 
-<% unless @user_group.special.empty? %>
+<% unless @user_group.special.blank? %>
 <p>
   <strong>Grants access to:</strong> <%= @user_group.access_string %>
 </p>

@@ -92,7 +92,7 @@ class WikiPagesController < ApplicationController
     @wiki_page.modifying_user = current_user
     if @wiki_page.save
       flash[:notice] = "New page <em>#{@wiki_page.title}</em> created."
-      redirect_to wiki_page_show_path(:title => @wiki_page.url_title)
+      redirect_to wiki_page_edit_path(@wiki_page)
     else
       render :action => :new
     end
