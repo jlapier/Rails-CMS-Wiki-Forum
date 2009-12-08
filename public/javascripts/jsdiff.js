@@ -23,10 +23,9 @@ function diffString( o, n ) {
   n = n.replace(/\s+$/, '');
 
   var osplit = [];
-  o.scan(/(\<([^>]*)\>|[^\s<]+)/, function(match) { osplit.push(match[0]) } )
-
+  $.string(o).scan(/(\<([^>]*)\>|[^\s<]+)/, function(match) { osplit = match } )
   var nsplit = [];
-  n.scan(/(\<([^>]*)\>|[^\s<]+)/, function(match) { nsplit.push(match[0]) } )
+  $.string(n).scan(/(\<([^>]*)\>|[^\s<]+)/, function(match) { nsplit = match } )
 
   var out = diff(osplit, nsplit);
   var str = "";

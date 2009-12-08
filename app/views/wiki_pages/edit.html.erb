@@ -1,3 +1,33 @@
 <h1><%= link_to "Wiki", wiki_page_show_home_path %>: Editing: <%= @wiki_page.title %></h1>
 
 <%= render :partial => 'form'  %>
+
+
+<h3>Assets in this Wiki Page</h3>
+<% if @assets.empty? %>
+  <p><em>no assets found</em></p>
+<% else %>
+  <ul>
+    <% for asset in @assets %>
+      <li>
+        <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
+        <%= link_to "X", delete_asset_wiki_page_path(@wiki_page, :asset => asset),
+          :confirm => "Really delete this file?", :method => :post,
+          :style => 'color:#F00' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<br/>
+
+<script type="text/javascript">
+  var needToConfirm = true;
+
+  window.onbeforeunload = confirmExit;
+  function confirmExit() {
+    if (needToConfirm) {
+      return "You may have unsaved changes.";
+    }
+  }
+</script>

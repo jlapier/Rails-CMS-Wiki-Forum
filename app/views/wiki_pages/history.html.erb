@@ -26,20 +26,19 @@
   var Versionator = $.klass({
     initialize: function(prefix) {
       this.prefix = prefix;
-      this.version = $.string(this.element[0].id).gsub(prefix + '_version_', '');
-      this.body_text = $(this.element[0]).children('.body_to_diff').innerHTML;
+      this.version = $.string(this.element[0].id).gsub(prefix + '_version_', '').str;
+      this.body_text = $(this.element[0]).children('.body_to_diff')[0].innerHTML;
     },
     onclick: $.delegate({
     '.version_title': function(e) {
       $('.diff_text').remove();
-      compare_to_el = $('#' + this.prefix + '_version_' + (this.version - 1) )
+      compare_to_el = $('#' + this.prefix + '_version_' + (this.version - 1));
       if(compare_to_el.length > 0) {
-        console.log(compare_to_el.children('.body_to_diff'))
         prev_text = compare_to_el.children('.body_to_diff')[0].innerHTML;
         diffed = diffString(prev_text, this.body_text);
-        diffed = diffed.gsub('&lt;','<').gsub('&gt;','>');
-        diffdiv = DOM.Builder.fromHTML('<div class="diff_text">' + diffed + '</div>');
-        $(this.element[0]).insert( diffdiv );
+        diffed = $.string(diffed).gsub('&lt;','<').gsub('&gt;','>');
+        diffdiv = $('<div class="diff_text">' + diffed.str + '</div>');
+        diffdiv.appendTo(this.element);
       }
 
     }})

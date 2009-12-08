@@ -79,6 +79,8 @@ class WikiPagesController < ApplicationController
   
   def edit
     @wiki_page = WikiPage.find params[:id]
+    @rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
+    @assets = Dir[File.join(RAILS_ROOT, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
   end
   
   def new
@@ -158,5 +160,33 @@ class WikiPagesController < ApplicationController
   
   def chatter
     @comments = WikiComment.find :all, :limit => 40, :include => [:wiki_page, :user], :order => "created_at DESC"
+  end
+
+  def upload_handler
+    @wiki_page = WikiPage.find params[:id]
+    file_name = params[:upload].original_filename
+    # break it up into file and extension
+    # we need this to check the types and to build new names if necessary
+    rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
+    actual_dir = File.join(RAILS_ROOT, 'public', rel_dir)
+    FileUtils.mkdir_p actual_dir
+    File.open(File.join(actual_dir, file_name), 'wb') do |f|
+      f.write(params[:upload].read)
+    end
+
+    render :text => "<html><body><script type=\"text/javascript\">" +
+      "parent.CKEDITOR.tools.callFunction( #{params[:CKEditorFuncNum]}, '/#{rel_dir}/#{file_name}' )" +
+      "</script></body></html>"
+  end
+
+  def delete_asset
+    @content_page = ContentPage.find params[:id]
+    file = File.join RAILS_ROOT, 'public', "content_page_assets", "content_page_#{@content_page.id}", params[:asset]
+    if File.exists?(file) and File.delete(file)
+      flash[:notice] = "#{File.basename(file)} deleted."
+    else
+      flash[:error] = "Unable to delete #{File.basename(file)}."
+    end
+    redirect_to edit_content_page_path(@content_page)
   end
 end

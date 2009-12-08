@@ -14,7 +14,7 @@
   </p>
 
   <p>
-    <%= f.submit "Save" %>
+    <%= f.submit "Save", :onclick => "needToConfirm = false;" %>
   </p>
 <% end %>
 
@@ -22,7 +22,8 @@
   //<![CDATA[
     CKEDITOR.replace( 'wiki_page[body]',
       {
-        uiColor : '#819033'
+        uiColor : '#819033',
+        filebrowserUploadUrl : '<%= upload_handler_wiki_page_path(@wiki_page) %>'
       });
   //]]>
 </script>
