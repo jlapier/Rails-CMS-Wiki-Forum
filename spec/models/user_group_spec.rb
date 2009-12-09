@@ -36,4 +36,11 @@ describe UserGroup do
     ug = UserGroup.create!(@valid_attributes)
     ug.access_string.should == expected_access
   end
+
+  it "should say whether it grants access given a string" do
+    ug = UserGroup.create!(@valid_attributes)
+    assert ug.grants_access_to?('Wiki Reader')
+    assert !ug.grants_access_to?('Wiki Editor')
+    assert !ug.grants_access_to?('Some made up access')
+  end
 end

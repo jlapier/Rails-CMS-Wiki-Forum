@@ -28,5 +28,8 @@ describe User do
     u.stub!(:user_groups).and_return([wiki_reader_user_group])
     assert u.has_access_to?('wiki')
     assert !u.has_access_to?('forum')
+    assert u.has_group_access?('Wiki Reader')
+    assert !u.has_group_access?('Wiki Editor')
+    assert !u.has_group_access?('I make up good stuff')
   end
 end

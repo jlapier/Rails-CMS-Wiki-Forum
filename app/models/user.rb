@@ -57,10 +57,13 @@ class User < ActiveRecord::Base
     first_name.blank? ? login : "#{first_name} #{last_name}"
   end
 
+  # more of a helper to see if someone should get a link to the wiki or not,
+  # not for read/write access considerations
   def has_access_to?(component)
     user_groups.any? { |ug| ug.access_string =~ /#{component}/i }
   end
 
+  # provide a string describing the access required
   def has_group_access?(access_required)
     user_groups.any? {|g| g.grants_access_to?(access_required) }
   end
