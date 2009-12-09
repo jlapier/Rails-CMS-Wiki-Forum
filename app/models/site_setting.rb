@@ -39,6 +39,11 @@ class SiteSetting < ActiveRecord::Base
         setting = SiteSetting.new :setting_name => name, :yamled => false
       end
 
+      # reset old in case this changed from one type to another
+      setting.setting_text_value = nil
+      setting.setting_string_value = nil
+      setting.setting_number_value = nil
+
       if value.is_a? Integer
         setting.setting_number_value = value
       elsif value.is_a? String and value.size < 250

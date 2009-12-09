@@ -106,6 +106,36 @@ class ContentPage < ActiveRecord::Base
         else
           ""
         end
+      when "treecategories"
+        if param.blank?
+          categories = Category.find(:all, :include => :content_pages,
+            :order => order_string_from_sort_in_function(sort_order))
+        else
+          cat_names = param.split(',').map(&:strip)
+          categories = Category.find(:all, :conditions => ["name in (?)", cat_names],
+            :include => :content_pages,
+            :order => order_string_from_sort_in_function(sort_order))
+        end
+        
+        out = "param was #{param}<ul>\n"
+
+        out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
+
+        if categories.empty?
+          out += "<li><em>No categories were found</em></li>\n"
+        else
+          out += categories.map { |cat|
+            "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a>" +
+              "<ul>" +
+              cat.content_pages.map { |page|
+                "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
+              }.join("\n") +
+            "</ul></li>"
+          }.join("\n")
+        end
+
+        out += "\n</ul>\n"
+        out
       when "linkpage"
         page = ContentPage.find_by_name param
 

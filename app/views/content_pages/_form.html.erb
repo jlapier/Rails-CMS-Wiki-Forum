@@ -8,22 +8,26 @@
     <% end %>
   </p>
 
-  <div class="small_text" style="border: 1px solid #666; background: #FFD; padding: 4px 8px 0; margin-bottom: 12px;">
-    <strong>Functions:</strong>
-    <ul>
-      <li>[[ListCategories]] &nbsp; &nbsp; <em>lists all categories</em></li>
-      <li>[[ListPagesInCategory Some Kind of Category]] &nbsp; &nbsp;
-        <em>list all pages in the category called "Some Kind of Category"</em></li>
-      <li>[[LinkPage Page Name]] &nbsp; &nbsp; <em>links directly to the page specified</em></li>
-      <li>[[LinkCategory Some Kind of Category]] &nbsp; &nbsp; <em>links to the category index page</em></li>
-      <li>[[SearchBox]] &nbsp; &nbsp; <em>displays a search form</em></li>
-    </ul>
-    <div style="padding-left: 25px;">
-      Options for List functions <em>(add to end before closing brackets)</em>:
-      WithHome, SortByDate, SortByDateReverse
-      SortByAlpha, SortByAlphaReverse
+  <% unless @content_page.new_record? %>
+    <div class="small_text" style="border: 1px solid #666; background: #FFD; padding: 4px 8px 0; margin-bottom: 12px;">
+      <strong>Functions:</strong>
+      <ul>
+        <li>[[ListCategories]] &nbsp; &nbsp; <em>lists all categories</em></li>
+        <li>[[ListPagesInCategory Some Kind of Category]] &nbsp; &nbsp;
+          <em>list all pages in the category called "Some Kind of Category"</em></li>
+        <li>[[LinkPage Page Name]] &nbsp; &nbsp; <em>links directly to the page specified</em></li>
+        <li>[[LinkCategory Some Kind of Category]] &nbsp; &nbsp; <em>links to the category index page</em></li>
+        <li>[[TreeCategories]] &nbsp; &nbsp; <em>create a tree-like list of all categories and their pages</em></li>
+        <li>[[TreeCategories Cat A, Cat B, Cat C]] &nbsp; &nbsp; <em>create a tree-like list of categories named "Cat A", "Cat B", "Cat C", and their pages</em></li>
+        <li>[[SearchBox]] &nbsp; &nbsp; <em>displays a search form</em></li>
+      </ul>
+      <div style="padding-left: 25px;">
+        Options for List functions <em>(add to end before closing brackets)</em>:
+        WithHome, SortByDate, SortByDateReverse
+        SortByAlpha, SortByAlphaReverse
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <p>
     <% if @content_page.new_record? %>

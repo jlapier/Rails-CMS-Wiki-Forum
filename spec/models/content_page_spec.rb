@@ -22,10 +22,6 @@ describe ContentPage do
     assert !cp.is_preview_only?
   end
 
-  #   ListCategories    // lists all categories
-  #   ListPagesInCategory Some Kind of Category    // list all pages in the category called "Some Kind of Category"
-  #   LinkPage Page Name  // links directly to the page specified
-  #   LinkCategory Some Kind of Category    // links to the category index page
   it "should generate HTML from function ListCategories" do
     Category.should_receive(:find).with(:all, {:order=>"name ASC"}).and_return([@mock_category])
     lines = ContentPage.function('ListCategories').split("\n")
