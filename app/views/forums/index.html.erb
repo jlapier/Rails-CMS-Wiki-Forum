@@ -37,7 +37,7 @@
         </p>
       </td>
     </tr>
-    <% if current_user and current_user.is_admin? %>
+    <% if is_admin? %>
     <tr>
       <td class="small_text" colspan="2">
         <%= link_to 'edit details of this forum', edit_forum_path(forum) %> |
@@ -52,6 +52,6 @@
    
 <br />
 
-<% if current_user and current_user.is_admin? %>
+<% if is_admin? %>
   <%= link_to 'create a new forum', new_forum_path %>
 <% end %>

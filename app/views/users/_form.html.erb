@@ -28,7 +28,7 @@
     <td><%= form.label :password_confirmation %>:</td>
     <td><%= form.password_field :password_confirmation %></td>
   </tr>
-  <% if current_user.is_admin? %>
+  <% if is_admin? %>
   <tr>
     <td><%= form.label 'Group Membership' %>:</td>
     <td>

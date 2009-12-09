@@ -25,7 +25,7 @@
   <p><%= link_to 'Edit your Contact Information', edit_account_path %></p>
 <% end %>
 
-<% if current_user and current_user.is_admin? %>
+<% if is_admin? %>
   <p class="admin_links">
     <%= link_to 'Site Settings', site_settings_path %> |
     <%= link_to 'Theme/Styling', :controller => :themes %> |

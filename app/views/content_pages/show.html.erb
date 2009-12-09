@@ -9,7 +9,7 @@
 <% end %>
 
 
-<% if current_user and current_user.is_admin? %>
+<% if is_admin? %>
   <% unless @content_page.publish_on.nil? %>
     <div style="float:right; text-align:right;">
       <em>Published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>

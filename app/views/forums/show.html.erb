@@ -14,7 +14,7 @@
 
 <br/><br/>
 
-<% unless @forum.moderator_only? and (current_user && !current_user.is_admin?) -%>
+<% unless @forum.moderator_only? and !is_admin? -%>
   <h4>Start a new discussion thread in this forum:</h4>
   
   <%= render :partial => "/message_posts/message_form", :locals => { :message_post => @new_message_post } %>
