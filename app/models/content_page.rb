@@ -117,7 +117,7 @@ class ContentPage < ActiveRecord::Base
             :order => order_string_from_sort_in_function(sort_order))
         end
         
-        out = "param was #{param}<ul>\n"
+        out = "<ul>\n"
 
         out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
 
