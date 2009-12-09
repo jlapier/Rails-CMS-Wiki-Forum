@@ -1,4 +1,6 @@
 class WikiPagesController < ApplicationController
+  before_filter :get_tags
+
   before_filter  do |controller|
     if [:index, :show, :tag_index, :tagcloud, :search, :show_by_title, :history, :chatter].include? controller.params[:action].to_sym
       controller.require_group_access(["Wiki Reader", "Wiki Editor"])
@@ -15,16 +17,10 @@ class WikiPagesController < ApplicationController
   end
   
   def tag_index
-    all_wiki_tags = WikiTag.find :all
-    @wiki_tags, to_delete = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
-    @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
-    to_delete.map(&:destroy)
+    
   end
   
   def tagcloud
-    all_wiki_tags = WikiTag.find :all
-    @wiki_tags, to_delete = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
-    to_delete.map(&:destroy)
     render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages.count } }
   end
   
@@ -201,5 +197,13 @@ class WikiPagesController < ApplicationController
       flash[:error] = "Unable to delete #{File.basename(file)}."
     end
     redirect_to edit_content_page_path(@content_page)
+  end
+
+  private
+  def get_tags
+    all_wiki_tags = WikiTag.find :all
+    @wiki_tags, to_delete = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
+    @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
+    to_delete.map(&:destroy)
   end
 end

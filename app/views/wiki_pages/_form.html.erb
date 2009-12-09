@@ -18,7 +18,9 @@
   
   
   <p>
-    Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %>
+    Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %><br/>
+    <em style="margin-left: 25px;">Common tags:</em>
+    <%= @wiki_tags[0..20].map(&:name).join(', ') %>
   </p>
 
   <p>
