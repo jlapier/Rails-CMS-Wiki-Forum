@@ -1,19 +1,4 @@
 # == Schema Information
-# Schema version: 20090922222035
-#
-# Table name: wiki_pages
-#
-#  id                :integer(4)    not null, primary key
-#  title             :string(255)   
-#  url_title         :string(255)   
-#  modifying_user_id :integer(4)    
-#  body              :text          
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#  version           :integer(4)    
-#
-
-# == Schema Information
 # Schema version: 20091202222916
 #
 # Table name: wiki_pages

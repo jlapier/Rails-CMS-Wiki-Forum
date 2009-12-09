@@ -17,6 +17,30 @@ module ApplicationHelper
     @site_title ||= SiteSetting.read_setting('site title') || "A Site"
   end
 
+  def page_title
+    pre = case controller.action_name
+    when "edit" then "Editing "
+    when "new"  then "Creating "
+    else
+      ""
+    end
+    if @content_page
+      "#{pre} #{@content_page.name}"
+    elsif @category
+      "#{pre}Category: #{@category.name}"
+    elsif @wiki_page
+      "#{pre}Wiki Page: #{@wiki_page.title}"
+    elsif @wiki_tag
+      "#{pre}Wiki Tag: #{@wiki_tag.name}"
+    elsif @user
+      "#{pre}User: #{@user.login}"
+    elsif @user_group
+      "#{pre}User Group: #{@user_group.login}"
+    else
+      controller.controller_name.titleize
+    end
+  end
+
   def site_logo
     @site_logo ||= SiteSetting.read_setting('site logo') || "GenericLogo.png"
   end
