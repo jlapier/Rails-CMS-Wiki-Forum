@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :wiki_comments
 
-  map.resources :wiki_pages, :member => { :upload_handler => :post, :delete_asset => :post }
+  map.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post }
   
   map.with_options :controller => 'wiki_pages', :name_prefix => 'wiki_page_', :path_prefix => '/wiki' do |wiki_page|
     wiki_page.show_home '',                 :action => 'show_by_title', :title => 'Home'

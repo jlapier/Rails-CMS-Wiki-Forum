@@ -179,6 +179,12 @@ class WikiPagesController < ApplicationController
       "</script></body></html>"
   end
 
+  def page_link_handler
+    @wiki_page = WikiPage.find params[:id]
+    @wiki_pages = WikiPage.find :all
+    render :action => :page_link_handler, :layout => 'minimal'
+  end
+
   def delete_asset
     @content_page = ContentPage.find params[:id]
     file = File.join RAILS_ROOT, 'public', "content_page_assets", "content_page_#{@content_page.id}", params[:asset]

@@ -209,7 +209,7 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 th.sorted_by { background: #99C; }
 
 #tagCloud {
-  width:300px; background-color:#EEE; text-align:center; padding:5px;
+  width:250px; background-color:#EEE; text-align:center; padding:5px;
   overflow:auto; font-size:70%; font-family: Arial, sans-serif;
   -moz-box-shadow: 0 0 50px #CCC;
   -webkit-box-shadow: 0 0 50px #CCC;

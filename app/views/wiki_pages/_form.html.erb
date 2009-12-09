@@ -5,13 +5,17 @@
     <%= f.text_field :title, :size => 50 %>
   </p>
 
-  <p>
+  
     <% if @wiki_page.new_record? %>
-      <em>Note: after creating this new wiki page, you will be able to edit the body</em>
+      <p><em>Note: after creating this new wiki page, you will be able to edit the body</em></p>
     <% else %>
+      <div class="small_text" style="border: 1px solid #666; background: #FFD; padding: 4px 8px; margin-bottom: 12px;">
+        To easily link to another wiki page, just use the format:<br/>
+        [[Title of Another Page]]
+      </div>
       <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
     <% end %>
-  </p>
+  
   
   <p>
     Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %>
@@ -29,6 +33,7 @@
       {
         uiColor : '#819033',
         filebrowserUploadUrl : '<%= upload_handler_wiki_page_path(@wiki_page) %>'
+        //filebrowserBrowseUrl : '<%= page_link_handler_wiki_page_path(@wiki_page) %>'
       });
   //]]>
 </script>
