@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     user_groups.any? { |ug| ug.access_string =~ /#{component}/i }
   end
 
+  def has_group_access?(access_required)
+    user_groups.any? {|g| g.grants_access_to?(access_required) }
+  end
+
   private
   def make_admin_if_first_user
     self.is_admin = true if User.count == 0

@@ -1,5 +1,12 @@
 class WikiPagesController < ApplicationController
-  before_filter :require_admin_user, :except => [:index, :show]
+  before_filter  do |controller|
+    if [:index, :show, :tag_index, :tagcloud, :search, :show_by_title, :history, :chatter].include? controller.params[:action].to_sym
+      controller.require_group_access(["Wiki Reader", "Wiki Editor"])
+    else
+      controller.require_group_access("Wiki Editor")
+    end
+  end
+  
   
   def index
     @wiki_pages = WikiPage.paginate :all, :page => params[:page],

@@ -33,6 +33,11 @@ class UserGroup < ActiveRecord::Base
     (special || []).map { |i| SPECIAL_ACCESS[i] }.join(', ')
   end
 
+  def grants_access_to?(access_req_string)
+    acc_index = SPECIAL_ACCESS.index access_req_string
+    acc_index and special.include?(acc_index)
+  end
+
   def drop_users(drop_user_ids)
     drop_user_ids = [*drop_user_ids].compact.map(&:to_i)
     self.user_ids = user_ids - drop_user_ids
