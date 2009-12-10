@@ -53,6 +53,7 @@ class ContentPage < ActiveRecord::Base
     #   LinkPage Page Name  // links directly to the page specified
     #   LinkCategory Some Kind of Category    // links to the category index page
     def function(function_string)
+      limit = nil
       function_string.gsub! "&nbsp;", " "
       function_name, param = function_string.split(' ', 2)
       if param
@@ -63,12 +64,18 @@ class ContentPage < ActiveRecord::Base
           sort_order = sort_match[1]
           param.gsub!(/#{sort_order}/i, '')
         end
+
+        limit_match = param.downcase.match(/.*limit=(\d+).*/)
+        if limit_match
+          limit = limit_match[1]
+          param.gsub!(/limit=#{limit}/i, '')
+        end
         param.strip!
       end
 
       case function_name.downcase
       when "listcategories"
-        categories = Category.find(:all, :order => order_string_from_sort_in_function(sort_order))
+        categories = Category.find(:all, :order => order_string_from_sort_in_function(sort_order), :limit => limit)
         out = "<ul>\n"
 
         out += "<li><a href=\"/\">Home</a></li>\n" if use_homelink
@@ -92,7 +99,7 @@ class ContentPage < ActiveRecord::Base
         if category
           pages = category.content_pages.find(:all, 
             :conditions => ['is_preview_only = ? AND (publish_on IS NULL OR publish_on <= ?)', false, Date.today],
-            :order => order_string_from_sort_in_function(sort_order))
+            :order => order_string_from_sort_in_function(sort_order), :limit => limit)
           if pages.empty?
               out += "<li><em>No pages were found in the category: #{param}</em></li>\n"
           else
@@ -109,12 +116,12 @@ class ContentPage < ActiveRecord::Base
       when "treecategories"
         if param.blank?
           categories = Category.find(:all, :include => :content_pages,
-            :order => order_string_from_sort_in_function(sort_order))
+            :order => order_string_from_sort_in_function(sort_order), :limit => limit)
         else
           cat_names = param.split(',').map(&:strip)
           categories = Category.find(:all, :conditions => ["name in (?)", cat_names],
             :include => :content_pages,
-            :order => order_string_from_sort_in_function(sort_order))
+            :order => order_string_from_sort_in_function(sort_order), :limit => limit)
         end
         
         out = "<ul>\n"
