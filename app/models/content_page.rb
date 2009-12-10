@@ -184,7 +184,11 @@ class ContentPage < ActiveRecord::Base
   end
 
   def body_for_display
-    (body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
+    main = (body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
+    if is_preview_only?
+      main += '<p><em class="highlight">This page is a draft and will not be visible to public viewers.</em></p>'
+    end
+    main
   end
 
   def ready_for_publishing?

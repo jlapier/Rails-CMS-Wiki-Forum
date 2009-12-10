@@ -12,7 +12,11 @@
 <% if is_admin? %>
   <% unless @content_page.publish_on.nil? %>
     <div style="float:right; text-align:right;">
-      <em>Published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+      <% if @content_page.publish_on <= Date.today %>
+        <em>Publish on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+      <% else %>
+        <em class="highlight">To be published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+      <% end %>
     </div>
   <% end %>
   <p class="admin_links">

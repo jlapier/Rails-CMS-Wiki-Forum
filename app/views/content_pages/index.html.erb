@@ -17,7 +17,12 @@
   <tbody>
     <% @content_pages.each do |content_page| %>
       <tr>
-        <td style="width:20%;"><%= link_to truncate(content_page.name, :length => 75), content_page %></td>
+        <td style="width:20%;">
+          <%= link_to truncate(content_page.name, :length => 75), content_page %>
+          <% if content_page.is_preview_only? %>
+            &nbsp; <em>(draft)</em>
+          <% end %>
+        </td>
         <td><%= @search_phrase ? highlight(excerpt(strip_tags(content_page.body), @search_phrase, :radius => 75), @search_phrase) :
                     truncate(strip_tags(content_page.body), :length => 150) %></td>
         <td><%= content_page.publish_on ? content_page.publish_on.strftime('%m/%d/%Y') : '' %></td>
