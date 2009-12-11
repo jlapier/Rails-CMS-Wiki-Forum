@@ -1,7 +1,8 @@
 class ThemesController < ApplicationController
   before_filter :require_admin_user, :except => [ :colors, :css, :images ]
   
-  caches_page :colors
+  caches_page :colors, :css
+  
   def index
     @custom_colors = SiteSetting.read_setting('custom colors') || []
   end
@@ -21,6 +22,7 @@ class ThemesController < ApplicationController
   end
 
   def update_css
+    expire_page "/themes/css/override.css"
     SiteSetting.write_setting('css override', params[:css])
     SiteSetting.write_setting('css override timestamp', Time.now.to_i)
     flash[:notice] = "CSS override updated."
@@ -34,7 +36,7 @@ class ThemesController < ApplicationController
   end
 
   def update_theme_settings
-    expire_page :action => :colors
+    expire_page "/themes/colors/custom.css"
     
     if params[:theme_colors] == 'custom' and @theme_colors != 'custom'
       SiteSetting.write_setting 'custom colors', COLOR_SCHEMES[@theme_colors]
@@ -43,6 +45,7 @@ class ThemesController < ApplicationController
     else
       SiteSetting.write_setting 'custom colors', nil
     end
+    SiteSetting.write_setting('custom colors timestamp', Time.now.to_i)
     
     SiteSetting.write_setting 'theme layout', params[:theme_layout]
     SiteSetting.write_setting 'theme colors', params[:theme_colors]

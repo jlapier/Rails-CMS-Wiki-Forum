@@ -18,18 +18,23 @@ class SiteSetting < ActiveRecord::Base
 
   class << self
     def read_setting(name)
-      setting = find :first, :conditions => { :setting_name => name }
-      return nil unless setting
+      val = Rails.cache.read(name)
 
-      if setting.setting_number_value
-        val = setting.setting_number_value
-      elsif !setting.setting_string_value.blank?
-        val = setting.setting_string_value
-      else
-        val = setting.setting_text_value
+      unless val
+        setting = find :first, :conditions => { :setting_name => name }
+        return nil unless setting
+
+        if setting.setting_number_value
+          val = setting.setting_number_value
+        elsif !setting.setting_string_value.blank?
+          val = setting.setting_string_value
+        else
+          val = setting.setting_text_value
+        end
+
+        val = YAML::load(val) if setting.yamled?
+        Rails.cache.write(name, val)
       end
-
-      val = YAML::load(val) if setting.yamled?
       val
     end
 
@@ -59,7 +64,18 @@ class SiteSetting < ActiveRecord::Base
           setting.setting_text_value = yamled_value
         end
       end
-      setting.save
+      if setting.save
+        Rails.cache.write(name, value)
+      end
+    end
+
+    def read_or_write_default_setting(name, default_value)
+      val = read_setting(name)
+      unless val
+        val = default_value
+        write_setting name, default_value
+      end
+      val
     end
   end
 end

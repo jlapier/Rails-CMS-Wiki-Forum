@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/tablesorter/blue/style.css" type="text/css" media="screen"/>
     <link type="text/css" href="/stylesheets/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :colors,
-      :name => @theme_colors, :format => 'css') %>" type="text/css" media="screen"/>
+      :name => @theme_colors, :format => 'css') %>?<%= @custom_colors_timestamp %>" type="text/css" media="screen"/>
     <% if @css_override %>
       <link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :css,
         :name => 'override', :format => 'css') %>?<%= @css_override_timestamp %>" type="text/css" media="screen"/>
