@@ -1,6 +1,7 @@
 class ContentPagesController < ApplicationController
   before_filter :require_admin_user, :except => [:home, :index, :show, :search]
-  
+  before_filter :expire_caches, :only => [:update, :destroy, :delete_asset]
+
   def home
     @content_page = ContentPage.get_front_page
     render :action => :show
@@ -20,15 +21,17 @@ class ContentPagesController < ApplicationController
   # GET /content_pages/1
   # GET /content_pages/1.xml
   def show
-    @content_page = ContentPage.find(params[:id])
-    if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @content_page }
+    if read_fragment({}).blank? or (current_user and current_user.is_admin?)
+      @content_page = ContentPage.find(params[:id])
+      if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
+        respond_to do |format|
+          format.html # show.html.erb
+          format.xml  { render :xml => @content_page }
+        end
+      else
+        flash[:warning] = "That page is currently unavailable."
+        redirect_to content_pages_path
       end
-    else
-      flash[:warning] = "That page is currently unavailable."
-      redirect_to content_pages_path
     end
   end
 
@@ -141,5 +144,10 @@ class ContentPagesController < ApplicationController
     @search_phrase = params[:q]
     @content_pages = ContentPage.search @search_phrase 
     render :action => :index
+  end
+
+  private
+  def expire_caches
+    expire_fragment :controller => 'content_pages', :action => 'show'
   end
 end

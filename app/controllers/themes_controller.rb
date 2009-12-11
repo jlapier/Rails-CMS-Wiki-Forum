@@ -1,6 +1,7 @@
 class ThemesController < ApplicationController
   before_filter :require_admin_user, :except => [ :colors, :css, :images ]
-
+  
+  caches_page :colors
   def index
     @custom_colors = SiteSetting.read_setting('custom colors') || []
   end
@@ -33,6 +34,8 @@ class ThemesController < ApplicationController
   end
 
   def update_theme_settings
+    expire_page :action => :colors
+    
     if params[:theme_colors] == 'custom' and @theme_colors != 'custom'
       SiteSetting.write_setting 'custom colors', COLOR_SCHEMES[@theme_colors]
     elsif params[:custom_colors]
