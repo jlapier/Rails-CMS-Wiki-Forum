@@ -24,14 +24,15 @@ class WikiPage < ActiveRecord::Base
   has_many :wiki_comments
   
   before_validation :set_url_title
-  
-  def validate
-    if id and WikiPage.count( :conditions => ["title = ? AND id != ?", title, id] ) > 0
-      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"
-    elsif id.nil? and WikiPage.count( :conditions => ["title = ?", title] ) > 0
-      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"
-    end
-  end
+
+  validates_uniqueness_of :title
+#  def validate
+#    if id and WikiPage.count( :conditions => ["title = ? AND id != ?", title, id] ) > 0
+#      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"
+#    elsif id.nil? and WikiPage.count( :conditions => ["title = ?", title] ) > 0
+#      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"
+#    end
+#  end
   
   
   after_save :save_tags
@@ -109,7 +110,7 @@ class WikiPage < ActiveRecord::Base
   
   private
   def set_url_title
-    self.url_title = title.unspace.gsub("/", "---").gsub("&", "((and))") if title
+    self.url_title = title.unspace.gsub("/", "---").gsub("&", "((and))").gsub('.', 'DOT') if title
   end
   
   def save_tags

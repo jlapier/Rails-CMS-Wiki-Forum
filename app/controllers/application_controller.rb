@@ -10,25 +10,24 @@ class ApplicationController < ActionController::Base
   
   before_filter :get_menus, :get_layout
 
-  
 
-    # checks to see if user is a member of a given access group - if not,
-    # redirect to account controller
-    # for multiple groups, if user is in any of the given groups, they have access
-    def require_group_access(group_access_list)
-      if require_user
-        group_access_list = [group_access_list] unless group_access_list.is_a? Array
-        in_a_group = group_access_list.inject(false) { |n,m| n or current_user.has_group_access?(m) }
-        unless in_a_group
-          store_location
-          flash[:notice] = "You must be a member of one of a group with access of: #{group_access_list.join(" or ")}."
-          redirect_to account_url
-        end
-        return in_a_group
-      else
-        return false
+  # checks to see if user is a member of a given access group - if not,
+  # redirect to account controller
+  # for multiple groups, if user is in any of the given groups, they have access
+  def require_group_access(group_access_list)
+    if require_user
+      group_access_list = [group_access_list] unless group_access_list.is_a? Array
+      in_a_group = group_access_list.inject(false) { |n,m| n or current_user.has_group_access?(m) }
+      unless in_a_group
+        store_location
+        flash[:notice] = "You must be a member of one of a group with access of: #{group_access_list.join(" or ")}."
+        redirect_to account_url
       end
+      return in_a_group
+    else
+      return false
     end
+  end
 
   private
     def get_menus

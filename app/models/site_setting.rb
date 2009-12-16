@@ -31,8 +31,13 @@ class SiteSetting < ActiveRecord::Base
         else
           val = setting.setting_text_value
         end
-
-        val = YAML::load(val) if setting.yamled?
+        if setting.yamled?
+          begin
+            val = YAML::load(val)
+          rescue Exception => e
+            val = "Error parsing yaml for setting #{name}: #{e}"
+          end
+        end
         Rails.cache.write(name, val)
       end
       val
@@ -48,7 +53,8 @@ class SiteSetting < ActiveRecord::Base
       setting.setting_text_value = nil
       setting.setting_string_value = nil
       setting.setting_number_value = nil
-
+      setting.yamled = false
+      
       if value.is_a? Integer
         setting.setting_number_value = value
       elsif value.is_a? String and value.size < 250
