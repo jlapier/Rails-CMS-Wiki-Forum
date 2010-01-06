@@ -21,7 +21,7 @@ class WikiPage < ActiveRecord::Base
   validates_presence_of :title, :url_title
   
   has_and_belongs_to_many :wiki_tags
-  has_many :wiki_comments
+  has_many :wiki_comments, :dependent => :destroy
   
   before_validation :set_url_title
 

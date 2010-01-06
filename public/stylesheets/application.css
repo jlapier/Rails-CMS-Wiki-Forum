@@ -259,3 +259,7 @@ th.sorted_by { background: #99C; }
 
 
 .CodeMirror-wrapping { border: 1px solid #CCC; background: #FFF; }
+
+
+a.delete_x:link, a.delete_x:visited, a.delete_x:active { color: #900; text-decoration: none; border: none;}
+a.delete_x:hover { color: #F33; text-decoration: none; border: none; }

@@ -1,17 +1,4 @@
 # == Schema Information
-# Schema version: 20090922222035
-#
-# Table name: wiki_comments
-#
-#  id           :integer(4)    not null, primary key
-#  wiki_page_id :integer(4)    
-#  user_id      :integer(4)    
-#  body         :text          
-#  created_at   :datetime      
-#  updated_at   :datetime      
-#
-
-# == Schema Information
 # Schema version: 20091202222916
 #
 # Table name: wiki_comments

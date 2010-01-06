@@ -1,7 +1,6 @@
 <div class="wiki_top_links">
   <form name="wiki_search" id="wiki_search" action="/wiki/search">
     <% if @wiki_page %>
-      <%= link_to 'history', wiki_page_history_path(:title => @wiki_page.url_title) %> &nbsp;
       <%= link_to 'edit', wiki_page_edit_path(@wiki_page) %> &nbsp;
       <%= link_to 'delete', { :controller => '/wiki_pages', :action => :destroy, :id => @wiki_page },
             :confirm => "Are you really sure you want to delete this wiki page?", :method => :delete %> &nbsp;
@@ -15,5 +14,6 @@
   </form>
   <% if @wiki_page %>
     <em class="tiny_text">page last updated: <%= @wiki_page.updated_at.strftime "%m/%d/%y"  %></em>
+    (<%= link_to 'history', wiki_page_history_path(:title => @wiki_page.url_title) %>)
   <% end %>
 </div>

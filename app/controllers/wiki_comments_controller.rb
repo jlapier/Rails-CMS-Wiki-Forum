@@ -30,4 +30,14 @@ class WikiCommentsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    wiki_comment = WikiComment.find params[:id]
+    @wiki_page = wiki_comment.wiki_page
+    if wiki_comment.user == current_user or current_user.is_admin?
+      wiki_comment.destroy
+      flash[:notice] = "Comment deleted."
+      redirect_to @wiki_page
+    end
+  end
 end
