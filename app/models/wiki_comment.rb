@@ -14,6 +14,8 @@
 # End Schema
 
 class WikiComment < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+  
   belongs_to :user
   belongs_to :wiki_page
   belongs_to :about_wiki_page, :class_name => 'WikiPage'
@@ -39,18 +41,20 @@ class WikiComment < ActiveRecord::Base
       end
     end
 
+    # get digest by either 'day' or 'week'
     def get_digest(to_group_by = 'day')
       to_group_by = to_group_by.to_sym
+      up_to_date = to_group_by == :day ? Time.now.beginning_of_day : Time.now.beginning_of_week
       all_comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC",
-        :conditions => ["created_at < ?", Time.now.beginning_of_day]
-      comments = []
+        :conditions => ["created_at < ?", up_to_date]
+      fake_comments = []
       all_comments.group_by(&to_group_by).each do |day, comments|
-        comments << WikiComment.new( :created_at => day,
-          :title => "Digest for #{day.strftime('%m/%d/%Y')}",
-          :body => comments.map(&:body).join("\n"),
+        fake_comments << WikiComment.new( :created_at => day,
+          :title => "#{to_group_by == :day ? 'Daily' : 'Weekly'} Digest for #{day.strftime('%m/%d/%Y')}",
+          :body => comments.map(&:to_html).join("\n"),
           :user_id => comments.first.user_id )
       end
-      comments
+      fake_comments
     end
   end
 
@@ -77,15 +81,15 @@ class WikiComment < ActiveRecord::Base
     created_at.beginning_of_week
   end
 
-
   def to_html
     out = "<p>"
     if wiki_page
       out << "<span class=\"darkgray\">" +
-              "On #{current.link_to}, <strong>#{user.name}</strong> said #{post_time(created_at)}: &nbsp;</span>"
+              "On #{wiki_page.my_link_to}, <strong>#{user.name}</strong> said #{created_at.strftime "on %b %d, %Y"}:" +
+              " &nbsp;</span>"
     else
       out << "<span class=\"darkgray\">" +
-              "#{post_time(created_at)} <strong>#{user.name}</strong></span> "
+              "#{created_at.strftime "on %b %d, %Y"} <strong>#{user.name}</strong></span> "
     end
     out << textilize_without_paragraph(body)
     out << "</p>"

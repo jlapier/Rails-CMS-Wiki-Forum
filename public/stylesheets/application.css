@@ -195,6 +195,8 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 .wiki_comments p { font-size: 11px; text-indent: 0; }
 .wiki_comments textarea { font-size: 11px; width: 220px; }
 .wiki_comments input { font-size: 10px; border: 1px solid #999; background: #EEE; margin: 2px;}
+.wiki_chatter  { background:white; padding: 8px; border: 1px #999 solid; }
+.wiki_chatter p { text-indent: 0; margin: 0; }
 
 .wiki_top_links { float:right; vertical-align:middle; text-align:right; background: #EEE; border: 1px solid #999;
     padding: 2px 8px 4px 8px; }
@@ -202,6 +204,9 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 .wiki_top_links img { border:none;text-decoration: none; vertical-align:middle; }
 .wiki_top_links input { border:1px solid #999; }
 
+.feed_links { vertical-align: middle }
+.feed_links img, .feed_links a, .feed_links a:link, .feed_links a:visited { border: none; text-decoration: none; }
+.feed_links a { margin-left: 15px; }
 
 .diff_text ins { background-color: #AFA; }
 .diff_text del { background-color: #FBB; color: #666; }

@@ -5,7 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
 
-  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post }, :collection => { :search => :get }
+  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post },
+    :collection => { :search => :get }
 
   map.resources :categories
 

@@ -8,7 +8,7 @@ class WikiCommentsController < ApplicationController
   end
 
   def daily
-    @comments = WikiComment.get_daily_digest
+    @comments = WikiComment.get_digest
 
     respond_to do |format|
       format.html { render :action => :index }
@@ -17,8 +17,8 @@ class WikiCommentsController < ApplicationController
   end
 
   def weekly
-    @comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC",
-      :conditions => ["created_at < ?", Time.now.beginning_of_week]
+    @comments = WikiComment.get_digest 'week'
+    
     respond_to do |format|
       format.html { render :action => :index }
       format.atom { render :action => :index }

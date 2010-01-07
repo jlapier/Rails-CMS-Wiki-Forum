@@ -35,7 +35,7 @@ module ApplicationHelper
     elsif @user
       "#{pre}User: #{@user.login}"
     elsif @user_group
-      "#{pre}User Group: #{@user_group.login}"
+      "#{pre}User Group: #{@user_group.name}"
     else
       controller.controller_name.titleize
     end
@@ -83,4 +83,13 @@ module ApplicationHelper
   def is_admin?
     current_user and current_user.is_admin?
   end
+
+  # TODO: change this to use the zoned plugin or something
+	def post_time(time)
+		if (Time.now - time) > 2600000
+			time.strftime "on %b %d, %Y"
+		else
+			time_ago_in_words(time) + " ago"
+		end
+	end
 end
