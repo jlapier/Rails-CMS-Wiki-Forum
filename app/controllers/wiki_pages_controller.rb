@@ -161,10 +161,6 @@ class WikiPagesController < ApplicationController
     render :action => :show
   end
   
-  def chatter
-    @comments = WikiComment.find :all, :limit => 40, :include => [:wiki_page, :user], :order => "created_at DESC"
-  end
-
   def upload_handler
     @wiki_page = WikiPage.find params[:id]
     file_name = params[:upload].original_filename

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091202222916
+# Schema version: 20100107160119
 #
 # Table name: wiki_pages
 #
@@ -14,6 +14,9 @@
 # End Schema
 
 class WikiPage < ActiveRecord::Base
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
+
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
 
   searchable_by :title, :body
@@ -34,10 +37,12 @@ class WikiPage < ActiveRecord::Base
 #    end
 #  end
   
-  
   after_save :save_tags
   
   acts_as_versioned do
+    include ActionView::Helpers::UrlHelper
+    include ActionView::Helpers::TagHelper
+
     def modifying_user
       modifying_user_id ? User.find(modifying_user_id) : nil
     end
@@ -47,15 +52,17 @@ class WikiPage < ActiveRecord::Base
       (body || '').gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2) }.
         gsub( /(\[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_link_to($2) }
     end
+
+    def my_link_to
+      link_to(title, "/wiki/#{url_title}", :title => title)
+    end
   end
   
   class << self
-    include ActionView::Helpers::UrlHelper
-    include ActionView::Helpers::TagHelper
     def wiki_link_to(title)
       wp = find_by_title title
       if wp
-        link_to(title, "/wiki/#{wp.url_title}", :title => title)
+        wp.my_link_to
       else
         link_to(title, "/wiki/#{title}", :title => "Click to create page: #{title}", 
           :class => 'wiki_page_not_found')
@@ -65,7 +72,7 @@ class WikiPage < ActiveRecord::Base
     def wiki_redirect_to(title)
       wp = find_by_title title
       if wp
-        "Redirecting to: #{link_to(title, "/wiki/#{wp.url_title}", :title => title)}..." + 
+        "Redirecting to: #{wp.my_link_to}..." +
           javascript_tag("setTimeout(window.location.href = '/wiki/#{wp.url_title}', 2000)")
       else
         link_to(title, "/wiki/#{title}", :title => "Click to create page: #{title}", 

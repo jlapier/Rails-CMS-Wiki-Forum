@@ -3,7 +3,7 @@
 # a SiteSetting can be used to set up those fields
 
 # == Schema Information
-# Schema version: 20091202222916
+# Schema version: 20100107160119
 #
 # Table name: users
 #
@@ -29,6 +29,8 @@
 # End Schema
 
 class User < ActiveRecord::Base
+  validates_presence_of :login, :email
+
   attr_protected :is_admin
   attr_protected :is_moderator
   has_many :message_posts

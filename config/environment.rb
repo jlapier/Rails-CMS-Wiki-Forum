@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec", :lib => false, :version => ">= 1.2.0"
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+  config.gem "factory_girl", :source => "http://gemcutter.org"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

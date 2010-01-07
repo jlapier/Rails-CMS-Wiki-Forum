@@ -1,0 +1,20 @@
+<%= render :partial => "/wiki_pages/top_links" %>
+
+<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Recent Comments and Changes</h1>
+
+<% for comment in @comments %>
+  <div class="wiki_page_body">
+    <p>
+      <% if comment.wiki_page %>
+        <span class="darkgray">
+          On <%= link_to comment.wiki_page.title, wiki_page_show_path(:title => comment.wiki_page.url_title) %>,
+          <strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>: &nbsp;</span>
+      <% else %>
+        <span class="darkgray">
+          <%= post_time comment.created_at %> <strong><%= comment.user.name %></strong> 
+        </span>
+      <% end %>
+      <%= textilize_without_paragraph comment.body %>
+    </p>
+  </div><br/>
+<% end %>

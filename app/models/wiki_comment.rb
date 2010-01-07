@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20091202222916
+# Schema version: 20100107160119
 #
 # Table name: wiki_comments
 #
@@ -10,29 +10,86 @@
 #  looking_at_version :integer       
 #  created_at         :datetime      
 #  updated_at         :datetime      
+#  about_wiki_page_id :integer       
 # End Schema
 
 class WikiComment < ActiveRecord::Base
   belongs_to :user
   belongs_to :wiki_page
+  belongs_to :about_wiki_page, :class_name => 'WikiPage'
 
   validates_presence_of :user_id, :body
   validates_length_of :body, :minimum => 5
+
+  attr_accessor :title
 
   class << self
     def create_chatter_about_page(page)
       current = page.versions.latest
       if current.version == 1
-        create! :user_id => page.modifying_user_id,
-          :body => "created a new page: <a href=\"/wiki/#{current.url_title}\">#{current.title}</a>"
+        create! :user_id => page.modifying_user_id, :about_wiki_page_id => page.id,
+          :body => "created a new page: #{current.my_link_to}"
       else
         # don't create an update unless it's been 30 minutes since the last version
         prev = current.previous
         if prev and (current.updated_at - prev.updated_at) > 30.minutes
-          create! :user_id => page.modifying_user_id,
-            :body => "updated a page: <a href=\"/wiki/#{current.url_title}\">#{current.title}</a>"
+          create! :user_id => page.modifying_user_id, :about_wiki_page_id => page.id,
+            :body => "updated a page: #{current.my_link_to}"
         end
       end
     end
+
+    def get_digest(to_group_by = 'day')
+      to_group_by = to_group_by.to_sym
+      all_comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC",
+        :conditions => ["created_at < ?", Time.now.beginning_of_day]
+      comments = []
+      all_comments.group_by(&to_group_by).each do |day, comments|
+        comments << WikiComment.new( :created_at => day,
+          :title => "Digest for #{day.strftime('%m/%d/%Y')}",
+          :body => comments.map(&:body).join("\n"),
+          :user_id => comments.first.user_id )
+      end
+      comments
+    end
   end
+
+  # used for feeds
+  def title
+    return @title if @title
+    if about_wiki_page_id
+      "Page changed: #{about_wiki_page.title}"
+    elsif wiki_page_id
+      "Comment on: #{wiki_page.title}"
+    else
+      body
+    end
+  end
+
+
+  # used to make grouping easier: day this comment was created
+  def day
+    created_at.beginning_of_day
+  end
+
+  # used to make grouping easier: week this comment was created
+  def week
+    created_at.beginning_of_week
+  end
+
+
+  def to_html
+    out = "<p>"
+    if wiki_page
+      out << "<span class=\"darkgray\">" +
+              "On #{current.link_to}, <strong>#{user.name}</strong> said #{post_time(created_at)}: &nbsp;</span>"
+    else
+      out << "<span class=\"darkgray\">" +
+              "#{post_time(created_at)} <strong>#{user.name}</strong></span> "
+    end
+    out << textilize_without_paragraph(body)
+    out << "</p>"
+    out
+  end
+
 end

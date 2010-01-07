@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :categories
 
-  map.resources :wiki_comments
+  map.resources :wiki_comments, :collection => { :daily => :get, :weekly => :get }
 
   map.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post }
   

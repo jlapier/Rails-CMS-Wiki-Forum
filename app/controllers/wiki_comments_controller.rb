@@ -1,4 +1,40 @@
 class WikiCommentsController < ApplicationController
+  def index
+    @comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC"
+    respond_to do |format|
+      format.html
+      format.atom
+    end
+  end
+
+  def daily
+    @comments = WikiComment.get_daily_digest
+
+    respond_to do |format|
+      format.html { render :action => :index }
+      format.atom { render :action => :index }
+    end
+  end
+
+  def weekly
+    @comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC",
+      :conditions => ["created_at < ?", Time.now.beginning_of_week]
+    respond_to do |format|
+      format.html { render :action => :index }
+      format.atom { render :action => :index }
+    end
+  end
+
+  def show
+    wiki_comment = WikiComment.find params[:id]
+    @wiki_page = wiki_comment.wiki_page
+    if @wiki_page
+      redirect_to @wiki_page
+    else
+      redirect_to wiki_comments_path
+    end
+  end
+
   def create
     wiki_comment = WikiComment.new params[:wiki_comment]
     wiki_comment.user = current_user

@@ -1,19 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/# == Schema Information
-# Schema version: 20091027220707
-#
-# Table name: wiki_comments
-#
-#  id                 :integer       not null, primary key
-#  wiki_page_id       :integer       
-#  user_id            :integer       
-#  body               :text          
-#  looking_at_version :integer       
-#  created_at         :datetime      
-#  updated_at         :datetime      
-# End Schema
-
 # == Schema Information
-# Schema version: 20091202222916
+# Schema version: 20100107160119
 #
 # Table name: wiki_comments
 #
@@ -24,6 +10,7 @@
 #  looking_at_version :integer       
 #  created_at         :datetime      
 #  updated_at         :datetime      
+#  about_wiki_page_id :integer       
 # End Schema
 
 classes/Fixtures.html

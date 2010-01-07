@@ -16,7 +16,7 @@ describe WikiPage do
     wp = WikiPage.create!(:title => "easy", :modifying_user_id => 1)
     wc = WikiComment.find :last
     assert wc
-    wc.body.should == "created a new page: <a href=\"/wiki_page/easy\">easy</a>"
+    wc.body.should == "created a new page: <a href=\"/wiki/easy\" title=\"easy\">easy</a>"
   end
 
   it "should not create a new comment when a page is update in less than 30 minutes since last edit" do
@@ -26,7 +26,7 @@ describe WikiPage do
     wp.save
     wc = WikiComment.find :last
     assert wc
-    wc.body.should == "created a new page: <a href=\"/wiki_page/easy\">easy</a>"
+    wc.body.should == "created a new page: <a href=\"/wiki/easy\" title=\"easy\">easy</a>"
   end
 
   it "should fail to create a new page if title already exists" do
