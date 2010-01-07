@@ -18,7 +18,7 @@ class WikiPage < ActiveRecord::Base
 
   searchable_by :title, :body
 
-  validates_presence_of :title, :url_title
+  validates_presence_of :title, :url_title, :modifying_user_id
   
   has_and_belongs_to_many :wiki_tags
   has_many :wiki_comments, :dependent => :destroy
