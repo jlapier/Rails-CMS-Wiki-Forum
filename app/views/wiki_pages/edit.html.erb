@@ -1,5 +1,17 @@
 <h1><%= link_to "Wiki", wiki_page_show_home_path %>: Editing: <%= @wiki_page.title %></h1>
 
+<% if @wiki_page.editing_user and @wiki_page.editing_user != current_user %>
+  <div class="flash_message error_message">
+    <em>
+      <strong>Warning:</strong>
+      Someone else is already editing this page!
+    </em>
+    <br/>
+    <%= @wiki_page.editing_user.fullname %> started editing this page
+    <%= time_ago_in_words @wiki_page.started_editing_at %> ago.
+  </div>
+<% end %>
+
 <%= render :partial => 'form'  %>
 
 

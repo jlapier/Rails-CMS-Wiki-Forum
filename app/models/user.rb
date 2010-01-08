@@ -3,7 +3,7 @@
 # a SiteSetting can be used to set up those fields
 
 # == Schema Information
-# Schema version: 20100107160119
+# Schema version: 20100107232148
 #
 # Table name: users
 #

@@ -1,16 +1,18 @@
 # == Schema Information
-# Schema version: 20100107160119
+# Schema version: 20100107232148
 #
 # Table name: wiki_pages
 #
-#  id                :integer       not null, primary key
-#  title             :string(255)   
-#  url_title         :string(255)   
-#  modifying_user_id :integer       
-#  body              :text          
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#  version           :integer       
+#  id                 :integer       not null, primary key
+#  title              :string(255)   
+#  url_title          :string(255)   
+#  modifying_user_id  :integer       
+#  body               :text          
+#  created_at         :datetime      
+#  updated_at         :datetime      
+#  version            :integer       
+#  started_editing_at :datetime      
+#  editing_user_id    :integer       
 # End Schema
 
 class WikiPage < ActiveRecord::Base
@@ -18,7 +20,8 @@ class WikiPage < ActiveRecord::Base
   include ActionView::Helpers::TagHelper
 
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
-
+  belongs_to :editing_user, :class_name => 'User', :foreign_key => 'editing_user_id'
+  
   searchable_by :title, :body
 
   validates_presence_of :title, :url_title, :modifying_user_id

@@ -82,6 +82,9 @@ class WikiPagesController < ApplicationController
   
   def edit
     @wiki_page = WikiPage.find params[:id]
+    unless @wiki_page.editing_user
+      @wiki_page.update_attributes :editing_user => current_user, :started_editing_at => Time.now
+    end
     @rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
     @assets = Dir[File.join(RAILS_ROOT, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
   end
@@ -105,6 +108,7 @@ class WikiPagesController < ApplicationController
     @wiki_page = WikiPage.find params[:id]
     @wiki_page.modifying_user = current_user
     if @wiki_page.update_attributes params[:wiki_page]
+      @wiki_page.update_attributes :editing_user => nil, :started_editing_at => nil
       respond_to do |wants|
         wants.html do
           flash[:notice] = "Page <em>#{@wiki_page.title}</em> updated."
