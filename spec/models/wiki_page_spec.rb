@@ -12,6 +12,24 @@ describe WikiPage do
     WikiPage.create!(@valid_attributes)
   end
 
+  it "should create and create tags" do
+    wt = WikiTag.find_by_name "SomeTag A"
+    wt.should be_nil
+    wp = WikiPage.create!(:title => "With tags", :modifying_user_id => 1, :wiki_tags_string => "SomeTag A, Tag B")
+    wt = WikiTag.find_by_name "SomeTag A"
+    wt.should_not be_nil
+    wp.wiki_tags.count.should == 2
+  end
+
+  it "should create and more tags" do
+    wt = WikiTag.find_by_name "SomeTag A"
+    wt.should be_nil
+    wp = WikiPage.create!(:title => "With tags", :modifying_user_id => 1, :wiki_tags_string => "A,B,C, ")
+    wt = WikiTag.find_by_name "A"
+    wt.should_not be_nil
+    wp.wiki_tags.count.should == 3
+  end
+
   it "should create a new comment when a new page is created" do
     wp = WikiPage.create!(:title => "easy", :modifying_user_id => 1)
     wc = WikiComment.find :last

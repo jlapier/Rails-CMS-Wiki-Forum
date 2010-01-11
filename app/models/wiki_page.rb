@@ -107,10 +107,12 @@ class WikiPage < ActiveRecord::Base
     self.wiki_tags.clear
     str.split(",").each do |tag_name|
       tag_name.strip!
-      wt = WikiTag.find_or_create_by_name tag_name
-      self.wiki_tags << wt
-      self.wiki_tags.uniq!
+      unless tag_name.blank?
+        wt = WikiTag.find_or_create_by_name tag_name
+        self.wiki_tags << wt
+      end
     end
+    self.wiki_tags.uniq!
   end
 
   def who_has_edited
