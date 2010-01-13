@@ -1,5 +1,5 @@
 class WikiPagesController < ApplicationController
-  before_filter :get_tags
+  before_filter :get_tags, :only => [:new, :show, :edit, :tagcloud, :show_by_title]
 
   before_filter  do |controller|
     if [:index, :show, :tag_index, :tagcloud, :search, :show_by_title, :history, :chatter].include? controller.params[:action].to_sym
@@ -125,6 +125,22 @@ class WikiPagesController < ApplicationController
     else
       render :action => :edit
     end     
+  end
+
+  # called when someone willingly navigates away
+  def un_edit
+    @wiki_page = WikiPage.find params[:id]
+    if @wiki_page.editing_user == current_user
+      @wiki_page.update_attributes :editing_user => nil, :started_editing_at => nil
+    end
+
+    respond_to do |wants|
+      wants.html do
+        flash[:notice] = "Page <em>#{@wiki_page.title}</em> was not changed."
+        redirect_to wiki_page_show_path(:title => @wiki_page.url_title)
+      end
+      wants.js { render :nothing => true }
+    end
   end
 
   def destroy

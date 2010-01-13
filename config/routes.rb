@@ -5,14 +5,15 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
 
-  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post },
-    :collection => { :search => :get }
+  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post,
+    :un_edit => :post }, :collection => { :search => :get }
 
   map.resources :categories
 
   map.resources :wiki_comments, :collection => { :daily => :get, :weekly => :get }
 
-  map.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post }
+  map.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post,
+    :un_edit => :post }
   
   map.with_options :controller => 'wiki_pages', :name_prefix => 'wiki_page_', :path_prefix => '/wiki' do |wiki_page|
     wiki_page.show_home '',                 :action => 'show_by_title', :title => 'Home'

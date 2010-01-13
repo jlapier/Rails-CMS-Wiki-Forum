@@ -99,6 +99,22 @@ class ContentPagesController < ApplicationController
     end
   end
 
+  # called when someone willingly navigates away
+  def un_edit
+    @content_page = ContentPage.find params[:id]
+    if @content_page.editing_user == current_user
+      @content_page.update_attributes :editing_user => nil, :started_editing_at => nil
+    end
+
+    respond_to do |wants|
+      wants.html do
+        flash[:notice] = "Page <em>#{@wiki_page.title}</em> was not changed."
+        redirect_to wiki_page_show_path(:title => @wiki_page.url_title)
+      end
+      wants.js { render :nothing => true }
+    end
+  end
+
   # DELETE /content_pages/1
   # DELETE /content_pages/1.xml
   def destroy

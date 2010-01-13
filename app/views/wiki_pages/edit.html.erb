@@ -24,8 +24,8 @@
       <li>
         <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
         <%= link_to "X", delete_asset_wiki_page_path(@wiki_page, :asset => asset),
-          :confirm => "Really delete this file?", :method => :post,
-          :style => 'color:#F00' %>
+              :confirm => "Really delete this file?", :method => :post,
+              :style => 'color:#F00' %>
       </li>
     <% end %>
   </ul>
@@ -40,6 +40,12 @@
   function confirmExit() {
     if (needToConfirm) {
       return "You may have unsaved changes.";
+    }
+  }
+
+  window.onunload = function() {
+    if (needToConfirm) {
+      $.post('<%= un_edit_wiki_page_path @wiki_page %>');
     }
   }
 </script>

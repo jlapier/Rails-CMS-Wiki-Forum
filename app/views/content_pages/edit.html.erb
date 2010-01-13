@@ -50,4 +50,10 @@
       return "You may have unsaved changes.";
     }
   }
+
+  window.onunload = function() {
+    if (needToConfirm) {
+      $.post('<%= un_edit_content_page_path @content_page %>');
+    }
+  }
 </script>
