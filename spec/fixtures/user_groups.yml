@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: user_groups
 #
 #  id      :integer       not null, primary key
 #  name    :string(255)   
-#  special :string(255)   
+#  special :text(255)     
 # End Schema
 
 wiki_reader:

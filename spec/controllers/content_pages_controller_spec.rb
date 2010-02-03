@@ -2,8 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ContentPagesController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+  end
+  
   def mock_content_page(stubs={})
-    @mock_content_page ||= mock_model(ContentPage, stubs)
+    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user}))
+  end
+
+  before do
+    ContentPage.should_receive(:get_side_menu).and_return(mock_model(ContentPage))
+    ContentPage.should_receive(:get_top_menu).and_return(mock_model(ContentPage))
+    controller.stub!(:current_user).and_return(mock_user)
+    controller.stub!(:expire_caches).and_return(true)
   end
 
   describe "GET index" do
@@ -47,10 +58,10 @@ describe ContentPagesController do
         assigns[:content_page].should equal(mock_content_page)
       end
 
-      it "redirects to the created content_page" do
+      it "redirects to the created content_page in edit mode" do
         ContentPage.stub!(:new).and_return(mock_content_page(:save => true))
         post :create, :content_page => {}
-        response.should redirect_to(content_page_url(mock_content_page))
+        response.should redirect_to(edit_content_page_url(mock_content_page))
       end
     end
 

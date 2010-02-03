@@ -1,5 +1,6 @@
 class WikiPagesController < ApplicationController
-  before_filter :get_tags, :only => [:new, :show, :edit, :tagcloud, :show_by_title]
+  before_filter :get_tags, :only => [:new, :show, :edit, :show_by_title]
+  before_filter :get_wiki
 
   before_filter  do |controller|
     if [:index, :show, :tag_index, :tagcloud, :search, :show_by_title, :history, :chatter].include? controller.params[:action].to_sym
@@ -11,31 +12,9 @@ class WikiPagesController < ApplicationController
   
   
   def index
-    @wiki_pages = WikiPage.paginate :all, :page => params[:page],
-      :order => "updated_at DESC", :select => "id, title, url_title, updated_at"
-    @wiki_tags = WikiTag.find :all
+    redirect_to @wiki
   end
-  
-  def tag_index
     
-  end
-  
-  def tagcloud
-    render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages.count } }
-  end
-  
-  def list_by_tag
-    @wiki_tag = WikiTag.find :first, :conditions => { :name => params[:tag_name] }
-    if @wiki_tag
-      @wiki_pages = @wiki_tag.wiki_pages.paginate :all, :page => params[:page], :per_page => 80,
-        :order => "updated_at DESC", :select => "wiki_pages.id, title, url_title, updated_at"
-      render :action => :index
-    else
-      flash[:warning] = "Tag not found."
-      redirect_to wiki_page_show_home_path
-    end
-  end
-  
   def show
     @wiki_page = WikiPage.find params[:id]
   end
@@ -216,9 +195,14 @@ class WikiPagesController < ApplicationController
   end
 
   private
+
+  def get_wiki
+    @wiki = Wiki.find params[:wiki_id]
+  end
+
   def get_tags
-    all_wiki_tags = WikiTag.find :all
-    @wiki_tags, to_delete = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
+    @wiki_tags = WikiTag.find(:all).select { |wt| wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) > 0 }
+    @wiki_tags = all_wiki_tags.partition { |wt| wt.wiki_pages.count > 0 }
     @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
     to_delete.map(&:destroy)
   end

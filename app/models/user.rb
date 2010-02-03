@@ -3,7 +3,7 @@
 # a SiteSetting can be used to set up those fields
 
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: users
 #
@@ -59,15 +59,30 @@ class User < ActiveRecord::Base
     first_name.blank? ? login : "#{first_name} #{last_name}"
   end
 
-  # more of a helper to see if someone should get a link to the wiki or not,
-  # not for read/write access considerations
-  def has_access_to?(component)
-    user_groups.any? { |ug| ug.access_string =~ /#{component}/i }
+  # provide a string describing the access required,
+  # returns 'read' or 'write' or nil (highest available)
+  def group_access(wiki_or_forum)
+    if wiki_or_forum.is_a?(Forum)
+      user_groups.map {|g| g.grants_access_to_forum?(wiki_or_forum.id) }.compact.sort_by {|t| ['write', 'read'].index t }.first
+    else
+      user_groups.map {|g| g.grants_access_to_wiki?(wiki_or_forum.id) }.compact.sort_by {|t| ['write', 'read'].index t }.first
+    end
   end
 
-  # provide a string describing the access required
-  def has_group_access?(access_required)
-    user_groups.any? {|g| g.grants_access_to?(access_required) }
+  def has_read_access_to?(wiki_or_forum)
+    ['write', 'read'].include? group_access(wiki_or_forum)
+  end
+
+  def has_write_access_to?(wiki_or_forum)
+    group_access(wiki_or_forum) == 'write'
+  end
+
+  def has_access_to_any_wikis?
+    user_groups.any? { |g| !g.wikis.empty? }
+  end
+
+  def has_access_to_any_forums?
+    user_groups.any? { |g| !g.forums.empty? }
   end
 
   private

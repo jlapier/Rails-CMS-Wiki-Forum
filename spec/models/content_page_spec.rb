@@ -15,11 +15,30 @@ describe ContentPage do
   it "should create a new instance given valid attributes" do
     cp = ContentPage.create!(@valid_attributes)
     assert cp.is_preview_only?
+    assert !cp.ready_for_publishing?
+    cp.body_for_display.should match /This page is a draft/
+    cp.is_preview_only = false
+    cp.publish_on = 10.days.ago
+    cp.save!
+    cp.reload
+    assert !cp.is_preview_only?
+    assert cp.ready_for_publishing?
+    cp.body_for_display.should_not match /This page is a draft/
+  end
+
+  it "should get new front page" do
+    cp = ContentPage.get_front_page
+    cp.should_not be_nil
+    # new front page starts with this generic name
+    cp.name.should == 'Welcome to the Site'
+    cp_again = ContentPage.get_front_page
+    cp.should == cp_again
   end
 
   it "should create a new instance given valid attributes and override the preview for some pages" do
     cp = ContentPage.create!(@valid_attributes.merge(:is_preview_only => false))
     assert !cp.is_preview_only?
+    assert cp.ready_for_publishing?
   end
 
   it "should generate HTML from function ListCategories" do

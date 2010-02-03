@@ -3,8 +3,8 @@ require 'cgi'
 
 module GravatarHelper
 
+  #     :default => "http://signetwork.org/images/default_avatar.gif",
   DEFAULT_OPTIONS = {
-    :default => "http://aethora.com/images/hunting.gif",
     :size => 50,
     :rating => 'PG',
     :alt => 'avatar',

@@ -8,7 +8,7 @@
   <tbody>
     <% for wiki_page in @wiki_pages %>
       <tr>
-        <td><%= link_to wiki_page.title, wiki_page_show_path(:title => wiki_page.url_title) %></td>
+        <td><%= link_to wiki_page.title, wiki_wiki_page_show_path(@wiki, :title => wiki_page.url_title) %></td>
         <td style="text-align:right"><%= wiki_page.updated_at.strftime "%m/%d/%Y" %></td>
       </tr>
     <% end %>

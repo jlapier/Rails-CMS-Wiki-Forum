@@ -10,4 +10,14 @@ describe Category do
   it "should create a new instance given valid attributes" do
     Category.create!(@valid_attributes)
   end
+
+  it "should find or create a new instance given name" do
+    name = "test for find or create"
+    Category.find_by_name(name).should be_nil
+    cat = Category.find_or_create_by_name(name)
+    cat.should_not be_nil
+    Category.find_by_name(name).should_not be_nil
+    cat_again = Category.find_or_create_by_name(name)
+    cat.should == cat_again
+  end
 end

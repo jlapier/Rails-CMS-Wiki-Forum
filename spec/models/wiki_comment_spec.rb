@@ -7,10 +7,15 @@ Factory.define :user do |u|
   u.password_confirmation { |user| user.password }
 end
 
+Factory.define :wiki do |wiki|
+  wiki.name "Some wiki"
+end
+
 Factory.define :wiki_page do |wp|
   wp.sequence(:title) {|n| "Cool Page #{n}" }
   wp.body "<p>stuff in body</p>"
   wp.association :modifying_user, :factory => :user
+  wp.association :wiki, :factory => :wiki
 end
 
 Factory.define :yesterday, :class => WikiComment do |wc|
@@ -48,7 +53,7 @@ end
 describe WikiComment do
   before(:each) do
     @valid_attributes = {
-      :wiki_page_id => 1, :user_id => 1, :body => "test comment"
+      :wiki_page => Factory(:wiki_page), :user_id => 1, :body => "test comment"
     }
   end
 

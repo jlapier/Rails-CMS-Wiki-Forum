@@ -2,9 +2,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserGroup do
   before(:each) do
+
+    Factory.define :wiki do |wiki|
+      wiki.sequence(:title) { |n| "Some wiki #{n}" }
+    end
+
+    Factory.define :forum do |forum|
+      forum.sequence(:name) { |n| "Some forum #{n}" }
+    end
+    
     @valid_attributes = {
-      :name => "value for name",
-      :special => [0,2]
+      :name => "some group name"
     }
   end
 
@@ -31,16 +39,25 @@ describe UserGroup do
     ug.users.should_not include(users[1])
   end
 
-  it "should generate an access string" do
-    expected_access = 'Wiki Reader, Forum Poster'
+  it "should grant access" do
+    wiki1 = Factory(:wiki)
+    wiki2 = Factory(:wiki)
+    wiki3 = Factory(:wiki)
+    forum1 = Factory(:forum)
+    forum2 = Factory(:forum)
+    forum3 = Factory(:forum)
+    expected_access = 'Forum: Some forum 1 (Read), Forum: Some forum 2 (Write), Wiki: Some wiki 1 (Read), Wiki: Some wiki 2 (Write)'
     ug = UserGroup.create!(@valid_attributes)
+    ug.forum_access = { forum1.id.to_s => "read", forum2.id.to_s => "write", forum3.id.to_s => "none" }
+    ug.wiki_access = {  wiki1.id.to_s =>  "read", wiki2.id.to_s =>  "write", wiki3.id.to_s => "none" }
+    ug.save!
+    ug_again = UserGroup.find ug.id
+    ug_again.grants_access_to_forum?(forum1).should == "read"
+    ug_again.grants_access_to_forum?(forum2).should == "write"
+    ug_again.grants_access_to_forum?(forum3).should be_nil
+    ug_again.grants_access_to_wiki?(wiki1).should == "read"
+    ug_again.grants_access_to_wiki?(wiki2).should == "write"
+    ug_again.grants_access_to_wiki?(wiki3).should be_nil
     ug.access_string.should == expected_access
-  end
-
-  it "should say whether it grants access given a string" do
-    ug = UserGroup.create!(@valid_attributes)
-    assert ug.grants_access_to?('Wiki Reader')
-    assert !ug.grants_access_to?('Wiki Editor')
-    assert !ug.grants_access_to?('Some made up access')
   end
 end

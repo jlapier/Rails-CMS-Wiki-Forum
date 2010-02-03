@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_filter :require_admin_user, :except => [:home, :index, :show]
+
   # GET /categories
   # GET /categories.xml
   def index

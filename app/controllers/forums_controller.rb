@@ -1,6 +1,8 @@
 class ForumsController < ApplicationController
   before_filter :require_admin_user, :except => [:index, :show]
   before_filter :get_forum, :only => [:show, :edit, :update, :destroy]
+  before_filter :require_forum_read_access, :only => [:show]
+  before_filter :require_forum_write_access, :only => [:edit, :update, :destroy]
 
   # GET /forums
   # GET /forums.xml
@@ -47,8 +49,8 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        flash[:notice] = 'Forum was successfully created.'
-        format.html { redirect_to(@forum) }
+        flash[:notice] = "Forum #{@forum.name} was successfully created."
+        format.html { redirect_to forums_path }
         format.xml  { render :xml => @forum, :status => :created, :location => @forum }
       else
         format.html { render :action => "new" }
@@ -62,7 +64,7 @@ class ForumsController < ApplicationController
   def update
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
-        flash[:notice] = 'Forum was successfully updated.'
+        flash[:notice] = "Forum #{@forum.name} was successfully updated."
         format.html { redirect_to(@forum) }
         format.xml  { head :ok }
       else

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: forums
 #
@@ -14,8 +14,16 @@
 # End Schema
 
 class Forum < ActiveRecord::Base
+  alias_attribute :name, :title
+  
   validates_presence_of :title
 
   belongs_to :most_recent_post, :class_name => 'MessagePost', :foreign_key => :newest_message_post_id
   has_many :message_posts, :dependent => :destroy
+
+  class << self
+    def all_forums
+      find :all, :order => 'title'
+    end
+  end
 end

@@ -1,0 +1,19 @@
+<% form_for(@wiki) do |f| %>
+
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :rows => 5, :cols => 80, :style => "height: 100px;" %>
+  </p>
+
+  <p>
+    <%= f.submit 'Save wiki' %>
+  </p>
+
+<% end %>

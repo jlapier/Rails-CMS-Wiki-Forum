@@ -62,8 +62,8 @@ module ApplicationHelper
       out += "<br/>"
       other_links = []
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
-      other_links << link_to('Wiki', wiki_pages_path) if current_user.has_access_to?('wiki')
-      other_links << link_to('Forums', forums_path) if current_user.has_access_to?('forum')
+      other_links << link_to('Wiki', wikis_path) if current_user.has_access_to_any_wikis?
+      other_links << link_to('Forums', forums_path) if current_user.has_access_to_any_forums?
       out += other_links.join(' | ')
     else
       out += link_to("Register", new_account_path) + " | " +

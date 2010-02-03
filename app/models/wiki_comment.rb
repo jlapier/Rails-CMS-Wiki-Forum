@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: wiki_comments
 #
@@ -11,6 +11,7 @@
 #  created_at         :datetime      
 #  updated_at         :datetime      
 #  about_wiki_page_id :integer       
+#  wiki_id            :integer       
 # End Schema
 
 class WikiComment < ActiveRecord::Base
@@ -18,12 +19,21 @@ class WikiComment < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :wiki_page
+  belongs_to :wiki
   belongs_to :about_wiki_page, :class_name => 'WikiPage'
 
   validates_presence_of :user_id, :body
   validates_length_of :body, :minimum => 5
 
   attr_accessor :title
+
+  before_save :set_wiki_id
+
+  def validate
+    unless wiki_page_id or about_wiki_page_id
+      errors.add(:base, "must be made on a wiki page or about a wiki page")
+    end
+  end
 
   class << self
     def create_chatter_about_page(page)
@@ -96,4 +106,9 @@ class WikiComment < ActiveRecord::Base
     out
   end
 
+  private
+
+  def set_wiki_id
+    self.wiki_id = (wiki_page || about_wiki_page).wiki_id
+  end
 end

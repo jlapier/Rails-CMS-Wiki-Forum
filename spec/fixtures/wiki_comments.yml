@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: wiki_comments
 #
@@ -11,6 +11,7 @@
 #  created_at         :datetime      
 #  updated_at         :datetime      
 #  about_wiki_page_id :integer       
+#  wiki_id            :integer       
 # End Schema
 
 classes/Fixtures.html

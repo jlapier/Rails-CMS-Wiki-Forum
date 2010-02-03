@@ -2,8 +2,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CategoriesController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+  end
+
   def mock_category(stubs={})
-    @mock_category ||= mock_model(Category, stubs)
+    @mock_category ||= mock_model(Category, stubs.merge({:name => "whatev"}))
+  end
+
+  before do
+    ContentPage.should_receive(:get_side_menu).and_return(mock_model(ContentPage))
+    ContentPage.should_receive(:get_top_menu).and_return(mock_model(ContentPage))
+    controller.stub!(:current_user).and_return(mock_user)
   end
 
   describe "GET index" do
@@ -47,10 +57,10 @@ describe CategoriesController do
         assigns[:category].should equal(mock_category)
       end
 
-      it "redirects to the created category" do
+      it "redirects to the category list" do
         Category.stub!(:new).and_return(mock_category(:save => true))
         post :create, :category => {}
-        response.should redirect_to(category_url(mock_category))
+        response.should redirect_to(categories_url)
       end
     end
 

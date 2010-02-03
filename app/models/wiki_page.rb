@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100107232148
+# Schema version: 20100125191432
 #
 # Table name: wiki_pages
 #
@@ -13,6 +13,7 @@
 #  version            :integer       
 #  started_editing_at :datetime      
 #  editing_user_id    :integer       
+#  wiki_id            :integer       
 # End Schema
 
 class WikiPage < ActiveRecord::Base
@@ -21,10 +22,11 @@ class WikiPage < ActiveRecord::Base
 
   belongs_to :modifying_user, :foreign_key => "modifying_user_id", :class_name => "User"
   belongs_to :editing_user, :class_name => 'User', :foreign_key => 'editing_user_id'
+  belongs_to :wiki
   
   searchable_by :title, :body
 
-  validates_presence_of :title, :url_title, :modifying_user_id
+  validates_presence_of :title, :url_title, :modifying_user_id, :wiki_id
   
   has_and_belongs_to_many :wiki_tags
   has_many :wiki_comments, :dependent => :destroy

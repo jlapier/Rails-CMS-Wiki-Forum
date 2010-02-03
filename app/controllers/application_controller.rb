@@ -29,6 +29,50 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_forum_read_access
+    if require_user
+      unless current_user.has_read_access_to?(@forum)
+        flash[:notice] = "You do not have permission to view that forum."
+        redirect_to account_url
+      end
+    else
+      return false
+    end
+  end
+
+  def require_forum_write_access
+    if require_user
+      unless current_user.has_write_access_to?(@forum)
+        flash[:notice] = "You do not have post or edit in that forum."
+        redirect_to account_url
+      end
+    else
+      return false
+    end
+  end
+
+  def require_wiki_read_access
+    if require_user
+      unless current_user.has_read_access_to?(@wiki)
+        flash[:notice] = "You do not have permission to view that wiki."
+        redirect_to account_url
+      end
+    else
+      return false
+    end
+  end
+
+  def require_wiki_write_access
+    if require_user
+      unless current_user.has_write_access_to?(@wiki)
+        flash[:notice] = "You do not have post or edit in that wiki."
+        redirect_to account_url
+      end
+    else
+      return false
+    end
+  end
+
   private
     def get_menus
       @side_menu = ContentPage.get_side_menu
@@ -56,11 +100,13 @@ class ApplicationController < ActionController::Base
     end
     
     def require_user
-      unless current_user
+      if current_user
+        true
+      else
         store_location
         flash[:warning] = "You must be logged in to access this page."
         redirect_to login_path
-        return false
+        false
       end
     end
 

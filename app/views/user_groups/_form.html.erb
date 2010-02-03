@@ -4,9 +4,22 @@
 </p>
 
 <p>
-  <strong>Grants Special Access:</strong><br/>
-  <% UserGroup::SPECIAL_ACCESS.each_with_index do |access, index| %>
-    <%= check_box_tag "user_group[special][]", index, (@user_group.special || []).include?(index) %>
-    <%= access %><br/>
+  <strong>Grants Forum Access:</strong><br/>
+
+  <% Forum.all_forums.each do |forum| %>
+    <%= forum.title %>:
+    <%= select_tag "user_group[forum_access][#{forum.id}]", options_for_select(['none', 'write', 'read'],
+            @user_group.grants_access_to_forum?(forum)) %>
+    <br/>
   <% end %>
+  <br/>
+
+  <strong>Grants Wiki Access:</strong><br/>
+  <% Wiki.all_wikis.each do |wiki| %>
+     <%= wiki.title %>: 
+     <%= select_tag "user_group[wiki_access][#{wiki.id}]", options_for_select(['none', 'write', 'read'],
+            @user_group.grants_access_to_wiki?(wiki)) %>
+    <br/>
+  <% end %>
+
 </p>
