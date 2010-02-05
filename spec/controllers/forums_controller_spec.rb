@@ -2,9 +2,33 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ForumsController do
 
-  def mock_forum(stubs={})
-    @mock_forum ||= mock_model(Forum, stubs)
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
+        :has_read_access_to? => true, :has_write_access_to? => true}))
   end
+
+  def mock_forum(stubs={})
+    @mock_forum ||= mock_model(Forum, stubs.merge({:name => 'cool forum', :message_posts => mock_message_posts}))
+  end
+
+  def mock_message_post(stubs={})
+    @mock_message_post ||= mock_model(MessagePost, stubs.merge({}))
+  end
+  
+  def mock_message_posts
+    return @mock_message_posts if @mock_message_posts
+    @mock_message_posts = mock('message_posts_proxy')
+    @mock_message_posts.stub!(:paginate).and_return([mock_message_post].paginate)
+    @mock_message_posts
+  end
+
+  before do
+    ContentPage.should_receive(:get_side_menu).and_return(mock_model(ContentPage))
+    ContentPage.should_receive(:get_top_menu).and_return(mock_model(ContentPage))
+    controller.stub!(:current_user).and_return(mock_user)
+  end
+
+
 
   describe "GET index" do
     it "assigns all forums as @forums" do
@@ -50,7 +74,7 @@ describe ForumsController do
       it "redirects to the created forum" do
         Forum.stub!(:new).and_return(mock_forum(:save => true))
         post :create, :forum => {}
-        response.should redirect_to(forum_url(mock_forum))
+        response.should redirect_to(forums_url)
       end
     end
 

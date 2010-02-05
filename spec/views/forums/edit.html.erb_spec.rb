@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/forums/edit.html.erb" do
   include ForumsHelper
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+  end
+
   before(:each) do
     assigns[:forum] = @forum = stub_model(Forum,
       :new_record? => false,
@@ -12,6 +16,7 @@ describe "/forums/edit.html.erb" do
       :moderator_only => false,
       :newest_message_post_id => 1
     )
+    template.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders the edit forum form" do
@@ -20,9 +25,6 @@ describe "/forums/edit.html.erb" do
     response.should have_tag("form[action=#{forum_path(@forum)}][method=post]") do
       with_tag('input#forum_title[name=?]', "forum[title]")
       with_tag('textarea#forum_description[name=?]', "forum[description]")
-      with_tag('input#forum_position[name=?]', "forum[position]")
-      with_tag('input#forum_moderator_only[name=?]', "forum[moderator_only]")
-      with_tag('input#forum_newest_message_post_id[name=?]', "forum[newest_message_post_id]")
     end
   end
 end

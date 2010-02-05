@@ -9,7 +9,7 @@
   <td>
     <div style="float:left"><a name="<%= message.id %>" href="#<%= message.id %>"><strong><%= message.subject %></strong></a></div>
     <% if current_user == message.user -%>
-      <div style="float:right">[<%= link_to "edit", :action => :edit, :id => message %>]</div>
+      <div style="float:right">[<%= link_to "edit", edit_forum_message_post_path(@forum, message) %>]</div>
     <% end -%>
     <div style="clear:both; padding-top:3px;"><%= message.body %></div>
     <% if message.updated_at > message.created_at -%>

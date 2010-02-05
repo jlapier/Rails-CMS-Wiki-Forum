@@ -6,13 +6,13 @@
     posted <%= post_time message.created_at  %> by
     <strong><%= link_to message.user.name, '#TODO_link_to_users_profile'  %></strong>
   </td>
-  <td><strong><%= link_to message.subject, message %>:</strong>
-    <span class="gray"><%=h truncate( strip_tags(message.body), 200 ) %></span>
+  <td><strong><%= link_to message.subject, forum_message_post_path(@forum, message) %>:</strong>
+    <span class="gray"><%=h truncate( strip_tags(message.body), :length => 200 ) %></span>
   </td>
   <td class="message_last_reply">
     Last Reply:
       <% if message.most_recent_reply %>
-        <%= link_to message.most_recent_reply.subject, message,
+        <%= link_to message.most_recent_reply.subject, forum_message_post_path(@forum, message),
               :page => MessagePost.last_page_number_for(:thread_id => message),
               :anchor => "bottom" %> <br/>
         <em><%= message.most_recent_reply.user.name %></em>

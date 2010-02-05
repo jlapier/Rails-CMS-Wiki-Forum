@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :wikis, :collection => { :chatter => :get, :search => :get, :live_search => :post, :tagcloud => :get } do |wiki|
     wiki.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post,
-      :un_edit => :post, :history => :get } do |wiki_page|
-        wiki_page.show      ':title',    :controller => 'wiki_pages', :action => 'show_by_title'
-      end
+      :un_edit => :post, :history => :get }
+    wiki.show_by_title   ':title',    :controller => 'wiki_pages', :action => 'show_by_title'
     wiki.tag       'tag/:tag_name',   :controller => 'wikis', :action => 'list_by_tag'
     wiki.tag_index 'tag_index',       :controller => 'wikis', :action => 'tag_index'
   end
@@ -40,9 +39,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/tagcloud.:format', :controller => 'wiki_pages', :action => 'tagcloud'
 
 
-  map.resources :message_posts, :collection => { :search => :get }
-
-  map.resources :forums
+  map.resources :forums do |forum|
+    forum.resources :message_posts, :collection => { :search => :get }
+  end
 
   map.resource :account, :controller => "users"
   map.resources :users, :collection => { :reg_pass_required => :get }

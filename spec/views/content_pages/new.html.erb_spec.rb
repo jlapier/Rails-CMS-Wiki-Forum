@@ -3,13 +3,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/content_pages/new.html.erb" do
   include ContentPagesHelper
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+  end
+
   before(:each) do
+    Category.stub!(:find).and_return([stub_model(Category, :name => 'cat')])
     assigns[:content_page] = stub_model(ContentPage,
       :new_record? => true,
       :name => "value for name",
       :body => "value for body",
-      :category_id => 1
+      :categories => []
     )
+    template.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders new content_page form" do
@@ -17,8 +23,8 @@ describe "/content_pages/new.html.erb" do
 
     response.should have_tag("form[action=?][method=post]", content_pages_path) do
       with_tag("input#content_page_name[name=?]", "content_page[name]")
-      with_tag("textarea#content_page_body[name=?]", "content_page[body]")
-      with_tag("input#content_page_category_id[name=?]", "content_page[category_id]")
+      without_tag("textarea#content_page_body[name=?]", "content_page[body]")
+      with_tag("input[type=checkbox][name=?]", 'content_page[category_ids][]')
     end
   end
 end

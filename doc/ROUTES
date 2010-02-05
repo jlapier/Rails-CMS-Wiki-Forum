@@ -1,5 +1,4 @@
 (in /home/jason/dev/projects/site_on_rails)
-               wiki_wiki_page_show        /wikis/:wiki_id/wiki_pages/:wiki_page_id/:title            {:controller=>"wiki_pages", :action=>"show_by_title"}
                    wiki_wiki_pages GET    /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"index"}
                                    POST   /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"create"}
                 new_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/new(.:format)                   {:controller=>"wiki_pages", :action=>"new"}
@@ -12,6 +11,7 @@
                     wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"show"}
                                    PUT    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"update"}
                                    DELETE /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"destroy"}
+                wiki_show_by_title        /wikis/:wiki_id/:title                                     {:controller=>"wiki_pages", :action=>"show_by_title"}
                           wiki_tag        /wikis/:wiki_id/tag/:tag_name                              {:controller=>"wikis", :action=>"list_by_tag"}
                     wiki_tag_index        /wikis/:wiki_id/tag_index                                  {:controller=>"wikis", :action=>"tag_index"}
                     tagcloud_wikis GET    /wikis/tagcloud(.:format)                                  {:controller=>"wikis", :action=>"tagcloud"}
@@ -64,14 +64,14 @@ update_site_settings_site_settings POST   /site_settings/update_site_settings(.:
                                    PUT    /wiki_comments/:id(.:format)                               {:controller=>"wiki_comments", :action=>"update"}
                                    DELETE /wiki_comments/:id(.:format)                               {:controller=>"wiki_comments", :action=>"destroy"}
                                           /tagcloud(.:format)                                        {:controller=>"wiki_pages", :action=>"tagcloud"}
-              search_message_posts GET    /message_posts/search(.:format)                            {:controller=>"message_posts", :action=>"search"}
-                     message_posts GET    /message_posts(.:format)                                   {:controller=>"message_posts", :action=>"index"}
-                                   POST   /message_posts(.:format)                                   {:controller=>"message_posts", :action=>"create"}
-                  new_message_post GET    /message_posts/new(.:format)                               {:controller=>"message_posts", :action=>"new"}
-                 edit_message_post GET    /message_posts/:id/edit(.:format)                          {:controller=>"message_posts", :action=>"edit"}
-                      message_post GET    /message_posts/:id(.:format)                               {:controller=>"message_posts", :action=>"show"}
-                                   PUT    /message_posts/:id(.:format)                               {:controller=>"message_posts", :action=>"update"}
-                                   DELETE /message_posts/:id(.:format)                               {:controller=>"message_posts", :action=>"destroy"}
+        search_forum_message_posts GET    /forums/:forum_id/message_posts/search(.:format)           {:controller=>"message_posts", :action=>"search"}
+               forum_message_posts GET    /forums/:forum_id/message_posts(.:format)                  {:controller=>"message_posts", :action=>"index"}
+                                   POST   /forums/:forum_id/message_posts(.:format)                  {:controller=>"message_posts", :action=>"create"}
+            new_forum_message_post GET    /forums/:forum_id/message_posts/new(.:format)              {:controller=>"message_posts", :action=>"new"}
+           edit_forum_message_post GET    /forums/:forum_id/message_posts/:id/edit(.:format)         {:controller=>"message_posts", :action=>"edit"}
+                forum_message_post GET    /forums/:forum_id/message_posts/:id(.:format)              {:controller=>"message_posts", :action=>"show"}
+                                   PUT    /forums/:forum_id/message_posts/:id(.:format)              {:controller=>"message_posts", :action=>"update"}
+                                   DELETE /forums/:forum_id/message_posts/:id(.:format)              {:controller=>"message_posts", :action=>"destroy"}
                             forums GET    /forums(.:format)                                          {:controller=>"forums", :action=>"index"}
                                    POST   /forums(.:format)                                          {:controller=>"forums", :action=>"create"}
                          new_forum GET    /forums/new(.:format)                                      {:controller=>"forums", :action=>"new"}
@@ -98,8 +98,8 @@ update_site_settings_site_settings POST   /site_settings/update_site_settings(.:
                     new_user_group GET    /user_groups/new(.:format)                                 {:controller=>"user_groups", :action=>"new"}
                    edit_user_group GET    /user_groups/:id/edit(.:format)                            {:controller=>"user_groups", :action=>"edit"}
             add_members_user_group GET    /user_groups/:id/add_members(.:format)                     {:controller=>"user_groups", :action=>"add_members"}
-              drop_user_user_group POST   /user_groups/:id/drop_user(.:format)                       {:controller=>"user_groups", :action=>"drop_user"}
               add_users_user_group POST   /user_groups/:id/add_users(.:format)                       {:controller=>"user_groups", :action=>"add_users"}
+              drop_user_user_group POST   /user_groups/:id/drop_user(.:format)                       {:controller=>"user_groups", :action=>"drop_user"}
                         user_group GET    /user_groups/:id(.:format)                                 {:controller=>"user_groups", :action=>"show"}
                                    PUT    /user_groups/:id(.:format)                                 {:controller=>"user_groups", :action=>"update"}
                                    DELETE /user_groups/:id(.:format)                                 {:controller=>"user_groups", :action=>"destroy"}

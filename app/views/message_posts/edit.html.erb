@@ -1,3 +1,5 @@
-<h1>Editing post <em><%= @message_post.subject %></em></h1>
+<h1><%= link_to "Forums", forums_path %>: <%= @forum.title %></h1>
+  
+<h2>Editing post <em><%= @message_post.subject %></em></h2>
 
 <%= render :partial => 'message_form', :locals => { :message_post => @message_post } %>

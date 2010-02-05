@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+  before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag]
 
   # GET /wikis
   # GET /wikis.xml

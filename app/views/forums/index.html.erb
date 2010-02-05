@@ -1,7 +1,7 @@
 <h1>Forums</h1>
 
 <div style="float:right">
-  <% form_tag({ :controller => "/message_posts", :action => :search },  :method => :get  ) do %>
+  <% form_tag(search_forum_message_posts_path(@forum),  :method => :get  ) do %>
     <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
     <%= submit_tag "Go" %>
   <% end %>
