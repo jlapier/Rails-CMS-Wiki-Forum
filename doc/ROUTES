@@ -1,17 +1,17 @@
-(in /home/jason/dev/projects/site_on_rails)
+(in /home/jason/dev/site_on_rails)
                    wiki_wiki_pages GET    /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"index"}
                                    POST   /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"create"}
                 new_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/new(.:format)                   {:controller=>"wiki_pages", :action=>"new"}
                edit_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/edit(.:format)              {:controller=>"wiki_pages", :action=>"edit"}
-            history_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/history(.:format)           {:controller=>"wiki_pages", :action=>"history"}
   page_link_handler_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/page_link_handler(.:format) {:controller=>"wiki_pages", :action=>"page_link_handler"}
+            history_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/history(.:format)           {:controller=>"wiki_pages", :action=>"history"}
      upload_handler_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/upload_handler(.:format)    {:controller=>"wiki_pages", :action=>"upload_handler"}
        delete_asset_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/delete_asset(.:format)      {:controller=>"wiki_pages", :action=>"delete_asset"}
             un_edit_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/un_edit(.:format)           {:controller=>"wiki_pages", :action=>"un_edit"}
                     wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"show"}
                                    PUT    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"update"}
                                    DELETE /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"destroy"}
-                wiki_show_by_title        /wikis/:wiki_id/:title                                     {:controller=>"wiki_pages", :action=>"show_by_title"}
+                wiki_show_by_title        /wikis/:wiki_id/page/:title                                {:controller=>"wiki_pages", :action=>"show_by_title"}
                           wiki_tag        /wikis/:wiki_id/tag/:tag_name                              {:controller=>"wikis", :action=>"list_by_tag"}
                     wiki_tag_index        /wikis/:wiki_id/tag_index                                  {:controller=>"wikis", :action=>"tag_index"}
                     tagcloud_wikis GET    /wikis/tagcloud(.:format)                                  {:controller=>"wikis", :action=>"tagcloud"}

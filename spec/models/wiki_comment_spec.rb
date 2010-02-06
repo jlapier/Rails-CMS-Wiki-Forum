@@ -67,6 +67,8 @@ describe WikiComment do
     two_days_ago_comment = Factory(:two_days_ago)
     wcs = WikiComment.get_digest
     wcs.should_not be_empty
+    #wcs.size.should == 3
+    puts wcs.to_yaml
     assert wcs.first.new_record?
     wcs.first.title.should == "Daily Digest for #{Time.now.yesterday.strftime('%m/%d/%Y')}"
     wcs.first.body.should include(yesterday_comment.body)
@@ -86,5 +88,10 @@ describe WikiComment do
     assert wcs.first.new_record?
     wcs.first.title.should == "Weekly Digest for #{7.days.ago.beginning_of_week.strftime('%m/%d/%Y')}"
     wcs.first.body.should include(last_week_comment.body)
+  end
+
+  it "should make a title with comment on if regular comment" do
+    wc = WikiComment.create!(@valid_attributes)
+    wc.title.should match /Comment on: Cool Page \d/
   end
 end

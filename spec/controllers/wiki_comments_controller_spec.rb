@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WikiCommentsController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
+        :has_read_access_to? => true, :has_write_access_to? => true}))
+  end
+  
   def mock_wiki_comment(stubs={})
     @mock_wiki_comment ||= mock_model(WikiComment, stubs)
   end

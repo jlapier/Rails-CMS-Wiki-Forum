@@ -72,11 +72,11 @@ class WikiComment < ActiveRecord::Base
   def title
     return @title if @title
     if about_wiki_page_id
-      "Page changed: #{about_wiki_page.title}"
+      @title = "Page changed: #{about_wiki_page.title}"
     elsif wiki_page_id
-      "Comment on: #{wiki_page.title}"
+      @title = "Comment on: #{wiki_page.title}"
     else
-      body
+      @title = body
     end
   end
 

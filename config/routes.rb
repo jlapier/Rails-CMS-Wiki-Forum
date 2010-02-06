@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :wikis, :collection => { :chatter => :get, :search => :get, :live_search => :post, :tagcloud => :get } do |wiki|
     wiki.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post,
       :un_edit => :post, :history => :get }
-    wiki.show_by_title   ':title',    :controller => 'wiki_pages', :action => 'show_by_title'
+    wiki.show_by_title   'page/:title',    :controller => 'wiki_pages', :action => 'show_by_title'
     wiki.tag       'tag/:tag_name',   :controller => 'wikis', :action => 'list_by_tag'
     wiki.tag_index 'tag_index',       :controller => 'wikis', :action => 'tag_index'
   end
