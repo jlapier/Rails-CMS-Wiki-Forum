@@ -52,11 +52,11 @@ class WikiComment < ActiveRecord::Base
     end
 
     # get digest by either 'day' or 'week'
-    def get_digest(to_group_by = 'day')
+    def get_digest(wiki, to_group_by = 'day')
       to_group_by = to_group_by.to_sym
       up_to_date = to_group_by == :day ? Time.now.beginning_of_day : Time.now.beginning_of_week
       all_comments = WikiComment.find :all, :include => :user, :limit => 40, :order => "created_at DESC",
-        :conditions => ["created_at < ?", up_to_date]
+        :conditions => ["wiki_id = ? AND created_at < ?", wiki.id, up_to_date]
       fake_comments = []
       all_comments.group_by(&to_group_by).each do |day, comments|
         fake_comments << WikiComment.new( :created_at => day,

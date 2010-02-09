@@ -12,6 +12,7 @@
 class Wiki < ActiveRecord::Base
   alias_attribute :title, :name
   has_many :wiki_pages
+  has_many :wiki_comments
 
   class << self
     def all_wikis

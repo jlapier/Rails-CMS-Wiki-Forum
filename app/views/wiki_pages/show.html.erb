@@ -1,6 +1,6 @@
-<%= render :partial => "top_links" %>
+<%= render :partial => "/wikis/top_links" %>
 
-<h1><%= link_to "Wiki", wiki_page_show_home_path %>: <%= @wiki_page.title %></h1>
+<h1><%= link_to "Wiki", wiki_wiki_page_show_home_path(@wiki) %>: <%= @wiki_page.title %></h1>
 
 <br/>
 
@@ -16,7 +16,7 @@
     <%= @wiki_page.body_for_display %>
   </div>
 
-  <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_page_tag_path(:tag_name => wt.name) }.join(", ") %></p>
+  <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_wiki_page_tag_path(@wiki, :tag_name => wt.name) }.join(", ") %></p>
 </div>
 
 <div style="clear:both"></div>

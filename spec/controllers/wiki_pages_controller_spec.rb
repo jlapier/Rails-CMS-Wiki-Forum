@@ -34,7 +34,7 @@ describe WikiPagesController do
 
 
   describe "GET index" do
-    it "assigns all wiki_pages as @wiki_pages" do
+    it "redirects to wiki index" do
       get :index, :wiki_id => "12"
       response.should redirect_to(wiki_url(mock_wiki))
     end
@@ -57,7 +57,6 @@ describe WikiPagesController do
 
   describe "GET edit" do
     it "assigns the requested wiki_page as @wiki_page" do
-      WikiPage.stub!(:find).with("37").and_return(mock_wiki_page)
       get :edit, :wiki_id => "12", :id => "37"
       assigns[:wiki_page].should equal(mock_wiki_page)
     end

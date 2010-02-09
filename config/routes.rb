@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :wikis, :collection => { :chatter => :get, :search => :get, :live_search => :post, :tagcloud => :get } do |wiki|
     wiki.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post,
       :un_edit => :post, :history => :get }
+    wiki.resources :wiki_comments, :collection => { :daily => :get, :weekly => :get }
     wiki.show_by_title   'page/:title',    :controller => 'wiki_pages', :action => 'show_by_title'
     wiki.tag       'tag/:tag_name',   :controller => 'wikis', :action => 'list_by_tag'
     wiki.tag_index 'tag_index',       :controller => 'wikis', :action => 'tag_index'
@@ -17,8 +18,6 @@ ActionController::Routing::Routes.draw do |map|
     :un_edit => :post }, :collection => { :search => :get }
 
   map.resources :categories
-
-  map.resources :wiki_comments, :collection => { :daily => :get, :weekly => :get }
   
 #  map.with_options :controller => 'wiki_pages', :name_prefix => 'wiki_page_', :path_prefix => '/wiki' do |wiki_page|
 #    wiki_page.show_home '',                 :action => 'show_by_title', :title => 'Home'

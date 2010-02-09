@@ -1,16 +1,25 @@
-(in /home/jason/dev/site_on_rails)
+(in /home/jason/dev/projects/site_on_rails)
                    wiki_wiki_pages GET    /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"index"}
                                    POST   /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"create"}
                 new_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/new(.:format)                   {:controller=>"wiki_pages", :action=>"new"}
                edit_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/edit(.:format)              {:controller=>"wiki_pages", :action=>"edit"}
-  page_link_handler_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/page_link_handler(.:format) {:controller=>"wiki_pages", :action=>"page_link_handler"}
             history_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/history(.:format)           {:controller=>"wiki_pages", :action=>"history"}
+  page_link_handler_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/page_link_handler(.:format) {:controller=>"wiki_pages", :action=>"page_link_handler"}
      upload_handler_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/upload_handler(.:format)    {:controller=>"wiki_pages", :action=>"upload_handler"}
        delete_asset_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/delete_asset(.:format)      {:controller=>"wiki_pages", :action=>"delete_asset"}
             un_edit_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/un_edit(.:format)           {:controller=>"wiki_pages", :action=>"un_edit"}
                     wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"show"}
                                    PUT    /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"update"}
                                    DELETE /wikis/:wiki_id/wiki_pages/:id(.:format)                   {:controller=>"wiki_pages", :action=>"destroy"}
+         weekly_wiki_wiki_comments GET    /wikis/:wiki_id/wiki_comments/weekly(.:format)             {:controller=>"wiki_comments", :action=>"weekly"}
+          daily_wiki_wiki_comments GET    /wikis/:wiki_id/wiki_comments/daily(.:format)              {:controller=>"wiki_comments", :action=>"daily"}
+                wiki_wiki_comments GET    /wikis/:wiki_id/wiki_comments(.:format)                    {:controller=>"wiki_comments", :action=>"index"}
+                                   POST   /wikis/:wiki_id/wiki_comments(.:format)                    {:controller=>"wiki_comments", :action=>"create"}
+             new_wiki_wiki_comment GET    /wikis/:wiki_id/wiki_comments/new(.:format)                {:controller=>"wiki_comments", :action=>"new"}
+            edit_wiki_wiki_comment GET    /wikis/:wiki_id/wiki_comments/:id/edit(.:format)           {:controller=>"wiki_comments", :action=>"edit"}
+                 wiki_wiki_comment GET    /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"show"}
+                                   PUT    /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"update"}
+                                   DELETE /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"destroy"}
                 wiki_show_by_title        /wikis/:wiki_id/page/:title                                {:controller=>"wiki_pages", :action=>"show_by_title"}
                           wiki_tag        /wikis/:wiki_id/tag/:tag_name                              {:controller=>"wikis", :action=>"list_by_tag"}
                     wiki_tag_index        /wikis/:wiki_id/tag_index                                  {:controller=>"wikis", :action=>"tag_index"}
@@ -54,15 +63,6 @@ update_site_settings_site_settings POST   /site_settings/update_site_settings(.:
                           category GET    /categories/:id(.:format)                                  {:controller=>"categories", :action=>"show"}
                                    PUT    /categories/:id(.:format)                                  {:controller=>"categories", :action=>"update"}
                                    DELETE /categories/:id(.:format)                                  {:controller=>"categories", :action=>"destroy"}
-               daily_wiki_comments GET    /wiki_comments/daily(.:format)                             {:controller=>"wiki_comments", :action=>"daily"}
-              weekly_wiki_comments GET    /wiki_comments/weekly(.:format)                            {:controller=>"wiki_comments", :action=>"weekly"}
-                     wiki_comments GET    /wiki_comments(.:format)                                   {:controller=>"wiki_comments", :action=>"index"}
-                                   POST   /wiki_comments(.:format)                                   {:controller=>"wiki_comments", :action=>"create"}
-                  new_wiki_comment GET    /wiki_comments/new(.:format)                               {:controller=>"wiki_comments", :action=>"new"}
-                 edit_wiki_comment GET    /wiki_comments/:id/edit(.:format)                          {:controller=>"wiki_comments", :action=>"edit"}
-                      wiki_comment GET    /wiki_comments/:id(.:format)                               {:controller=>"wiki_comments", :action=>"show"}
-                                   PUT    /wiki_comments/:id(.:format)                               {:controller=>"wiki_comments", :action=>"update"}
-                                   DELETE /wiki_comments/:id(.:format)                               {:controller=>"wiki_comments", :action=>"destroy"}
                                           /tagcloud(.:format)                                        {:controller=>"wiki_pages", :action=>"tagcloud"}
         search_forum_message_posts GET    /forums/:forum_id/message_posts/search(.:format)           {:controller=>"message_posts", :action=>"search"}
                forum_message_posts GET    /forums/:forum_id/message_posts(.:format)                  {:controller=>"message_posts", :action=>"index"}

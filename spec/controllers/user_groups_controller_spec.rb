@@ -2,8 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserGroupsController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
+        :has_read_access_to? => true, :has_write_access_to? => true}))
+  end
+
   def mock_user_group(stubs={})
-    @mock_user_group ||= mock_model(UserGroup, stubs)
+    @mock_user_group ||= mock_model(UserGroup, stubs.merge(:name => "some group"))
+  end
+
+  before do
+    ContentPage.should_receive(:get_side_menu).and_return(mock_model(ContentPage))
+    ContentPage.should_receive(:get_top_menu).and_return(mock_model(ContentPage))
+    controller.stub!(:current_user).and_return(mock_user)
   end
 
   describe "GET index" do

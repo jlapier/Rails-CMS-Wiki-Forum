@@ -31,4 +31,10 @@ class UsersControllerTest < ActionController::TestCase
     put :update, :id => users(:ben).id, :user => { }
     assert_redirected_to account_path
   end
+  
+  test "should delete user" do
+    UserSession.create(users(:ben))
+    put :update, :id => users(:ben).id, :user => { }
+    assert_redirected_to account_path
+  end
 end

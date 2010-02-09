@@ -59,6 +59,8 @@ class User < ActiveRecord::Base
     first_name.blank? ? login : "#{first_name} #{last_name}"
   end
 
+  def full_name; fullname; end
+
   # provide a string describing the access required,
   # returns 'read' or 'write' or nil (highest available)
   def group_access(wiki_or_forum)
