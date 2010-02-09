@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :require_admin_user, :only => [:index, :update_password, :password_reset]
+  before_filter :require_admin_user, :only => [:index, :update_password, :password_reset, :destroy]
 
   def index
     @users = User.find(:all, :order => 'first_name ASC' )
@@ -63,5 +63,16 @@ class UsersController < ApplicationController
       render :action => :edit
     end
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = "Account <em>#{@user.login} (#{@user.full_name})</em> deleted."
+    respond_to do |format|
+      format.html { redirect_to(users_url) }
+      format.xml  { head :ok }
+    end
+  end
+
 
 end
