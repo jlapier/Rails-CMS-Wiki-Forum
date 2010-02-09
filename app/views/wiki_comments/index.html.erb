@@ -1,13 +1,13 @@
-<%= render :partial => "/wiki_pages/top_links" %>
+<%= render :partial => "/wikis/top_links" %>
 
-<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Recent Comments and Changes</h1>
+<h1><%= link_to @wiki.name, wiki_path(@wiki) %>: Recent Comments and Changes</h1>
 
 <% for comment in @comments %>
   <div class="wiki_chatter">
     <p>
       <% if comment.wiki_page %>
         <span class="darkgray">
-          On <%= link_to comment.wiki_page.title, wiki_page_show_path(:title => comment.wiki_page.url_title) %>,
+          On <%= link_to comment.wiki_page.title, wiki_show_by_title_path(@wiki, :title => comment.wiki_page.url_title) %>,
           <strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>: &nbsp;</span>
       <% else %>
         <span class="darkgray">
