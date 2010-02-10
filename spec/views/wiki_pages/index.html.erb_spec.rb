@@ -4,6 +4,7 @@ describe "/wiki_pages/index.html.erb" do
   include WikiPagesHelper
 
   before(:each) do
+    assigns[:wiki] = @wiki = stub_model(Wiki, :name => "some wiki")
     assigns[:wiki_pages] = [
       stub_model(WikiPage),
       stub_model(WikiPage)

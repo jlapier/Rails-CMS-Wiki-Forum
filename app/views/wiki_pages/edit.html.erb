@@ -1,4 +1,4 @@
-<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Editing: <%= @wiki_page.title %></h1>
+<h1><%= link_to @wiki.name, @wiki %>: Editing: <%= @wiki_page.title %></h1>
 
 <% if @wiki_page.editing_user and @wiki_page.editing_user != current_user %>
   <div class="flash_message error_message">
@@ -23,7 +23,7 @@
     <% for asset in @assets %>
       <li>
         <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
-        <%= link_to "X", delete_asset_wiki_page_path(@wiki_page, :asset => asset),
+        <%= link_to "X", delete_asset_wiki_wiki_page_path(@wiki, @wiki_page, :asset => asset),
               :confirm => "Really delete this file?", :method => :post,
               :style => 'color:#F00' %>
       </li>
@@ -45,7 +45,7 @@
 
   window.onunload = function() {
     if (needToConfirm) {
-      $.post('<%= un_edit_wiki_page_path @wiki_page %>');
+      $.post('<%= un_edit_wiki_wiki_page_path @wiki, @wiki_page %>');
     }
   }
 </script>
