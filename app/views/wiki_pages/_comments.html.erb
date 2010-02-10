@@ -2,7 +2,7 @@
 <div class="comment_form">
 <% form_remote_for(:wiki_comment, 
       WikiComment.new(:wiki_page_id => @wiki_page.id, :looking_at_version => @wiki_page.version),
-      :url => {  :controller => '/wiki_comments', :action => :create }) do |f|  %>
+      :url => wiki_wiki_comments_path(@wiki) ) do |f|  %>
   <%= f.hidden_field :wiki_page_id  %>
   <%= f.hidden_field :looking_at_version %>
   <%= f.text_area :body, :rows => 2, :class => 'expandable', :style => 'width:92%; height: 70px;' %><br/>
