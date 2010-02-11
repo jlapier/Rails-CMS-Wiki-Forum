@@ -13,7 +13,7 @@ describe WikiCommentsController do
 
   def mock_wiki_page(stubs={})
     @mock_wiki_page ||= mock_model(WikiPage, stubs.merge({:title => "some title", :editing_user => mock_user,
-        :url_title => 'some_title',
+        :url_title => 'some_title', :version => 5,
         :editing_user= => nil, :modifying_user= => nil}))
   end
 
@@ -83,38 +83,67 @@ describe WikiCommentsController do
   describe "POST create" do
 
     describe "with valid params" do
-      it "assigns a newly created wiki_comment as @wiki_comment" do
-        WikiComment.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_comment)
-        mock_wiki_comment.should_receive(:save).and_return(true)
-        post :create, :wiki_comment => {:these => 'params'}, :wiki_id => "12"
+      describe "when an HTML post" do
+        it "assigns a newly created wiki_comment as @wiki_comment" do
+          WikiComment.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_comment)
+          mock_wiki_comment.should_receive(:save).and_return(true)
+          post :create, :wiki_comment => {:these => 'params'}, :wiki_id => "12"
+        end
+
+        it "redirects to the created wiki_comment" do
+          WikiComment.stub!(:new).and_return(mock_wiki_comment)
+          mock_wiki_comment.should_receive(:save).and_return(true)
+          post :create, :wiki_comment => {}, :wiki_id => "12"
+          response.should redirect_to(wiki_wiki_page_url(mock_wiki, mock_wiki_page))
+        end
       end
 
-      it "redirects to the created wiki_comment" do
-        WikiComment.stub!(:new).and_return(mock_wiki_comment)
-        mock_wiki_comment.should_receive(:save).and_return(true)
-        post :create, :wiki_comment => {}, :wiki_id => "12"
-        response.should redirect_to(wiki_wiki_page_url(mock_wiki, mock_wiki_page))
+      describe "when an AJAX post" do
+        it "assigns a newly created wiki_comment as @wiki_comment and render comments partial" do
+          new_wiki_comment = stub_model(WikiComment)
+          WikiComment.stub(:new).once.with({'these' => 'params'}).and_return(mock_wiki_comment)
+          WikiComment.stub(:new).once.with({ :wiki_page_id => mock_wiki_page.id, :looking_at_version => mock_wiki_page.version,
+            :url => wiki_wiki_comments_path(mock_wiki)}).and_return(new_wiki_comment)
+          mock_wiki_comment.should_receive(:save).and_return(true)
+          # this is ridiculous but I kept getting an error rendering the partial via RJS
+          controller.stub(:render)
+          xhr :post, :create, :wiki_comment => {:these => 'params'}, :wiki_id => "12"
+        end
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved wiki_comment as @wiki_comment" do
-        WikiComment.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_comment)
-        errors = []
-        errors.stub!(:full_messages).and_return(['blah', 'boo'])
-        mock_wiki_comment.should_receive(:save).and_return(false)
-        mock_wiki_comment.should_receive(:errors).and_return(errors)
-        post :create, :wiki_comment => {:these => 'params'}, :wiki_id => "12"
+      describe "when an HTML post" do
+        it "assigns a newly created but unsaved wiki_comment as @wiki_comment" do
+          WikiComment.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_comment)
+          errors = []
+          errors.stub!(:full_messages).and_return(['blah', 'boo'])
+          mock_wiki_comment.should_receive(:save).and_return(false)
+          mock_wiki_comment.should_receive(:errors).and_return(errors)
+          post :create, :wiki_comment => {:these => 'params'}, :wiki_id => "12"
+        end
+
+        it "redirects back to the wiki page" do
+          WikiComment.stub!(:new).and_return(mock_wiki_comment)
+          errors = []
+          errors.stub!(:full_messages).and_return(['blah', 'boo'])
+          mock_wiki_comment.should_receive(:save).and_return(false)
+          mock_wiki_comment.should_receive(:errors).and_return(errors)
+          post :create, :wiki_comment => {}, :wiki_id => "12"
+          response.should redirect_to(wiki_wiki_page_url(mock_wiki, mock_wiki_page))
+        end
       end
 
-      it "redirects back to the wiki page" do
-        WikiComment.stub!(:new).and_return(mock_wiki_comment)
-        errors = []
-        errors.stub!(:full_messages).and_return(['blah', 'boo'])
-        mock_wiki_comment.should_receive(:save).and_return(false)
-        mock_wiki_comment.should_receive(:errors).and_return(errors)
-        post :create, :wiki_comment => {}, :wiki_id => "12"
-        response.should redirect_to(wiki_wiki_page_url(mock_wiki, mock_wiki_page))
+      describe "when an AJAX post" do
+        it "renders an error in the message box" do
+          WikiComment.stub!(:new).and_return(mock_wiki_comment)
+          errors = []
+          errors.stub!(:full_messages).and_return(['blah', 'boo'])
+          mock_wiki_comment.should_receive(:save).and_return(false)
+          mock_wiki_comment.should_receive(:errors).and_return(errors)
+          xhr :post, :create, :wiki_comment => {}, :wiki_id => "12"
+          response.should have_text(/Unable to save comment/)
+        end
       end
     end
 

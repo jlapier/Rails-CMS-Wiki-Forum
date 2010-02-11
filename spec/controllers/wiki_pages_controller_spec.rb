@@ -47,11 +47,44 @@ describe WikiPagesController do
     end
   end
 
+  describe "GET show_by_title" do
+    it "assigns the requested wiki_page as @wiki_page" do
+      mock_wiki_pages.stub!(:find_by_url_title).and_return(mock_wiki_page)
+      get :show_by_title, :wiki_id => "12", :title => 'some_wiki_page'
+      assigns[:wiki_page].should equal(mock_wiki_page)
+    end
+
+    it "redirects if not found" do
+      mock_wiki_pages.stub!(:find_by_url_title).and_return(nil)
+      get :show_by_title, :wiki_id => "12", :title => 'some_wiki_page'
+      response.should redirect_to(new_wiki_wiki_page_url(mock_wiki, :title => 'some_wiki_page'))
+    end
+  end
+
+
   describe "GET new" do
     it "assigns a new wiki_page as @wiki_page" do
       WikiPage.stub!(:new).and_return(mock_wiki_page)
       get :new, :wiki_id => "12"
       assigns[:wiki_page].should equal(mock_wiki_page)
+    end
+
+    it "assigns a new wiki_page as @wiki_page with a title" do
+      get :new, :wiki_id => "12", :title => 'this_is_a_test'
+      assigns[:wiki_page].should_not be_nil
+      assigns[:wiki_page].should be_an_instance_of WikiPage
+      assigns[:wiki_page].title.should == 'this is a test'
+    end
+  end
+
+  describe "GET history" do
+    it "assigns the requested wiki_page as @wiki_page" do
+      mock_wiki_page_version_proxy = []
+      mock_wiki_page_version_proxy.stub!(:find).and_return([])
+      mock_wiki_page.stub!(:versions => mock_wiki_page_version_proxy)
+      get :history, :wiki_id => "12", :id => '37'
+      assigns[:wiki_page].should equal(mock_wiki_page)
+      assigns[:wiki_page_versions].should == []
     end
   end
 
@@ -59,6 +92,70 @@ describe WikiPagesController do
     it "assigns the requested wiki_page as @wiki_page" do
       get :edit, :wiki_id => "12", :id => "37"
       assigns[:wiki_page].should equal(mock_wiki_page)
+    end
+
+    it "assigns the requested wiki_page as @wiki_page and sets editing_user" do
+      a_time = Time.now
+      Time.stub!(:now).and_return(a_time)
+      mock_wiki_page.stub!(:editing_user).and_return(nil)
+      mock_wiki_page.should_receive(:update_attributes).with({:editing_user => mock_user, :started_editing_at => a_time})
+      get :edit, :wiki_id => "12", :id => "37"
+      assigns[:wiki_page].should equal(mock_wiki_page)
+    end
+  end
+
+
+  describe "GET un_edit" do
+    describe "with HTML GET" do
+      it "assigns the requested wiki_page as @wiki_page and unmarks it as being edited" do
+        mock_wiki_page.should_receive(:update_attributes).with({:editing_user => nil, :started_editing_at => nil})
+        get :un_edit, :wiki_id => "12", :id => "37"
+        assigns[:wiki_page].should equal(mock_wiki_page)
+        response.should redirect_to(wiki_show_by_title_path(mock_wiki, :title => mock_wiki_page.url_title))
+      end
+    end
+
+    describe "with AJAX GET" do
+      it "assigns the requested wiki_page as @wiki_page and unmarks it as being edited" do
+        mock_wiki_page.should_receive(:update_attributes).with({:editing_user => nil, :started_editing_at => nil})
+        xhr :get, :un_edit, :wiki_id => "12", :id => "37"
+        assigns[:wiki_page].should equal(mock_wiki_page)
+      end
+    end
+  end
+
+  describe "GET search" do
+    it "searches and assigns wiki pages and wiki tags" do
+      mock_wiki_tag = mock_model(WikiTag)
+      WikiPage.should_receive(:search).with('my search').and_return([mock_wiki_page])
+      WikiTag.should_receive(:search).with('my search').and_return([mock_wiki_tag])
+      get :search, :wiki_id => "12", :name => 'my search'
+      assigns[:name_part].should == 'my search'
+      assigns[:wiki_pages].should == [mock_wiki_page]
+      assigns[:wiki_tags].should == [mock_wiki_tag]
+    end
+  end
+
+  describe "xhr GET upload_handler for rich text editor" do
+    it "should write a file and render text output" do
+      uploaded_file = mock(ActionController::UploadedStringIO).as_null_object
+      uploaded_file.stub!(:original_filename).and_return('test.doc')
+      uploaded_file.stub!(:read).and_return("Some content")
+      controller.should_receive(:write_file).with(uploaded_file, "wiki_page_assets/wiki_page_#{mock_wiki_page.id}")
+      xhr :post, :upload_handler, :wiki_id => "12", :id => '37', :upload => uploaded_file
+      assigns[:wiki_page].should equal(mock_wiki_page)
+      response.should have_text(/parent.CKEDITOR.tools.callFunction/)
+    end
+  end
+
+  describe "GET page_link_handler" do
+    it "should return the current wiki page and all other wiki pages" do
+      other_mock_wiki = stub_model(Wiki, :wiki_pages => mock_wiki_pages)
+      Wiki.stub!(:find).with("2").and_return(other_mock_wiki)
+      mock_wiki_pages.should_receive(:find).with('31').and_return(mock_wiki_page)
+      get :page_link_handler, :wiki_id => "2", :id => '31'
+      assigns[:wiki_page].should equal(mock_wiki_page)
+      assigns[:wiki_pages].should equal(mock_wiki_pages)
     end
   end
 
@@ -150,6 +247,21 @@ describe WikiPagesController do
       mock_wiki_page.stub!(:destroy => true)
       delete :destroy, :wiki_id => "12", :id => "37"
       response.should redirect_to(wiki_url(mock_wiki))
+    end
+  end
+
+
+  describe "POST delete_asset" do
+    it "should delete a file and redirect" do
+      File.stubs :exists? => true, :delete => true
+      post :delete_asset, :wiki_id => "12", :id => "37", :asset => 'somefile.doc'
+      response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
+    end
+
+    it "should give an error if file not found and redirect" do
+      File.stubs :exists? => false, :delete => true
+      post :delete_asset, :wiki_id => "12", :id => "37", :asset => 'somefile.doc'
+      response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
     end
   end
 

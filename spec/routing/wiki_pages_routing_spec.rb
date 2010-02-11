@@ -7,6 +7,11 @@ describe WikiPagesController do
         "/wikis/1/wiki_pages"
     end
 
+    it "maps #search" do
+      route_for(:controller => "wiki_pages", :action => "search", :wiki_id => "1", :name => 'blah').should ==
+        "/wikis/1/wiki_pages/search?name=blah"
+    end
+
     it "maps #new" do
       route_for(:controller => "wiki_pages", :action => "new", :wiki_id => "1").should ==
         "/wikis/1/wiki_pages/new"
@@ -42,6 +47,11 @@ describe WikiPagesController do
     it "generates params for #index" do
       params_from(:get, "/wikis/1/wiki_pages").should ==
         {:controller => "wiki_pages", :action => "index", :wiki_id => "1"}
+    end
+
+    it "generates params for #search" do
+      params_from(:get, "/wikis/1/wiki_pages/search?name=blah").should ==
+        {:controller => "wiki_pages", :action => "search", :wiki_id => "1", :name => 'blah'}
     end
 
     it "generates params for #new" do

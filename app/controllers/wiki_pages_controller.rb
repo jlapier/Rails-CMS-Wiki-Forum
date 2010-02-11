@@ -19,18 +19,13 @@ class WikiPagesController < ApplicationController
       render :action => :show
     else
       flash[:notice] = "<em>#{params[:title]}</em> was not found. You may create this page now if you wish."
-      redirect_to new_wiki_wiki_page(@wiki, :title => params[:title])
+      redirect_to new_wiki_wiki_page_path(@wiki, :title => params[:title])
     end
   end
   
   def history
-    @wiki_page = @wiki.wiki_pages.find_by_url_title params[:title]
-    if @wiki_page
-      @wiki_page_versions = @wiki_page.versions.find(:all, :limit => 20).reverse
-    else
-      flash[:notice] = "<em>#{params[:title]}</em> was not found. You may create this page now if you wish."
-      redirect_to new_wiki_wiki_page(@wiki, :title => params[:title])
-    end
+    @wiki_page = @wiki.wiki_pages.find params[:id]
+    @wiki_page_versions = @wiki_page.versions.find(:all, :limit => 20).reverse
   end
 
   def bookmark
@@ -63,7 +58,8 @@ class WikiPagesController < ApplicationController
   end
   
   def new
-    @wiki_page = WikiPage.new :title => params[:title]
+    title = params[:title] ? params[:title].respace : ''
+    @wiki_page = WikiPage.new :title => title
   end
   
   def create
@@ -82,19 +78,8 @@ class WikiPagesController < ApplicationController
     @wiki_page.modifying_user = current_user
     if @wiki_page.update_attributes params[:wiki_page]
       @wiki_page.update_attributes :editing_user => nil, :started_editing_at => nil
-      respond_to do |wants|
-        wants.html do
-          flash[:notice] = "Page <em>#{@wiki_page.title}</em> updated."
-          redirect_to wiki_show_by_title_path(@wiki, :title => @wiki_page.url_title)
-        end
-        wants.js do
-          render :update do |page|
-            page['my_notes_saved'].show
-            page['my_notes_saved'].visual_effect :pulsate
-            page.delay(5) { page['my_notes_saved'].visual_effect :fade }
-          end
-        end
-      end
+      flash[:notice] = "Page <em>#{@wiki_page.title}</em> updated."
+      redirect_to wiki_show_by_title_path(@wiki, :title => @wiki_page.url_title)
     else
       render :action => :edit
     end     
@@ -148,32 +133,21 @@ class WikiPagesController < ApplicationController
     @wiki_pages = WikiPage.search @name_part
     @wiki_tags = WikiTag.search @name_part
   end
-  
-  def homepage
-    @wiki_page = @wiki.wiki_pages.find_or_create_by_title("Home Page")
-    render :action => :show
-  end
+
   
   def upload_handler
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    file_name = params[:upload].original_filename
-    # break it up into file and extension
-    # we need this to check the types and to build new names if necessary
     rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
-    actual_dir = File.join(RAILS_ROOT, 'public', rel_dir)
-    FileUtils.mkdir_p actual_dir
-    File.open(File.join(actual_dir, file_name), 'wb') do |f|
-      f.write(params[:upload].read)
-    end
+    write_file(params[:upload], rel_dir)
 
     render :text => "<html><body><script type=\"text/javascript\">" +
-      "parent.CKEDITOR.tools.callFunction( #{params[:CKEditorFuncNum]}, '/#{rel_dir}/#{file_name}' )" +
+      "parent.CKEDITOR.tools.callFunction( #{params[:CKEditorFuncNum]}, '/#{rel_dir}/#{params[:upload].original_filename}' )" +
       "</script></body></html>"
   end
 
   def page_link_handler
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    @wiki_pages = WikiPage.find :all
+    @wiki_pages = @wiki.wiki_pages
     render :action => :page_link_handler, :layout => 'minimal'
   end
 
@@ -197,5 +171,16 @@ class WikiPagesController < ApplicationController
   def get_tags
     @wiki_tags = WikiTag.find(:all).select { |wt| wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) > 0 }
     @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
+  end
+
+  # takes a file upload object and the relative directory to save it to
+  # returns the relative location of the uploaded file
+  def write_file(uploaded_file, rel_dir)
+    file_name = uploaded_file.original_filename
+    actual_dir = File.join(RAILS_ROOT, 'public', rel_dir)
+    FileUtils.mkdir_p actual_dir
+    File.open(File.join(actual_dir, file_name), 'wb') do |f|
+      f.write(uploaded_file.read)
+    end
   end
 end
