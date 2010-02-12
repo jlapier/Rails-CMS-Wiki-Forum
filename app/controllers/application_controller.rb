@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     if require_user
       unless current_user.has_read_access_to?(@forum)
         flash[:notice] = "You do not have permission to view that forum."
-        redirect_to account_url
+        redirect_to forums_url
       end
     else
       return false
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     if require_user
       unless current_user.has_write_access_to?(@forum)
         flash[:notice] = "You do not have post or edit in that forum."
-        redirect_to account_url
+        redirect_to forums_url
       end
     else
       return false
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     if require_user
       unless current_user.has_read_access_to?(@wiki)
         flash[:notice] = "You do not have permission to view that wiki."
-        redirect_to account_url
+        redirect_to wikis_url
       end
     else
       return false
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
     if require_user
       unless current_user.has_write_access_to?(@wiki)
         flash[:notice] = "You do not have permission to edit that wiki."
-        redirect_to account_url
+        redirect_to wikis_url
       end
     else
       return false

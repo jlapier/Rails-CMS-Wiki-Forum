@@ -1,16 +1,23 @@
-<h1>Listing wikis</h1>
+<h1>Wikis</h1>
+
+<p><em>Click the name of a wiki to see a list of pages in it.</em></p>
 
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
 <% @wikis.each do |wiki| %>
   <tr>
-    <td><%=h wiki.name %></td>
-    <td><%= link_to 'Show', wiki %></td>
-    <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-    <td><%= link_to 'Destroy', wiki, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td>
+      <strong><%= link_to wiki.name, wiki %>: </strong>
+      <%= textilize_without_paragraph wiki.description %>
+    </td>
+    <% if is_admin? %>
+      <td>
+        <%= link_to 'edit', edit_wiki_path(wiki) %> |
+        <%= link_to 'delete', wiki,
+                :confirm => "Are you sure you want to permanently delete this wiki (#{wiki.name}) " +
+                  "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
+                :method => :delete %>
+      </td>
+    <% end %>
   </tr>
 <% end %>
 </table>

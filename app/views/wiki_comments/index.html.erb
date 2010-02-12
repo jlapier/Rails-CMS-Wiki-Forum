@@ -7,7 +7,8 @@
     <p>
       <% if comment.wiki_page %>
         <span class="darkgray">
-          On <%= link_to comment.wiki_page.title, wiki_show_by_title_path(@wiki, :title => comment.wiki_page.url_title) %>,
+          On <%= link_to comment.wiki_page.title,
+            wiki_pages_show_by_title_path(@wiki, :title => comment.wiki_page.url_title) %>,
           <strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>: &nbsp;</span>
       <% else %>
         <span class="darkgray">

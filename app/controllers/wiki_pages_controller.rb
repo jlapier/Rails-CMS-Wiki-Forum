@@ -80,7 +80,7 @@ class WikiPagesController < ApplicationController
     if @wiki_page.update_attributes params[:wiki_page]
       @wiki_page.update_attributes :editing_user => nil, :started_editing_at => nil
       flash[:notice] = "Page <em>#{@wiki_page.title}</em> updated."
-      redirect_to wiki_show_by_title_path(@wiki, :title => @wiki_page.url_title)
+      redirect_to wiki_pages_show_by_title_path(@wiki, :title => @wiki_page.url_title)
     else
       render :action => :edit
     end     
@@ -96,7 +96,7 @@ class WikiPagesController < ApplicationController
     respond_to do |wants|
       wants.html do
         flash[:notice] = "Page <em>#{@wiki_page.title}</em> was not changed."
-        redirect_to wiki_show_by_title_path(@wiki, :title => @wiki_page.url_title)
+        redirect_to wiki_pages_show_by_title_path(@wiki, :title => @wiki_page.url_title)
       end
       wants.js { render :nothing => true }
     end

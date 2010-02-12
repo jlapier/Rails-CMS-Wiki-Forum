@@ -1,5 +1,8 @@
 class WikisController < ApplicationController
   before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag]
+  before_filter :get_wiki, :except => [:new, :create, :index]
+  before_filter :require_wiki_read_access, :only => [:show, :tag_index, :tagcloud, :list_by_tag]
+
 
   # GET /wikis
   # GET /wikis.xml
@@ -15,7 +18,6 @@ class WikisController < ApplicationController
   # GET /wikis/1
   # GET /wikis/1.xml
   def show
-    @wiki = Wiki.find(params[:id])
     @wiki_pages = @wiki.wiki_pages.paginate :all, :page => params[:page],
       :order => "updated_at DESC", :select => "id, title, url_title, updated_at"
 
@@ -38,7 +40,6 @@ class WikisController < ApplicationController
 
   # GET /wikis/1/edit
   def edit
-    @wiki = Wiki.find(params[:id])
   end
 
   # POST /wikis
@@ -61,8 +62,6 @@ class WikisController < ApplicationController
   # PUT /wikis/1
   # PUT /wikis/1.xml
   def update
-    @wiki = Wiki.find(params[:id])
-
     respond_to do |format|
       if @wiki.update_attributes(params[:wiki])
         flash[:notice] = 'Wiki was successfully updated.'
@@ -78,7 +77,6 @@ class WikisController < ApplicationController
   # DELETE /wikis/1
   # DELETE /wikis/1.xml
   def destroy
-    @wiki = Wiki.find(params[:id])
     @wiki.destroy
 
     respond_to do |format|
@@ -88,17 +86,15 @@ class WikisController < ApplicationController
   end
 
 
-
-
   def tag_index
 
   end
-
 
   def list_by_tag
     @wiki_tag = WikiTag.find :first, :conditions => { :name => params[:tag_name] }
     if @wiki_tag
       @wiki.wiki_pages = @wiki_tag.wiki_pages.paginate :all, :page => params[:page], :per_page => 80,
+        :conditions => { :wiki_id => @wiki.id },
         :order => "updated_at DESC", :select => "wiki_pages.id, title, url_title, updated_at"
       render :action => :index
     else
@@ -110,6 +106,15 @@ class WikisController < ApplicationController
   
   def tagcloud
     @wiki_tags = WikiTag.find :all
-    render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages.count } }
+    render :json => @wiki_tags.map {|wt| 
+      { 'tag' => wt.name, 'freq' => wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) } }
   end
+
+
+  private
+
+  def get_wiki
+    @wiki = Wiki.find params[:id]
+  end
+
 end

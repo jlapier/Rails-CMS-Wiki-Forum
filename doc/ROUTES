@@ -1,10 +1,12 @@
-(in /home/jason/dev/projects/site_on_rails)
+(in /home/jason/dev/site_on_rails)
+            search_wiki_wiki_pages GET    /wikis/:wiki_id/wiki_pages/search(.:format)                {:controller=>"wiki_pages", :action=>"search"}
+       live_search_wiki_wiki_pages POST   /wikis/:wiki_id/wiki_pages/live_search(.:format)           {:controller=>"wiki_pages", :action=>"live_search"}
                    wiki_wiki_pages GET    /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"index"}
                                    POST   /wikis/:wiki_id/wiki_pages(.:format)                       {:controller=>"wiki_pages", :action=>"create"}
                 new_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/new(.:format)                   {:controller=>"wiki_pages", :action=>"new"}
                edit_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/edit(.:format)              {:controller=>"wiki_pages", :action=>"edit"}
-            history_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/history(.:format)           {:controller=>"wiki_pages", :action=>"history"}
   page_link_handler_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/page_link_handler(.:format) {:controller=>"wiki_pages", :action=>"page_link_handler"}
+            history_wiki_wiki_page GET    /wikis/:wiki_id/wiki_pages/:id/history(.:format)           {:controller=>"wiki_pages", :action=>"history"}
      upload_handler_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/upload_handler(.:format)    {:controller=>"wiki_pages", :action=>"upload_handler"}
        delete_asset_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/delete_asset(.:format)      {:controller=>"wiki_pages", :action=>"delete_asset"}
             un_edit_wiki_wiki_page POST   /wikis/:wiki_id/wiki_pages/:id/un_edit(.:format)           {:controller=>"wiki_pages", :action=>"un_edit"}
@@ -20,20 +22,17 @@
                  wiki_wiki_comment GET    /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"show"}
                                    PUT    /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"update"}
                                    DELETE /wikis/:wiki_id/wiki_comments/:id(.:format)                {:controller=>"wiki_comments", :action=>"destroy"}
-                wiki_show_by_title        /wikis/:wiki_id/page/:title                                {:controller=>"wiki_pages", :action=>"show_by_title"}
-                          wiki_tag        /wikis/:wiki_id/tag/:tag_name                              {:controller=>"wikis", :action=>"list_by_tag"}
-                    wiki_tag_index        /wikis/:wiki_id/tag_index                                  {:controller=>"wikis", :action=>"tag_index"}
-                    tagcloud_wikis GET    /wikis/tagcloud(.:format)                                  {:controller=>"wikis", :action=>"tagcloud"}
-                      search_wikis GET    /wikis/search(.:format)                                    {:controller=>"wikis", :action=>"search"}
-                     chatter_wikis GET    /wikis/chatter(.:format)                                   {:controller=>"wikis", :action=>"chatter"}
-                 live_search_wikis POST   /wikis/live_search(.:format)                               {:controller=>"wikis", :action=>"live_search"}
                              wikis GET    /wikis(.:format)                                           {:controller=>"wikis", :action=>"index"}
                                    POST   /wikis(.:format)                                           {:controller=>"wikis", :action=>"create"}
                           new_wiki GET    /wikis/new(.:format)                                       {:controller=>"wikis", :action=>"new"}
                          edit_wiki GET    /wikis/:id/edit(.:format)                                  {:controller=>"wikis", :action=>"edit"}
+                     tagcloud_wiki GET    /wikis/:id/tagcloud(.:format)                              {:controller=>"wikis", :action=>"tagcloud"}
+                    tag_index_wiki GET    /wikis/:id/tag_index(.:format)                             {:controller=>"wikis", :action=>"tag_index"}
                               wiki GET    /wikis/:id(.:format)                                       {:controller=>"wikis", :action=>"show"}
                                    PUT    /wikis/:id(.:format)                                       {:controller=>"wikis", :action=>"update"}
                                    DELETE /wikis/:id(.:format)                                       {:controller=>"wikis", :action=>"destroy"}
+          wiki_pages_show_by_title        /wikis/:wiki_id/page/:title                                {:controller=>"wiki_pages", :action=>"show_by_title"}
+                          wiki_tag        /wikis/:id/tag/:tag_name                                   {:controller=>"wikis", :action=>"list_by_tag"}
                                           /themes/:action                                            {:controller=>"themes"}
                                           /themes/:action/:name(.:format)                            {:controller=>"themes"}
                admin_site_settings GET    /site_settings/admin(.:format)                             {:controller=>"site_settings", :action=>"admin"}

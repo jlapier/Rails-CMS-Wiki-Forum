@@ -36,10 +36,18 @@ describe WikisController do
   end
 
   describe "GET show" do
-    it "assigns the requested wiki as @wiki" do
+    it "assigns the requested wiki as @wiki if access" do
+      mock_user.stub(:has_read_access_to?).and_return(true)
       Wiki.stub(:find).with("37").and_return(mock_wiki)
       get :show, :id => "37"
       assigns[:wiki].should equal(mock_wiki)
+    end
+
+    it "redirects if no access to requested wiki" do
+      mock_user.stub(:has_read_access_to?).and_return(false)
+      Wiki.stub(:find).with("37").and_return(mock_wiki)
+      get :show, :id => "37"
+      response.should redirect_to(wikis_url)
     end
   end
 
