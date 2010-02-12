@@ -37,6 +37,8 @@ describe User do
     assert u.has_write_access_to?(wiki2)
     assert u.has_access_to_any_wikis?
     assert !u.has_access_to_any_forums?
+    u.wikis.should == [wiki1, wiki2]
+    u.forums.should == []
   end
 
   it "should have access to forums based on groups" do
@@ -54,5 +56,7 @@ describe User do
     assert u.has_write_access_to?(forum2)
     assert u.has_access_to_any_forums?
     assert !u.has_access_to_any_wikis?
+    u.wikis.should == []
+    u.forums.should == [forum1, forum2]
   end
 end

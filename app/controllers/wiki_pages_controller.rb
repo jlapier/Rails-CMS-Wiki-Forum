@@ -1,6 +1,6 @@
 class WikiPagesController < ApplicationController
-  before_filter :get_tags, :only => [:new, :show, :edit, :show_by_title]
   before_filter :get_wiki
+  before_filter :get_tags, :only => [:new, :show, :edit, :create, :update, :show_by_title]
   before_filter :require_wiki_read_access, :only => [:show, :history, :homepage, :index, :live_search, :search, :show_by_title]
   before_filter :require_wiki_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
   
@@ -64,6 +64,7 @@ class WikiPagesController < ApplicationController
   
   def create
     @wiki_page = WikiPage.new params[:wiki_page]
+    @wiki_page.wiki = @wiki
     @wiki_page.modifying_user = current_user
     if @wiki_page.save
       flash[:notice] = "New page <em>#{@wiki_page.title}</em> created."

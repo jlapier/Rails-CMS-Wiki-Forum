@@ -33,12 +33,14 @@ class UserGroup < ActiveRecord::Base
     end
   end
 
+  # not actually forums, but a hash of forum ids and access
   def forums
     self.special ||= {}
     self.special[:forums] ||= {}
     special[:forums]
   end
 
+  # not actually wikis, but a hash of wiki ids and access
   def wikis
     self.special ||= {}
     self.special[:wikis] ||= {}

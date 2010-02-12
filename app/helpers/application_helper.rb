@@ -18,14 +18,14 @@ module ApplicationHelper
   end
 
   def page_title
-    pre = case controller.action_name
+    pre = case action_name
     when "edit" then "Editing "
     when "new"  then "Creating "
     else
       ""
     end
     if @content_page
-      "#{pre} #{@content_page.name}"
+      "#{pre}#{@content_page.name}"
     elsif @category
       "#{pre}Category: #{@category.name}"
     elsif @wiki_page
@@ -37,7 +37,7 @@ module ApplicationHelper
     elsif @user_group
       "#{pre}User Group: #{@user_group.name}"
     else
-      controller.controller_name.titleize
+      controller_name.titleize
     end
   end
 
@@ -62,8 +62,20 @@ module ApplicationHelper
       out += "<br/>"
       other_links = []
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
-      other_links << link_to('Wiki', wikis_path) if current_user.has_access_to_any_wikis?
-      other_links << link_to('Forums', forums_path) if current_user.has_access_to_any_forums?
+      if current_user.has_access_to_any_wikis?
+        if current_user.wikis.size == 1
+          other_links << link_to('Wiki', current_user.wikis.first)
+        else
+          other_links << link_to('Wiki', wikis_path) 
+        end
+      end
+      if current_user.has_access_to_any_forums?
+        if current_user.forums.size == 1
+          other_links << link_to('Forums', current_user.forums.first)
+        else
+          other_links << link_to('Forums', forums_path)
+        end
+      end
       out += other_links.join(' | ')
     else
       out += link_to("Register", new_account_path) + " | " +

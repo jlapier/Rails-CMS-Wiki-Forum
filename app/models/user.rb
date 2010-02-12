@@ -83,8 +83,16 @@ class User < ActiveRecord::Base
     user_groups.any? { |g| !g.wikis.empty? }
   end
 
+  def wikis
+    @wikis ||= Wiki.find(user_groups.map { |g| g.wikis.keys }.flatten.uniq)
+  end
+
   def has_access_to_any_forums?
     user_groups.any? { |g| !g.forums.empty? }
+  end
+
+  def forums
+    @forums ||=  Forum.find(user_groups.map { |g| g.forums.keys }.flatten.uniq)
   end
 
   private

@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   def require_wiki_write_access
     if require_user
       unless current_user.has_write_access_to?(@wiki)
-        flash[:notice] = "You do not have post or edit in that wiki."
+        flash[:notice] = "You do not have permission to edit that wiki."
         redirect_to account_url
       end
     else

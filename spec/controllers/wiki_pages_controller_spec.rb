@@ -47,21 +47,6 @@ describe WikiPagesController do
     end
   end
 
-  describe "GET show_by_title" do
-    it "assigns the requested wiki_page as @wiki_page" do
-      mock_wiki_pages.stub!(:find_by_url_title).and_return(mock_wiki_page)
-      get :show_by_title, :wiki_id => "12", :title => 'some_wiki_page'
-      assigns[:wiki_page].should equal(mock_wiki_page)
-    end
-
-    it "redirects if not found" do
-      mock_wiki_pages.stub!(:find_by_url_title).and_return(nil)
-      get :show_by_title, :wiki_id => "12", :title => 'some_wiki_page'
-      response.should redirect_to(new_wiki_wiki_page_url(mock_wiki, :title => 'some_wiki_page'))
-    end
-  end
-
-
   describe "GET new" do
     it "assigns a new wiki_page as @wiki_page" do
       WikiPage.stub!(:new).and_return(mock_wiki_page)
@@ -164,14 +149,14 @@ describe WikiPagesController do
     describe "with valid params" do
       it "assigns a newly created wiki_page as @wiki_page" do
         WikiPage.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => true)
+        mock_wiki_page.stub!(:save => true, :wiki= => nil)
         post :create, :wiki_id => "12", :wiki_page => {:these => 'params'}
         assigns[:wiki_page].should equal(mock_wiki_page)
       end
 
       it "redirects to the created wiki_page in edit mode" do
         WikiPage.stub!(:new).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => true)
+        mock_wiki_page.stub!(:save => true, :wiki= => nil)
         post :create, :wiki_id => "12", :wiki_page => {}
         response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
       end
@@ -180,14 +165,14 @@ describe WikiPagesController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved wiki_page as @wiki_page" do
         WikiPage.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => false)
+        mock_wiki_page.stub!(:save => false, :wiki= => nil)
         post :create, :wiki_id => "12", :wiki_page => {:these => 'params'}
         assigns[:wiki_page].should equal(mock_wiki_page)
       end
 
       it "re-renders the 'new' template" do
         WikiPage.stub!(:new).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => false)
+        mock_wiki_page.stub!(:save => false, :wiki= => nil)
         post :create, :wiki_id => "12", :wiki_page => {}
         response.should render_template('new')
       end

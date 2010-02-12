@@ -22,6 +22,11 @@ describe WikiPagesController do
         "/wikis/1/wiki_pages/1"
     end
 
+    it "maps #show_by_title" do
+      route_for(:controller => "wiki_pages", :action => "show_by_title", :title => "Some_Page", :wiki_id => "1").should ==
+        "/wikis/1/page/Some_Page"
+    end
+
     it "maps #edit" do
       route_for(:controller => "wiki_pages", :action => "edit", :id => "1", :wiki_id => "1").should ==
         "/wikis/1/wiki_pages/1/edit"
@@ -67,6 +72,11 @@ describe WikiPagesController do
     it "generates params for #show" do
       params_from(:get, "/wikis/1/wiki_pages/1").should ==
         {:controller => "wiki_pages", :action => "show", :id => "1", :wiki_id => "1"}
+    end
+
+    it "generates params for #show_by_title" do
+      params_from(:get, "/wikis/1/page/Some_Page").should ==
+        {:controller => "wiki_pages", :action => "show_by_title", :wiki_id => "1", :title => "Some_Page"}
     end
 
     it "generates params for #edit" do
