@@ -108,8 +108,8 @@ class ContentPagesController < ApplicationController
 
     respond_to do |wants|
       wants.html do
-        flash[:notice] = "Page <em>#{@wiki_page.title}</em> was not changed."
-        redirect_to wiki_page_show_path(:title => @wiki_page.url_title)
+        flash[:notice] = "Page <em>#{@content_page.title}</em> was not changed."
+        redirect_to @content_page
       end
       wants.js { render :nothing => true }
     end

@@ -69,7 +69,7 @@ class WikiPage < ActiveRecord::Base
       if wp
         wp.my_link_to
       else
-        link_to(title, "/wiki/#{title}", :title => "Click to create page: #{title}", 
+        link_to(title, "/wikis/#{wiki_id}/page/#{title}", :title => "Click to create page: #{title}",
           :class => 'wiki_page_not_found')
       end
     end
@@ -80,7 +80,7 @@ class WikiPage < ActiveRecord::Base
         "Redirecting to: #{wp.my_link_to}..." +
           javascript_tag("setTimeout(window.location.href = '/wiki/#{wp.url_title}', 2000)")
       else
-        link_to(title, "/wiki/#{title}", :title => "Click to create page: #{title}", 
+        link_to(title, "/wikis/#{wiki_id}/page/#{title}", :title => "Click to create page: #{title}",
           :class => 'wiki_page_not_found')
       end
     end
@@ -95,9 +95,9 @@ class WikiPage < ActiveRecord::Base
       results.sort_by { |wp| wp.title.gsub(chunk, '').size }
     end
 
-    def find_or_create_by_title(title)
+    def find_or_create_by_title(title, wiki)
       wp = find_by_title(title)
-      wp || WikiPage.create( :title => title, :body => "<p>TO DO: edit this page by going to: [[#{title}]]</p>" )
+      wp || WikiPage.create( :title => title, :body => "<p>TO DO: edit this page by going to: [[#{title}]]</p>", :wiki => wiki )
     end
   end
   

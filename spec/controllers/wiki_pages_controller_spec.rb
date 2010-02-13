@@ -96,7 +96,7 @@ describe WikiPagesController do
         mock_wiki_page.should_receive(:update_attributes).with({:editing_user => nil, :started_editing_at => nil})
         get :un_edit, :wiki_id => "12", :id => "37"
         assigns[:wiki_page].should equal(mock_wiki_page)
-        response.should redirect_to(wiki_pages_show_by_title_path(mock_wiki, :title => mock_wiki_page.url_title))
+        response.should redirect_to(wiki_pages_show_by_title_path(mock_wiki, mock_wiki_page.url_title))
       end
     end
 
@@ -197,7 +197,7 @@ describe WikiPagesController do
       it "redirects to the wiki_page" do
         mock_wiki_page.stub!(:update_attributes => true)
         put :update, :wiki_id => "12", :id => "37"
-        response.should redirect_to(wiki_pages_show_by_title_url(mock_wiki, :title => mock_wiki_page.url_title))
+        response.should redirect_to(wiki_pages_show_by_title_url(mock_wiki, mock_wiki_page.url_title))
       end
     end
 
