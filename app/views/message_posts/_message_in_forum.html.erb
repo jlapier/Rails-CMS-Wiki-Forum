@@ -4,7 +4,7 @@
       <%= gravatar_for message.user, :size => 50 %>
     </div>
     posted <%= post_time message.created_at  %> by
-    <strong><%= link_to message.user.name, '#TODO_link_to_users_profile'  %></strong>
+    <strong><%#= link_to message.user.name, '#TODO_link_to_users_profile'  %><%= message.user.full_name %></strong>
   </td>
   <td><strong><%= link_to message.subject, forum_message_post_path(@forum, message) %>:</strong>
     <span class="gray"><%=h truncate( strip_tags(message.body), :length => 200 ) %></span>

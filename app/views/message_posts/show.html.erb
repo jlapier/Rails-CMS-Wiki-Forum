@@ -1,10 +1,12 @@
 <h1>
-  <% if @message_post.forum %>
-    <%= link_to "Forums", forums_path %>:
-    <%= link_to @message_post.forum.title, @message_post.forum %>
+  <% if @forum %>
+    <%= link_to @forum.title, @forum %>:
   <% else %>
-    Message
+    Message:
   <% end -%>
+  <% if @message_post %>
+    <%= @message_post.subject %>
+  <% end %>
 </h1>
 
 <table class="messages" style="margin-bottom:10px;">

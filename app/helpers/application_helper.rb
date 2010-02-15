@@ -32,6 +32,12 @@ module ApplicationHelper
       "#{pre}Wiki Page: #{@wiki_page.title}"
     elsif @wiki_tag
       "#{pre}Wiki Tag: #{@wiki_tag.name}"
+    elsif @wiki
+      "#{pre}Wiki: #{@wiki.name}"
+    elsif @message_post
+      "#{pre}Message Post: #{@message_post.subject}"
+    elsif @forum
+      "#{pre}Forum: #{@forum.title}"
     elsif @user
       "#{pre}User: #{@user.login}"
     elsif @user_group
@@ -66,12 +72,12 @@ module ApplicationHelper
         if current_user.wikis.size == 1
           other_links << link_to('Wiki', current_user.wikis.first)
         else
-          other_links << link_to('Wiki', wikis_path) 
+          other_links << link_to('Wikis', wikis_path)
         end
       end
       if current_user.has_access_to_any_forums?
         if current_user.forums.size == 1
-          other_links << link_to('Forums', current_user.forums.first)
+          other_links << link_to('Forum', current_user.forums.first)
         else
           other_links << link_to('Forums', forums_path)
         end

@@ -19,9 +19,8 @@
 
     CKEDITOR.replace( 'message_post[body]',
       {
-        skin : 'kama',
         uiColor : '#819033'
-
+        <%# filebrowserUploadUrl : '<%= upload_handler_forum_message_post_path(@forum, @message_post) percentsign>' %>
       });
 
   //]]>

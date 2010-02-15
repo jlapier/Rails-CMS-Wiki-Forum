@@ -71,7 +71,7 @@ describe ApplicationHelper do
 
   it "should have a user box with link to wikis list" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_wikis? => true, :wikis => [mock_wiki, mock_wiki]))
-    helper.user_box.should have_text(/Wiki/)
+    helper.user_box.should have_text(/Wikis/)
     helper.user_box.should have_text(/href="\/wikis"/)
     helper.user_box.should_not have_text(/Forum/)
   end
@@ -85,7 +85,7 @@ describe ApplicationHelper do
 
   it "should have a user box with link to forums list" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_forums? => true, :forums => [mock_forum, mock_forum]))
-    helper.user_box.should have_text(/Forum/)
+    helper.user_box.should have_text(/Forums/)
     helper.user_box.should have_text(/href="\/forums"/)
     helper.user_box.should_not have_text(/Wiki/)
   end
