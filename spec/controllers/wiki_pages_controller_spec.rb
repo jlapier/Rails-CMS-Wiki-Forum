@@ -8,7 +8,8 @@ describe WikiPagesController do
   end
 
   def mock_wiki(stubs={})
-    @mock_wiki ||= mock_model(Wiki, stubs.merge({:title => "some title", :wiki_pages => mock_wiki_pages}))
+    @mock_wiki ||= mock_model(Wiki, stubs.merge({:title => "some title", :wiki_pages => mock_wiki_pages,
+        :wiki_tags => mock_wiki_tags }))
   end
 
   def mock_wiki_page(stubs={})
@@ -23,6 +24,17 @@ describe WikiPagesController do
     @mock_wiki_pages.stub!(:paginate).and_return([mock_wiki_page].paginate)
     @mock_wiki_pages.stub!(:find).with('37').and_return(mock_wiki_page)
     @mock_wiki_pages
+  end
+
+  def mock_wiki_tag
+    @mock_wiki_tag ||= mock_model(WikiTag)
+  end
+
+  def mock_wiki_tags
+    return @mock_wiki_tags if @mock_wiki_tags
+    @mock_wiki_tags = [ mock_model(WikiTag, :name => "tag A", :wiki_pages_count => 3),
+      mock_model(WikiTag, :name => "tag B", :wiki_pages_count => 5) ]
+    @mock_wiki_tags
   end
 
   before do
@@ -111,9 +123,9 @@ describe WikiPagesController do
 
   describe "GET search" do
     it "searches and assigns wiki pages and wiki tags" do
-      mock_wiki_tag = mock_model(WikiTag)
       mock_wiki_pages.should_receive(:search).with('my search').and_return([mock_wiki_page])
-      WikiTag.should_receive(:search).with('my search').and_return([mock_wiki_tag])
+      mock_wiki_tags.should_receive(:search).with('my search').and_return([mock_wiki_tag])
+
       get :search, :wiki_id => "12", :name => 'my search'
       assigns[:name_part].should == 'my search'
       assigns[:wiki_pages].should == [mock_wiki_page]

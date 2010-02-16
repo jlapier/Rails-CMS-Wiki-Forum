@@ -1,6 +1,6 @@
 class WikiPagesController < ApplicationController
   before_filter :get_wiki
-  before_filter :get_tags, :only => [:new, :show, :edit, :create, :update, :show_by_title]
+  before_filter :get_tags, :only => [:new, :edit, :create, :update]
   before_filter :require_wiki_read_access, :only => [:show, :history, :homepage, :index, :live_search, :search, :show_by_title]
   before_filter :require_wiki_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
   
@@ -131,7 +131,7 @@ class WikiPagesController < ApplicationController
   def search
     @name_part = params[:name]
     @wiki_pages = @wiki.wiki_pages.search @name_part
-    @wiki_tags = WikiTag.search @name_part
+    @wiki_tags = @wiki.wiki_tags.search @name_part
   end
 
   
@@ -169,7 +169,7 @@ class WikiPagesController < ApplicationController
   end
 
   def get_tags
-    @wiki_tags = WikiTag.find(:all).select { |wt| wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) > 0 }
+    @wiki_tags = @wiki.wiki_tags
     @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
   end
 end
