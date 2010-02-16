@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/forums/show.html.erb" do
   include ForumsHelper
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude'}))
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude', :full_name => 'Dude McDuder'}))
   end
   
   before(:each) do
@@ -27,6 +27,6 @@ describe "/forums/show.html.erb" do
     response.should have_text(/value\ for\ description/)
     response.should have_text(/messsub1/)
     response.should have_text(/messsub2/)
-    response.should have_text(/dude/)
+    response.should have_text(/Dude McDuder/)
   end
 end

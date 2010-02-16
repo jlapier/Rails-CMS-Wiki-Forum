@@ -10,21 +10,23 @@
       <p><%= submit_tag "Post it!" %></p>
     <% end %>
   </div>
+
+
+  <script type="text/javascript">
+    //<![CDATA[
+
+      CKEDITOR.replace( 'message_post[body]',
+        {
+          uiColor : '#819033',
+          filebrowserUploadUrl : '<%= upload_handler_user_path(current_user) %>'
+        });
+
+    //]]>
+  </script>
+
 <% else -%>
   <p><em>If you were <%= link_to "logged in", login_path %> you could post.</em></p>
 <% end -%>
-
-<script type="text/javascript">
-  //<![CDATA[
-
-    CKEDITOR.replace( 'message_post[body]',
-      {
-        uiColor : '#819033'
-        <%# filebrowserUploadUrl : '<%= upload_handler_forum_message_post_path(@forum, @message_post) percentsign>' %>
-      });
-
-  //]]>
-</script>
 
 
 <div style="clear:both"></div>

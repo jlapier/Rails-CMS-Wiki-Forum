@@ -1,7 +1,7 @@
 <tr>
   <td class="leftside">
     posted <%= post_time message.created_at  %> by
-    <strong><%= link_to message.user.name, '#TODO_link_to_users_profile'  %></strong>
+    <strong><%#= link_to message.user.name, '#TODO_link_to_users_profile'  %><%= message.user.full_name %></strong>
     <div style="padding: 2px 4px;">
       <%= gravatar_for message.user, :size => 80 %>
     </div>

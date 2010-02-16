@@ -112,7 +112,7 @@ describe WikiPagesController do
   describe "GET search" do
     it "searches and assigns wiki pages and wiki tags" do
       mock_wiki_tag = mock_model(WikiTag)
-      WikiPage.should_receive(:search).with('my search').and_return([mock_wiki_page])
+      mock_wiki_pages.should_receive(:search).with('my search').and_return([mock_wiki_page])
       WikiTag.should_receive(:search).with('my search').and_return([mock_wiki_tag])
       get :search, :wiki_id => "12", :name => 'my search'
       assigns[:name_part].should == 'my search'

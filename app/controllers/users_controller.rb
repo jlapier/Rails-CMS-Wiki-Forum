@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :require_user, :only => [:show, :edit, :update, :upload_handler]
   before_filter :require_admin_user, :only => [:index, :update_password, :password_reset, :destroy]
 
   def index
@@ -74,5 +74,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_handler
+    @user = User.find(params[:id])
+    rel_dir = File.join "user_assets", "user_#{@user.id}"
+    write_file(params[:upload], rel_dir)
+
+    render :text => "<html><body><script type=\"text/javascript\">" +
+      "parent.CKEDITOR.tools.callFunction( #{params[:CKEditorFuncNum]}, '/#{rel_dir}/#{params[:upload].original_filename}' )" +
+      "</script></body></html>"
+  end
 
 end

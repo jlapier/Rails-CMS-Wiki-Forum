@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resource :account, :controller => "users"
-  map.resources :users, :collection => { :reg_pass_required => :get }
+  map.resources :users, :collection => { :reg_pass_required => :get }, :member => { :upload_handler => :post }
   map.resources :user_groups, :member => { :drop_user => :post, :add_members => :get, :add_users => :post }
   map.resource :user_session
   map.register '/register', :controller => 'users', :action => 'new'

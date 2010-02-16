@@ -59,7 +59,7 @@ class WikiPage < ActiveRecord::Base
     end
 
     def my_link_to
-      link_to(title, "/wiki/#{url_title}", :title => title)
+      link_to(title, "/wikis/#{wiki_id}/page/#{url_title}", :title => title)
     end
   end
   

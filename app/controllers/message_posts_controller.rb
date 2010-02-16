@@ -44,7 +44,7 @@ class MessagePostsController < ApplicationController
   # POST /forums/1/message_posts.xml
   def create
     @message_post = MessagePost.new(params[:message_post])
-    @message_post.forum = @forum
+    @message_post.forum = @forum unless @message_post.thread
     @message_post.user = current_user
     respond_to do |format|
       if @message_post.save

@@ -144,4 +144,15 @@ class ApplicationController < ActionController::Base
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
+
+    # takes a file upload object and the relative directory to save it to
+    # returns the relative location of the uploaded file
+    def write_file(uploaded_file, rel_dir)
+      file_name = uploaded_file.original_filename
+      actual_dir = File.join(RAILS_ROOT, 'public', rel_dir)
+      FileUtils.mkdir_p actual_dir
+      File.open(File.join(actual_dir, file_name), 'wb') do |f|
+        f.write(uploaded_file.read)
+      end
+    end
 end

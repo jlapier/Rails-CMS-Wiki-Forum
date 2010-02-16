@@ -13,6 +13,7 @@ nbproject/
 spec/spec.opts.netbeans
 public/content_page_assets/
 public/wiki_page_assets/
+public/user_assets/
 public/themes
 public/images/favorite.png
 coverage/

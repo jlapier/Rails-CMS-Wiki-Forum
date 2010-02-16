@@ -78,6 +78,33 @@ describe MessagePostsController do
       end
     end
 
+    describe "with valid params and a thread_id" do
+      it "assigns a newly created message_post as @message_post and assigns no forum" do
+        mock_child_posts = []
+        mock_child_posts.stub(:last_page_number_for).and_return(1)
+        mock_message_thread = mock_model(MessagePost, :child_posts => mock_child_posts)
+        new_mock_message_post = mock_model(MessagePost, :thread => mock_message_thread, :user => mock_user,
+          :child_posts => [], :subject => 'blah2', :save => true, :user= => nil)
+        MessagePost.stub!(:new).with({'these' => 'params'}).and_return(new_mock_message_post)
+        new_mock_message_post.should_not_receive(:forum=)
+        post :create, :forum_id => "12", :message_post => {:these => 'params'}
+        assigns[:message_post].should equal(new_mock_message_post)
+      end
+
+      it "redirects to the created message_post" do
+        mock_child_posts = []
+        mock_child_posts.stub(:last_page_number_for).and_return(1)
+        mock_message_thread = mock_model(MessagePost, :child_posts => mock_child_posts)
+        new_mock_message_post = mock_model(MessagePost, :thread => mock_message_thread, :user => mock_user,
+          :child_posts => [], :subject => 'blah2', :save => true, :user= => nil)
+        MessagePost.stub!(:new).with({'these' => 'params'}).and_return(new_mock_message_post)
+        post :create, :forum_id => "12", :message_post => {:these => 'params'}
+        response.should redirect_to(forum_message_post_url(mock_forum, mock_message_thread, :anchor => new_mock_message_post.id,
+              :page => 1))
+      end
+    end
+
+
     describe "with invalid params" do
       it "assigns a newly created but unsaved message_post as @message_post" do
         MessagePost.stub!(:new).with({'these' => 'params'}).and_return(mock_message_post(:save => false, :forum= => nil, :user= => nil))

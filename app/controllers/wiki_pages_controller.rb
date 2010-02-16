@@ -121,7 +121,7 @@ class WikiPagesController < ApplicationController
       
       # assume they are typing start of first or last name
       @name_part = params[:name]
-      @wiki_pages = WikiPage.find_like @name_part
+      @wiki_pages = @wiki.wiki_pages.find_like @name_part
       @wiki_tags = WikiTag.find_like @name_part
       render :partial => "live_search_results"
     else
@@ -131,7 +131,7 @@ class WikiPagesController < ApplicationController
 
   def search
     @name_part = params[:name]
-    @wiki_pages = WikiPage.search @name_part
+    @wiki_pages = @wiki.wiki_pages.search @name_part
     @wiki_tags = WikiTag.search @name_part
   end
 
@@ -172,16 +172,5 @@ class WikiPagesController < ApplicationController
   def get_tags
     @wiki_tags = WikiTag.find(:all).select { |wt| wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) > 0 }
     @wiki_tags = @wiki_tags.sort_by { |wt| wt.wiki_pages_count }.reverse
-  end
-
-  # takes a file upload object and the relative directory to save it to
-  # returns the relative location of the uploaded file
-  def write_file(uploaded_file, rel_dir)
-    file_name = uploaded_file.original_filename
-    actual_dir = File.join(RAILS_ROOT, 'public', rel_dir)
-    FileUtils.mkdir_p actual_dir
-    File.open(File.join(actual_dir, file_name), 'wb') do |f|
-      f.write(uploaded_file.read)
-    end
   end
 end
