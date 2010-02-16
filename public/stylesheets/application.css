@@ -205,7 +205,7 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 .wiki_top_links input { border:1px solid #999; }
 
 .feed_links { vertical-align: middle }
-.feed_links img, .feed_links a, .feed_links a:link, .feed_links a:visited { border: none; text-decoration: none; }
+.feed_links img, .feed_links a, .feed_links a:link, .feed_links a:visited { border: none; text-decoration: none; vertical-align:middle; }
 .feed_links a { margin-left: 15px; }
 
 .diff_text ins { background-color: #AFA; }

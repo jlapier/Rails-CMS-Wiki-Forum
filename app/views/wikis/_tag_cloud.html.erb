@@ -5,7 +5,7 @@
 <script type="text/javascript">
   $(function() {
   // get tag feed
-    $.getJSON("/wiki/tagcloud", function(data) {
+    $.getJSON("<%= tagcloud_wiki_path(@wiki)  %>", function(data) {
       //create list for tag links
       $("<ul>").attr("id", "tagList").appendTo("#tagCloud");
       //create tags
@@ -13,7 +13,7 @@
         //create item
         var li = $("<li>");
         //create link
-        $("<a>").text(val.tag).attr({title:"See all pages tagged with " + val.tag, href:"/wiki/tag/" + val.tag}).appendTo(li);
+        $("<a>").text(val.tag).attr({title:"See all pages tagged with " + val.tag, href:"/wikis/<%= @wiki.id %>/tag/" + val.tag}).appendTo(li);
         //add to list
         li.appendTo("#tagList");
         //set tag size

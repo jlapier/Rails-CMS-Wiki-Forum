@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100125191432
+# Schema version: 20100216214034
 #
 # Table name: wiki_pages
 #
@@ -110,7 +110,8 @@ class WikiPage < ActiveRecord::Base
     str.split(",").each do |tag_name|
       tag_name.strip!
       unless tag_name.blank?
-        wt = WikiTag.find_or_create_by_name tag_name
+        wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki_id})
+        wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki_id
         self.wiki_tags << wt
       end
     end

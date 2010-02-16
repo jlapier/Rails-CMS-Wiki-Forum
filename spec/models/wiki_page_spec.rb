@@ -23,6 +23,18 @@ describe WikiPage do
     wp.wiki_tags.count.should == 2
   end
 
+  it "should not create is tag already exists" do
+    wt_count = WikiTag.count
+    wp = WikiPage.create!(:title => "With tags", :modifying_user_id => 1, :wiki_tags_string => "SomeTag A",
+      :wiki_id => 1)
+    wt = WikiTag.find_by_name "SomeTag A"
+    wt.should_not be_nil
+    wt_count = WikiTag.count
+    WikiPage.create!(:title => "Another with tags", :modifying_user_id => 1, :wiki_tags_string => "SomeTag A",
+      :wiki_id => 1)
+    wt_count.should == WikiTag.count
+  end
+
   it "should create and more tags" do
     wt = WikiTag.find_by_name "SomeTag A"
     wt.should be_nil

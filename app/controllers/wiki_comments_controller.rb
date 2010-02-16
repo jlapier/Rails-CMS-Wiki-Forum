@@ -3,7 +3,7 @@ class WikiCommentsController < ApplicationController
   before_filter :require_wiki_read_access, :only => [:index, :create]
 
   def index
-    @comments = @wiki.wiki_comments.paginate :all, :include => :user, :limit => 40, :order => "created_at DESC"
+    @comments = @wiki.wiki_comments.paginate :page => params[:page], :include => :user, :order => "created_at DESC"
     respond_to do |format|
       format.html
       format.atom

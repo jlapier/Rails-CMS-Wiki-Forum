@@ -148,8 +148,8 @@ describe WikiPagesController do
 
     describe "with valid params" do
       it "assigns a newly created wiki_page as @wiki_page" do
-        WikiPage.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => true, :wiki= => nil)
+        WikiPage.stub!(:new).and_return(mock_wiki_page)
+        mock_wiki_page.stub!(:save => true)
         post :create, :wiki_id => "12", :wiki_page => {:these => 'params'}
         assigns[:wiki_page].should equal(mock_wiki_page)
       end
@@ -164,7 +164,7 @@ describe WikiPagesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved wiki_page as @wiki_page" do
-        WikiPage.stub!(:new).with({'these' => 'params'}).and_return(mock_wiki_page)
+        WikiPage.stub!(:new).and_return(mock_wiki_page)
         mock_wiki_page.stub!(:save => false, :wiki= => nil)
         post :create, :wiki_id => "12", :wiki_page => {:these => 'params'}
         assigns[:wiki_page].should equal(mock_wiki_page)

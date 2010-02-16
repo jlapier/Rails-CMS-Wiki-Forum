@@ -8,12 +8,13 @@
 # End Schema
 
 # == Schema Information
-# Schema version: 20100125191432
+# Schema version: 20100216214034
 #
 # Table name: wiki_tags
 #
-#  id   :integer       not null, primary key
-#  name :string(255)   
+#  id      :integer       not null, primary key
+#  name    :string(255)   
+#  wiki_id :integer       
 # End Schema
 
 classes/Fixtures.html

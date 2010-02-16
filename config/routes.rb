@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.wiki_pages_show_by_title '/wikis/:wiki_id/page/:title', :controller => 'wiki_pages', :action => 'show_by_title'
-  map.wiki_tag '/wikis/:id/tag/:tag_name',   :controller => 'wikis', :action => 'list_by_tag'
+  map.wiki_tag '/wikis/:id/tag/:tag_name', :controller => 'wikis', :action => 'list_by_tag'
 
   map.connect 'themes/:action', :controller => 'themes'
   map.connect 'themes/:action/:name.:format', :controller => 'themes'

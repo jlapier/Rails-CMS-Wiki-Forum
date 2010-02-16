@@ -20,6 +20,15 @@
     </td>
 
     <td style="vertical-align:top">
+      <div class="feed_links" style="text-align:center;">
+        Feeds:
+        <%= link_to image_tag('feed-icon.gif') + " all", wiki_wiki_comments_url(@wiki, :format => :atom),
+              :title => 'Subscribe to feed for all activity' %>
+        <%= link_to image_tag('feed-icon.gif') + " daily", daily_wiki_wiki_comments_url(@wiki, :format => :atom),
+              :title => 'Subscribe to feed for daily digest' %>
+        <%= link_to image_tag('feed-icon.gif') + " weekly", weekly_wiki_wiki_comments_url(@wiki, :format => :atom),
+              :title => 'Subscribe to feed for weekly digest' %>
+      </div>
       <%= render :partial => 'tag_cloud' %>
     </td>
   </tr>

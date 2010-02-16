@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100125191432
+# Schema version: 20100216214034
 #
 # Table name: content_pages
 #

@@ -4,7 +4,8 @@ describe "/message_posts/show.html.erb" do
   include MessagePostsHelper
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :name => "dude", :email => "a@b"}))
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :name => "dude", :full_name => 'Dude McDuder',
+          :email => "a@b"}))
   end
 
   before(:each) do

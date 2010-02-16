@@ -91,12 +91,11 @@ class WikisController < ApplicationController
   end
 
   def list_by_tag
-    @wiki_tag = WikiTag.find :first, :conditions => { :name => params[:tag_name] }
+    @wiki_tag = @wiki.wiki_tags.find :first, :conditions => { :name => params[:tag_name] }
     if @wiki_tag
-      @wiki.wiki_pages = @wiki_tag.wiki_pages.paginate :all, :page => params[:page], :per_page => 80,
-        :conditions => { :wiki_id => @wiki.id },
+      @wiki_pages = @wiki_tag.wiki_pages.paginate :all, :page => params[:page], :per_page => 80,
         :order => "updated_at DESC", :select => "wiki_pages.id, title, url_title, updated_at"
-      render :action => :index
+      render :action => :show
     else
       flash[:warning] = "Tag not found."
       redirect_to wiki_page_show_home_path
@@ -105,9 +104,8 @@ class WikisController < ApplicationController
 
   
   def tagcloud
-    @wiki_tags = WikiTag.find :all
-    render :json => @wiki_tags.map {|wt| 
-      { 'tag' => wt.name, 'freq' => wt.wiki_pages.count(:conditions => { :wiki_id => @wiki.id }) } }
+    @wiki_tags = @wiki.wiki_tags
+    render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages_count } }
   end
 
 

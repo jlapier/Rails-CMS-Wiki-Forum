@@ -67,6 +67,19 @@ describe WikisController do
     end
   end
 
+  describe "GET tagcloud" do
+    it "assigns wiki_tags as @wiki_tags" do
+      mock_user.stub(:has_read_access_to?).and_return(true)
+      Wiki.stub(:find).with("37").and_return(mock_wiki)
+      mock_wiki_tags = [ mock_model(WikiTag, :name => "tag A", :wiki_pages_count => 3),
+        mock_model(WikiTag, :name => "tag B", :wiki_pages_count => 5) ]
+      mock_wiki.stub(:wiki_tags).and_return(mock_wiki_tags)
+      xhr :get, :tagcloud, :id => "37"
+      assigns[:wiki].should equal(mock_wiki)
+      assigns[:wiki_tags].should equal(mock_wiki_tags)
+    end
+  end
+
   describe "POST create" do
 
     describe "with valid params" do
