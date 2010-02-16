@@ -9,12 +9,18 @@ CKEDITOR.editorConfig = function( config )
 	// config.language = 'fr';
   config.skin = 'v2';
 
-	config.toolbar = 'Basic';
+	config.toolbar = 'Newbie';
 
+  config.extraPlugins = 'aspell';
+
+  config.toolbar_Newbie = [
+    ['Bold','Italic', '-', 'NumberedList', 'BulletedList','-', 'Link', 'Unlink', 'SpellCheck']
+  ];
+  
   config.toolbar_Mid =
   [
       ['Save', 'Preview'],
-      ['PasteText','PasteFromWord','-','Print', 'SpellChecker'],
+      ['PasteText','PasteFromWord','-','Print', 'SpellChecker', 'SpellCheck'],
       ['Find','Replace'],
       ['NumberedList','BulletedList','-','Outdent','Indent'],
       ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
