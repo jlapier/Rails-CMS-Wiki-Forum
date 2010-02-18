@@ -109,6 +109,6 @@ class WikiComment < ActiveRecord::Base
   private
 
   def set_wiki_id
-    self.wiki_id = (wiki_page || about_wiki_page).wiki_id
+    self.wiki_id ||= (wiki_page || about_wiki_page).wiki_id
   end
 end
