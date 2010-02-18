@@ -78,7 +78,7 @@ class ContentPage < ActiveRecord::Base
         list_pages_in_category_to_html :category_name => param, :use_homelink => use_homelink,
           :order => order_string_from_sort_in_function(sort_order), :limit => limit
       when "treecategories"
-        tree_categories_to_html :category_names => param.split(',').map(&:strip),
+        tree_categories_to_html :category_names => (param || '').split(',').map(&:strip),
           :use_homelink => use_homelink,
           :order => order_string_from_sort_in_function(sort_order), :limit => limit
       when "linkpage"
