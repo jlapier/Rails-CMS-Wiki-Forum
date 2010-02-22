@@ -63,7 +63,7 @@ class WikiPagesController < ApplicationController
   end
   
   def create
-    @wiki_page = WikiPage.new params[:wiki_page].merge(:wiki => @wiki)
+    @wiki_page = WikiPage.new params[:wiki_page].merge(:wiki_id => @wiki.id)
     @wiki_page.modifying_user = current_user
     if @wiki_page.save
       flash[:notice] = "New page <em>#{@wiki_page.title}</em> created."
