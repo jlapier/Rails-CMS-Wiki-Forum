@@ -30,7 +30,7 @@ class WikiCommentsController < ApplicationController
 
   def show
     wiki_comment = @wiki.wiki_comments.find params[:id]
-    @wiki_page = wiki_comment.wiki_page
+    @wiki_page = wiki_comment.wiki_page || wiki_comment.about_wiki_page
     if @wiki_page
       redirect_to wiki_wiki_page_path(@wiki, @wiki_page)
     else

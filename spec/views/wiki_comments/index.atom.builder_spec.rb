@@ -9,7 +9,8 @@ describe "/wiki_comments/index.atom.builder" do
     assigns[:wiki] = stub_model(Wiki, :name => 'Some wiki')
     assigns[:comments] = [
       stub_model(WikiComment, :user => user, :created_at => 3.days.ago, :wiki_page => wiki_page, :body => "body A"),
-      stub_model(WikiComment, :user => user, :created_at => 3.days.ago, :body => "body B", :id => nil, :new_record? => true)
+      stub_model(WikiComment, :user => user, :created_at => 3.days.ago, :body => "body B", :id => nil, :new_record? => true),
+      stub_model(WikiComment, :user => nil, :created_at => 3.days.ago, :wiki_page => wiki_page, :body => "body C")
     ]
   end
 
