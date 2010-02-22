@@ -9,7 +9,7 @@ a:hover { text-decoration:underline; }
 
 textarea { vertical-align: top; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
 
-p + p { margin-top: -0.8em; }
+p + p { margin-top: -0.8em; text-indent: 0; }
 
 #top_banner {
   text-align:center; height: 100px;
