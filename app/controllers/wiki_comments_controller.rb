@@ -1,6 +1,6 @@
 class WikiCommentsController < ApplicationController
   before_filter :get_wiki
-  before_filter :require_wiki_read_access, :only => [:index, :create]
+  before_filter :require_wiki_read_access, :only => [:create]
 
   def index
     @comments = @wiki.wiki_comments.paginate :page => params[:page], :include => :user, :order => "created_at DESC"
