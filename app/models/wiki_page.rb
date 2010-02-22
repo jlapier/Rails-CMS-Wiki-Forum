@@ -54,8 +54,8 @@ class WikiPage < ActiveRecord::Base
     
     # sub out [[wiki-words]] with links to pages
     def body_for_display
-      (body || '').gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2) }.
-        gsub( /(\[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_link_to($2) }
+      (body || '').gsub( /(#REDIRECT \[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_redirect_to($2, wiki_id) }.
+        gsub( /(\[\[([^\]]*)\]\])/ ) { |s| WikiPage.wiki_link_to($2, wiki_id) }
     end
 
     def my_link_to
@@ -64,24 +64,22 @@ class WikiPage < ActiveRecord::Base
   end
   
   class << self
-    def wiki_link_to(title)
+    def wiki_link_to(title, wiki_id)
       wp = find_by_title title
       if wp
         wp.my_link_to
       else
-        link_to(title, "/wikis/#{wiki_id}/page/#{title}", :title => "Click to create page: #{title}",
-          :class => 'wiki_page_not_found')
+        "<a href=\"/wikis/#{wiki_id}/page/#{title}\" title=\"Click to create page: #{title}\" class=\"wiki_page_not_found\">#{title}</a>"
       end
     end
     
-    def wiki_redirect_to(title)
+    def wiki_redirect_to(title, wiki_id)
       wp = find_by_title title
       if wp
         "Redirecting to: #{wp.my_link_to}..." +
           javascript_tag("setTimeout(window.location.href = '/wiki/#{wp.url_title}', 2000)")
       else
-        link_to(title, "/wikis/#{wiki_id}/page/#{title}", :title => "Click to create page: #{title}",
-          :class => 'wiki_page_not_found')
+        "<a href=\"/wikis/#{wiki_id}/page/#{title}\" title=\"Click to create page: #{title}\" class=\"wiki_page_not_found\">#{title}</a>"
       end
     end
     
