@@ -3,7 +3,8 @@ atom_feed(:url => wiki_wiki_comments_url(@wiki, :format => :atom)) do |feed|
   feed.updated(@comments.first ? @comments.first.created_at : Time.now.utc)
 
   for comment in @comments
-    feed.entry(comment, :url => wiki_wiki_comment_url(@wiki, comment)) do |entry|
+    url = comment.new_record? ? wiki_wiki_comments_url(@wiki) : wiki_wiki_comment_url(@wiki, comment)
+    feed.entry(comment, :url => url) do |entry|
       entry.title(comment.title)
       entry.content(comment.body, :type => 'html')
 

@@ -95,4 +95,25 @@ describe WikiComment do
     wc = WikiComment.create!(@valid_attributes)
     wc.title.should match /Comment on: Cool Page \d/
   end
+
+  it "should get to_html" do
+    wc = WikiComment.create!(@valid_attributes)
+    wc.to_html.should equal_without_whitespace("
+      <p><span class=\"darkgray\">On <a href=\"/wikis/1/page/Cool_Page_1\" title=\"Cool Page 1\">Cool Page 1</a>,
+      <strong>joe1</strong> said #{wc.created_at.strftime "on %b %d, %Y"}: &nbsp;</span>test comment</p>")
+  end
+
+  it "should get to_html without wiki page" do
+    wc = WikiComment.create!(:user_id => 1, :body => "did something", :about_wiki_page => Factory(:wiki_page))
+    wc.to_html.should equal_without_whitespace("
+      <p><span class=\"darkgray\">#{wc.created_at.strftime "on %b %d, %Y"}
+      <strong>joe1</strong></span>did something</p>")
+  end
+
+  it "should get to_html without user" do
+    wc = WikiComment.create!(:user_id => 321321321, :body => "did something", :about_wiki_page => Factory(:wiki_page))
+    wc.to_html.should equal_without_whitespace("
+      <p><span class=\"darkgray\">#{wc.created_at.strftime "on %b %d, %Y"}
+      <strong>someone</strong></span>did something</p>")
+  end
 end

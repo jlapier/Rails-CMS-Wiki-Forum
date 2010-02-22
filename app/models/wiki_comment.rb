@@ -92,14 +92,16 @@ class WikiComment < ActiveRecord::Base
   end
 
   def to_html
+    # in case it was a deleted user account or something
+    user_name = user ? user.name : 'someone'
     out = "<p>"
     if wiki_page
       out << "<span class=\"darkgray\">" +
-              "On #{wiki_page.my_link_to}, <strong>#{user.name}</strong> said #{created_at.strftime "on %b %d, %Y"}:" +
+              "On #{wiki_page.my_link_to}, <strong>#{user_name}</strong> said #{created_at.strftime "on %b %d, %Y"}:" +
               " &nbsp;</span>"
     else
       out << "<span class=\"darkgray\">" +
-              "#{created_at.strftime "on %b %d, %Y"} <strong>#{user.name}</strong></span> "
+              "#{created_at.strftime "on %b %d, %Y"} <strong>#{user_name}</strong></span> "
     end
     out << textilize_without_paragraph(body)
     out << "</p>"
