@@ -98,7 +98,7 @@ class WikisController < ApplicationController
       render :action => :show
     else
       flash[:warning] = "Tag not found."
-      redirect_to wiki_page_show_home_path
+      redirect_to @wiki
     end
   end
 

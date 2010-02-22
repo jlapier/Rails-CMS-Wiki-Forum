@@ -16,7 +16,7 @@
     <%= @wiki_page.body_for_display %>
   </div>
 
-  <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_tag_path(@wiki, :tag_name => wt.name) }.join(", ") %></p>
+  <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_tag_path(@wiki, wt.name) }.join(", ") %></p>
 </div>
 
 <div style="clear:both"></div>

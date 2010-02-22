@@ -15,7 +15,7 @@
     <em><strong><%= comment.user.name %></strong> said <%= post_time comment.created_at %>:</em> &nbsp; 
     <%= textilize_without_paragraph comment.body %>
     <% if current_user and current_user == comment.user or current_user.is_admin? %>
-       &nbsp; <%= link_to( 'X', comment,
+       &nbsp; <%= link_to( 'X', wiki_wiki_comment_path(@wiki, comment),
                     :confirm => "Are you sure you want to permanently delete this comment?",
                     :method => :delete, :title => "click to delete", :class => "delete_x") %>
     <% end %>

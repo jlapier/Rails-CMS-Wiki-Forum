@@ -23,7 +23,7 @@
         <div style="margin: 5px; border: 1px #999 solid; background: #FFF;  padding:4px 12px;">
           <% for wiki_tag in @wiki_tags -%>
           <p>
-            <%= link_to wiki_tag.name, wiki_tag_path(@wiki, :tag_name => wiki_tag.name) %>
+            <%= link_to wiki_tag.name, wiki_tag_path(@wiki, wiki_tag.name) %>
             (<%= pluralize wiki_tag.wiki_pages_count, "page" %>)
           </p>
           <% end %>

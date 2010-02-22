@@ -80,6 +80,32 @@ describe WikisController do
     end
   end
 
+  describe "GET list_by_tag" do
+    it "assigns wiki_pages as @wiki_pages" do
+      mock_user.stub(:has_read_access_to?).and_return(true)
+      Wiki.stub(:find).with("37").and_return(mock_wiki)
+      mock_wiki_tag = mock_model(WikiTag, :name => "tag A", :wiki_pages_count => 3, :wiki_pages => mock_wiki_pages)
+      mock_wiki_tags = [ mock_wiki_tag ]
+      mock_wiki.stub(:wiki_tags).and_return(mock_wiki_tags)
+      mock_wiki_tags.should_receive(:find).with(:first, :conditions => { :name => "tag A"}).and_return(mock_wiki_tag)
+      get :list_by_tag, :id => "37", :tag_name => 'tag A'
+      assigns[:wiki].should equal(mock_wiki)
+      assigns[:wiki_tag].should equal(mock_wiki_tag)
+      assigns[:wiki_pages].should == [mock_wiki_page].paginate
+    end
+
+    it "redirects if tag not found" do
+      mock_user.stub(:has_read_access_to?).and_return(true)
+      Wiki.stub(:find).with("37").and_return(mock_wiki)
+      mock_wiki_tags = []
+      mock_wiki.stub(:wiki_tags).and_return(mock_wiki_tags)
+      mock_wiki_tags.should_receive(:find).with(:first, :conditions => { :name => "tag Not"}).and_return(nil)
+      get :list_by_tag, :id => "37", :tag_name => 'tag Not'
+      flash[:warning].should == "Tag not found."
+      response.should redirect_to(wiki_url(mock_wiki))
+    end
+  end
+
   describe "POST create" do
 
     describe "with valid params" do

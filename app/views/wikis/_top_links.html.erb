@@ -1,5 +1,5 @@
 <div class="wiki_top_links">
-  <form id="wiki_search" action="/wiki/search">
+  <form id="wiki_search" action="<%= search_wiki_wiki_pages_path(@wiki) %>">
     <% if @wiki_page %>
       <%= link_to 'edit', edit_wiki_wiki_page_path(@wiki, @wiki_page) %> &nbsp;
       <%= link_to 'delete', wiki_wiki_page_path(@wiki, @wiki_page),
