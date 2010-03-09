@@ -1,8 +1,8 @@
 <div style="float:right">
-  [<%= link_to 'back to current version', wiki_page_show_path(:title => @wiki_page.url_title) %>]
+  [<%= link_to 'back to current version', wiki_pages_show_by_title_path(@wiki, @wiki_page.url_title) %>]
 </div>
 
-<h1><%= link_to "Wiki", wiki_page_show_home_path %>: Showing History: <%= @wiki_page.title %></h1>
+<h1><%= link_to @wiki.name, wiki_path(@wiki) %>: <%= @wiki_page.title %></h1>
 
 <% for wiki_page_version in @wiki_page_versions %>
   <div class="wiki_page_version" id="wiki_page_version_<%= wiki_page_version.version %>">
