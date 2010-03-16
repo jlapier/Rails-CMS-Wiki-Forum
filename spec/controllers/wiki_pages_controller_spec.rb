@@ -250,13 +250,15 @@ describe WikiPagesController do
 
   describe "POST delete_asset" do
     it "should delete a file and redirect" do
-      File.stubs :exists? => true, :delete => true
+      File.stub(:exists?).and_return true
+      File.stub(:delete).and_return true
       post :delete_asset, :wiki_id => "12", :id => "37", :asset => 'somefile.doc'
       response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
     end
 
     it "should give an error if file not found and redirect" do
-      File.stubs :exists? => false, :delete => true
+      File.stub(:exists?).and_return false
+      File.stub(:delete).and_return true
       post :delete_asset, :wiki_id => "12", :id => "37", :asset => 'somefile.doc'
       response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
     end
