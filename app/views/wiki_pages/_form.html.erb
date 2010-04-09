@@ -3,8 +3,12 @@
 <% form_for(@wiki_page, opts) do |f| %>
   <%= f.error_messages %>
   <p>
-    <b>Title</b>:
+    <strong>Title:</strong>
     <%= f.text_field :title, :size => 50 %>
+    <% if is_admin? %>
+      <br/>
+      <strong>Wiki:</strong>  <%= f.select :wiki_id, Wiki.find(:all).map { |wiki| [wiki.name, wiki.id] } %>
+    <% end %>
   </p>
 
   
