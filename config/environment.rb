@@ -55,15 +55,15 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
-  #config.action_controller.session = {
-  #  :session_key => '_authgasm_example_session',
-  #  :secret      => '94b9c594695e69bdef6b1d4be037af5853be976b39a52a02f260fca0d0a36a8f913572bfdb631f55971a3b10b8dd9a875f9776ca61371741544e6ccc064dd41e'
-  #}
+  config.action_controller.session = {
+    :session_key => '_site_on_rails_session',
+    :secret      => '42b1a00f9cc222749e00675885e0ff4a2de996cd1586e15cfcb7fa34a76a8e8423f8217986b675df3f1c28c056455fc63d6f98eee85c176b377988b5b72ef15d'
+  }
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
-  config.action_controller.session_store = :active_record_store
+  #config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
