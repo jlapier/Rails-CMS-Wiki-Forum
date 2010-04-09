@@ -11,6 +11,7 @@ class SiteSettingsController < ApplicationController
 
   def update_site_settings
     SiteSetting.write_setting 'site title', params[:site_title]
+    SiteSetting.write_setting 'hostname', params[:hostname]
     SiteSetting.write_setting 'site logo', params[:site_logo]
     SiteSetting.write_setting 'site footer', params[:site_footer]
     SiteSetting.write_setting 'registration password', params[:registration_password]

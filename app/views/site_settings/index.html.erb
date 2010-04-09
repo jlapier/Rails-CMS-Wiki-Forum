@@ -7,6 +7,12 @@
       <strong>Title:</strong>
       <%= text_field_tag :site_title, site_title, :size => 70 %>
     </p>
+
+    <p>
+      <strong>Host domain:</strong>
+      <%= text_field_tag :hostname, SiteSetting.read_setting('hostname') || request.host, :size => 70 %>
+    </p>
+
     <p>
       <strong>Logo:</strong>
       <%= select_tag :site_logo, options_for_select( images_list, site_logo ) %> 

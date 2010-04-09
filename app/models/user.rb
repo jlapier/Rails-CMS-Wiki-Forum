@@ -105,6 +105,12 @@ class User < ActiveRecord::Base
   def forums
     @forums ||=  Forum.find(user_groups.map { |g| g.forums.keys }.flatten.uniq)
   end
+  
+  def deliver_password_reset_instructions!
+    # authlogic provides this:
+    reset_perishable_token!
+    Notifier.deliver_password_reset_instructions(self)
+  end
 
   private
   def make_admin_if_first_user

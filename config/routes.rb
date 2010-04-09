@@ -29,6 +29,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :collection => { :reg_pass_required => :get }, :member => { :upload_handler => :post }
   map.resources :user_groups, :member => { :drop_user => :post, :add_members => :get, :add_users => :post }
   map.resource :user_session
+  map.resources :password_resets
+  
   map.register '/register', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'user_sessions', :action => "new"
   map.root :controller => 'content_pages', :action => 'home'
