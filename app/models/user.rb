@@ -41,6 +41,17 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
 
+  class << self
+    # overwrite default AuthLogic behavior - allow users to log in with either login or email
+    def find_by_smart_case_login_field(login)
+      if login =~ Authlogic::Regex.email
+        find_with_case(email_field, login, validates_uniqueness_of_email_field_options[:case_sensitive] != false)
+      else
+        find_with_case(login_field, login, validates_uniqueness_of_login_field_options[:case_sensitive] != false)
+      end
+    end
+  end
+
   def after_initialize
     self.user_defined_fields ||= {}
   end
