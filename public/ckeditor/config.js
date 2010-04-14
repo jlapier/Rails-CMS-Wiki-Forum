@@ -14,7 +14,7 @@ CKEDITOR.editorConfig = function( config )
   config.extraPlugins = 'aspell';
 
   config.toolbar_Newbie = [
-    ['Bold','Italic', '-', 'NumberedList', 'BulletedList','-', 'Link', 'Unlink', 'SpellCheck']
+    ['Bold','Italic', '-', 'NumberedList', 'BulletedList','-', 'Link', 'Unlink', 'SpellCheck', '-', 'PasteText', 'PasteFromWord']
   ];
   
   config.toolbar_Mid =
