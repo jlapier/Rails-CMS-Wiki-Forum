@@ -161,14 +161,14 @@ describe WikiPagesController do
     describe "with valid params" do
       it "assigns a newly created wiki_page as @wiki_page" do
         WikiPage.stub!(:new).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => true)
+        mock_wiki_page.stub!(:save => true, :wiki => mock_wiki)
         post :create, :wiki_id => "12", :wiki_page => {:these => 'params'}
         assigns[:wiki_page].should equal(mock_wiki_page)
       end
 
       it "redirects to the created wiki_page in edit mode" do
         WikiPage.stub!(:new).and_return(mock_wiki_page)
-        mock_wiki_page.stub!(:save => true, :wiki= => nil)
+        mock_wiki_page.stub!(:save => true, :wiki= => nil, :wiki => mock_wiki)
         post :create, :wiki_id => "12", :wiki_page => {}
         response.should redirect_to(edit_wiki_wiki_page_url(mock_wiki, mock_wiki_page))
       end
@@ -201,13 +201,13 @@ describe WikiPagesController do
       end
 
       it "assigns the requested wiki_page as @wiki_page" do
-        mock_wiki_page.stub!(:update_attributes => true)
+        mock_wiki_page.stub!(:update_attributes => true, :wiki => mock_wiki)
         put :update, :wiki_id => "12", :id => "37"
         assigns[:wiki_page].should equal(mock_wiki_page)
       end
 
       it "redirects to the wiki_page" do
-        mock_wiki_page.stub!(:update_attributes => true)
+        mock_wiki_page.stub!(:update_attributes => true, :wiki => mock_wiki)
         put :update, :wiki_id => "12", :id => "37"
         response.should redirect_to(wiki_pages_show_by_title_url(mock_wiki, mock_wiki_page.url_title))
       end

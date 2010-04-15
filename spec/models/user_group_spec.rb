@@ -1,16 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+Factory.define :wiki do |wiki|
+  wiki.sequence(:title) { |n| "Some wiki #{n}" }
+end
+
+Factory.define :forum do |forum|
+  forum.sequence(:name) { |n| "Some forum #{n}" }
+end
+
 describe UserGroup do
   before(:each) do
-
-    Factory.define :wiki do |wiki|
-      wiki.sequence(:title) { |n| "Some wiki #{n}" }
-    end
-
-    Factory.define :forum do |forum|
-      forum.sequence(:name) { |n| "Some forum #{n}" }
-    end
-    
     @valid_attributes = {
       :name => "some group name"
     }

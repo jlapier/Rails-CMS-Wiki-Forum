@@ -6,9 +6,6 @@ end
 
 describe HtmlGenerator do
   before(:each) do
-    Factory.define :category do |category|
-      category.sequence(:name) { |n| "Some category #{n}" }
-    end
   end
 
   describe "when getting html for list_categories" do
@@ -19,7 +16,7 @@ describe HtmlGenerator do
     end
 
     it "should work when categories are found" do
-      3.times { Factory(:category) }
+      (1..3).each { |n| Category.create :name => "Some category #{n}" }
 
       expected = <<-END
         <ul>
@@ -42,7 +39,7 @@ describe HtmlGenerator do
     end
 
     it "should work when category found but has no pages" do
-      cat = Factory(:category)
+      cat = Category.create :name => "Some category 1"
       expected = <<-END
         <ul>
           <li>
@@ -55,7 +52,7 @@ describe HtmlGenerator do
     end
 
     it "should work when category found and has a page" do
-      cat = Factory(:category)
+      cat = Category.create :name => "Some category 1"
       cp = ContentPage.create! :name => "Page one", :is_preview_only => false
       cp.categories << Category.find(:first)
       cp.save!
@@ -76,7 +73,7 @@ describe HtmlGenerator do
     end
 
     it "should work when categories are found" do
-      3.times { Factory(:category) }
+      (1..3).each { |n| Category.create :name => "Some category #{n}" }
       cp = ContentPage.create! :name => "Page one", :is_preview_only => false
       cp.categories << Category.find(:first)
       cp.save!
@@ -102,7 +99,7 @@ describe HtmlGenerator do
     end
 
     it "should work when categories are specified" do
-      3.times { Factory(:category) }
+      (1..3).each { |n| Category.create :name => "Some category #{n}" }
 
       expected = <<-END
         <ul>
@@ -135,7 +132,7 @@ describe HtmlGenerator do
 
   describe "when getting html for link_category" do
     it "should get a found category" do
-      Factory(:category)
+      Category.create :name => "Some category 1"
       expected = '<a href="/categories/1">Some category 1</a>'
       DummyClass.link_category_to_html('Some category 1').should equal_without_whitespace expected
     end
