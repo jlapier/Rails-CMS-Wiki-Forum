@@ -3,30 +3,71 @@
 <% if @user_groups.empty? %>
   <p><em>No user groups created yet</em></p>
 <% else %>
-  <table class="nice_table">
-    <tr>
-      <th>Group name</th>
-      <th>Special Access</th>
-      <th></th>
-    </tr>
+  <% form_tag emails_user_groups_path, :id => "get_emails_form", :method => :get do %>
+    <table class="nice_table">
+      <thead>
+        <tr>
+          <th>Group name</th>
+          <th>Special Access</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-  <% @user_groups.each do |user_group| %>
-    <tr>
-      <td><%= user_group.name %></td>
-      <td><%= user_group.access_string %></td>
-      <td style="text-align:right">
-        <%= link_to 'list members', user_group %> &nbsp;
-        <%= link_to 'edit name/access', edit_user_group_path(user_group) %> &nbsp;
-        <%= link_to 'delete', user_group, :confirm => "Are you sure you want to delete the group called #{user_group.name}?", :method => :delete %>
-      </td>
-    </tr>
+      <tbody>
+        <% @user_groups.each do |user_group| %>
+          <tr>
+            <td><%= user_group.name %></td>
+            <td><%= user_group.access_string %></td>
+            <td style="text-align:right">
+              <%= link_to 'list members', user_group %> &nbsp;
+              <%= link_to 'edit name/access', edit_user_group_path(user_group) %> &nbsp;
+              <%= link_to 'delete', user_group,
+                    :confirm => "Are you sure you want to delete the group called #{user_group.name}?", :method => :delete %>
+            </td>
+            <td>
+              <%= check_box_tag "user_group_ids[]", user_group.id %>
+            </td>
+          </tr>
+        <% end %>
+          
+        <% if is_admin? %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2" style="text-align:right;">
+              <%= submit_tag "retrieve emails for these groups" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
-  </table>
 <% end %>
 
 <br />
+
+<div id="email_list" style="display:none">
+  <a href="">Use this email link</a> or copy from the box below and paste into your email program:
+  <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
+</div>
+
 
 <p class="admin_links">
   <%= link_to 'create a new user group', new_user_group_path %> |
   <%= link_to 'full list of users', users_path %>
 </p>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#get_emails_form').attach(Remote, {
+      dataType: 'json',
+      success : function(data) {
+        $('#email_list textarea').text(data.join('; '));
+        $('#email_list a').attr('href', 'mailto:' + data.join(';'));
+        $('#email_list').show();
+      }
+    });
+  });
+</script>

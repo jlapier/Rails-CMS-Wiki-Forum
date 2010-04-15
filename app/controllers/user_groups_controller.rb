@@ -23,6 +23,17 @@ class UserGroupsController < ApplicationController
     end
   end
 
+  def emails
+
+    respond_to do |format|
+      format.html { redirect_to user_groups_url }
+      format.js do
+        user_groups = [UserGroup.find(params[:user_group_ids])].flatten
+        render :json => user_groups.map(&:users).flatten.map(&:email).to_json
+      end
+    end
+  end
+
   # GET /user_groups/new
   # GET /user_groups/new.xml
   def new
