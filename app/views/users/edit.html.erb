@@ -6,3 +6,9 @@
   <%= f.submit "Update" %>
 <% end %>
 
+<% if is_admin? %>
+<p class="admin_links">
+  <%= link_to "Back to Users List", users_path %> |
+  <%= link_to "Manage User Groups", user_groups_path %>
+</p>
+<% end %>

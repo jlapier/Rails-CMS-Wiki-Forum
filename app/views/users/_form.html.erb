@@ -28,14 +28,47 @@
     <td><%= form.label :password_confirmation %>:</td>
     <td><%= form.password_field :password_confirmation %></td>
   </tr>
-  <% if is_admin? %>
-  <tr>
-    <td><%= form.label 'Group Membership' %>:</td>
-    <td>
-      <% UserGroup.find(:all).each do |user_group| %>
-        <%= check_box_tag "user[user_group_ids][]", user_group.id, @user.user_groups.include?(user_group) %> <%= user_group.name %><br/>
+
+  <% user_groups = UserGroup.find(:all, :order => "name") %>
+  <% unless user_groups.empty? %>
+    <% if is_admin? %>
+      <% unless @user.requested_user_group_ids.empty? %>
+        <tr>
+          <td>
+            <%= form.label 'Requested Group Membership' %>:<br/>
+            <span class="tiny_text">
+              <span class="darkred">red</span> means requested group access not yet granted<br/>
+              <span class="darkgreen">green</span> means requested group access was granted<br/>
+            </span>
+          </td>
+          <td>
+            <% @user.requested_user_group_ids.each do |user_group_id| %>
+            <% user_group = user_groups.detect { |ug| ug.id == user_group_id } %>
+              <span class="<%= @user.user_groups.include?(user_group) ? 'darkgreen' : 'darkred' %>">
+                <%= user_group.name %><br/>
+              </span>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    </td>
-  </tr>
+      <tr>
+        <td><%= form.label 'Group Membership' %>:</td>
+        <td>
+          <% user_groups.each do |user_group| %>
+            <%= check_box_tag "user[user_group_ids][]", user_group.id, @user.user_groups.include?(user_group) %> <%= user_group.name %><br/>
+          <% end %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><%= form.label 'Requested Group Membership' %>:</td>
+        <td>
+          <% user_groups.each do |user_group| %>
+            <%= check_box_tag "user[requested_user_group_ids][]", user_group.id, @user.requested_user_group_ids.include?(user_group.id) %>
+            <%= user_group.name %><br/>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>

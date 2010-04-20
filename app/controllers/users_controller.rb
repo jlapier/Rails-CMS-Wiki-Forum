@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       if params[:id]
-        redirect_to users_path
+        redirect_to edit_user_path(@user)
       else
         redirect_to account_url
       end

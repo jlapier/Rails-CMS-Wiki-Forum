@@ -36,8 +36,10 @@ class User < ActiveRecord::Base
   has_many :message_posts
   has_and_belongs_to_many :user_groups
   before_create :make_admin_if_first_user
+  before_save :to_i_group_ids
 
   serialize :user_defined_fields
+  serialize :requested_user_group_ids, Array
 
   acts_as_authentic
 
@@ -54,6 +56,7 @@ class User < ActiveRecord::Base
 
   def after_initialize
     self.user_defined_fields ||= {}
+    self.requested_user_group_ids ||= []
   end
 
   # TODO define this
@@ -115,6 +118,10 @@ class User < ActiveRecord::Base
   private
   def make_admin_if_first_user
     self.is_admin = true if User.count == 0
+  end
+
+  def to_i_group_ids
+    self.requested_user_group_ids = self.requested_user_group_ids.map(&:to_i)
   end
 end
 

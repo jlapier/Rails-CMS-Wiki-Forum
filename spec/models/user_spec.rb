@@ -4,12 +4,18 @@ describe User do
   before(:each) do
     @valid_attributes = {
       :login => 'test', :email => 'test@test.com',
-      :password => '12345678', :password_confirmation => '12345678'
+      :password => '12345678', :password_confirmation => '12345678',
+      :requested_user_group_ids => ['3', '4']
     }
   end
 
   it "should create a new user given valid attributes" do
     User.create!(@valid_attributes)
+  end
+
+  it "should make requested user group ids integers" do
+    u = User.create!(@valid_attributes)
+    u.requested_user_group_ids.should == [3,4]
   end
 
   it "should save the user_defined_fields" do
