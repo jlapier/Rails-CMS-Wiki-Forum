@@ -59,7 +59,7 @@ class WikiPagesController < ApplicationController
   
   def new
     title = params[:title] ? params[:title].respace : ''
-    @wiki_page = WikiPage.new :title => title
+    @wiki_page = WikiPage.new :title => title, :wiki => @wiki
   end
   
   def create

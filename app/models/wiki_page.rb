@@ -108,8 +108,8 @@ class WikiPage < ActiveRecord::Base
     str.split(",").each do |tag_name|
       tag_name.strip!
       unless tag_name.blank?
-        wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki_id})
-        wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki_id
+        wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki.id})
+        wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki.id
         self.wiki_tags << wt
       end
     end
