@@ -31,6 +31,22 @@ class UserGroup < ActiveRecord::Base
     def find_or_create_by_name(name)
       find_by_name(name) || create(:name => name)
     end
+
+    def all_fix_wiki_access
+      user_groups = find :all
+      user_groups.each do |user_group|
+        user_group.fix_wiki_access
+        user_group.save
+      end
+    end
+
+    def all_fix_forum_access
+      user_groups = find :all
+      user_groups.each do |user_group|
+        user_group.fix_forum_access
+        user_group.save
+      end
+    end
   end
 
   # not actually forums, but a hash of forum ids and access
@@ -56,7 +72,23 @@ class UserGroup < ActiveRecord::Base
     self.special ||= {}
     self.special[:wikis] = access_hash
   end
-  
+
+  def fix_wiki_access
+    w_ids = special[:wikis].keys
+    w_ids.each do |w_id|
+      w = Wiki.find :first, :conditions => { :id => w_id }
+      self.special[:wikis].delete(w_id) if w.nil?
+    end
+  end
+
+  def fix_forum_access
+    f_ids = special[:forums].keys
+    f_ids.each do |f_id|
+      f = Forum.find :first, :conditions => { :id => f_id }
+      self.special[:forums].delete(f_id) if f.nil?
+    end
+  end
+
   def grants_access_to_forum?(forum_or_forum_id)
     forum_id = forum_or_forum_id.is_a?(Forum) ? forum_or_forum_id.id : forum_or_forum_id
     forums[forum_id.to_s]

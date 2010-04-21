@@ -16,9 +16,16 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_comments
   has_many :wiki_tags
 
+  after_destroy :fix_group_access
+
   class << self
     def all_wikis
       find :all, :order => 'name'
     end
+  end
+
+  private
+  def fix_group_access
+    UserGroup.all_fix_wiki_access
   end
 end

@@ -38,25 +38,29 @@ describe UserGroup do
     ug.users.should_not include(users[1])
   end
 
-  it "should grant access" do
+
+
+  it "should not give destroyed wikis" do
     wiki1 = Factory(:wiki)
     wiki2 = Factory(:wiki)
-    wiki3 = Factory(:wiki)
+    ug = UserGroup.create!(@valid_attributes)
+    ug.wiki_access = {  wiki1.id.to_s =>  "read", wiki2.id.to_s =>  "write" }
+    ug.save!
+    ug.wikis.should ==  {"1"=>"read", "2"=>"write"}
+    wiki1.destroy
+    ug = UserGroup.find ug.id
+    ug.wikis.should ==  {"2"=>"write"}
+  end
+
+  it "should not give destroyed forums" do
     forum1 = Factory(:forum)
     forum2 = Factory(:forum)
-    forum3 = Factory(:forum)
-    expected_access = 'Forum: Some forum 1 (Read), Forum: Some forum 2 (Write), Wiki: Some wiki 1 (Read), Wiki: Some wiki 2 (Write)'
     ug = UserGroup.create!(@valid_attributes)
-    ug.forum_access = { forum1.id.to_s => "read", forum2.id.to_s => "write", forum3.id.to_s => "none" }
-    ug.wiki_access = {  wiki1.id.to_s =>  "read", wiki2.id.to_s =>  "write", wiki3.id.to_s => "none" }
+    ug.forum_access = {  forum1.id.to_s =>  "read", forum2.id.to_s =>  "write" }
     ug.save!
-    ug_again = UserGroup.find ug.id
-    ug_again.grants_access_to_forum?(forum1).should == "read"
-    ug_again.grants_access_to_forum?(forum2).should == "write"
-    ug_again.grants_access_to_forum?(forum3).should be_nil
-    ug_again.grants_access_to_wiki?(wiki1).should == "read"
-    ug_again.grants_access_to_wiki?(wiki2).should == "write"
-    ug_again.grants_access_to_wiki?(wiki3).should be_nil
-    ug.access_string.should == expected_access
+    ug.forums.should ==  {"1"=>"read", "2"=>"write"}
+    forum1.destroy
+    ug = UserGroup.find ug.id
+    ug.forums.should ==  {"2"=>"write"}
   end
 end

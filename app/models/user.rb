@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   end
 
   def requested_user_groups
-    requested_user_group_ids.map { |g_id| UserGroup.find(g_id) }
+    requested_user_group_ids.map { |g_id| UserGroup.find(:first, :conditions => { :id => g_id }) }.compact
   end
 
   private

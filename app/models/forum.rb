@@ -21,9 +21,17 @@ class Forum < ActiveRecord::Base
   belongs_to :most_recent_post, :class_name => 'MessagePost', :foreign_key => :newest_message_post_id
   has_many :message_posts, :dependent => :destroy
 
+  after_destroy :fix_group_access
+  
   class << self
     def all_forums
       find :all, :order => 'title'
     end
+  end
+
+
+  private
+  def fix_group_access
+    UserGroup.all_fix_forum_access
   end
 end
