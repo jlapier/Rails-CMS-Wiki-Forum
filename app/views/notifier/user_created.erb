@@ -1,0 +1,13 @@
+A new user has registered at <%= @site_title %>.
+
+<% for field in %w( login first_name last_name email) -%>
+<%= field.titleize %>: <%= @user[field] %>
+<% end -%>
+<% for field in (SiteSetting.read_setting('user fields') || []) -%>
+<%= field.titleize %>: <%= @user.user_defined_fields[field] %>
+<% end -%>
+<% unless @user.requested_user_groups.empty? -%>
+Requested Groups: <%= @user.requested_user_groups.map(&:name).join(', ') %>
+<% end -%>
+
+Link to edit this user: <%= @edit_user_url %>

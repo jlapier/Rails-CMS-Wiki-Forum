@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
   acts_as_authentic
 
   class << self
+    def find_admins
+      find :all, :conditions => { :is_admin => true }
+    end
+
     # overwrite default AuthLogic behavior - allow users to log in with either login or email
     def find_by_smart_case_login_field(login)
       if login =~ Authlogic::Regex.email
@@ -113,6 +117,10 @@ class User < ActiveRecord::Base
     # authlogic provides this:
     reset_perishable_token!
     Notifier.deliver_password_reset_instructions(self)
+  end
+
+  def requested_user_groups
+    requested_user_group_ids.map { |g_id| UserGroup.find(g_id) }
   end
 
   private

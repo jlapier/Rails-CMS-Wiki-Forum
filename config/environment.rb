@@ -71,5 +71,5 @@ Rails::Initializer.run do |config|
   # config.active_record.schema_format = :sql
 
   # Activate observers that should always be running
-  config.active_record.observers = :wiki_page_observer
+  config.active_record.observers = [:wiki_page_observer, :user_observer]
 end

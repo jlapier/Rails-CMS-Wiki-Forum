@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default_url_options[:host] = SiteSetting.read_setting('hostname')
+  default_url_options[:host] = SiteSetting.read_setting('hostname') || 'localhost'
 
   def password_reset_instructions(user, sent_at = Time.now)
     subject    'Password Reset Instructions'
@@ -8,6 +8,16 @@ class Notifier < ActionMailer::Base
     sent_on    sent_at
     
     body       :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
+  end
+
+  def user_created(user, sent_at = Time.now)
+    subject    "New user registered: #{user.fullname}"
+    recipients User.find_admins.map(&:email)
+    from       SiteSetting.read_setting('site title')
+    sent_on    sent_at
+
+    body       :edit_user_url => edit_user_url(user), :site_title => SiteSetting.read_setting('site title'),
+      :user => user
   end
 
 end

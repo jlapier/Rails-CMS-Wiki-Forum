@@ -42,8 +42,7 @@
             </span>
           </td>
           <td>
-            <% @user.requested_user_group_ids.each do |user_group_id| %>
-            <% user_group = user_groups.detect { |ug| ug.id == user_group_id } %>
+            <% @user.requested_user_groups.each do |user_group| %>
               <span class="<%= @user.user_groups.include?(user_group) ? 'darkgreen' : 'darkred' %>">
                 <%= user_group.name %><br/>
               </span>
