@@ -29,7 +29,7 @@ class UserGroupsController < ApplicationController
       format.html { redirect_to user_groups_url }
       format.js do
         user_groups = [UserGroup.find(params[:user_group_ids])].flatten
-        render :json => user_groups.map(&:users).flatten.map(&:email).to_json
+        render :json => user_groups.map(&:users).flatten.unique.map(&:email).to_json
       end
     end
   end
