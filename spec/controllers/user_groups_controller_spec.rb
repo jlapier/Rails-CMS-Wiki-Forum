@@ -4,7 +4,11 @@ describe UserGroupsController do
 
   def mock_user(stubs={})
     @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
-        :has_read_access_to? => true, :has_write_access_to? => true}))
+        :has_read_access_to? => true, :has_write_access_to? => true, :email => 'bob@bob.com'}))
+  end
+
+  def mock_other_user(stubs={})
+    @mock_other_user ||= mock_model(User, stubs.merge({:email => 'joe@joe.com'}))
   end
 
   def mock_user_group(stubs={})
@@ -46,6 +50,24 @@ describe UserGroupsController do
       UserGroup.stub!(:find).with("37").and_return(mock_user_group)
       get :edit, :id => "37"
       assigns[:user_group].should equal(mock_user_group)
+    end
+  end
+
+  describe "GET emails" do
+    it "redirects if html request" do
+      get :emails, :user_group_ids => ["1"]
+      response.should redirect_to(user_groups_url)
+    end
+
+    it "returns emails if json request" do
+      mock_user.should_receive(:email).and_return 'bob@bob.com'
+      mock_user_group.stub!(:users).and_return([mock_user, mock_other_user])
+      mock_group_two = mock_model(UserGroup, :name => "group two")
+      mock_group_two.stub!(:users).and_return([mock_other_user])
+      UserGroup.stub!(:find).and_return([mock_user_group, mock_group_two])
+      get :emails, :format => 'js', :user_group_ids => ["1"]
+      response.should be_success
+      response.body.should == '["bob@bob.com","joe@joe.com"]'
     end
   end
 
