@@ -32,7 +32,7 @@ class MessagePost < ActiveRecord::Base
   class << self
     def search_forums(term)
       # uses search from "searchable_by"
-      search term, nil, :limit => 20, :order => "messages.updated_at DESC"
+      search term, :limit => 20, :order => "message_posts.updated_at DESC"
     end
 
     def per_page

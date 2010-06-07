@@ -10,7 +10,7 @@
 
   <% @users_not_in_group.each do |user|  %>
     <tr>
-      <td><%= link_to user.login, :action => 'edit', :id => user %> (<%= user.fullname %>)</td>
+      <td><%= link_to user.login, user %> (<%= user.fullname %>)</td>
       <td><%= user.email %></td>
       <td><%= check_box_tag "user_ids[]", user.id %></td>
     </tr>

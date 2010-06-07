@@ -1,0 +1,33 @@
+<h1><%= @forum.title %></h1>
+
+<h2>Search Results: <em><%= @search_term %></em></h2>
+
+<div style="float:right">
+  <% form_tag(search_forum_path(@forum),  :method => :get  ) do %>
+    <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
+    <%= submit_tag "Go" %>
+  <% end %>
+</div>
+
+<p class="small_text"><%= @forum.description %></p>
+
+<% if @message_posts.empty? %>
+
+  <p><em>no messages found that match: <%= @search_term %></em></p>
+
+<% else %>
+
+  <div style="text-align:center;"><%= will_paginate @message_posts %></div>
+
+  <table class="messages" cellspacing="0px" cellpadding="0px">
+    <% for message in @message_posts -%>
+      <%= render :partial => "message_posts/message_in_forum", :locals => { :message => message } %>
+    <% end -%>
+  </table>
+
+  <div style="text-align:center;"><%= will_paginate @message_posts %></div>
+
+<% end %>
+
+<br/><br/>
+

@@ -1,6 +1,6 @@
 class ForumsController < ApplicationController
   before_filter :require_admin_user, :except => [:index, :show]
-  before_filter :get_forum, :only => [:show, :edit, :update, :destroy]
+  before_filter :get_forum, :only => [:show, :edit, :update, :destroy, :search]
   before_filter :require_forum_read_access, :only => [:show]
   before_filter :require_forum_write_access, :only => [:edit, :update, :destroy]
 
@@ -83,6 +83,14 @@ class ForumsController < ApplicationController
       format.html { redirect_to(forums_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def search
+    @search_term = params[:q]
+    if @search_term.blank?
+      redirect_to :action => :index
+    end
+    @message_posts = @forum.message_posts.search_forums(@search_term).paginate
   end
 
   protected

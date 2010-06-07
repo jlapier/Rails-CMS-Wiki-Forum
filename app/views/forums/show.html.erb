@@ -1,5 +1,12 @@
 <h1><%= @forum.title %></h1>
 
+<div style="float:right">
+  <% form_tag(search_forum_path(@forum),  :method => :get  ) do %>
+    <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
+    <%= submit_tag "Go" %>
+  <% end %>
+</div>
+
 <p class="small_text"><%= @forum.description %></p>
 
 <div style="text-align:center;"><%= will_paginate @message_posts %></div>

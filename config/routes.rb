@@ -21,8 +21,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/tagcloud.:format', :controller => 'wiki_pages', :action => 'tagcloud'
 
 
-  map.resources :forums do |forum|
-    forum.resources :message_posts, :collection => { :search => :get }
+  map.resources :forums, :member => { :search => :get } do |forum|
+    forum.resources :message_posts
   end
 
   map.resource :account, :controller => "users"

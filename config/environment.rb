@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -56,7 +56,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_site_on_rails_session',
+    :key => '_site_on_rails_session',
     :secret      => '42b1a00f9cc222749e00675885e0ff4a2de996cd1586e15cfcb7fa34a76a8e8423f8217986b675df3f1c28c056455fc63d6f98eee85c176b377988b5b72ef15d'
   }
 

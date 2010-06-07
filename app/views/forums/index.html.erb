@@ -1,12 +1,5 @@
 <h1>Forums</h1>
 
-<div style="float:right">
-  <% form_tag(search_forum_message_posts_path(@forum),  :method => :get  ) do %>
-    <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
-    <%= submit_tag "Go" %>
-  <% end %>
-</div>
-
 <p>
   Please follow the common rules of etiquette when using these forums. Remember that when you logged in, you
   agreed to abide by the rules.
