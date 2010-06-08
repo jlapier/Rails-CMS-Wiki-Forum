@@ -4,7 +4,8 @@ describe "/wikis/show.html.erb" do
   include WikisHelper
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude'}))
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude',
+          :full_name => 'dude man'}))
   end
 
   before(:each) do
@@ -15,6 +16,7 @@ describe "/wikis/show.html.erb" do
     assigns[:wiki_pages] = @wiki_pages
     assigns[:wiki] = @wiki = stub_model(Wiki, :name => "Some page",
       :wiki_pages => @wiki_pages)
+    assigns[:users_with_access] = [mock_user]
     template.stub!(:current_user).and_return(mock_user)
   end
 

@@ -1,5 +1,13 @@
 <h1><%= @forum.title %></h1>
 
+<p class="small_text">
+  <%= link_to "who has access to this forum?", forum_path(@forum, :toggle => "user_access_list"), :class => 'show_hide_link' %>
+</p>
+
+<p class="small_text user_access_list" style="background: #FFD; padding: 2px 6px; <%= (params[:toggle] and params[:toggle]=='user_access_list') ? '' : 'display:none;' %>">
+  <%= @users_with_access.map(&:full_name).join(', ') %>
+</p>
+
 <div style="float:right">
   <% form_tag(search_forum_path(@forum),  :method => :get  ) do %>
     <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>

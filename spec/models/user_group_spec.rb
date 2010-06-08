@@ -38,7 +38,29 @@ describe UserGroup do
     ug.users.should_not include(users[1])
   end
 
+  it "should find access to wiki" do
+    wiki1 = Factory(:wiki)
+    wiki2 = Factory(:wiki)
+    ug = UserGroup.create!(@valid_attributes)
+    ug.wiki_access = {  wiki1.id.to_s =>  "read", wiki2.id.to_s =>  "write" }
+    ug.save!
+    ug.wikis.should ==  {"1"=>"read", "2"=>"write"}
+    ugs = UserGroup.find_all_with_access_to wiki1
+    ugs.should_not be_empty
+    ugs.should include(ug)
+  end
 
+  it "should find access to forum" do
+    forum1 = Factory(:forum)
+    forum2 = Factory(:forum)
+    ug = UserGroup.create!(@valid_attributes)
+    ug.forum_access = {  forum1.id.to_s =>  "read", forum2.id.to_s =>  "write" }
+    ug.save!
+    ug.forums.should ==  {"1"=>"read", "2"=>"write"}
+    ugs = UserGroup.find_all_with_access_to forum1
+    ugs.should_not be_empty
+    ugs.should include(ug)
+  end
 
   it "should not give destroyed wikis" do
     wiki1 = Factory(:wiki)

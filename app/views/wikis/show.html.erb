@@ -4,6 +4,14 @@
 
 <%= textilize @wiki.description %>
 
+<p class="small_text">
+  <%= link_to "who has access to this wiki?", wiki_path(@wiki, :toggle => "user_access_list"), :class => 'show_hide_link' %>
+</p>
+
+<p class="small_text user_access_list" style="background: #FFD; padding: 2px 6px; <%= (params[:toggle] and params[:toggle]=='user_access_list') ? '' : 'display:none;' %>">
+  <%= @users_with_access.map(&:full_name).join(', ') %>
+</p>
+
 <% if @wiki_tag %>
   <h2>Pages Tagged: <%= @wiki_tag.name %></h2>
 <% else %>

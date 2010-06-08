@@ -32,6 +32,14 @@ class UserGroup < ActiveRecord::Base
       find_by_name(name) || create(:name => name)
     end
 
+    def find_all_with_access_to(wiki_or_forum)
+      if wiki_or_forum.is_a?(Wiki)
+        find(:all).select { |ug| ug.wikis.keys.include?(wiki_or_forum.id.to_s) }
+      else
+        find(:all).select { |ug| ug.forums.keys.include?(wiki_or_forum.id.to_s) }
+      end
+    end
+
     def all_fix_wiki_access
       user_groups = find :all
       user_groups.each do |user_group|
@@ -105,6 +113,12 @@ class UserGroup < ActiveRecord::Base
     forum_strings = forums.map { |f_id, f_access| "Forum: #{Forum.find(f_id).name} (#{f_access.titleize})" }
     wiki_strings = wikis.map { |w_id, w_access| "Wiki: #{Wiki.find(w_id).name} (#{w_access.titleize})" }
     [forum_strings + wiki_strings].join(', ')
+  end
+
+  def access_as_html
+    forum_strings = forums.map { |f_id, f_access| "<li>Forum: #{Forum.find(f_id).name} <em>(#{f_access.titleize})</em></li>" }
+    wiki_strings = wikis.map { |w_id, w_access| "<li>Wiki: #{Wiki.find(w_id).name} <em>(#{w_access.titleize})</em></li>" }
+    "<ul>\n" + [forum_strings + wiki_strings].join("\n") + "</ul>\n"
   end
   
   def drop_users(drop_user_ids)

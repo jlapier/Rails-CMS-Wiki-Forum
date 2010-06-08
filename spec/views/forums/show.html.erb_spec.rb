@@ -17,6 +17,7 @@ describe "/forums/show.html.erb" do
       :description => "value for description",
       :message_posts => @message_posts
     )
+    assigns[:users_with_access] = [mock_user]
     assigns[:new_message_post] = MessagePost.new
     template.stub!(:current_user).and_return(mock_user)
   end

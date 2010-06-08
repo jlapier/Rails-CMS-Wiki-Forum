@@ -18,6 +18,8 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.xml
   def show
+    user_groups = UserGroup.find_all_with_access_to @forum
+    @users_with_access = user_groups.map(&:users).flatten.uniq
     @message_posts = @forum.message_posts.paginate :page => params[:page], :order => 'created_at DESC'
     @new_message_post = MessagePost.new :forum => @forum
     respond_to do |format|
