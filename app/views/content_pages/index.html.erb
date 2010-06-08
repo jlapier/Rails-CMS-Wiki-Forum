@@ -4,6 +4,13 @@
   <h4>Search query: <%= @search_phrase %></h4>
 <% end %>
 
+<% if is_admin? and ContentPage.count > 10 %>
+<p class="admin_links">
+  <%= link_to 'Create a New Page', new_content_page_path %> |
+  <%= link_to 'List of Categories', categories_path %>
+</p>
+<% end %>
+
 <table cellspacing="2px" cellpadding="0" class="nice_table tablesorter">
   <thead>
     <tr>

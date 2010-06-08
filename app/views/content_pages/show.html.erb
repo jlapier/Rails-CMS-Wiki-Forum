@@ -1,3 +1,14 @@
+<% if is_admin? and @content_page.body_for_display.size > 1500 %>
+  <div style="float:right; text-align:right;">
+    <p class="admin_links">
+      <%= link_to 'Edit this Page', edit_content_page_path(@content_page) %> |
+      <%= link_to 'Create a New Page', new_content_page_path %> |
+      <%= link_to 'List of Pages', content_pages_path %> |
+      <%= link_to 'List of Categories', categories_path %>
+    </p>
+  </div>
+<% end %>
+
 <% cache do %>
   <h1><%=h @content_page.name %></h1>
 
@@ -22,6 +33,7 @@
   <% end %>
   <p class="admin_links">
     <%= link_to 'Edit this Page', edit_content_page_path(@content_page) %> |
+    <%= link_to 'Create a New Page', new_content_page_path %> |
     <%= link_to 'List of Pages', content_pages_path %> |
     <%= link_to 'List of Categories', categories_path %>
   </p>
