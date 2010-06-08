@@ -6,16 +6,23 @@
 <% @wikis.each do |wiki| %>
   <tr>
     <td>
-      <strong><%= link_to wiki.name, wiki %>: </strong>
-      <%= textilize_without_paragraph wiki.description %>
+      <strong><%= link_to wiki.name, wiki %></strong>
+      <% unless wiki.description.blank? %>
+        &nbsp;
+        <em class="wiki_desc_link_<%= wiki.id %>">(<%= link_to "description",
+                  wikis_path(:toggle => "wiki_desc_#{wiki.id}", :hide => "wiki_desc_link_#{wiki.id}"), :class => "show_hide_link" %>)</em> &nbsp;
+        <span class="wiki_desc_<%= wiki.id %>" style="display:none;"><%= textilize_without_paragraph wiki.description %></span>
+      <% end %>
     </td>
     <% if is_admin? %>
       <td>
-        <%= link_to 'edit', edit_wiki_path(wiki) %> |
-        <%= link_to 'delete', wiki,
+        <%= link_to '<span class="ui-icon ui-icon-document"/>', edit_wiki_path(wiki),
+                    :title => "click to edit" %>
+        <%= link_to '<span class="ui-icon ui-icon-closethick"/>', wiki,
                 :confirm => "Are you sure you want to permanently delete this wiki (#{wiki.name}) " +
                   "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
-                :method => :delete %>
+                    :method => :delete, :title => "click to delete" %>
+        
       </td>
     <% end %>
   </tr>

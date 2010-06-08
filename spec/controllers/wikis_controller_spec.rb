@@ -29,7 +29,7 @@ describe WikisController do
 
   describe "GET index" do
     it "assigns all wikis as @wikis" do
-      Wiki.stub(:find).with(:all).and_return([mock_wiki])
+      Wiki.stub(:find).with(:all, :order => "name").and_return([mock_wiki])
       get :index
       assigns[:wikis].should == [mock_wiki]
     end

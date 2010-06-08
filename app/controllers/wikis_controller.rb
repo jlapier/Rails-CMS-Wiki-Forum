@@ -7,7 +7,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.xml
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.find :all, :order => "name"
 
     respond_to do |format|
       format.html # index.html.erb
