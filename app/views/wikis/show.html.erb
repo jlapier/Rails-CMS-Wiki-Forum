@@ -1,6 +1,6 @@
 <%= render :partial => "top_links" %>
 
-<h1><%=h @wiki.name %></h1>
+<h1><%= link_to "Wikis", wikis_path %>: <%= @wiki.name %></h1>
 
 <%= textilize @wiki.description %>
 

@@ -1,13 +1,13 @@
 <h1>
+  <%= link_to "Forums", forums_path %>:
   <% if @forum %>
     <%= link_to @forum.title, @forum %>:
-  <% else %>
-    Message:
   <% end -%>
-  <% if @message_post %>
-    <%= @message_post.subject %>
-  <% end %>
 </h1>
+
+<% if @message_post %>
+  <h2><%= @message_post.subject %></h2>
+<% end %>
 
 <table class="messages" style="margin-bottom:10px;">
   <%= render :partial => "whole_message", :locals => { :message => @message_post } %>

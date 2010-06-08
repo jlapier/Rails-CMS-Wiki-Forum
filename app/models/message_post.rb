@@ -29,6 +29,8 @@ class MessagePost < ActiveRecord::Base
   
   before_validation :fix_blank_subject
 
+  acts_as_stripped :subject
+
   class << self
     def search_forums(term)
       # uses search from "searchable_by"

@@ -1,0 +1,30 @@
+ActsAsStripped
+==============
+
+Strips HTML out of an attribute whenever it's displayed - even if it's in a form input box/textarea. 
+NOTE: no stripping happens when the attribute is written, only read.
+NOTE: value is converted to string; so for example if you errantly list an integer attribute in the attribute list 
+it's going to come back as a string.
+
+Inspired by Err's acts_as_textiled, but I needed some attributes to be displayed without textile messing with 
+underscores and astrisks. 
+
+And I don't trust myself to sanitize HTML in views 100% of the time. 
+
+Use like so: 
+
+class SomeModel < ActiveRecord::Base
+  acts_as_stripped :name, :description
+	
+	# ...
+end
+
+If you need to get the unstripped value, you can always use: your_model.attributes["att_name"]
+
+Install with:
+script/plugin install git://github.com/jlapier/acts_as_stripped.git
+
+More info:
+http://offtheline.net/2007/6/14/acts-as-stripped-auto-stripping-html-from-a-field
+
+Copyright (c) 2007 Jason LaPier, released under the MIT license

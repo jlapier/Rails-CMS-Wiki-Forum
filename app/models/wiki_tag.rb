@@ -17,6 +17,8 @@ class WikiTag < ActiveRecord::Base
   has_and_belongs_to_many :wiki_pages
   belongs_to :wiki
 
+  acts_as_stripped :name
+
   def wiki_pages_count
     @wiki_pages_count ||= wiki_pages.count
   end

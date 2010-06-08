@@ -22,7 +22,7 @@ class Forum < ActiveRecord::Base
   has_many :message_posts, :dependent => :destroy
 
   after_destroy :fix_group_access
-  
+
   class << self
     def all_forums
       find :all, :order => 'title'

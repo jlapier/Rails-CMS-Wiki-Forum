@@ -1,6 +1,8 @@
 <%= render :partial => "/wikis/top_links" %>
 
-<h1><%= link_to @wiki.name, wiki_path(@wiki) %>: <%= @wiki_page.title %></h1>
+<h1><%= link_to "Wikis", wikis_path %>: <%= link_to @wiki.name, wiki_path(@wiki) %></h1>
+
+<h2><%= @wiki_page.title %></h2>
 
 <br/>
 

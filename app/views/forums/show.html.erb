@@ -1,4 +1,4 @@
-<h1><%= @forum.title %></h1>
+<h1><%= link_to "Forums", forums_path %>: <%= @forum.title %></h1>
 
 <p class="small_text">
   <%= link_to "who has access to this forum?", forum_path(@forum, :toggle => "user_access_list"), :class => 'show_hide_link' %>

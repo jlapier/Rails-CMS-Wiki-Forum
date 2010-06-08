@@ -34,6 +34,9 @@ class WikiPage < ActiveRecord::Base
   before_validation :set_url_title
 
   validates_uniqueness_of :title
+
+  acts_as_stripped :title
+  
 #  def validate
 #    if id and WikiPage.count( :conditions => ["title = ? AND id != ?", title, id] ) > 0
 #      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"

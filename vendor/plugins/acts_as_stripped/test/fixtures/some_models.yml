@@ -1,0 +1,15 @@
+plain:
+  id: 1
+  name: normal name
+  description: this one has no textile or html
+  number: nil
+with_html:
+  id: 2
+  name: name with <span style='color:red'>evil</span> html
+  description: this one has <strong>unwanted</strong> html
+  number: nil
+with_non_string:
+  id: 3
+  name: nil
+  description: nil
+  number: 1001
