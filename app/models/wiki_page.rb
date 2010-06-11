@@ -126,7 +126,7 @@ class WikiPage < ActiveRecord::Base
   
   private
   def set_url_title
-    self.url_title = title.unspace.gsub("/", "---").gsub("&", "((and))").gsub('.', 'DOT') if title
+    self.url_title = title.unspace.gsub("/", "---").gsub("&", "((and))").gsub("?", "((Q))").gsub('.', 'DOT') if title
   end
   
   def save_tags
