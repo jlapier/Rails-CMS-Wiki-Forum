@@ -18,8 +18,6 @@ class WikisController < ApplicationController
   # GET /wikis/1
   # GET /wikis/1.xml
   def show
-    user_groups = UserGroup.find_all_with_access_to @wiki
-    @users_with_access = user_groups.map(&:users).flatten.uniq
     @wiki_pages = @wiki.wiki_pages.paginate :all, :page => params[:page],
       :order => "updated_at DESC", :select => "id, title, url_title, updated_at"
 
@@ -115,6 +113,8 @@ class WikisController < ApplicationController
 
   def get_wiki
     @wiki = Wiki.find params[:id]
+    user_groups = UserGroup.find_all_with_access_to @wiki
+    @users_with_access = user_groups.map(&:users).flatten.uniq.sort_by { |u| u.name }
   end
 
 end

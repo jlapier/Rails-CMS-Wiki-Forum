@@ -6,6 +6,10 @@ describe WikisController do
     @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
   end
 
+  def mock_user_group
+    @mock_user_group ||= mock_model(UserGroup, :users => [mock_user])
+  end
+
   def mock_wiki(stubs={})
     @mock_wiki ||= mock_model(Wiki, stubs.merge({:title => "some title", :wiki_pages => mock_wiki_pages}))
   end
@@ -84,6 +88,7 @@ describe WikisController do
     it "assigns wiki_pages as @wiki_pages" do
       mock_user.stub(:has_read_access_to?).and_return(true)
       Wiki.stub(:find).with("37").and_return(mock_wiki)
+      UserGroup.stub(:find_all_with_access_to).and_return([mock_user_group])
       mock_wiki_tag = mock_model(WikiTag, :name => "tag A", :wiki_pages_count => 3, :wiki_pages => mock_wiki_pages)
       mock_wiki_tags = [ mock_wiki_tag ]
       mock_wiki.stub(:wiki_tags).and_return(mock_wiki_tags)
@@ -92,6 +97,7 @@ describe WikisController do
       assigns[:wiki].should equal(mock_wiki)
       assigns[:wiki_tag].should equal(mock_wiki_tag)
       assigns[:wiki_pages].should == [mock_wiki_page].paginate
+      assigns[:users_with_access].should == [mock_user]
     end
 
     it "redirects if tag not found" do
