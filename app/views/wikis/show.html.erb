@@ -1,4 +1,16 @@
-<%= render :partial => "top_links" %>
+<div style="float:right;">
+  <%= render :partial => "top_links" %>
+
+  <div class="feed_links" style="text-align:center; clear:right; padding-top: 6px;">
+    Feeds:
+    <%= link_to image_tag('feed-icon.gif') + " all", wiki_wiki_comments_url(@wiki, :format => :atom),
+          :title => 'Subscribe to feed for all activity' %>
+    <%= link_to image_tag('feed-icon.gif') + " daily", daily_wiki_wiki_comments_url(@wiki, :format => :atom),
+          :title => 'Subscribe to feed for daily digest' %>
+    <%= link_to image_tag('feed-icon.gif') + " weekly", weekly_wiki_wiki_comments_url(@wiki, :format => :atom),
+          :title => 'Subscribe to feed for weekly digest' %>
+  </div>
+</div>
 
 <h1><%= link_to "Wikis", wikis_path %>: <%= @wiki.name %></h1>
 
@@ -14,8 +26,6 @@
 
 <% if @wiki_tag %>
   <h2>Pages Tagged: <%= @wiki_tag.name %></h2>
-<% else %>
-  <h2>Recently updated pages</h2>
 <% end %>
 
 <table style="width:100%">
@@ -28,15 +38,6 @@
     </td>
 
     <td style="vertical-align:top">
-      <div class="feed_links" style="text-align:center;">
-        Feeds:
-        <%= link_to image_tag('feed-icon.gif') + " all", wiki_wiki_comments_url(@wiki, :format => :atom),
-              :title => 'Subscribe to feed for all activity' %>
-        <%= link_to image_tag('feed-icon.gif') + " daily", daily_wiki_wiki_comments_url(@wiki, :format => :atom),
-              :title => 'Subscribe to feed for daily digest' %>
-        <%= link_to image_tag('feed-icon.gif') + " weekly", weekly_wiki_wiki_comments_url(@wiki, :format => :atom),
-              :title => 'Subscribe to feed for weekly digest' %>
-      </div>
       <%= render :partial => 'tag_cloud' %>
     </td>
   </tr>
