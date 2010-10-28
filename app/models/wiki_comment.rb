@@ -25,11 +25,13 @@ class WikiComment < ActiveRecord::Base
   validates_presence_of :user_id, :body
   validates_length_of :body, :minimum => 5
 
+  validate :on_or_about_wiki_page
+
   attr_accessor :title
 
   before_save :set_wiki_id
 
-  def validate
+  def on_or_about_wiki_page
     unless wiki_page_id or about_wiki_page_id
       errors.add(:base, "must be made on a wiki page or about a wiki page")
     end
