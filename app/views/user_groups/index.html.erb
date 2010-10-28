@@ -3,7 +3,7 @@
 <% if @user_groups.empty? %>
   <p><em>No user groups created yet</em></p>
 <% else %>
-  <% form_tag emails_user_groups_path, :id => "get_emails_form", :method => :get do %>
+  <%= form_tag emails_user_groups_path, :id => "get_emails_form", :method => :get do %>
     <table class="nice_table">
       <thead>
         <tr>

@@ -1,7 +1,7 @@
 <% if current_user -%>
   <div id="message_box">
     <% opts = message_post.new_record? ? { :url => forum_message_posts_path(@forum) } : { :url => forum_message_post_path(@forum, message_post), :method => :put } %>
-    <% form_for message_post, opts do |f| %>
+    <%= form_for message_post, opts do |f| %>
       <%= f.error_messages %>
       <%= f.hidden_field(:forum_id) %>
       <%= f.hidden_field(:thread_id) %>

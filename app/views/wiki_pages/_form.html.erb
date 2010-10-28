@@ -1,6 +1,6 @@
 <% opts = @wiki_page.new_record? ? { :url => wiki_wiki_pages_path(@wiki) } :
   { :url => wiki_wiki_page_path(@wiki, @wiki_page), :method => :put } %>
-<% form_for(@wiki_page, opts) do |f| %>
+<%= form_for(@wiki_page, opts) do |f| %>
   <%= f.error_messages %>
   <p>
     <strong>Title:</strong>

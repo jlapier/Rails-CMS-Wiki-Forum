@@ -9,7 +9,7 @@
 <% if @user_group.users.empty? %>
   <p><em>No users are in this group</em></p>
 <% else %>
-  <% form_tag drop_user_user_group_path(@user_group) do %>
+  <%= form_tag drop_user_user_group_path(@user_group) do %>
     <table class="nice_table">
       <tr>
         <th>Login (Full Name)</th>

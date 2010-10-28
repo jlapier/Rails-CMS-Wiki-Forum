@@ -3,7 +3,7 @@
 <h2>Search Results: <em><%= @search_term %></em></h2>
 
 <div style="float:right">
-  <% form_tag(search_forum_path(@forum),  :method => :get  ) do %>
+  <%= form_tag(search_forum_path(@forum),  :method => :get  ) do %>
     <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
     <%= submit_tag "Go" %>
   <% end %>

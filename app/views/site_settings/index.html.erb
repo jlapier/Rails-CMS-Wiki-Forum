@@ -2,7 +2,7 @@
 
 <div class="edit_content_box">
 
-  <% form_tag( { :action => :update_site_settings } ) do  %>
+  <%= form_tag( { :action => :update_site_settings } ) do  %>
     <p>
       <strong>Title:</strong>
       <%= text_field_tag :site_title, site_title, :size => 70 %>
