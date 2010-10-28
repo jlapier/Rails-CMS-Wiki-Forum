@@ -64,7 +64,7 @@ module Offtheline
         options[:require_all] = true if options[:require_all].nil?
 
         with_scope :find => { :conditions => search_conditions(query, options[:require_all], cols_with_tables),
-                          :include => cols_with_tables.keys.reject{|k| k == class_name.tableize.to_sym } } 	do
+                          :include => cols_with_tables.keys.reject{|k| k == table_name.to_sym } } 	do
           # strip out 'search' specific options
           search_options = options.reject { |k,v| [:require_all, :narrow_fields].include? k.to_sym }
           if options.include?(:page)
@@ -83,12 +83,12 @@ module Offtheline
 
       def make_hash_from_cols_and_tables(tables_and_columns)
         tables_and_columns = [tables_and_columns].flatten
-        hash_of_tables_and_columns = { class_name.tableize.to_sym => [] }
+        hash_of_tables_and_columns = { table_name.to_sym => [] }
         tables_and_columns.each do |table_or_column|
           if table_or_column.is_a? Hash
             hash_of_tables_and_columns.merge! table_or_column
           else
-            hash_of_tables_and_columns[class_name.tableize.to_sym] << table_or_column
+            hash_of_tables_and_columns[table_name.to_sym] << table_or_column
           end
         end
         hash_of_tables_and_columns

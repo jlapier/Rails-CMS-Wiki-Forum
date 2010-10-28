@@ -15,6 +15,7 @@
 #  publish_on         :date          
 # End Schema
 
+require 'html_generator'
 class ContentPage < ActiveRecord::Base
   include HtmlGenerator
   

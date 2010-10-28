@@ -26,15 +26,12 @@ gem 'RedCloth'
 gem 'authlogic'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'ruby-openid', :require => 'openid'
-#source 'http://gemcutter.org'
-gem 'will_paginate' #, '~> 2.3.11'
+gem "will_paginate", "~> 3.0.pre2"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec', '>= 1.2.0'
-  gem 'rspec-rails', '>= 1.2.0'
-  #source 'http://gemcutter.org'
+  gem 'rspec-rails', '~> 2.0.1'
   gem 'factory_girl' #, '>= 1.2.4'
 end
