@@ -1,38 +1,92 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :wikis, :member => { :tagcloud => :get, :tag_index => :get } do |wiki|
-    wiki.resources :wiki_pages, :member => { :upload_handler => :post, :page_link_handler => :get, :delete_asset => :post,
-      :un_edit => :post, :history => :get }, :collection => { :search => :get, :live_search => :post }
-    wiki.resources :wiki_comments, :collection => { :daily => :get, :weekly => :get }
+(in /home/jason/dev/projects/Rails-CMS-Wiki-Forum)
+RailsCmsWikiForum::Application.routes.draw do
+  resources :wikis do
+  
+  
+      resources :wiki_pages do
+        collection do
+    post :live_search
+    get :search
+    end
+        member do
+    get :page_link_handler
+    post :delete_asset
+    post :un_edit
+    post :upload_handler
+    get :history
+    end
+    
+    end
+
+    resources :wiki_comments do
+        collection do
+    get :weekly
+    get :daily
+    end
+    
+    
+    end
   end
 
-  map.wiki_pages_show_by_title '/wikis/:wiki_id/page/:title', :controller => 'wiki_pages', :action => 'show_by_title'
-  map.wiki_tag '/wikis/:id/tag/:tag_name', :controller => 'wikis', :action => 'list_by_tag'
-
-  map.connect 'themes/:action', :controller => 'themes'
-  map.connect 'themes/:action/:name.:format', :controller => 'themes'
+  match '/wikis/:wiki_id/page/:title' => 'wiki_pages#show_by_title', :as => :wiki_pages_show_by_title
+  match '/wikis/:id/tag/:tag_name' => 'wikis#list_by_tag', :as => :wiki_tag
+  match 'themes/:action' => 'themes#index'
+  match 'themes/:action/:name.:format' => 'themes#index'
+  resources :site_settings do
+    collection do
+  get :admin
+  post :update_site_settings
+  end
   
-  map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
-
-  map.resources :content_pages, :member => { :upload_handler => :post, :delete_asset => :post,
-    :un_edit => :post }, :collection => { :search => :get }
-
-  map.resources :categories
   
-  map.connect '/tagcloud.:format', :controller => 'wiki_pages', :action => 'tagcloud'
-
-
-  map.resources :forums, :member => { :search => :get } do |forum|
-    forum.resources :message_posts
   end
 
-  map.resource :account, :controller => "users"
-  map.resources :users, :collection => { :reg_pass_required => :get }, :member => { :upload_handler => :post }
-  map.resources :user_groups, :member => { :drop_user => :post, :add_members => :get, :add_users => :post },
-    :collection => { :emails => :get }
-  map.resource :user_session
-  map.resources :password_resets
+  resources :content_pages do
+    collection do
+  get :search
+  end
+    member do
+  post :delete_asset
+  post :un_edit
+  post :upload_handler
+  end
   
-  map.register '/register', :controller => 'users', :action => 'new'
-  map.login '/login', :controller => 'user_sessions', :action => "new"
-  map.root :controller => 'content_pages', :action => 'home'
+  end
+
+  resources :categories
+  match '/tagcloud.:format' => 'wiki_pages#tagcloud'
+  resources :forums do
+  
+  
+      resources :message_posts
+  end
+
+  resource :account
+  resources :users do
+    collection do
+  get :reg_pass_required
+  end
+    member do
+  post :upload_handler
+  end
+  
+  end
+
+  resources :user_groups do
+    collection do
+  get :emails
+  end
+    member do
+  post :add_users
+  post :drop_user
+  get :add_members
+  end
+  
+  end
+
+  resource :user_session
+  resources :password_resets
+  match '/register' => 'users#new', :as => :register
+  match '/login' => 'user_sessions#new', :as => :login
+  match '/' => 'content_pages#home'
 end
