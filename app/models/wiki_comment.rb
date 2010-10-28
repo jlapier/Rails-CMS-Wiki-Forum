@@ -15,7 +15,6 @@
 # End Schema
 
 class WikiComment < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
   
   belongs_to :user
   belongs_to :wiki_page

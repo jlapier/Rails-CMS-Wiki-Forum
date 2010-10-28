@@ -18,7 +18,7 @@ class ThemesController < ApplicationController
 
   def css_editor
     @css = SiteSetting.read_setting('css override') ||
-      File.read( File.join(RAILS_ROOT, 'public', 'stylesheets', 'main_elements.css') )
+      File.read( File.join(Rails.root, 'public', 'stylesheets', 'main_elements.css') )
   end
 
   def update_css

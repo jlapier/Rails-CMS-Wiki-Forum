@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
 
+  after_initialize :blank_fields
+  
   class << self
     def find_admins
       find :all, :conditions => { :is_admin => true }
@@ -58,7 +60,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def after_initialize
+  def blank_fields
     self.user_defined_fields ||= {}
     self.requested_user_group_ids ||= []
   end

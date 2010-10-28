@@ -91,11 +91,11 @@ module ApplicationHelper
   end
 
   def images_list
-    Dir[File.join(RAILS_ROOT, 'public', 'images', "*.{png,jpg,gif}")].map { |f| File.basename f }.sort
+    Dir[File.join(Rails.root, 'public', 'images', "*.{png,jpg,gif}")].map { |f| File.basename f }.sort
   end
 
   def theme_layouts_list
-    Dir[File.join(RAILS_ROOT, 'themes', 'layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
+    Dir[File.join(Rails.root, 'themes', 'layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
   end
 
   def is_admin?

@@ -54,7 +54,7 @@ class WikiPagesController < ApplicationController
       @wiki_page.update_attributes :editing_user => current_user, :started_editing_at => Time.now
     end
     @rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
-    @assets = Dir[File.join(RAILS_ROOT, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
+    @assets = Dir[File.join(Rails.root, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
   end
   
   def new
@@ -153,7 +153,7 @@ class WikiPagesController < ApplicationController
 
   def delete_asset
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    file = File.join RAILS_ROOT, 'public', "wiki_page_assets", "wiki_page_#{@wiki_page.id}", params[:asset]
+    file = File.join Rails.root, 'public', "wiki_page_assets", "wiki_page_#{@wiki_page.id}", params[:asset]
     if File.exists?(file) and File.delete(file)
       flash[:notice] = "#{File.basename(file)} deleted."
     else
