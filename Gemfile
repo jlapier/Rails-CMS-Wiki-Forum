@@ -23,7 +23,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 gem 'RedCloth'
-gem 'authlogic'
+gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"

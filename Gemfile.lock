@@ -1,3 +1,10 @@
+GIT
+  remote: http://github.com/binarylogic/authlogic.git
+  revision: 66ed79515919fe13016911b10ebe734cf8718dc7
+  specs:
+    authlogic (2.1.6)
+      activesupport
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -31,8 +38,6 @@ GEM
     activesupport (3.0.1)
     arel (1.0.1)
       activesupport (~> 3.0.0)
-    authlogic (2.1.6)
-      activesupport
     authlogic-oid (1.0.4)
       authlogic
     builder (2.1.2)
@@ -91,7 +96,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  authlogic
+  authlogic!
   authlogic-oid
   factory_girl
   rails (= 3.0.1)
