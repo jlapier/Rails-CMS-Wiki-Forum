@@ -13,7 +13,7 @@ This is a pretty standard Rails app that you might use as a starting point for a
 
 == Requirements
 
-* Rails 2.3.5 
+* Rails 3.0.1 
 * RedCloth
 * authlogic
 * authlogic-oid
