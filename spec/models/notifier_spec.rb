@@ -16,7 +16,6 @@ describe Notifier do
     sent.subject.should == 'Password Reset Instructions'
     sent.body.should =~ /A request to reset your password has been made./
     sent.body.should =~ /\/password_resets\/blah\/edit/
-    sent.encoded.should == Notifier.create_password_reset_instructions(user, sent.date).encoded
   end
 
   it "should send new user information to admins" do
@@ -25,9 +24,8 @@ describe Notifier do
     new_user = stub_model(User, :id => 37, :first_name => "Jack", :last_name => "Jones")
     Notifier.deliver_user_created new_user
     sent.subject.should == "New user registered: Jack Jones"
-    #sent.to.should == ["admin@test.com"]
+    sent.to.should == ["admin@test.com"]
     sent.body.should =~ /A new user has registered/
     sent.body.should =~ /\/users\/37\/edit/
-    sent.encoded.should == Notifier.create_user_created(new_user, sent.date).encoded
   end
 end
