@@ -142,7 +142,7 @@ describe WikiCommentsController do
           mock_wiki_comment.should_receive(:save).and_return(false)
           mock_wiki_comment.should_receive(:errors).and_return(errors)
           xhr :post, :create, :wiki_comment => {}, :wiki_id => "12"
-          response.should have_text(/Unable to save comment/)
+          response.body.should =~ (/Unable to save comment/)
         end
       end
     end

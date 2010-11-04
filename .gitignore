@@ -2,9 +2,9 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+tmp/tags
 .DS_Store
 config/database.yml
-db/schema.rb
 db/*.sqlite3
 db/development_structure.sql
 *~

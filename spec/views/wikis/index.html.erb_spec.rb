@@ -17,7 +17,7 @@ describe "/wikis/index.html.erb" do
 
   it "renders a list of wikis" do
     render
-    response.should have_text /Some wiki/
-    response.should have_text /Some other wiki/
+    response.should =~  /Some wiki/
+    response.should =~  /Some other wiki/
   end
 end

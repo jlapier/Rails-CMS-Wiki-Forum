@@ -8,7 +8,7 @@ describe "/themes/css" do
 
   it "renders a css file" do
     render 'themes/css.css.erb'
-    response.should have_text /CSS override: 12345678/
-    response.should have_text /body \{ background: #F00; \}/
+    response.should =~  /CSS override: 12345678/
+    response.should =~  /body \{ background: #F00; \}/
   end
 end

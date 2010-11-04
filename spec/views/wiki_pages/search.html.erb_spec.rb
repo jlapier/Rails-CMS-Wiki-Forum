@@ -20,9 +20,9 @@ describe "/wiki_pages/search.html.erb" do
 
   it "renders a list of pages" do
     render
-    response.should have_text /Test thing/
-    response.should have_text /Some page/
-    response.should have_text /Some other page/
-    response.should have_text /taggo/
+    response.should =~  /Test thing/
+    response.should =~  /Some page/
+    response.should =~  /Some other page/
+    response.should =~  /taggo/
   end
 end

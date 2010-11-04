@@ -29,9 +29,9 @@ describe "/forums/index.html.erb" do
 
   it "renders a list of forums" do
     render
-    response.should have_text(/value for title 1/)
-    response.should have_text(/value for description 1/)
-    response.should have_text(/value for title 2/)
-    response.should have_text(/value for description 2/)
+    response.should =~ (/value for title 1/)
+    response.should =~ (/value for description 1/)
+    response.should =~ (/value for title 2/)
+    response.should =~ (/value for description 2/)
   end
 end

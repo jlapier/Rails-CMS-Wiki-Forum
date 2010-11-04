@@ -85,7 +85,7 @@ module ApplicationHelper
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
     end
-    out
+    out.html_safe
   end
 
   def images_list

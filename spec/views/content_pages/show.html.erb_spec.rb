@@ -18,8 +18,8 @@ describe "/content_pages/show.html.erb" do
 
   it "renders a page" do
     render
-    response.should have_text(/value\ for\ name/)
-    response.should have_text(/value\ for\ body/)
-    response.should have_text(/somecategory/)
+    response.should =~ (/value\ for\ name/)
+    response.should =~ (/value\ for\ body/)
+    response.should =~ (/somecategory/)
   end
 end

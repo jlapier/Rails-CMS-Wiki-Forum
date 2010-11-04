@@ -40,7 +40,8 @@
     <%= yield :javascript %>
   </head>
   <body>
-    <%= Template.new(@layout_file).render_template(self) %>
+    <%#= Template.new(@layout_file).render_template(self) %>
+    <%= render :file => @layout_file %>
   </body>
 </html>
 

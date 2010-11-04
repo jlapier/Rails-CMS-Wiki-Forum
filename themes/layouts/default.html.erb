@@ -22,13 +22,13 @@
 
   <div class="span-18 last">
     <% if flash[:notice] -%>
-      <div class="flash_message notice_message"><%= flash[:notice] %></div>
+      <div class="flash_message notice_message"><%=raw flash[:notice] %></div>
     <% end -%>
     <% if flash[:warning] -%>
-      <div class="flash_message warning_message"><%= flash[:warning] %></div>
+      <div class="flash_message warning_message"><%=raw flash[:warning] %></div>
     <% end -%>
     <% if flash[:error] -%>
-      <div class="flash_message error_message"><%= flash[:error] %></div>
+      <div class="flash_message error_message"><%=raw flash[:error] %></div>
     <% end -%>
 
     <div class="base_content">

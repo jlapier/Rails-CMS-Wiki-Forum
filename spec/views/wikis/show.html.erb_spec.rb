@@ -23,7 +23,7 @@ describe "/wikis/show.html.erb" do
   it "renders list of pages" do
     render
 
-    response.should have_text /wp 1/
-    response.should have_text /wp 2/
+    response.should =~  /wp 1/
+    response.should =~  /wp 2/
   end
 end

@@ -32,7 +32,7 @@ describe "/message_posts/edit.html.erb" do
       with_tag('input#message_post_thread_id[name=?]', "message_post[thread_id]")
     end
 
-    response.should have_text /The Forum/
+    response.should =~  /The Forum/
   end
   
 end

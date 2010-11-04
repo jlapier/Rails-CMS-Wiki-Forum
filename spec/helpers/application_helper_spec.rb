@@ -23,7 +23,7 @@ describe ApplicationHelper do
   end
 
   it "should have a logo image" do
-    helper.logo_image.should have_text(/img/)
+    helper.logo_image.should =~ (/img/)
   end
 
   it "should have a site title" do
@@ -47,48 +47,48 @@ describe ApplicationHelper do
 
   it "should have a user box with a log in link" do
     helper.stub(:current_user).and_return(nil)
-    helper.user_box.should have_text(/Log In/)
-    helper.user_box.should have_text(/Register/)
+    helper.user_box.should =~ (/Log In/)
+    helper.user_box.should =~ (/Register/)
   end
 
   it "should have a user box with welcome message" do
     helper.stub(:current_user).and_return(mock_admin_user)
-    helper.user_box.should have_text(/Welcome, Jason!/)
-    helper.user_box.should_not have_text(/Wiki/)
-    helper.user_box.should_not have_text(/Forum/)
+    helper.user_box.should =~ (/Welcome, Jason!/)
+    helper.user_box.should_not =~ (/Wiki/)
+    helper.user_box.should_not =~ (/Forum/)
   end
 
   it "should have a user box with admin links" do
     helper.stub(:current_user).and_return(mock_admin_user)
-    helper.user_box.should have_text(/Site Admin/)
+    helper.user_box.should =~ (/Site Admin/)
   end
 
   it "should have a user box with one wiki link" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_wikis? => true, :wikis => [mock_wiki]))
-    helper.user_box.should have_text(/Wiki/)
-    helper.user_box.should have_text(/href="\/wikis\/#{mock_wiki.id}"/)
-    helper.user_box.should_not have_text(/Forum/)
+    helper.user_box.should =~ (/Wiki/)
+    helper.user_box.should =~ (/href="\/wikis\/#{mock_wiki.id}"/)
+    helper.user_box.should_not =~ (/Forum/)
   end
 
   it "should have a user box with link to wikis list" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_wikis? => true, :wikis => [mock_wiki, mock_wiki]))
-    helper.user_box.should have_text(/Wikis/)
-    helper.user_box.should have_text(/href="\/wikis"/)
-    helper.user_box.should_not have_text(/Forum/)
+    helper.user_box.should =~ (/Wikis/)
+    helper.user_box.should =~ (/href="\/wikis"/)
+    helper.user_box.should_not =~ (/Forum/)
   end
 
   it "should have a user box with one forum link" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_forums? => true, :forums => [mock_forum]))
-    helper.user_box.should have_text(/Forum/)
-    helper.user_box.should have_text(/href="\/forums\/#{mock_forum.id}"/)
-    helper.user_box.should_not have_text(/Wiki/)
+    helper.user_box.should =~ (/Forum/)
+    helper.user_box.should =~ (/href="\/forums\/#{mock_forum.id}"/)
+    helper.user_box.should_not =~ (/Wiki/)
   end
 
   it "should have a user box with link to forums list" do
     helper.stub(:current_user).and_return(mock_admin_user(:has_access_to_any_forums? => true, :forums => [mock_forum, mock_forum]))
-    helper.user_box.should have_text(/Forums/)
-    helper.user_box.should have_text(/href="\/forums"/)
-    helper.user_box.should_not have_text(/Wiki/)
+    helper.user_box.should =~ (/Forums/)
+    helper.user_box.should =~ (/href="\/forums"/)
+    helper.user_box.should_not =~ (/Wiki/)
   end
 
   it "should give a list of images" do

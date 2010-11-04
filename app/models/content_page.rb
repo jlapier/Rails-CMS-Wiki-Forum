@@ -116,7 +116,7 @@ class ContentPage < ActiveRecord::Base
     if is_preview_only?
       main += '<p><em class="highlight">This page is a draft and will not be visible to public viewers.</em></p>'
     end
-    main
+    main.html_safe
   end
 
   def ready_for_publishing?

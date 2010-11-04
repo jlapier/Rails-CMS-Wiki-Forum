@@ -31,7 +31,7 @@ describe "/message_posts/show.html.erb" do
 
   it "renders attributes in some page not really used I think" do
     render
-    response.should have_text(/value\ for\ subject/)
-    response.should have_text(/value\ for\ body/)
+    response.should =~ (/value\ for\ subject/)
+    response.should =~ (/value\ for\ body/)
   end
 end

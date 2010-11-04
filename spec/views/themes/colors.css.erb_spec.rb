@@ -7,6 +7,6 @@ describe "/themes/colors" do
 
   it "renders a css file" do
     render 'themes/colors.css.erb'
-    response.should have_text /background-color: #999999;/
+    response.should =~  /background-color: #999999;/
   end
 end

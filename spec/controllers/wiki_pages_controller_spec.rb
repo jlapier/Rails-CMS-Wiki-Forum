@@ -141,7 +141,7 @@ describe WikiPagesController do
       controller.should_receive(:write_file).with(uploaded_file, "wiki_page_assets/wiki_page_#{mock_wiki_page.id}")
       xhr :post, :upload_handler, :wiki_id => "12", :id => '37', :upload => uploaded_file
       assigns[:wiki_page].should equal(mock_wiki_page)
-      response.should have_text(/parent.CKEDITOR.tools.callFunction/)
+      response.should =~ (/parent.CKEDITOR.tools.callFunction/)
     end
   end
 

@@ -24,10 +24,10 @@ describe "/forums/show.html.erb" do
 
   it "renders attributes for forum" do
     render
-    response.should have_text(/value\ for\ title/)
-    response.should have_text(/value\ for\ description/)
-    response.should have_text(/messsub1/)
-    response.should have_text(/messsub2/)
-    response.should have_text(/Dude McDuder/)
+    response.should =~ (/value\ for\ title/)
+    response.should =~ (/value\ for\ description/)
+    response.should =~ (/messsub1/)
+    response.should =~ (/messsub2/)
+    response.should =~ (/Dude McDuder/)
   end
 end
