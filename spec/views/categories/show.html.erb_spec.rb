@@ -9,9 +9,11 @@ describe "/categories/show.html.erb" do
   end
 
   before(:each) do
-    assigns[:category] = @category = stub_model(Category,
+    @category = mock_model(Category,
+      :name => "Name",
       :content_pages => [stub_model(ContentPage, :title => 'nothing', :body_for_display => 'more nothing')])
-    template.stub!(:current_user).and_return(mock_user)
+    assign(:category, @category)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders category and list of pages" do

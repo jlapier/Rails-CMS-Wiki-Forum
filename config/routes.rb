@@ -1,5 +1,8 @@
 RailsCMSWikiForum::Application.routes.draw do
   resources :wikis do
+    member do
+      get :tagcloud
+    end
     resources :wiki_pages do
       collection do
         post :live_search
@@ -45,11 +48,14 @@ RailsCMSWikiForum::Application.routes.draw do
     end
   end
 
-  resources :categories
+  resources :categories, :except => [:new, :edit]
 
   match '/tagcloud.:format' => 'wiki_pages#tagcloud'
 
   resources :forums do
+    member do
+      get :search
+    end
     resources :message_posts
   end
 

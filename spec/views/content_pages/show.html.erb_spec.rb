@@ -8,18 +8,19 @@ describe "/content_pages/show.html.erb" do
   end
 
   before(:each) do
-    assigns[:content_page] = @content_page = stub_model(ContentPage,
+    @content_page = stub_model(ContentPage,
       :name => "value for name",
-      :body_for_display => "value for body",
-      :categories => [stub_model(Category, :name => 'somecategory')]
+      :body_for_display => "value for body"
     )
-    template.stub!(:current_user).and_return(mock_user)
+    @content_page.stub(:categories).and_return([stub_model(Category, :name => 'somecategory')])
+    assign(:content_page, @content_page)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders a page" do
     render
-    response.should =~ (/value\ for\ name/)
-    response.should =~ (/value\ for\ body/)
-    response.should =~ (/somecategory/)
+    rendered.should =~ (/value\ for\ name/)
+    rendered.should =~ (/value\ for\ body/)
+    rendered.should =~ (/somecategory/)
   end
 end

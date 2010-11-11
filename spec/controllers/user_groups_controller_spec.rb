@@ -23,7 +23,7 @@ describe UserGroupsController do
 
   describe "GET index" do
     it "assigns all user_groups as @user_groups" do
-      UserGroup.stub!(:find).with(:all).and_return([mock_user_group])
+      UserGroup.stub(:all).and_return([mock_user_group])
       get :index
       assigns[:user_groups].should == [mock_user_group]
     end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe WikisController do
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :name => 'Name'}))
   end
 
   def mock_user_group
@@ -80,7 +80,7 @@ describe WikisController do
       mock_wiki.stub(:wiki_tags).and_return(mock_wiki_tags)
       xhr :get, :tagcloud, :id => "37"
       assigns[:wiki].should equal(mock_wiki)
-      assigns[:wiki_tags].should equal(mock_wiki_tags)
+      assigns[:wiki_tags].should == mock_wiki_tags
     end
   end
 

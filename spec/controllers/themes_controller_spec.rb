@@ -10,14 +10,14 @@ describe ThemesController do
 
   describe "GET 'colors'" do
     it "should be successful" do
-      get 'colors'
+      get 'colors', :format => :css
       response.should be_success
     end
   end
 
   describe "GET 'css'" do
     it "should be successful" do
-      get 'css'
+      get 'css', :format => :css
       response.should be_success
     end
   end

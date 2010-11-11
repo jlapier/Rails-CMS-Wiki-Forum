@@ -12,13 +12,17 @@ describe "/wiki_pages/history.html.erb" do
     @wp_ver1.stub(:body_for_display).and_return "what"
     @wp_ver2 = WikiPage::Version.new :id => 2, :title => "A Pages", :updated_at => 5.days.ago, :version => 2, :url_title => 'A_Pages'
     @wp_ver2.stub(:body_for_display).and_return "whatev"
-    assigns[:wiki] = @wiki = stub_model(Wiki, :name => "some wiki")
-    assigns[:wiki_page_versions] = @wiki_page_versions = [ @wp_ver1, @wp_ver2 ]
-    assigns[:wiki_page] = @wiki_page = stub_model(WikiPage, :title => "A Page", :body_for_display => "whatever",
+    @wiki = stub_model(Wiki, :name => "some wiki")
+    @wiki_page_versions = [ @wp_ver1, @wp_ver2 ]
+    @wiki_page = stub_model(WikiPage, :title => "A Page", :body_for_display => "whatever",
       :url_title => 'A_Page',
-      :updated_at => 3.days.ago, :wiki_tags => [stub_model(WikiTag, :name => 'thing')], 
+      :updated_at => 3.days.ago,
       :versions => @wiki_page_versions)
-    template.stub!(:current_user).and_return(mock_user)
+    @wiki_page.stub(:wiki_tags).and_return([stub_model(WikiTag, :name => 'thing')])
+    assign(:wiki, @wiki)
+    assign(:wiki_page_versions, @wiki_page_versions)
+    assign(:wiki_page, @wiki_page)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders attributes in <p>" do

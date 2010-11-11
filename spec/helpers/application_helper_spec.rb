@@ -31,7 +31,7 @@ describe ApplicationHelper do
   end
 
   it "should have a page title" do
-    assigns[:content_page] = mock_model(ContentPage, :name => "Test Page")
+    assign(:content_page, mock_model(ContentPage, :name => "Test Page"))
     helper.stub(:action_name).and_return "edit"
     helper.stub(:controller_name).and_return "content_pages"
     helper.page_title.should == "Editing Test Page"

@@ -8,19 +8,19 @@ describe "/wikis/edit.html.erb" do
   end
 
   before(:each) do
-    assigns[:wiki] = @wiki = stub_model(Wiki,
-      :new_record? => false,
+    @wiki = stub_model(Wiki,
       :name => "Some page",
       :url_name => "Some_page"
     )
-    template.stub!(:current_user).and_return(mock_user)
+    assign(:wiki, @wiki)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders the edit wiki form" do
     render
 
-    response.should have_tag("form[action=#{wiki_path(@wiki)}][method=post]") do
-      with_tag 'input#wiki_name[name=?]', 'wiki[name]'
+    rendered.should have_selector("form[action='#{wiki_path(@wiki)}'][method='post']") do |scope|
+      scope.should have_selector 'input#wiki_name[name="wiki[name]"]'
     end
   end
 end

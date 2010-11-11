@@ -32,7 +32,7 @@ describe ForumsController do
 
   describe "GET index" do
     it "assigns all forums as @forums" do
-      Forum.stub!(:find).with(:all).and_return([mock_forum])
+      Forum.stub(:all).and_return([mock_forum])
       get :index
       assigns[:forums].should == [mock_forum]
     end

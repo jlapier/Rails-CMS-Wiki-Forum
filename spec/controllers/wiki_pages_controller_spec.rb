@@ -135,19 +135,19 @@ describe WikiPagesController do
 
   describe "xhr GET upload_handler for rich text editor" do
     it "should write a file and render text output" do
-      uploaded_file = mock(ActionController::UploadedStringIO).as_null_object
+      uploaded_file = mock(ActionDispatch::Http::UploadedFile).as_null_object
       uploaded_file.stub!(:original_filename).and_return('test.doc')
       uploaded_file.stub!(:read).and_return("Some content")
       controller.should_receive(:write_file).with(uploaded_file, "wiki_page_assets/wiki_page_#{mock_wiki_page.id}")
       xhr :post, :upload_handler, :wiki_id => "12", :id => '37', :upload => uploaded_file
       assigns[:wiki_page].should equal(mock_wiki_page)
-      response.should =~ (/parent.CKEDITOR.tools.callFunction/)
+      response.body.should =~ (/parent.CKEDITOR.tools.callFunction/)
     end
   end
 
   describe "GET page_link_handler" do
     it "should return the current wiki page and all other wiki pages" do
-      other_mock_wiki = stub_model(Wiki, :wiki_pages => mock_wiki_pages)
+      other_mock_wiki = mock_model(Wiki, :wiki_pages => mock_wiki_pages)
       Wiki.stub!(:find).with("2").and_return(other_mock_wiki)
       mock_wiki_pages.should_receive(:find).with('31').and_return(mock_wiki_page)
       get :page_link_handler, :wiki_id => "2", :id => '31'

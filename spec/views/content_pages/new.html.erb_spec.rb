@@ -9,22 +9,21 @@ describe "/content_pages/new.html.erb" do
 
   before(:each) do
     Category.stub!(:find).and_return([stub_model(Category, :name => 'cat')])
-    assigns[:content_page] = stub_model(ContentPage,
-      :new_record? => true,
+    @p = stub_model(ContentPage,
       :name => "value for name",
-      :body => "value for body",
-      :categories => []
-    )
-    template.stub!(:current_user).and_return(mock_user)
+      :body => "value for body"
+    ).as_new_record
+    @p.stub(:categories).and_return([])
+    assign(:content_page, @p)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders new content_page form" do
     render
-
-    response.should have_tag("form[action=?][method=post]", content_pages_path) do
-      with_tag("input#content_page_name[name=?]", "content_page[name]")
-      without_tag("textarea#content_page_body[name=?]", "content_page[body]")
-      with_tag("input[type=checkbox][name=?]", 'content_page[category_ids][]')
+    rendered.should have_selector("form[action='#{content_pages_path}'][method='post']") do |scope|
+      scope.should have_selector("input#content_page_name[name='content_page[name]']")
+      scope.should_not have_selector("textarea#content_page_body[name='content_page[body]']")
+      scope.should have_selector("input[type=checkbox][name='content_page[category_ids][]']")
     end
   end
 end

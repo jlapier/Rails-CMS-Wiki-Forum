@@ -11,23 +11,24 @@ describe "/forums/show.html.erb" do
         stub_model(MessagePost, :subject => 'messsub1', :body => 'messbody', :user => mock_user, :created_at => 5.days.ago),
         stub_model(MessagePost, :subject => 'messsub2', :body => 'messbody', :user => mock_user, :created_at => 15.days.ago)
       ].paginate :page => 1, :per_page => 2
-    assigns[:message_posts] = @message_posts
-    assigns[:forum] = @forum = stub_model(Forum,
+    assign(:message_posts, @message_posts)
+    @forum = stub_model(Forum,
       :title => "value for title",
       :description => "value for description",
       :message_posts => @message_posts
     )
-    assigns[:users_with_access] = [mock_user]
-    assigns[:new_message_post] = MessagePost.new
-    template.stub!(:current_user).and_return(mock_user)
+    assign(:forum, @forum)
+    assign(:users_with_access, [mock_user])
+    assign(:new_message_post, MessagePost.new)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders attributes for forum" do
     render
-    response.should =~ (/value\ for\ title/)
-    response.should =~ (/value\ for\ description/)
-    response.should =~ (/messsub1/)
-    response.should =~ (/messsub2/)
-    response.should =~ (/Dude McDuder/)
+    rendered.should =~ (/value\ for\ title/)
+    rendered.should =~ (/value\ for\ description/)
+    rendered.should =~ (/messsub1/)
+    rendered.should =~ (/messsub2/)
+    rendered.should =~ (/Dude McDuder/)
   end
 end

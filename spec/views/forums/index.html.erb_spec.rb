@@ -8,7 +8,7 @@ describe "/forums/index.html.erb" do
   end
 
   before(:each) do
-    assigns[:forums] = [
+    @forums = [
       stub_model(Forum,
         :title => "value for title 1",
         :description => "value for description 1",
@@ -24,14 +24,15 @@ describe "/forums/index.html.erb" do
         :newest_message_post_id => 1
       )
     ]
-    template.stub!(:current_user).and_return(mock_user)
+    assign(:forums, @forums)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders a list of forums" do
     render
-    response.should =~ (/value for title 1/)
-    response.should =~ (/value for description 1/)
-    response.should =~ (/value for title 2/)
-    response.should =~ (/value for description 2/)
+    rendered.should =~ (/value for title 1/)
+    rendered.should =~ (/value for description 1/)
+    rendered.should =~ (/value for title 2/)
+    rendered.should =~ (/value for description 2/)
   end
 end

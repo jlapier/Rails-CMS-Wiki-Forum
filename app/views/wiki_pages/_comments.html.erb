@@ -1,7 +1,8 @@
 <em>post a comment:</em>
 <div class="comment_form">
-<% form_remote_for(:wiki_comment, 
-      WikiComment.new(:wiki_page_id => @wiki_page.id, :looking_at_version => @wiki_page.version),
+<%= form_for(WikiComment.new(:wiki_page_id => @wiki_page.id, :looking_at_version => @wiki_page.version), 
+      :as => :wiki_comment,
+      :remote => true,
       :url => wiki_wiki_comments_path(@wiki) ) do |f|  %>
   <%= f.hidden_field :wiki_page_id  %>
   <%= f.hidden_field :looking_at_version %>

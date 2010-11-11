@@ -8,16 +8,16 @@ describe "/wikis/index.html.erb" do
   end
 
   before(:each) do
-    assigns[:wikis] = [
+    assign(:wikis, [
       stub_model(Wiki, :name => "Some wiki"),
       stub_model(Wiki, :name => "Some other wiki")
-    ]
-    template.stub!(:current_user).and_return(mock_user)
+    ])
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders a list of wikis" do
     render
-    response.should =~  /Some wiki/
-    response.should =~  /Some other wiki/
+    rendered.should =~  /Some wiki/
+    rendered.should =~  /Some other wiki/
   end
 end

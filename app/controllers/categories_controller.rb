@@ -24,22 +24,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # GET /categories/new
-  # GET /categories/new.xml
-  def new
-    @category = Category.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @category }
-    end
-  end
-
-  # GET /categories/1/edit
-  def edit
-    @category = Category.find(params[:id])
-  end
-
   # POST /categories
   # POST /categories.xml
   def create
@@ -51,7 +35,7 @@ class CategoriesController < ApplicationController
         format.html { redirect_to categories_path }
         format.xml  { render :xml => @category, :status => :created, :location => @category }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "index" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
     end

@@ -19,7 +19,7 @@ describe ContentPagesController do
 
   describe "GET index" do
     it "assigns all content_pages as @content_pages" do
-      ContentPage.stub!(:find).with(:all).and_return([mock_content_page])
+      ContentPage.stub(:all).and_return([mock_content_page])
       get :index
       assigns[:content_pages].should == [mock_content_page]
     end

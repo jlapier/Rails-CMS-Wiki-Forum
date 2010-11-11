@@ -4,15 +4,13 @@ describe "/user_groups/new.html.erb" do
   include UserGroupsHelper
 
   before(:each) do
-    assigns[:user_group] = stub_model(UserGroup,
-      :new_record? => true
-    )
+    assign(:user_group, stub_model(UserGroup).as_new_record)
   end
 
   it "renders new user_group form" do
     render
 
-    response.should have_tag("form[action=?][method=post]", user_groups_path) do
+    rendered.should have_selector("form[action='#{user_groups_path}'][method='post']") do
     end
   end
 end

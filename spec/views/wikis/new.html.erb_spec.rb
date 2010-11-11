@@ -8,19 +8,18 @@ describe "/wikis/new.html.erb" do
   end
 
   before(:each) do
-    assigns[:wiki] = stub_model(Wiki,
-      :new_record? => true,
+    assign(:wiki, stub_model(Wiki,
       :name => "Some page",
       :url_name => "Some_page"
-    )
-    template.stub!(:current_user).and_return(mock_user)
+    ).as_new_record)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders new wiki form" do
     render
 
-    response.should have_tag("form[action=?][method=post]", wikis_path) do
-      with_tag 'input#wiki_name[name=?]', 'wiki[name]'
+    rendered.should have_selector("form[action='#{wikis_path}'][method='post']") do |scope|
+      scope.should have_selector 'input#wiki_name[name="wiki[name]"]'
     end
   end
 end

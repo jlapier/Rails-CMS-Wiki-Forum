@@ -13,17 +13,18 @@ describe "/wikis/show.html.erb" do
         stub_model(WikiPage, :title => 'wp 1', :url_title => 'wp_1', :updated_at => 3.days.ago),
         stub_model(WikiPage, :title => 'wp 2', :url_title => 'wp_2', :updated_at => 4.days.ago)
       ].paginate :page => 1, :per_page => 2
-    assigns[:wiki_pages] = @wiki_pages
-    assigns[:wiki] = @wiki = stub_model(Wiki, :name => "Some page",
-      :wiki_pages => @wiki_pages)
-    assigns[:users_with_access] = [mock_user]
-    template.stub!(:current_user).and_return(mock_user)
+    @wiki = stub_model(Wiki, :name => "Some page")
+    @wiki.stub(:wiki_pages).and_return(@wiki_pages)
+    assign(:wiki_pages, @wiki_pages)
+    assign(:wiki, @wiki)
+    assign(:users_with_access, [mock_user])
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders list of pages" do
     render
 
-    response.should =~  /wp 1/
-    response.should =~  /wp 2/
+    rendered.should =~  /wp 1/
+    rendered.should =~  /wp 2/
   end
 end
