@@ -36,6 +36,8 @@ GEM
       activemodel (= 3.0.1)
       activesupport (= 3.0.1)
     activesupport (3.0.1)
+    acts_as_versioned (0.6.0)
+      activerecord (~> 3.0.0.beta4)
     arel (1.0.1)
       activesupport (~> 3.0.0)
     authlogic-oid (1.0.4)
@@ -100,6 +102,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  acts_as_versioned
   authlogic!
   authlogic-oid
   factory_girl
