@@ -19,3 +19,4 @@ public/user_assets/
 public/themes
 public/images/favorite.png
 coverage/
+.rvmrc
