@@ -32,6 +32,7 @@ gem "will_paginate", "~> 3.0.pre2"
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0.1'
+  gem 'rspec-rails', '~> 2.1.0'
+  gem 'webrat'
   gem 'factory_girl' #, '>= 1.2.4'
 end
