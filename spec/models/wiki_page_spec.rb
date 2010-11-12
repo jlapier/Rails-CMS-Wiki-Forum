@@ -57,6 +57,7 @@ describe WikiPage do
     wp = WikiPage.create!(:title => "easy", :modifying_user_id => 1, :wiki_id => @wiki.id)
     wp = WikiPage.find wp.id
     wp.title = "Easily Updated"
+    wp.should be_valid
     wp.save
     wc = WikiComment.find :last
     assert wc

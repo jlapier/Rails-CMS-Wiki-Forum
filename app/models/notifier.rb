@@ -7,7 +7,7 @@ class Notifier < ActionMailer::Base
     from       SiteSetting.read_setting('site title')
     sent_on    sent_at
     
-    body       :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
+    @edit_password_reset_url = edit_password_reset_url(user.perishable_token)
   end
 
   def user_created(user, sent_at = Time.now)
@@ -16,8 +16,9 @@ class Notifier < ActionMailer::Base
     from       SiteSetting.read_setting('site title')
     sent_on    sent_at
 
-    body       :edit_user_url => edit_user_url(user), :site_title => SiteSetting.read_setting('site title'),
-      :user => user
+    @edit_user_url = edit_user_url(user)
+    @site_title = SiteSetting.read_setting('site title')
+    @user = user
   end
 
 end
