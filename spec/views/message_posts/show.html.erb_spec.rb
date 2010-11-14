@@ -9,15 +9,16 @@ describe "/message_posts/show.html.erb" do
   end
 
   before(:each) do
-    assigns[:forum] = @forum = stub_model(Forum, :title => "The Forum")
+    @forum = stub_model(Forum, :title => "The Forum")
+    assign(:forum, @forum)
     @child_posts = [
         stub_model(MessagePost, :subject => 'messsub1', :body => 'messbody', 
           :user => mock_user, :created_at => 5.days.ago, :updated_at => 3.days.ago),
         stub_model(MessagePost, :subject => 'messsub2', :body => 'messbody',
           :user => mock_user, :created_at => 15.days.ago, :updated_at => 13.days.ago)
       ].paginate :page => 1, :per_page => 2
-    assigns[:child_posts] = @child_posts
-    assigns[:message_post] = @message_post = stub_model(MessagePost,
+    assign(:child_posts, @child_posts)
+    @message_post = stub_model(MessagePost,
       :subject => "value for subject",
       :body => "value for body",
       :created_at => 5.days.ago,
@@ -26,12 +27,13 @@ describe "/message_posts/show.html.erb" do
       :user => mock_user,
       :thread_id => 1
     )
-    template.stub!(:current_user).and_return(mock_user)
+    assign(:message_post, @message_post)
+    view.stub!(:current_user).and_return(mock_user)
   end
 
   it "renders attributes in some page not really used I think" do
     render
-    response.should =~ (/value\ for\ subject/)
-    response.should =~ (/value\ for\ body/)
+    rendered.should =~ (/value\ for\ subject/)
+    rendered.should =~ (/value\ for\ body/)
   end
 end
