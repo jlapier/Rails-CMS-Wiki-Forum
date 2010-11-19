@@ -16,7 +16,7 @@
 
   <% unless @content_page.categories.empty? %>
     <p class="category_links">
-      Categories: <%= @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ') %>
+      Categories: <%=raw @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ') %>
     </p>
   <% end %>
 <% end %>

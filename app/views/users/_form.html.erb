@@ -20,7 +20,7 @@
   <% end %>
   <tr>
     <td>
-      <%= form.label :password, form.object.new_record? ? nil : "Change password <em>(leave blank for no change)</em>" %>:
+      <%= form.label :password, form.object.new_record? ? nil : "Change password <em>(leave blank for no change)</em>".html_safe %>:
     </td>
     <td><%= form.password_field :password %></td>
   </tr>

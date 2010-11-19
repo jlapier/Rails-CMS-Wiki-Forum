@@ -15,10 +15,10 @@
 
 <div id="wiki_left_side" style="float:left; width: 70%;">
   <div class="wiki_page_body">
-    <%= @wiki_page.body_for_display %>
+    <%=raw @wiki_page.body_for_display %>
   </div>
 
-  <p>Tags: <%= @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_tag_path(@wiki, wt.name) }.join(", ") %></p>
+  <p>Tags: <%=raw @wiki_page.wiki_tags.map { |wt| link_to wt.name, wiki_tag_path(@wiki, wt.name) }.join(", ") %></p>
 </div>
 
 <div style="clear:both"></div>

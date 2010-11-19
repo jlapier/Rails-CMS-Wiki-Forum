@@ -17,9 +17,9 @@
         <td><%= content_page.publish_on ? content_page.publish_on.strftime('%m/%d/%Y') : '' %></td>
         <% if is_admin? %>
           <td>
-            <%= link_to '<span class="ui-icon ui-icon-document"/>', edit_content_page_path(content_page),
+            <%= link_to '<span class="ui-icon ui-icon-document"/>'.html_safe, edit_content_page_path(content_page),
                     :title => "click to edit" %>
-            <%= link_to '<span class="ui-icon ui-icon-closethick"/>', content_page,
+            <%= link_to '<span class="ui-icon ui-icon-closethick"/>'.html_safe, content_page,
                     :confirm => "Are you sure you want to permanently delete this page (#{content_page.name})?",
                     :method => :delete, :title => "click to delete" %>
           </td>
@@ -33,7 +33,7 @@
   <p class="admin_links">
     <%= link_to 'List of Pages', content_pages_path %> |
     <%= link_to 'List of Categories', categories_path %> |
-    <%= link_to "Create a New Page in <em>#{@category.name}</em>", new_content_page_path(:category_id => @category.id) %>
+    <%= link_to "Create a New Page in <em>#{@category.name}</em>".html_safe, new_content_page_path(:category_id => @category.id) %>
   </p>
 <% end %>
 

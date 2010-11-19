@@ -3,7 +3,7 @@
     posted <%= post_time message.created_at  %> by
     <strong><%#= link_to message.user.name, '#TODO_link_to_users_profile'  %><%= message.user.full_name %></strong>
     <div style="padding: 2px 4px;">
-      <%= gravatar_for message.user, :size => 80 %>
+      <%=raw gravatar_for message.user, :size => 80 %>
     </div>
   </td>
   <td>
@@ -11,7 +11,7 @@
     <% if current_user == message.user -%>
       <div style="float:right">[<%= link_to "edit", edit_forum_message_post_path(@forum, message) %>]</div>
     <% end -%>
-    <div style="clear:both; padding-top:3px;"><%= message.body %></div>
+    <div style="clear:both; padding-top:3px;"><%=raw message.body %></div>
     <% if message.updated_at > message.created_at -%>
       <div><em>Last Edit: <%= post_time message.updated_at %></em></div>
     <% end -%>

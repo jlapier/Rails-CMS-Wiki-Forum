@@ -16,9 +16,9 @@
     </td>
     <% if is_admin? %>
       <td>
-        <%= link_to '<span class="ui-icon ui-icon-document"/>', edit_wiki_path(wiki),
+        <%= link_to '<span class="ui-icon ui-icon-document"/>'.html_safe, edit_wiki_path(wiki),
                     :title => "click to edit" %>
-        <%= link_to '<span class="ui-icon ui-icon-closethick"/>', wiki,
+        <%= link_to '<span class="ui-icon ui-icon-closethick"/>'.html_safe, wiki,
                 :confirm => "Are you sure you want to permanently delete this wiki (#{wiki.name}) " +
                   "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
                     :method => :delete, :title => "click to delete" %>

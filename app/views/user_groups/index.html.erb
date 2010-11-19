@@ -21,7 +21,7 @@
             <td>
               [<%= link_to 'show/hide access', { :toggle => "group_access_#{user_group.id}" }, :class => 'show_hide_link' %>]
               <div class="group_access_<%= user_group.id %>" style="display:none">
-                <%= user_group.access_as_html %>
+                <%=raw user_group.access_as_html %>
               </div>
             </td>
             <td style="text-align:right">
