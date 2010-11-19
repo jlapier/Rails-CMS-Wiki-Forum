@@ -59,7 +59,7 @@ RailsCMSWikiForum::Application.routes.draw do
     resources :message_posts
   end
 
-  resource :account
+  resource :account, :controller => 'users'
     resources :users do
       collection do
         get :reg_pass_required
