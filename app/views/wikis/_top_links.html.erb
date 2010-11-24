@@ -1,13 +1,12 @@
 <div class="wiki_top_links">
   <form id="wiki_search" action="<%= search_wiki_wiki_pages_path(@wiki) %>">
     <% if @wiki_page %>
-      <%= link_to 'edit', edit_wiki_wiki_page_path(@wiki, @wiki_page) %> &nbsp;
-      <%= link_to 'delete', wiki_wiki_page_path(@wiki, @wiki_page),
-            :confirm => "Are you really sure you want to delete this wiki page?", :method => :delete %> &nbsp;
+      <%= link_to_edit_wiki_page(@wiki_page) %> &nbsp;
+      <%= link_to_delete_wiki_page(@wiki_page) %> &nbsp;
     <% end %>
 
-    <%= link_to 'new', new_wiki_wiki_page_path(@wiki) %> &nbsp;
-    <%= link_to 'chatter', wiki_wiki_comments_path(@wiki) %> &nbsp;
+    <%= link_to_new_wiki_page(@wiki, :text => 'new') %> &nbsp;
+    <%= link_to_wiki_comments(@wiki) %> &nbsp;
 
     <input name="name" id="name" size="6" value="search"
            onclick="if ( $('#name')[0].value == 'search') $('#name')[0].value = '';"/>
@@ -15,17 +14,10 @@
   </form>
   <% if @wiki_page %>
     <em class="tiny_text">page last updated: <%= @wiki_page.updated_at.strftime "%m/%d/%y"  %></em>
-    (<%= link_to 'history', history_wiki_wiki_page_path(@wiki, @wiki_page) %>)
+    (<%= link_to_wiki_page_history(@wiki_page) %>)
   <% end %>
 
   <% if @comments %>
-    <span class="feed_links">
-      <%= link_to image_tag('feed-icon.gif') + " all", wiki_wiki_comments_url(@wiki, :format => :atom),
-            :title => 'Subscribe to feed for all activity' %>
-      <%= link_to image_tag('feed-icon.gif') + " daily", daily_wiki_wiki_comments_url(@wiki, :format => :atom),
-            :title => 'Subscribe to feed for daily digest' %>
-      <%= link_to image_tag('feed-icon.gif') + " weekly", weekly_wiki_wiki_comments_url(@wiki, :format => :atom),
-            :title => 'Subscribe to feed for weekly digest' %>
-    </span>
+    <%= link_to_wiki_feeds %>
   <% end %>
 </div>
