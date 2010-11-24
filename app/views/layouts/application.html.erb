@@ -5,6 +5,7 @@
     <%= csrf_meta_tag %>
     <link rel="icon" type="image/png" href="/images/favorite.png"/>
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
+    <%= stylesheet_link_tag event_calendar_stylesheet_includes if in_event_calendar? %>
     <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
@@ -12,9 +13,9 @@
     <!--[if lt IE 8]>
       <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
     <![endif]-->
-    <%= stylesheet_link_tag 'error_messages' %>
-    <%= stylesheet_link_tag 'text_and_colors' %>
-    <%= stylesheet_link_tag 'application' %>
+    <link rel="stylesheet" href="/stylesheets/error_messages.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/stylesheets/text_and_colors.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="/tablesorter/blue/style.css" type="text/css" media="screen"/>
     <link type="text/css" href="/stylesheets/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 		<link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :colors,
@@ -27,7 +28,11 @@
     <% if RAILS_ENV == "production" %>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <% else %>
-      <%= javascript_include_tag 'jquery' %>
+      <% if in_event_calendar? %>
+        <%= javascript_include_tag event_calendar_javascript_includes %>
+      <% else %>
+        <%= javascript_include_tag '/javascripts/jquery' %>
+      <% end %>
     <% end %>
     <%= javascript_include_tag 'rails', 'application' %>
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>

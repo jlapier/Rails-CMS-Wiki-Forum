@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def logo_image
-    image_tag(site_logo)
+    "<img src=\"/images/#{site_logo}\" alt=\"logo\"/>".html_safe
   end
 
   def site_title
@@ -57,7 +57,6 @@ module ApplicationHelper
   def user_box
     #out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
     out = ""
-
     if current_user
       out += "Welcome, #{current_user.first_name}!<br />\n"
       out += link_to("My Account", account_path)  + " | " +
@@ -84,7 +83,10 @@ module ApplicationHelper
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
-    end
+    end          
+    out += " | "
+    out += link_to_events({:no_wrapper => true},
+                                  {:link_text => 'Events'})
     out.html_safe
   end
 

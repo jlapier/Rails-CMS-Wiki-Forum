@@ -16,7 +16,7 @@ describe "/wiki_pages/search.html.erb" do
       stub_model(WikiPage, :title => "Some page", :url_title => "Some_page", :body => 'Some Test thing'),
       stub_model(WikiPage, :title => "Some other page", :url_title => "Some_other_page", :body => 'Some other thing Test')
     ])
-    view.stub!(:current_user).and_return(mock_user)
+    view.controller.stub(:current_user).and_return(mock_user)
   end
 
   it "renders a list of pages" do

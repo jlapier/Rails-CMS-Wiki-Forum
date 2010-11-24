@@ -31,7 +31,8 @@ describe ApplicationHelper do
   end
 
   it "should have a page title" do
-    assign(:content_page, mock_model(ContentPage, :name => "Test Page"))
+    assign(:content_page, mock_model(ContentPage, :name => "Test Page")
+    )
     helper.stub(:action_name).and_return "edit"
     helper.stub(:controller_name).and_return "content_pages"
     helper.page_title.should == "Editing Test Page"
@@ -46,9 +47,12 @@ describe ApplicationHelper do
   end
 
   it "should have a user box with a log in link" do
+    # avoid MethodMissing for link_to_events
+    helper.class.send :include, EventCalendar::ApplicationHelper
     helper.stub(:current_user).and_return(nil)
     helper.user_box.should =~ (/Log In/)
     helper.user_box.should =~ (/Register/)
+    helper.user_box.should =~ (/Events/)
   end
 
   it "should have a user box with welcome message" do

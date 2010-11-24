@@ -36,6 +36,12 @@ RailsCMSWikiForum::Application.routes.draw do
       post :update_site_settings
     end
   end
+  
+  resource :dashboard do
+    member do
+      get :event_calendar
+    end
+  end
 
   resources :content_pages do
     collection do

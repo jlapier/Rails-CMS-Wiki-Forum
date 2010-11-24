@@ -1,10 +1,28 @@
 class ApplicationController < ActionController::Base
+  
+  before_filter :protect_event_calendar
+  
   protect_from_forgery
 
-  helper_method :current_user_session, :current_user
+  helper EventCalendar::ApplicationHelper
+
+  helper_method :current_user_session, :current_user, :in_event_calendar?
   
   before_filter :get_menus, :get_layout
-
+  
+	
+  def in_event_calendar?
+    self.class.ancestors.include?(EventCalendar::ApplicationController)
+  end
+  
+  def protect_event_calendar
+    if in_event_calendar?
+      unless controller_name == "events" && 
+              action_name =~ /(index|show)/
+        return require_admin_user
+      end
+    end
+  end
 
   # checks to see if user is a member of a given access group - if not,
   # redirect to account controller
