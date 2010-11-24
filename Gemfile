@@ -13,7 +13,7 @@ gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.1.0'
+  gem 'rspec-rails'
   gem 'webrat'
-  gem 'factory_girl' #, '>= 1.2.4'
+  gem 'factory_girl'
 end
