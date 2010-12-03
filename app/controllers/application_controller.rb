@@ -1,18 +1,31 @@
 class ApplicationController < ActionController::Base
   
   before_filter :protect_event_calendar
+  before_filter :setup_file_share
   
   protect_from_forgery
 
   helper EventCalendar::ApplicationHelper
+  helper FileShare::ApplicationHelper
 
-  helper_method :current_user_session, :current_user, :in_event_calendar?
+  helper_method :current_user_session, :current_user, :in_event_calendar?,
+                :in_file_share?, :has_authorization?
   
   before_filter :get_menus, :get_layout
   
+	private
+	
+	def has_authorization?(*args)
+	  # todo: finish has_authorization?
+	  true
+  end
 	
   def in_event_calendar?
     self.class.ancestors.include?(EventCalendar::ApplicationController)
+  end
+  
+  def in_file_share?
+    self.class.ancestors.include?(FileShare::ApplicationController)
   end
   
   def protect_event_calendar
@@ -23,6 +36,15 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def setup_file_share
+    Event.send :include, FileContainer
+    EventsController.send :helper, FileAttachmentsHelper
+  end
+  
+  protected
+  
+  public
 
   # checks to see if user is a member of a given access group - if not,
   # redirect to account controller

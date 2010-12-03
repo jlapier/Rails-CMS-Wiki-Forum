@@ -24,12 +24,14 @@ p + p { margin-top: -0.8em; text-indent: 0; }
   -webkit-border-radius: 8px;
 }
 
+/*
 .base_content div {
   background: #fff;
   border: 4px solid #FFF;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
 }
+*/
 
 /* embeds the openid image in the text field */
 input#user_openid_identifier, input#user_session_openid_identifier {
@@ -280,3 +282,62 @@ a.delete_x:hover { color: #F33; text-decoration: none; border: none; }
   color: #fff;
   font-size: 12px;
 }
+
+/* Month View, Basic Week View, Basic Day View
+------------------------------------------------------------------------*/
+
+.fc-grid table {
+	width: 100%;
+	}
+	
+.fc .fc-grid th {
+	border-width: 0 0 0 1px;
+	text-align: center;
+	}
+	
+.fc .fc-grid td {
+	border-width: 1px 0 0 1px;
+	}
+	
+.fc-grid th.fc-leftmost,
+.fc-grid td.fc-leftmost {
+	border-left: 0;
+	}
+	
+.fc-grid .fc-day-number {
+	float: right;
+	padding: 0 2px;
+	}
+	
+.fc-grid .fc-other-month .fc-day-number {
+	opacity: 0.3;
+	filter: alpha(opacity=30); /* for IE */
+	/* opacity with small font can sometimes look too faded
+	   might want to set the 'color' property instead
+	   making day-numbers bold also fixes the problem */
+	}
+	
+.fc-grid .fc-day-content {
+	clear: both;
+	padding: 2px 2px 0; /* distance between events and day edges */
+	}
+	
+/* event styles */
+	
+.fc-grid .fc-event-time {
+	font-weight: bold;
+	}
+	
+/* right-to-left */
+
+.fc-rtl .fc-grid {
+	direction: rtl;
+	}
+	
+.fc-rtl .fc-grid .fc-day-number {
+	float: left;
+	}
+	
+.fc-rtl .fc-grid .fc-event-time {
+	float: right;
+	}

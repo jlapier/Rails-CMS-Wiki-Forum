@@ -9,6 +9,7 @@ gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
 gem 'event_calendar', :git => "http://github.com/inertialbit/event_calendar.git"
+gem 'file_share', :git => "http://github.com/inertialbit/file_share.git"
 gem 'formtastic'
 gem 'RedCloth'
 gem 'ruby-openid', :require => 'openid'

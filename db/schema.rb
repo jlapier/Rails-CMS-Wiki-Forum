@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101124231413) do
+ActiveRecord::Schema.define(:version => 20101202170831) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(:version => 20101124231413) do
     t.datetime "revisable_deleted_at"
     t.boolean  "revisable_is_current",       :default => true
   end
+
+  create_table "file_share_file_attachments", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "filepath"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "file_share_file_attachments", ["attachable_id"], :name => "index_file_share_file_attachments_on_attachable_id"
 
   create_table "forums", :force => true do |t|
     t.string   "title"

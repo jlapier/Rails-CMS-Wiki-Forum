@@ -110,4 +110,14 @@ module ApplicationHelper
 			time_ago_in_words(time) + " ago"
 		end
 	end
+	def event_file_javascripts
+	  (event_calendar_javascript_includes + file_share_javascript_includes).compact.uniq
+  end
+  def javascripts
+    [
+      'jquery', 'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
+      'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
+      'cms_wiki_forum_behaviors'
+    ]
+  end
 end

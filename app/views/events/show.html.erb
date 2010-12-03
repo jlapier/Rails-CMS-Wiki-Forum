@@ -26,6 +26,10 @@
     <%= textilize_without_paragraph @event.description %>
   </p>
   <% end %>
+  
+  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
+    :file_attachments => @event.file_attachments
+  } %>
 
 <% if current_user && can?(:read, @event.attendees) %>
 <h3>Attendees/Participants</h3>
