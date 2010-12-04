@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   
   before_filter :protect_event_calendar
+  before_filter :protect_file_share
   before_filter :setup_file_share
   
   protect_from_forgery
@@ -16,8 +17,8 @@ class ApplicationController < ActionController::Base
 	private
 	
 	def has_authorization?(*args)
-	  # todo: finish has_authorization?
-	  true
+	  return false unless current_user
+	  return can?(*args)
   end
 	
   def in_event_calendar?
@@ -30,10 +31,28 @@ class ApplicationController < ActionController::Base
   
   def protect_event_calendar
     if in_event_calendar?
+      # allow all users to view events
       unless controller_name == "events" && 
               action_name =~ /(index|show)/
         return require_admin_user
       end
+    end
+  end
+  
+  def protect_file_share
+    if in_file_share?
+      if controller_name == 'file_attachments'
+        case action_name
+        when /(download)/
+          # allow all users to view/download files
+          return true
+        when /(create)/
+          # must be logged in to upload
+          return require_user
+        end
+      end
+      # attendees et al avail. to admin only
+      return require_admin_user
     end
   end
   
@@ -146,9 +165,10 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin_user
-      unless current_user and current_user.is_admin?
+      return false unless require_user
+      unless current_user.is_admin?
         flash[:error] = "You do not have permission to access that page."
-        redirect_to login_path
+        redirect_to account_path
         return false
       end
     end

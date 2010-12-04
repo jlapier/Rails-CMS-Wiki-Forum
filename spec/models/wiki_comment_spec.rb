@@ -65,12 +65,12 @@ describe WikiComment do
     wcs.should_not be_empty
     #wcs.size.should == 2
     assert wcs.first.new_record?
-    wcs.first.title.should == "Daily Digest for #{Time.now.yesterday.strftime('%m/%d/%Y')}"
+    wcs.first.title.should == "Daily Digest for #{Time.now.beginning_of_day.strftime('%m/%d/%Y')}"
     wcs.first.body.should include(yesterday_comment.body)
     wcs.first.body.should_not include(today_comment.body)
     wcs.first.body.should_not include(two_days_ago_comment.body)
     assert wcs[1].new_record?
-    wcs[1].title.should == "Daily Digest for #{Time.now.yesterday.yesterday.strftime('%m/%d/%Y')}"
+    wcs[1].title.should == "Daily Digest for #{Time.now.yesterday.beginning_of_day.strftime('%m/%d/%Y')}"
     wcs[1].body.should include(two_days_ago_comment.body)
     wcs[1].body.should_not include(yesterday_comment.body)
     wcs[1].body.should_not include(today_comment.body)
