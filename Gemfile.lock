@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: http://github.com/inertialbit/file_share.git
-  revision: c4f75f78c593ef06066c44d92ba22840f4cecc49
+  revision: 12da48e4d0ef0fab97eb0b320ec1668b0f9034d6
   specs:
     file_share (0.0.0)
       formtastic

@@ -1,0 +1,15 @@
+<h1>File Share Dashboard</h1>
+
+<div class="span-8">
+  <h2>Orphaned Files (<em><%= @orphaned_files.count %></em>)</h2>
+  <%= render :partial => 'file_attachments/file_attachment', :collection => @orphaned_files %>
+</div>
+
+<div class="span-8 last">
+  <h2>Files (<em><%= @files.count %></em>)</h2>
+  <% @files.group_by(&:attachable).each do |attachable, attached_files| %>
+  <h3><%= attachable.name %> (<em><%= attached_files.count %></em>)</h3>
+  <%= render :partial => 'file_attachments/file_attachment', :collection => attached_files %>
+  <% end %>
+</div>
+<div style="clear:both;"></div>

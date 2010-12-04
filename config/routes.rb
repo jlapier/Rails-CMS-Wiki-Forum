@@ -40,6 +40,7 @@ RailsCMSWikiForum::Application.routes.draw do
   resource :dashboard do
     member do
       get :event_calendar
+      get :file_share
     end
   end
 
