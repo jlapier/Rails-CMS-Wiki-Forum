@@ -41,15 +41,9 @@ class ApplicationController < ActionController::Base
   
   def protect_file_share
     if in_file_share?
-      if controller_name == 'file_attachments'
-        case action_name
-        when /(download)/
-          # allow all users to view/download files
-          return true
-        when /(create)/
-          # must be logged in to upload
-          return require_user
-        end
+      if controller_name == 'file_attachments' && action_name == 'download'
+        # allow anonymous users to view/download files
+        return true
       end
       # attendees et al avail. to admin only
       return require_admin_user
@@ -59,6 +53,14 @@ class ApplicationController < ActionController::Base
   def setup_file_share
     Event.send :include, FileContainer
     EventsController.send :helper, FileAttachmentsHelper
+    
+    if in_file_share?
+      if controller_name == 'file_attachments' && action_name == 'index' &&
+          current_user && current_user.is_admin?
+        flash.keep
+        redirect_to file_share_dashboard_path
+      end
+    end
   end
   
   protected
