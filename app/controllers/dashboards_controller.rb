@@ -1,10 +1,17 @@
 class DashboardsController < ApplicationController
+    
+  before_filter :require_admin_user
+  before_filter :setup_file_share
   
-  if defined?(FileShare::FileAttachmentsHelper)
-    helper FileShare::FileAttachmentsHelper
+  private
+  
+  def setup_file_share
+    unless defined?(FileShare::FileAttachmentsHelper)
+      self.class.helper FileShare::FileAttachmentsHelper
+    end
   end
   
-  before_filter :require_admin_user
+  public
   
   def event_calendar
     @past_events = Event.past.order("start_on ASC")
