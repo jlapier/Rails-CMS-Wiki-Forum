@@ -53,14 +53,6 @@ class ApplicationController < ActionController::Base
   def setup_file_share
     Event.send :include, FileContainer
     EventsController.send :helper, FileAttachmentsHelper
-    
-    if in_file_share?
-      if controller_name == 'file_attachments' && action_name == 'index' &&
-          current_user && current_user.is_admin?
-        flash.keep
-        redirect_to file_share_dashboard_path
-      end
-    end
   end
   
   protected
