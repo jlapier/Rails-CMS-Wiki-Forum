@@ -5,38 +5,6 @@ GIT
     authlogic (2.1.6)
       activesupport
 
-GIT
-  remote: http://github.com/inertialbit/event_calendar.git
-  revision: f0f736401ac6c01eba6195e013170fff5bb30259
-  specs:
-    event_calendar (0.0.0)
-      RedCloth
-      RedCloth
-      acts_as_revisable
-      acts_as_revisable
-      formtastic
-      formtastic
-      prarupa
-      prarupa
-      rails (= 3.0.3)
-      rails (= 3.0.3)
-      sqlite3-ruby
-      sqlite3-ruby
-      will_paginate (~> 3.0.pre2)
-      will_paginate (~> 3.0.pre2)
-
-GIT
-  remote: http://github.com/inertialbit/file_share.git
-  revision: 3397e3280e30b22af6a090ee517c28cff0fb2116
-  specs:
-    file_share (0.0.0)
-      formtastic
-      formtastic
-      rails (= 3.0.3)
-      rails (= 3.0.3)
-      sqlite3-ruby
-      sqlite3-ruby
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -79,7 +47,29 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    event_calendar_engine (0.1.0)
+      RedCloth
+      RedCloth
+      acts_as_revisable
+      acts_as_revisable
+      formtastic
+      formtastic
+      prarupa
+      prarupa
+      rails (= 3.0.3)
+      rails (= 3.0.3)
+      sqlite3-ruby
+      sqlite3-ruby
+      will_paginate (~> 3.0.pre2)
+      will_paginate (~> 3.0.pre2)
     factory_girl (1.3.2)
+    file_share (0.1.1)
+      formtastic
+      formtastic
+      rails (= 3.0.3)
+      rails (= 3.0.3)
+      sqlite3-ruby
+      sqlite3-ruby
     formtastic (1.2.2)
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
@@ -150,9 +140,9 @@ DEPENDENCIES
   authlogic!
   authlogic-oid
   cancan
-  event_calendar!
+  event_calendar_engine (~> 0.1.0)
   factory_girl
-  file_share!
+  file_share (~> 0.1.1)
   formtastic
   rails (= 3.0.3)
   rspec-rails

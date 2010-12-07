@@ -8,8 +8,8 @@ gem "acts_as_versioned"
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
-gem 'event_calendar', :git => "http://github.com/inertialbit/event_calendar.git"
-gem 'file_share', :git => "http://github.com/inertialbit/file_share.git"
+gem 'event_calendar_engine', '~> 0.1.0', :require => 'event_calendar'
+gem 'file_share', '~> 0.1.1'
 gem 'formtastic'
 gem 'RedCloth'
 gem 'ruby-openid', :require => 'openid'

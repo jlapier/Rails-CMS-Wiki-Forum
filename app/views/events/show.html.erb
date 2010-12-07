@@ -28,7 +28,7 @@
   <% end %>
   
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
-    :file_attachments => @event.file_attachments
+    :files => @event.file_attachments
   } %>
 
 <% if current_user && can?(:read, @event.attendees) %>
