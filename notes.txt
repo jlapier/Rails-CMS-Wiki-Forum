@@ -1,0 +1,48 @@
+only admin can manage files
+only admin can manage events
+everyone can view & download events & files
+- vcs downloads for events might be nice
+
+only admin can create, update or delete Wikis and Forums
+only general Users in appropriate UserGroups can create, update or delete individual WikiPages and MessagePosts 
+
+
+admin
+  wiki
+    after creation
+      has perms to update wiki info
+      has perms to delete wiki and all pages
+  wiki page
+    after wiki creation
+      lacks perms to create 
+    after creation
+      lacks perms to view
+
+auth/d user
+  can get to form to create a new wiki page but fail auth/z on submission
+  lacks perms to delete created wiki
+  is redirected to login page if attempt to access admin only resource
+  
+anonymous user
+  can view list of wikis/forums but prevented from #show
+  can view list of content pages
+  can see links to draft content pages but is then denied access
+  
+development mode, 3 browsers, 1 server
+  caused by using prepend_before_filter instead of before_filter
+  
+  3 users in 3 distinct user groups +
+  3 wikis each writable by 1 user group, readable by others
+  
+  logged in as 3 different users viewing Wikis#index,
+  such that user 1 logs in to browser 1, user 2 into browser 2, etc.
+  
+  refresh in browser 1
+  refresh in browser 2 - name should change to user 1's
+  refresh in browser 2 - user 2's name should appear
+  refresh in browser 1 - name should change to user 2's
+  refresh in browser 1 - user 1's name should appear
+  refresh in browser 3 - name should change to user 1's
+  refresh in browser 3 - user 3's name should appear
+  refresh in browser 2 - name should change to user 3's
+  etc
