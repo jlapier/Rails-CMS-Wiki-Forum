@@ -34,7 +34,7 @@
       <p><%= will_paginate @wiki_pages %></p>
       <%= render :partial => '/wiki_pages/wiki_page_table'  %>
       <p><%= will_paginate @wiki_pages %></p>
-      <p>[<%= link_to "create new page", new_wiki_wiki_page_path(@wiki) %>]</p>
+      <%= link_to_new_wiki_page(@wiki, :pb => true) %>
     </td>
 
     <td style="vertical-align:top">
@@ -52,8 +52,4 @@
 </script>
 
   
-<% if is_admin? %>
-  <p>
-    <%= link_to 'Edit wiki details', edit_wiki_path(@wiki) %>
-  </p>
-<% end %>
+<%= link_to_edit_wiki(@wiki) %>

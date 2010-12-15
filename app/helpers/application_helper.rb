@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def logo_image
-    image_tag(site_logo)
+    "<img src=\"/images/#{site_logo}\" alt=\"logo\"/>".html_safe
   end
 
   def site_title
@@ -57,7 +57,6 @@ module ApplicationHelper
   def user_box
     #out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
     out = ""
-
     if current_user
       out += "Welcome, #{current_user.first_name}!<br />\n"
       out += link_to("My Account", account_path)  + " | " +
@@ -84,7 +83,10 @@ module ApplicationHelper
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
-    end
+    end          
+    out += " | "
+    out += link_to_events({:no_wrapper => true},
+                                  {:link_text => 'Events'})
     out.html_safe
   end
 
@@ -108,4 +110,14 @@ module ApplicationHelper
 			time_ago_in_words(time) + " ago"
 		end
 	end
+	def event_file_javascripts
+	  (event_calendar_javascript_includes + file_share_javascript_includes).compact.uniq
+  end
+  def javascripts
+    [
+      'jquery', 'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
+      'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
+      'cms_wiki_forum_behaviors'
+    ]
+  end
 end

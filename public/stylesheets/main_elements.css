@@ -33,3 +33,6 @@ table.messages {
 .pagination {
 }
 
+fieldset ol {
+  list-style-type: none;
+}

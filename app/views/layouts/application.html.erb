@@ -5,18 +5,17 @@
     <%= csrf_meta_tag %>
     <link rel="icon" type="image/png" href="/images/favorite.png"/>
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
-    <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/silksprite/sprite.css" type="text/css" />
+    
+    <%= stylesheet_link_tag 'screen', :media => 'screen, projection' %>
+    <%= stylesheet_link_tag "plupload/screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag 'print', :media => 'print' %>
+    
     <!--[if lt IE 8]>
-      <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
+      <%= stylesheet_link_tag 'ie', :media => 'screen, projection' %>
     <![endif]-->
-    <%= stylesheet_link_tag 'error_messages' %>
-    <%= stylesheet_link_tag 'text_and_colors' %>
-    <%= stylesheet_link_tag 'application' %>
-    <link rel="stylesheet" href="/tablesorter/blue/style.css" type="text/css" media="screen"/>
-    <link type="text/css" href="/stylesheets/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    
+    <%= stylesheet_link_tag 'application', 'text_and_colors', 'main_elements', 'error_messages' %>
+    
 		<link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :colors,
       :name => @theme_colors, :format => 'css') %>?<%= @custom_colors_timestamp %>" type="text/css" media="screen"/>
     <% if @css_override %>
@@ -24,15 +23,13 @@
         :name => 'override', :format => 'css') %>?<%= @css_override_timestamp %>" type="text/css" media="screen"/>
     <% end %>
       
-    <% if RAILS_ENV == "production" %>
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <% else %>
-      <%= javascript_include_tag 'jquery' %>
-    <% end %>
-    <%= javascript_include_tag 'rails', 'application' %>
-    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-    <%= javascript_include_tag 'jquery.tablesorter.min', 'jquery.string.1.0-min', 'lowpro.jquery', 'behaviors' %>
-    <script type="text/javascript" src="/javascripts/jquery-ui-1.7.2.custom.min.js"></script>
+    <%= 
+    #javascript_include_tag (javascripts + event_file_javascripts).uniq
+    javascript_include_tag (javascripts + event_calendar_javascript_includes + file_share_javascript_includes).uniq
+    %>
+    
+    <%= stylesheet_link_tag "tablesorter/blue/style", "smoothness/jquery-ui-1.7.2.custom.css" %>
+
     <script type="text/javascript">
       jQuery(function($) {
         $('a.show_hide_link').attach(ShowHideLink);
@@ -45,5 +42,3 @@
     <%= render :file => @layout_file %>
   </body>
 </html>
-
-

@@ -18,7 +18,8 @@ describe "/wikis/show.html.erb" do
     assign(:wiki_pages, @wiki_pages)
     assign(:wiki, @wiki)
     assign(:users_with_access, [mock_user])
-    view.stub!(:current_user).and_return(mock_user)
+    view.controller.stub(:current_user).and_return(mock_user)
+    view.stub(:current_user).and_return(mock_user)
   end
 
   it "renders list of pages" do

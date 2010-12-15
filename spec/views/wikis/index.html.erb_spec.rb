@@ -12,7 +12,8 @@ describe "/wikis/index.html.erb" do
       stub_model(Wiki, :name => "Some wiki"),
       stub_model(Wiki, :name => "Some other wiki")
     ])
-    view.stub!(:current_user).and_return(mock_user)
+    view.controller.stub(:current_user).and_return(mock_user)
+    view.stub(:current_user).and_return(mock_user)
   end
 
   it "renders a list of wikis" do

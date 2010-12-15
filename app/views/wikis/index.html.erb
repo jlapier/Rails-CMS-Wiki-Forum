@@ -4,9 +4,13 @@
 
 <table>
 <% @wikis.each do |wiki| %>
+  <%-
+    # todo stop skipping elements when Wiki.accessible_by is implemented
+  -%>
+  <% next unless current_user && can?(:read, wiki) %>
   <tr>
     <td>
-      <strong><%= link_to wiki.name, wiki %></strong>
+      <strong><%= link_to_wiki(wiki) %></strong>
       <% unless wiki.description.blank? %>
         &nbsp;
         <em class="wiki_desc_link_<%= wiki.id %>">(<%= link_to "description",
@@ -14,21 +18,13 @@
         <span class="wiki_desc_<%= wiki.id %>" style="display:none;"><%= textilize_without_paragraph wiki.description %></span>
       <% end %>
     </td>
-    <% if is_admin? %>
       <td>
-        <%= link_to '<span class="ui-icon ui-icon-document"/>'.html_safe, edit_wiki_path(wiki),
-                    :title => "click to edit" %>
-        <%= link_to '<span class="ui-icon ui-icon-closethick"/>'.html_safe, wiki,
-                :confirm => "Are you sure you want to permanently delete this wiki (#{wiki.name}) " +
-                  "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
-                    :method => :delete, :title => "click to delete" %>
-        
+        <%= link_to_edit_wiki(wiki, :html => true) %>
+        <%= link_to_destroy_wiki(wiki, :html => true) %>
       </td>
-    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New wiki', new_wiki_path %>
+<%= link_to_new_wiki %>

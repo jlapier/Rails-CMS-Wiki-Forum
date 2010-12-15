@@ -1,0 +1,57 @@
+<h1><%= link_to "Event Calendar", events_path %> Dashboard</h1>
+
+<%= link_to_new_event %>
+<div class="span-8">
+  <h2>Future Events (<em><%= @future_events.count %></em>)</h2>
+  <ul>
+    <% @future_events.group_by(&:start_year).each do |year, years_events| %>
+    <li><%= year %>
+      <ul>      
+        <% years_events.group_by(&:start_month).each do |month, months_events| %>
+        <li><%= month %>
+          <ul>
+            <% months_events.group_by(&:start_day).each do |day, days_events| %>
+            <li><%= day.ordinalize %>
+              <ul>
+                <% days_events.each do |event| %>
+                  <li><%= link_to event.name, event_path(event) %></li>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </li>
+    <% end %>
+  </ul>  
+</div>
+
+<div class="span-8 last">
+  <h2>Past Events (<em><%= @past_events.count %></em>)</h2>
+  <ul>
+    <% @past_events.group_by(&:start_year).each do |year, years_events| %>
+    <li><%= year %>
+      <ul>      
+        <% years_events.group_by(&:start_month).each do |month, months_events| %>
+        <li><%= month %>
+          <ul>
+            <% months_events.group_by(&:start_day).each do |day, days_events| %>
+            <li><%= day.ordinalize %>
+              <ul>
+                <% days_events.each do |event| %>
+                  <li><%= link_to event.name, event_path(event) %></li>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </li>
+    <% end %>
+  </ul>  
+</div>
+<div style="clear:both;"></div>
