@@ -7,6 +7,7 @@ tmp/tags
 config/database.yml
 db/*.sqlite3
 db/development_structure.sql
+db/schema.rb
 *~
 cache
 .*.swp
