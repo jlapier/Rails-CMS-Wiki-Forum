@@ -104,4 +104,9 @@ describe ApplicationHelper do
     Dir.stub(:[]).and_return(['basic.html.erb', 'awesome.html.erb'])
     helper.theme_layouts_list.should == ['awesome', 'basic']
   end
+  
+  it "should return a list of uniq filenames" do
+    files = ["somefile.js", "some_engine/somefile.js", "other.js"]
+    helper.uniq_filenames(files).should eql [files[0], files[2]]
+  end
 end

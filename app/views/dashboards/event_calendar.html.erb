@@ -1,6 +1,18 @@
 <h1><%= link_to "Event Calendar", events_path %> Dashboard</h1>
 
 <%= link_to_new_event %>
+<div class="span-16 last">
+  <h2>Current Events (<em><%= @current_events.count %></em>)</h2>
+  <%- count = 0 -%>
+  <% @current_events.each do |event| %>
+  <%- count += 1 -%>
+  <div class="span-2 <%= count % 8 == 0 ? ' last' : '' %>">
+    <p><strong><%= link_to event.name, edit_event_path(event) %></strong></p>
+    <p><em><%= event.start_on.strftime("%a, %b %d") %></em></p>
+    <p><em><%= event.end_on.strftime("%a, %b %d") %></em></p>
+  </div>
+  <% end %>
+</div>
 <div class="span-8">
   <h2>Future Events (<em><%= @future_events.count %></em>)</h2>
   <ul>
@@ -14,7 +26,7 @@
             <li><%= day.ordinalize %>
               <ul>
                 <% days_events.each do |event| %>
-                  <li><%= link_to event.name, event_path(event) %></li>
+                  <li><%= link_to event.name, edit_event_path(event) %></li>
                 <% end %>
               </ul>
             </li>
@@ -41,7 +53,7 @@
             <li><%= day.ordinalize %>
               <ul>
                 <% days_events.each do |event| %>
-                  <li><%= link_to event.name, event_path(event) %></li>
+                  <li><%= link_to event.name, edit_event_path(event) %></li>
                 <% end %>
               </ul>
             </li>

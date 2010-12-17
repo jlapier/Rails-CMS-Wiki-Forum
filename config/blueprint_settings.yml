@@ -2,6 +2,7 @@ default:
   path: public/stylesheets
   plugins:
   - buttons
+  - files
   - events
   - fancy-type
   - link-icons

@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :protect_event_calendar
   before_filter :protect_file_share
-  before_filter :setup_file_share
+  
+  before_filter :setup_file_share if Rails.env == 'development'
   
   protect_from_forgery
 

@@ -31,7 +31,8 @@
     :files => @event.file_attachments
   } %>
 
-<% if current_user && can?(:read, @event.attendees) %>
+<% # disable for now, until attendees are functional
+if false && current_user && can?(:read, @event.attendees) %>
 <h3>Attendees/Participants</h3>
 
   <% if @event.attendees.empty? %>

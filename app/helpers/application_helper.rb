@@ -110,14 +110,31 @@ module ApplicationHelper
 			time_ago_in_words(time) + " ago"
 		end
 	end
-	def event_file_javascripts
-	  (event_calendar_javascript_includes + file_share_javascript_includes).compact.uniq
+	def uniq_filenames(file_paths_or_names)
+	  out = []
+	  file_paths_or_names.each do |path_or_name|
+	    name = path_or_name.split("/").last
+	    out << path_or_name unless out.detect{|pon| pon =~ /#{name}$/}
+    end
+    out
   end
-  def javascripts
-    [
-      'jquery', 'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
+	def javascripts
+	  uniq_filenames(
+	    host_javascripts + 
+	    event_calendar_javascript_includes + 
+	    file_share_javascript_includes
+	  )
+  end
+  def host_javascripts
+    list = [
+      'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
       'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
       'cms_wiki_forum_behaviors'
     ]
+    unless Rails.env == 'production'
+      list.unshift("jquery")
+    else
+      list.unshift("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
+    end
   end
 end
