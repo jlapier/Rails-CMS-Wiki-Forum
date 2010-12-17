@@ -4,7 +4,9 @@
   :link_text => "Events"
 }) %>::<%= @event.name %></h1>
 
-  <p style="float: right;"><%= links_to_edit_and_delete_event(@event) %></p>
+  <p style="float: right;">
+    <%= links_to_edit_and_delete_event(@event) %>
+  </p>
 
   <p><em><%= @event.event_type %></em></p>
 
@@ -29,6 +31,8 @@
     <%= textilize_without_paragraph @event.description %>
   </p>
   <% end %>
+  
+  <%= form_for_browse_event_revisions(@event) %>
   
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
     :files => @event.file_attachments
