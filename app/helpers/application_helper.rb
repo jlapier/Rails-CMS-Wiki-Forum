@@ -52,6 +52,7 @@ module ApplicationHelper
   def site_footer
     @site_footer ||= SiteSetting.read_setting('site footer') ||
       "Content on this site is the copyright of the owners of #{request.host} and is provided as-is without warranty."
+    @site_footer.html_safe
   end
 
   def user_box

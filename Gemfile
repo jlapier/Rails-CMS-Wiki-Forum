@@ -20,3 +20,7 @@ group :development, :test do
   gem 'webrat'
   gem 'factory_girl'
 end
+
+group :production do
+  gem 'mysql'
+end

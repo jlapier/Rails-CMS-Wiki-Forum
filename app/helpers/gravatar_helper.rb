@@ -34,7 +34,7 @@ module GravatarHelper
     email_hash = Digest::MD5.hexdigest(email)
     options = DEFAULT_OPTIONS.merge(options)
     options[:default] = CGI::escape(options[:default]) unless options[:default].nil?
-    returning "http://www.gravatar.com/avatar/#{email_hash}.jpg?" do |url| 
+    "http://www.gravatar.com/avatar/#{email_hash}.jpg?".tap do |url| 
       [:rating, :size, :default].each do |opt|
         unless options[opt].nil?
           value = h(options[opt])

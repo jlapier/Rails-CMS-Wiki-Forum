@@ -40,7 +40,7 @@ ShowHideLink = $.klass({
     }
     if(this.showClassName) {
       //$('.'+this.showClassName).invoke(this.showEffect || 'show', this.showEffectParams);
-      $('.'+this.hideClassName).show();
+      $('.'+this.showClassName).show();
     }
     if(this.toggleClassName) {
       $('.'+this.toggleClassName).toggle();

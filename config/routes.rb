@@ -27,8 +27,12 @@ RailsCMSWikiForum::Application.routes.draw do
 
   match '/wikis/:wiki_id/page/:title' => 'wiki_pages#show_by_title', :as => :wiki_pages_show_by_title
   match '/wikis/:id/tag/:tag_name' => 'wikis#list_by_tag', :as => :wiki_tag
-  match 'themes/:action' => 'themes#index'
-  match 'themes/:action/:name.:format' => 'themes#index'
+  
+  match 'themes/colors/:name.:format' => 'themes#colors'
+  match 'themes/css/:name.:format' => 'themes#css'
+  match 'themes/:action' => 'themes'
+  match 'themes/:action/:name.:format' => 'themes'
+
 
   resources :site_settings do
     collection do
