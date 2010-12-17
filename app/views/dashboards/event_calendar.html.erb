@@ -1,6 +1,6 @@
 <h1><%= link_to "Event Calendar", events_path %> Dashboard</h1>
 
-<%= link_to_new_event %>
+<p style="float:right;"><%= link_to_new_event %> : <%= link_to_event_revisions %></p>
 <div class="span-16 last">
   <h2>Current Events (<em><%= @current_events.count %></em>)</h2>
   <%- count = 0 -%>

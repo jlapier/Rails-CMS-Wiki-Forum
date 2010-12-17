@@ -331,7 +331,6 @@ table.fc-header {width:100%;}
 .fc-event-time, .fc-event-title {padding:0 1px;}
 .fc-event a {display:block;position:relative;width:100%;height:100%;}
 .fc-rtl .fc-event a {text-align:right;}
-.fc .ui-resizable-handle {display:block;position:absolute;z-index:99999;border:0 !important;background:url(data:image/gif;}
 .fc-event-hori {border-width:1px 0;margin-bottom:1px;}
 .fc-event-hori a {border-width:0;}
 .fc-content .fc-corner-left {margin-left:1px;}

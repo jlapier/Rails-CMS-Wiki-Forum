@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ApplicationHelper do
+  before(:each) do
+    helper.stub(:has_authorization?).and_return(true)
+  end
   def mock_wiki
     @mock_wiki ||= mock_model(Wiki, :name => 'Wiki A')
   end

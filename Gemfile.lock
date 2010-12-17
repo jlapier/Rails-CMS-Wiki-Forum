@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/inertialbit/acts_as_revisable.git
+  revision: ac928ff786fbf0deb415ee9d8e7034b4d4b031ac
+  branch: rails3
+  specs:
+    acts_as_revisable (1.1.2)
+
+GIT
   remote: http://github.com/binarylogic/authlogic.git
   revision: 66ed79515919fe13016911b10ebe734cf8718dc7
   specs:
@@ -36,7 +43,6 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    acts_as_revisable (1.1.1)
     acts_as_versioned (0.6.0)
       activerecord (~> 3.0.0.beta4)
     arel (2.0.6)
@@ -47,7 +53,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    event_calendar_engine (0.1.2)
+    event_calendar_engine (0.1.4)
       RedCloth
       RedCloth
       acts_as_revisable
@@ -136,11 +142,12 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  acts_as_revisable!
   acts_as_versioned
   authlogic!
   authlogic-oid
   cancan
-  event_calendar_engine (~> 0.1.2)
+  event_calendar_engine (~> 0.1.4)
   factory_girl
   file_share (~> 0.1.5)
   formtastic

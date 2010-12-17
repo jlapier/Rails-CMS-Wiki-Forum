@@ -5,10 +5,14 @@ gem 'rails', '3.0.3'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem "acts_as_versioned"
+gem 'acts_as_revisable', {
+  :git => "git://github.com/inertialbit/acts_as_revisable.git",
+  :branch => 'rails3'
+}
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
-gem 'event_calendar_engine', '~> 0.1.2', :require => 'event_calendar'
+gem 'event_calendar_engine', '~> 0.1.4', :require => 'event_calendar'
 gem 'file_share', '~> 0.1.5'
 gem 'formtastic'
 gem 'RedCloth'
@@ -22,5 +26,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'mysql'
+  #gem 'mysql'
 end

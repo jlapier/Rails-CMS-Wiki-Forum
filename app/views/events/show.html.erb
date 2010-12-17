@@ -3,6 +3,9 @@
 }, {
   :link_text => "Events"
 }) %>::<%= @event.name %></h1>
+
+  <p style="float: right;"><%= links_to_edit_and_delete_event(@event) %></p>
+
   <p><em><%= @event.event_type %></em></p>
 
   <p>

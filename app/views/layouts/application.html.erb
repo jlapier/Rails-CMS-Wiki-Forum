@@ -7,7 +7,9 @@
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
     
     <%= stylesheet_link_tag 'screen', :media => 'screen, projection' %>
+    <%= stylesheet_link_tag 'event_calendar/fullcalendar_changes', :media => 'screen, projection' %>
     <%= stylesheet_link_tag "file_share/plupload/screen", :media => "screen, projection" %>
+    
     <%= stylesheet_link_tag 'print', :media => 'print' %>
     
     <!--[if lt IE 8]>
