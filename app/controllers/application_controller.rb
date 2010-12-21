@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+
+  PUBLIC_RESOURCES = {
+    Event => [:read],
+    FileAttachment => [:read, :download]
+  }
   
   before_filter :protect_event_calendar
   before_filter :protect_file_share
@@ -17,9 +22,30 @@ class ApplicationController < ActionController::Base
   
 	private
 	
+	# returns true if resource & action in question are designated as public
+	#   see #public_resource?
+	# returns false for anonymous requests to non public resources
+	# returns result from can? for authenticated requests to non public resources
 	def has_authorization?(*args)
+	  return true if public_resource?(*args)
 	  return false unless current_user
-	  return can?(*args)
+	  
+	  can?(*args)
+  end
+  
+  # returns true if *args identify a public resource; false otherwise
+  # public resources are identified in PUBLIC_RESOURCES
+  #   PUBLIC_RESOURCES = {
+  #    Event => [:read],
+  #    FileAttachment => [:read, :download]
+  #   }
+  
+  def public_resource?(*args)
+    action, resource = args[0], args[1]
+    key = resource.class
+    
+    PUBLIC_RESOURCES.has_key?(key) && 
+      PUBLIC_RESOURCES[key].include?(action)
   end
 	
   def in_event_calendar?

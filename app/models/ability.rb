@@ -18,6 +18,9 @@ class Ability
   def setup_user(user)
     setup_forum_access(user)
     setup_wiki_access(user)
+    can :read, Event
+    can :read, FileAttachment
+    can :download, FileAttachment
   end
   
   # WikisController before_filters (original)

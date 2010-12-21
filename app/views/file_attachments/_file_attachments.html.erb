@@ -1,0 +1,79 @@
+<div id="file_attachments">
+  <% if orphans.present? && files.present? %>
+  <div id="orphans" class="span-8">
+    <h2>Orphaned Files</h2>
+    <%= render :partial => 'file_attachments/file_attachment', :collection => orphans %>
+  </div>
+  <div id="files" class="span-8 last">
+    <h2>Attached Files</h2>
+    <% files.group_by(&:attachable).each do |attachable, attached_files| %>
+    <% if attachable.nil? %>
+      <% attachable = EventRevision.find(attached_files.map(&:attachable_id)) %>
+      <% if attachable.count > 1 %>
+        <% attachable.each do |a| %>
+        <div id="<%= "#{a.class}_#{a.id}" %>">
+        <h3><%= link_to_attachable(a) %> (deleted)</h3>
+        <%= render :partial => 'file_attachments/file_attachment', :collection => attached_files %>
+        </div>
+        <% end %>
+      <% else %>
+        <% attachable = attachable.first %>
+        <div id="<%= "#{attachable.class}_#{attachable.id}" %>">
+        <h3><%= link_to_attachable(attachable) %> (deleted)</h3>
+        <%= render :partial => 'file_attachments/file_attachment', :collection => attached_files %>
+        </div>
+      <% end %>
+    <% else %>
+    <div id="<%= "#{attachable.class}_#{attachable.id}" %>">
+    <h3><%= link_to_attachable(attachable) %></h3>
+    <%= render :partial => 'file_attachments/file_attachment', :collection => attached_files %>
+    </div>
+    <% end %>
+    <% end %>
+  </div>
+  <div style="clear:both;"></div>
+  <% else %>
+  <div id="files">
+    <% if files.present? || orphans.present? %>
+    <%= render :partial => 'file_attachments/file_attachment', :collection => files.present? ? files : orphans %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+
+<% if has_authorization?(:update, FileAttachment.new) %>
+<form id="file_attachment_dynamic_form" class="formtastic" method="post" action="<%= file_attachments_path %>" style="display: none; padding: 5px 0;">
+  <div style="margin: 0pt; padding: 0pt; display: inline;">
+    <input type="hidden" value="put" name="_method" />
+    <input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token" />
+  </div>
+  <input type="text" id="file_attachment_name" name="file_attachment[name]" />
+  <select id="file_attachment_file_container" name="file_attachment[file_container]">
+    <%= render({
+      :partial => 'file_attachments/file_container_select',
+      :locals => {
+        :selected => "#{params[:attachable_type]}_#{params[:attachable_id]}"
+      }
+    }) %>
+  </select>
+  <textarea id="file_attachment_description" style="height: 70px; width: 69%" name="file_attachment[description]"></textarea>
+  <br />
+  <input type="submit" value="Update" /> | <a href="#" class="cancel_dynamic_form fake_button">Cancel</a>
+</form>
+
+<% content_for(:javascript) do %>
+<script type="text/javascript">
+jQuery.ajaxSetup({
+  'beforeSend': function(xhr) {
+    xhr.setRequestHeader("Accept", "text/javascript");
+  }
+});
+
+jQuery(function($) {
+  $('#file_attachments').attach(DynamicForm, {
+    formElement: $('#file_attachment_dynamic_form')
+  });
+});
+</script>
+<% end %>
+<% end %>

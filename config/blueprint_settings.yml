@@ -5,7 +5,6 @@ default:
   - files
   - events
   - fancy-type
-  - link-icons
   - pagination
   - tacs-base
   - plupload-queue

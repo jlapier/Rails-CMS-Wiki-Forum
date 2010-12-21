@@ -97,6 +97,21 @@ describe ApplicationHelper do
     helper.user_box.should =~ (/href="\/forums"/)
     helper.user_box.should_not =~ (/Wiki/)
   end
+  
+  it "should have a user box with link to events calendar when the user is logged in" do
+    helper.class.send :include, EventCalendar::ApplicationHelper
+    helper.stub(:current_user).and_return(mock_admin_user)
+    helper.user_box.should =~ /Events/
+    helper.user_box.should =~ /href="\/events"/
+  end
+  
+  it "should have a user box with link to events calendar when the user is logged out" do
+    helper.class.send :include, EventCalendar::ApplicationHelper
+    helper.stub(:current_user).and_return(nil)
+    helper.stub(:public_resource?).and_return(true)
+    helper.user_box.should =~ /Events/
+    helper.user_box.should =~ /href="\/events"/
+  end
 
   it "should give a list of images" do
     Dir.stub(:[]).and_return(['imageb.png', 'imagea.png', 'imagec.png'])

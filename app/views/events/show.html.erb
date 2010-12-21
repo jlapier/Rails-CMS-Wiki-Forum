@@ -5,7 +5,7 @@
 }) %>::<%= @event.name %></h1>
 
   <p style="float: right;">
-    <%= links_to_edit_and_delete_event(@event) %>
+    <%= links_to_edit_and_delete_event(@event, {}, {:class => 'fake_button'}) %>
   </p>
 
   <p><em><%= @event.event_type %></em></p>
@@ -32,11 +32,11 @@
   </p>
   <% end %>
   
-  <%= form_for_browse_event_revisions(@event) %>
-  
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
     :files => @event.file_attachments
   } %>
+
+  <%= form_for_browse_event_revisions(@event) %>
 
 <% # disable for now, until attendees are functional
 if false && current_user && can?(:read, @event.attendees) %>
