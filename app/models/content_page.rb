@@ -71,27 +71,18 @@ class ContentPage < ActiveRecord::Base
         param.strip!
       end
 
-      case function_name.downcase
-      when "listcategories"
-        list_categories_to_html :order => order_string_from_sort_in_function(sort_order), :limit => limit,
-          :use_homelink => use_homelink
-      when "listpagesincategory"
-        list_pages_in_category_to_html :category_name => param, :use_homelink => use_homelink,
-          :order => order_string_from_sort_in_function(sort_order), :limit => limit
-      when "treecategories"
-        tree_categories_to_html :category_names => (param || '').split(',').map(&:strip),
-          :use_homelink => use_homelink,
-          :order => order_string_from_sort_in_function(sort_order), :limit => limit
-      when "linkpage"
-        link_page_to_html param
-      when "linkcategory"
-        link_category_to_html param
-      when "searchbox"
-        search_box_to_html
-      else
-        "<em>Unknown function: #{function_name}</em>"
-      end
+      params_to_send = { :use_homelink => use_homelink,
+        :order => order_string_from_sort_in_function(sort_order),
+        :limit => limit, :other_params => param }
 
+      begin
+        self.send("#{function_name.downcase}_to_html", params_to_send)
+      rescue NameError
+        return "<em>Unknown function: #{function_name}</em>"
+      rescue => e
+        return "<em>Error in function: #{function_name}</em>" + 
+          "<span style=\"display:none;\">#{e.inspect}</span>"
+      end
     end
 
     private
