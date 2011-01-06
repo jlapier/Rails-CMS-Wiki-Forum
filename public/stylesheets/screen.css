@@ -376,7 +376,7 @@ table.fc-header {width:100%;}
 .fc-event-vert span.fc-event-title {line-height:13px;}
 .fc-event-vert span.fc-event-bg {position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;background:#fff;opacity:.3;filter:alpha(opacity=30);}
 .fc-event-vert .ui-resizable-s {bottom:0 !important;width:100% !important;height:8px !important;line-height:8px !important;font-size:11px !important;font-family:monospace;text-align:center;cursor:s-resize;}
-.calendars {width:260px;float:left;padding-right:20px;}
+.calendars {padding-right:20px;}
 #event_quick_description {clear:both;border:1px solid #999;background:#FFC;padding:12px;margin-top:15px;}
 .fc-grid table {margin-bottom:0
 ;}

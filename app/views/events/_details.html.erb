@@ -1,0 +1,4 @@
+<%= textilize(details.location) %>
+<%= textilize(details.description) %>
+<h3>Materials</h3>
+<%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>
