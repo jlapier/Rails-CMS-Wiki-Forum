@@ -25,10 +25,10 @@ module HtmlGenerator
       out += "\n</ul>\n"
       out
     end
-
+    alias_method :listcategories_to_html, :list_categories_to_html
 
     def list_pages_in_category_to_html(options = {})
-      category = Category.find_by_name options[:category_name]
+      category = Category.find_by_name options[:other_params]
       out = "<ul>\n"
 
       if options[:use_homelink]
@@ -47,20 +47,21 @@ module HtmlGenerator
           }.join("\n")
         end
       else
-        out += "<li><em>No category found: #{options[:category_name]}</em></li>\n"
+        out += "<li><em>No category found: #{options[:other_params]}</em></li>\n"
       end
 
       out += "\n</ul>\n"
       out
     end
+    alias_method :listpagesincategory_to_html, :list_pages_in_category_to_html 
 
     def tree_categories_to_html(options = {})
       categories = \
-        if options[:category_names].blank?
+        if options[:other_params].blank?
           Category.find(:all, :include => :content_pages,
             :order => options[:order], :limit => options[:limit])
         else
-          Category.find(:all, :conditions => ["name in (?)", options[:category_names]],
+          Category.find(:all, :conditions => ["name in (?)", options[:other_params]],
             :include => :content_pages,
             :order => options[:order], :limit => options[:limit])
         end
@@ -87,8 +88,10 @@ module HtmlGenerator
       out += "\n</ul>\n"
       out
     end
+    alias_method :treecategories_to_html, :tree_categories_to_html
 
-    def link_page_to_html(page_name)
+    def link_page_to_html(options={})
+      page_name = options[:other_params]
       page = ContentPage.find_by_name page_name
 
       if page
@@ -97,8 +100,10 @@ module HtmlGenerator
         "<em>No page found named: #{page_name}</em>"
       end
     end
+    alias_method :linkpage_to_html, :link_page_to_html
 
-    def link_category_to_html(category_name)
+    def link_category_to_html(options={})
+      category_name = options[:other_params]
       category = Category.find_by_name category_name
 
       if category
@@ -107,6 +112,7 @@ module HtmlGenerator
         "<em>No category found named: #{category_name}</em>"
       end
     end
+    alias_method :linkcategory_to_html, :link_category_to_html
 
     def search_box_to_html(options = {})
       # TODO make an option to include category dropdown - :with_category_list
@@ -117,6 +123,7 @@ module HtmlGenerator
         </form>
       END
     end
+    alias_method :searchbox_to_html, :search_box_to_html
 
     private
     def homelink

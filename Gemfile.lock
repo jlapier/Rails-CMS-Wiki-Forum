@@ -53,7 +53,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    event_calendar_engine (0.1.5)
+    event_calendar_engine (0.1.7)
       RedCloth
       RedCloth
       acts_as_revisable
@@ -87,6 +87,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mysql (2.8.1)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     prarupa (0.1.2)
@@ -147,10 +148,11 @@ DEPENDENCIES
   authlogic!
   authlogic-oid
   cancan
-  event_calendar_engine (~> 0.1.5)
+  event_calendar_engine (~> 0.1.6)
   factory_girl
   file_share (~> 0.1.5)
   formtastic
+  mysql
   rails (= 3.0.3)
   rspec-rails
   ruby-openid

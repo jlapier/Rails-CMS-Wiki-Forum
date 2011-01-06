@@ -35,7 +35,7 @@ describe HtmlGenerator do
     it "should work when category not found" do
       expected = '<ul><li><em>No category found: test</em></li></ul>'
 
-      DummyClass.list_pages_in_category_to_html({:category_name => 'test'}).should equal_without_whitespace expected
+      DummyClass.list_pages_in_category_to_html({:other_params => 'test'}).should equal_without_whitespace expected
     end
 
     it "should work when category found but has no pages" do
@@ -48,7 +48,7 @@ describe HtmlGenerator do
         </ul>
       END
 
-      DummyClass.list_pages_in_category_to_html({:category_name => cat.name}).should equal_without_whitespace expected
+      DummyClass.list_pages_in_category_to_html({:other_params => cat.name}).should equal_without_whitespace expected
     end
 
     it "should work when category found and has a page" do
@@ -60,7 +60,7 @@ describe HtmlGenerator do
       expected = '<ul><li><a href="/">Home</a></li>
         <li><a href="/content_pages/1">Page one</a></li></ul>'
 
-      DummyClass.list_pages_in_category_to_html({:category_name => cat.name, :use_homelink => true}).should
+      DummyClass.list_pages_in_category_to_html({:other_params => cat.name, :use_homelink => true}).should
         equal_without_whitespace expected
     end
   end
@@ -113,7 +113,7 @@ describe HtmlGenerator do
           </li>
         </ul>
       END
-      DummyClass.tree_categories_to_html(:category_names => ['Some category 1', 'Some category 3']).should equal_without_whitespace expected
+      DummyClass.tree_categories_to_html(:other_params => ['Some category 1', 'Some category 3']).should equal_without_whitespace expected
     end
   end
 
@@ -121,12 +121,12 @@ describe HtmlGenerator do
     it "should get a found page" do
       cp = ContentPage.create! :name => "Page one", :is_preview_only => false
       expected = '<a href="/content_pages/1">Page one</a>'
-      DummyClass.link_page_to_html('Page one').should equal_without_whitespace expected
+      DummyClass.link_page_to_html(:other_params => 'Page one').should equal_without_whitespace expected
     end
 
     it "should work for not found page" do
       expected = '<em>No page found named: Page none</em>'
-      DummyClass.link_page_to_html('Page none').should equal_without_whitespace expected
+      DummyClass.link_page_to_html(:other_params => 'Page none').should equal_without_whitespace expected
     end
   end
 
@@ -134,12 +134,12 @@ describe HtmlGenerator do
     it "should get a found category" do
       Category.create :name => "Some category 1"
       expected = '<a href="/categories/1">Some category 1</a>'
-      DummyClass.link_category_to_html('Some category 1').should equal_without_whitespace expected
+      DummyClass.link_category_to_html(:other_params => 'Some category 1').should equal_without_whitespace expected
     end
 
     it "should work for not found category" do
       expected = '<em>No category found named: Category none</em>'
-      DummyClass.link_category_to_html('Category none').should equal_without_whitespace expected
+      DummyClass.link_category_to_html(:other_params => 'Category none').should equal_without_whitespace expected
     end
   end
 
