@@ -1,67 +1,9 @@
-<h1><%= link_to_events({
-  :no_wrapper => true
-}, {
-  :link_text => "Events"
-}) %>::<%= @event.name %></h1>
-
-  <p style="float: right;">
-    <%= links_to_edit_and_delete_event(@event, {}, {:class => 'fake_button'}) %>
-  </p>
-
-  <p><em><%= @event.event_type %></em></p>
-
-  <p>
-    <strong>When:</strong>
-    <%= @event.start_on %>
-    <% if @event.end_on %>
-      - <%=  @event.end_on %>
-    <% end %>
-  </p>
-
-  <% unless @event.location.blank? %>
-  <p>
-    <strong>Where:</strong><br/>
-    <%= textilize_without_paragraph @event.location %>
-  </p>
-  <% end %>
-
-  <% unless @event.description.blank? %>
-  <p>
-    <strong>Description/Other Details:</strong>
-    <%= textilize_without_paragraph @event.description %>
-  </p>
-  <% end %>
-  
-  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
-    :files => @event.file_attachments
-  } %>
-
-  <%= form_for_browse_event_revisions(@event) %>
-
-<% # disable for now, until attendees are functional
-if false && current_user && can?(:read, @event.attendees) %>
-<h3>Attendees/Participants</h3>
-
-  <% if @event.attendees.empty? %>
-    <p><em>No attendees for this event.</em></p>
-  <% else %>
-    
-    form stub
-
-    <% @event.participants.group_by(&:class).map do |type, participants| %>
-      <h4><%= link_to(pluralize(participants.size, type.to_s), engine_path(type)) %></h4>
-      <ol>
-      <% participants.each do |participant| %>
-        <% name_attr = participant.attribute_names.detect{|m_attr| m_attr =~ /name/} %>
-        <% if participant.respond_to?(:name) %>
-        <li><%= link_to(participant.send(name_attr), engine_path(participant)) %></li>
-        <% elsif name_attr %>
-        <li><%= link_to(participant.name, engine_path(participant)) %></li>
-        <% end %>
-      <% end %>
-      </ol>
-    <% end %>
-  
-    form stub end
-  <% end %>
-<% end %>
+<h1><%= link_to_events({:no_wrapper => true}, {:link_text => "Events"}) %>: <%= @event.name %></h1>
+<p style="float: right;">
+  <%= links_to_edit_and_delete_event(@event, {}, {:class => 'fake_button'}) %>
+</p>
+<%= render :partial => 'events/event_details', :object => @event %>
+<%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
+            :files => @event.file_attachments
+} %>
+<%= form_for_browse_event_revisions(@event) %>
