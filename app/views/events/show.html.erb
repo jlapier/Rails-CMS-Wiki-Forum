@@ -1,8 +1,4 @@
-<h1><%= link_to_events({:no_wrapper => true}, {:link_text => "Events"}) %>: <%= @event.name %></h1>
-<p style="float: right;">
-  <%= links_to_edit_and_delete_event(@event, {}, {:class => 'fake_button'}) %>
-</p>
-<%= render :partial => 'events/event_details', :object => @event %>
+<%= render @event %>
 <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
             :files => @event.file_attachments
 } %>

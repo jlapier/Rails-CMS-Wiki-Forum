@@ -1,4 +1,16 @@
+<%- unless details.one_day? %>
 <%= textilize(details.location) %>
 <%= textilize(details.description) %>
+<%- else -%>
+<div class="span-6">
+<%= textilize(details.location) %>
+<%= textilize(details.description) %>
+</div>
+
+<div class="span-6 last">
+  <%= render :partial => 'events/times', :object => times_with_zones(details) %>
+</div>
+<%- end -%>
+
 <h3>Materials</h3>
 <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>
