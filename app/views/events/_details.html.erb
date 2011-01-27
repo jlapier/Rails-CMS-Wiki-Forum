@@ -12,7 +12,9 @@
 </div>
 <%- end -%>
 
+<% unless details.file_attachments.empty? %>
 <div class="span-12 last">
-  <h3>Materials</h3>
+  <h3>Materials/Resources</h3>
   <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>  
 </div>
+<% end %>

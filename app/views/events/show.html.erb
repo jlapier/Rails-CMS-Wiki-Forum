@@ -1,5 +1,10 @@
 <%= render @event %>
-<%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
-            :files => @event.file_attachments
-} %>
+<% if current_user || @event.file_attachments.any? %>
+<div>
+  <p><strong>Materials/Resources</strong></p>
+  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
+              :files => @event.file_attachments
+  } %>  
+</div>
+<% end %>
 <%= form_for_browse_event_revisions(@event) %>
