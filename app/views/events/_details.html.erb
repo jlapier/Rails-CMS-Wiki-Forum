@@ -8,13 +8,15 @@
 </div>
 
 <div class="span-6 last">
-  <%= render :partial => 'events/times', :object => times_with_zones(details) %>
+  <%= event_times(details) %>
 </div>
 <%- end -%>
 
 <% unless details.file_attachments.empty? %>
 <div class="span-12 last">
   <h3>Materials/Resources</h3>
-  <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>  
+  <%- @event = details -%>
+  <%= render details.links.all %>
+  <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>
 </div>
 <% end %>

@@ -19,6 +19,7 @@ form.formtastic li {
 
 form.formtastic fieldset ol li { vertical-align:top; }
 form.formtastic fieldset ol li label { width: 30%; }
+form.formtastic fieldset ol li.url input { width: 67%; }
 form.formtastic fieldset ol li.string input { width: 69%; }
 form.formtastic fieldset ol li.string input { width: 69%; }
 form.formtastic fieldset ol li.text textarea { width: 69%; height: 70px; }
@@ -28,6 +29,10 @@ form.formtastic fieldset ol li p.inline-hints {
   color:#666666;
   font-size:11px;
   margin:0.3em 0 0 25%;
+}
+
+form.dynamic {
+  padding: 20px;
 }
 
 #event_start_on_input label { width: 49% }

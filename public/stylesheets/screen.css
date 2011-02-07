@@ -385,14 +385,6 @@ table.fc-header {width:100%;}
 #calendar_front_page h2 {font-size:1.3em
 ;}
 div.select_popper_box ul li:hover {background:#EEE;}
-form.formtastic li {width:380px;margin-right:40px;}
-form.formtastic fieldset ol li {vertical-align:top;}
-form.formtastic fieldset ol li label {width:30%;}
-form.formtastic fieldset ol li.string input {width:69%;}
-form.formtastic fieldset ol li.string input {width:69%;}
-form.formtastic fieldset ol li.text textarea {width:69%;height:70px;}
-form.formtastic fieldset ol li.check_boxes fieldset ol li label {font-weight:normal;padding-left:40px;}
-form.formtastic fieldset ol li p.inline-hints {color:#666666;font-size:11px;margin:0.3em 0 0 25%;}
 #event_start_on_input label {width:49%
 ;}
 #event_start_on {width:50%
@@ -401,6 +393,7 @@ form.formtastic fieldset ol li p.inline-hints {color:#666666;font-size:11px;marg
 ;}
 #event_end_on {width:50%
 ;}
+.enlarge {font-size:115%;}
 
 /* fancy-type */
 p + p {text-indent:2em;margin-top:-1.5em;}
@@ -438,6 +431,15 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {top:0
 ;}
 .error, .notice, .success {margin:10px;}
 .caps {font-size:1em;font-variant:normal;letter-spacing:0;padding:0;text-transform:none;}
+form.formtastic li {width:380px;margin-right:40px;}
+form.formtastic fieldset ol li {vertical-align:top;}
+form.formtastic fieldset ol li label {width:30%;}
+form.formtastic fieldset ol li.string input {width:69%;}
+form.formtastic fieldset ol li.string input {width:69%;}
+form.formtastic fieldset ol li.text textarea {width:69%;height:70px;}
+form.formtastic fieldset ol li.check_boxes fieldset ol li label {font-weight:normal;padding-left:40px;}
+form.formtastic fieldset ol li p.inline-hints {color:#666666;font-size:11px;margin:0.3em 0 0 25%;}
+.collapsible {cursor:pointer;}
 .base_content {background:#fff;}
 .inner_content {padding:16px;}
 .top-banner {background:#336;-webkit-border-bottom-left-radius:8px;-moz-border-radius-bottomleft:8px;border-bottom-left-radius:8px;}

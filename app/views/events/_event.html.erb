@@ -1,7 +1,11 @@
+<% unless event.nil? %>
 <%= div_for_record(event) do -%>
   <h1><%= link_to_events({:no_wrapper => true}, {:link_text => "Events"}) %>: <%= event.name %> (<em><%= event.event_type %></em>)</h1>
   <p style="float: right;">
-    <%= links_to_edit_and_delete_event(@event, {}, {:class => 'fake_button'}) %>
+    <%= links_to_edit_and_delete_event(event, {}, {:class => 'fake_button'}) if event.current_revision? %>
   </p>
   <%= render :partial => 'events/event_details', :object => event %>
+  
+  <%= render :partial => 'links/links' if event.current_revision? %>
+<% end %>
 <% end %>
