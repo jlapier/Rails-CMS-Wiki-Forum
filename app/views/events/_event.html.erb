@@ -5,7 +5,9 @@
     <%= links_to_edit_and_delete_event(event, {}, {:class => 'fake_button'}) if event.current_revision? %>
   </p>
   <%= render :partial => 'events/event_details', :object => event %>
-  
+  <%- if event.current_revision? && (event.links.count > 0 || event.file_attachments.count > 0) -%>
+  <p><strong>Materials/Resources</strong></p>
+  <%- end -%>
   <%= render :partial => 'links/links' if event.current_revision? %>
 <% end %>
 <% end %>

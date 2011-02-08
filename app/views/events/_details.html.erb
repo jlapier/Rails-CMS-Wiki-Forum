@@ -12,11 +12,11 @@
 </div>
 <%- end -%>
 
-<% unless details.file_attachments.empty? %>
+<%- if details.file_attachments.count > 0 || details.links.count > 0 -%>
+<%- @event = details -%>
 <div class="span-12 last">
   <h3>Materials/Resources</h3>
-  <%- @event = details -%>
   <%= render details.links.all %>
   <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>
 </div>
-<% end %>
+<%- end -%>
