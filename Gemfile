@@ -12,10 +12,10 @@ gem 'acts_as_revisable', {
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
-gem 'RedCloth'
-gem 'event_calendar_engine', '~> 0.2.4', :require => 'event_calendar'
+gem 'event_calendar_engine', '~> 0.2.5', :require => 'event_calendar'
 gem 'file_share', '~> 0.1.8'
 gem 'formtastic'
+gem 'RedCloth'
 gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"
 
@@ -28,3 +28,4 @@ end
 group :production do
   gem 'mysql'
 end
+
