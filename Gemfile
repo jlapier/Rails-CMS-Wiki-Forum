@@ -20,9 +20,11 @@ gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"
 
 group :development, :test do
+  gem 'capybara'
+  gem 'cucumber-rails'
   gem 'rspec-rails'
-  gem 'webrat'
   gem 'factory_girl'
+  gem 'webrat'
 end
 
 group :production do

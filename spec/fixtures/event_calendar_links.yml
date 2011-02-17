@@ -1,0 +1,4 @@
+editable_link:
+  id: <%= Fixtures.identify :editable_link %>
+  name: Editable Link
+  url: http://test.com/

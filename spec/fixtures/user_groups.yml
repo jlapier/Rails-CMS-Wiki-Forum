@@ -1,13 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: user_groups
-#
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  special :text(255)     
-# End Schema
-
 wiki_reader:
   name: Wiki Reader Access
   special: ---

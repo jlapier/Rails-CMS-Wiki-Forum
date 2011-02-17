@@ -1,0 +1,27 @@
+editable_event:
+  id: <%= Fixtures.identify :editable_event %>
+  name: Editable Event
+  event_type: Conference
+  location: "Eugene, Oregon"
+  description: "Will be great! Lots of good info, food and drinks!"
+  start_on: "2010-10-14"
+  end_on: "2010-10-15"
+  timezone: 'Pacific Time (US & Canada)'
+
+restorable_event:
+  id: <%= Fixtures.identify :restorable_event %>
+  name: Restorable Event
+  event_type: Meeting
+  location: "Portland, Oregon"
+  start_on: 2011-02-04 14:00:00.000000
+  end_on: 2011-02-04 15:00:00.000000
+  timezone: 'Pacific Time (US & Canada)'
+  
+linkable_event:
+  id: <%= Fixtures.identify :linkable_event %>
+  name: Linkable Event
+  event_type: Meeting
+  location: "Portland, Oregon"
+  start_on: 2011-02-04 14:00:00.000000
+  end_on: 2011-02-04 15:00:00.000000
+  timezone: 'Pacific Time (US & Canada)'

@@ -1,0 +1,3 @@
+linkable_event_editable_link:
+  event_id: <%= Fixtures.identify :linkable_event %>
+  link_id: <%= Fixtures.identify :editable_link %>
