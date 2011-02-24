@@ -9,6 +9,7 @@ class Ability
     end
     
     alias_action :list_by_tag, :to => :read
+    alias_action :search, :to => :read
   end
   
   def setup_admin

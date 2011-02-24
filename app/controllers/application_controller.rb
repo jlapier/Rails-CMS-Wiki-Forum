@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
     FileAttachment => [:read, :download]
   }
   
+  # these actions are accessible by users not logged in; used for EventCalendar and FileShare engines
+  READ_ACTIONS = %w(index show search download)
+
   before_filter :protect_event_calendar
   before_filter :protect_file_share
   
@@ -55,12 +58,11 @@ class ApplicationController < ActionController::Base
   def in_file_share?
     self.class.ancestors.include?(FileShare::ApplicationController)
   end
-  
+
   def protect_event_calendar
     if in_event_calendar?
       # allow all users to view events
-      unless controller_name == "events" && 
-              action_name =~ /(index|show)/
+      unless controller_name == "events" && READ_ACTIONS.include?(action_name)
         return require_admin_user
       end
     end
@@ -68,7 +70,7 @@ class ApplicationController < ActionController::Base
   
   def protect_file_share
     if in_file_share?
-      if controller_name == 'file_attachments' && action_name == 'download'
+      if controller_name == 'file_attachments' && READ_ACTIONS.include?(action_name)
         # allow anonymous users to view/download files
         return true
       end
