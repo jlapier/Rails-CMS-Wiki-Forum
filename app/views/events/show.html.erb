@@ -1,6 +1,6 @@
 <%= render @event %>
 <% if current_user || @event.file_attachments.any? %>
-<div>
+<div style="clear:both">
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
               :files => @event.file_attachments
   } %>  

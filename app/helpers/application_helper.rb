@@ -40,6 +40,8 @@ module ApplicationHelper
       "#{pre}User: #{@user.login}"
     elsif @user_group
       "#{pre}User Group: #{@user_group.name}"
+    elsif @event
+      "#{pre}Event: #{@event.name}"
     else
       controller_name.titleize
     end
@@ -130,7 +132,7 @@ module ApplicationHelper
     list = [
       'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
       'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
-      'cms_wiki_forum_behaviors'
+      'cms_wiki_forum_behaviors', '/ckeditor/ckeditor.js'
     ]
     unless Rails.env == 'production'
       list.unshift("jquery")

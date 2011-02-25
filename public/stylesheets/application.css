@@ -344,3 +344,9 @@ a.delete_x:hover { color: #F33; text-decoration: none; border: none; }
 .links p.new {
   float: right;
 }
+
+ul.events, ul.events ul { list-style: none; }
+ul.events .closed:before { content: '+ ' }
+ul.events .closed:hover { text-decoration: underline; }
+ul.events .open:before { content: '- ' }
+.link_url { display:none; }
