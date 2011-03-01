@@ -15,7 +15,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.5)
+    RedCloth (4.2.7)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -74,7 +74,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    event_calendar_engine (0.2.7)
+    event_calendar_engine (0.2.8)
       RedCloth
       RedCloth
       acts_as_revisable
@@ -85,6 +85,7 @@ GEM
       prarupa
       prarupa
       rails (= 3.0.3)
+      will_paginate (~> 3.0.pre2)
       will_paginate (~> 3.0.pre2)
     factory_girl (1.3.3)
     ffi (0.6.3)
@@ -185,7 +186,7 @@ DEPENDENCIES
   cancan
   capybara
   cucumber-rails
-  event_calendar_engine (~> 0.2.7)
+  event_calendar_engine (~> 0.2.8)
   factory_girl
   file_share (~> 0.1.8)
   formtastic

@@ -1,6 +1,7 @@
 class DashboardsController < ApplicationController
     
   before_filter :require_admin_user
+  helper EventsHelper
   
   private
   
