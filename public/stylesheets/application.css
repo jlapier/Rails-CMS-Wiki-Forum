@@ -222,6 +222,9 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 
 th.sorted_by { background: #99C; }
 
+ul.side_by_side li { display: inline; padding-right: 20px; }
+ul.side_by_side li img { vertical-align: middle; }
+
 #tagCloud {
   width:250px; background-color:#EEE; text-align:center; padding:5px;
   overflow:auto; font-size:70%; font-family: Arial, sans-serif;

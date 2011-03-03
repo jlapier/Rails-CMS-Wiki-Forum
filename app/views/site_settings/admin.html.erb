@@ -1,15 +1,38 @@
 <h1>Site Administration</h1>
 
-<ul>
-  <li><%= link_to 'List of Content Pages', content_pages_path %></li>
-  <li><%= link_to 'List of Categories', categories_path %></li>
-  <li><%= link_to 'Manage Events', event_calendar_dashboard_path %></li>
-  <li><%= link_to 'Manage Files', file_attachments_path %></li>
-  <li><%= link_to 'Site-wide Settings', site_settings_path %></li>
-  <li><%= link_to 'User Management', users_path %></li>
-  <li><%= link_to 'User Groups', user_groups_path %></li>
-  <li><%= link_to 'Wikis', wikis_path %></li>
-  <li><%= link_to 'Forums', forums_path %></li>
-  <li><%= link_to 'Theme/Styling', :controller => :themes %></li>
-  <li><%= link_to 'Custom CSS', :controller => :themes, :action => :css_editor %></li>
+<h2>Public Content</h2>
+<ul class="side_by_side">
+  <li><%= link_to image_tag('icons/page_white_stack.png') + ' List of Content Pages', content_pages_path %></li>
+  <li><%= link_to image_tag('icons/text_list_bullets.png') + ' List of Categories', categories_path %></li>
+  <li><%= link_to image_tag('icons/calendar.png') + ' Manage Events', event_calendar_dashboard_path %></li>
+  <li><%= link_to image_tag('icons/folder_page.png') + ' Manage Files', file_attachments_path %></li>
 </ul>
+ 
+<br/>
+
+<h2>Protected Content</h2>
+<ul class="side_by_side">
+  <li><%= link_to image_tag('icons/page_white_text.png') + ' Wikis', wikis_path %></li>
+  <li><%= link_to image_tag('icons/user_comment.png') + ' Forums', forums_path %></li>
+</ul>
+
+<br/>
+
+<h2>User and Group Management</h2>
+<ul class="side_by_side">
+  <li><%= link_to image_tag('icons/user.png') + ' User Management', users_path %></li>
+  <li><%= link_to image_tag('icons/group.png') + ' User Groups', user_groups_path %></li>
+</ul>
+
+<br/>
+
+<h2>Look and Feel</h2>
+<ul class="side_by_side">
+  <li><%= link_to image_tag('icons/wrench.png') + ' Site-wide Settings', site_settings_path %></li>
+  <li><%= link_to image_tag('icons/layout_content.png') + ' Theme/Styling', :controller => :themes %></li>
+  <li><%= link_to image_tag('icons/page_white_code.png') + ' Custom CSS', :controller => :themes, :action => :css_editor %></li>
+</ul>
+
+<br/>
+
+
