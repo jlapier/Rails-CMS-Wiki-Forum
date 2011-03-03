@@ -12,7 +12,7 @@ gem 'acts_as_revisable', {
 gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
-gem 'event_calendar_engine', '~> 0.2.8', :require => 'event_calendar'
+gem 'event_calendar_engine', '~> 0.2.10', :require => 'event_calendar'
 gem 'file_share', '~> 0.1.8'
 gem 'formtastic'
 gem 'RedCloth', :require => 'redcloth'
