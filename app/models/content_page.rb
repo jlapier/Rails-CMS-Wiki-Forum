@@ -71,7 +71,7 @@ class ContentPage < ActiveRecord::Base
         param.strip!
       end
       
-      limit = limit.to_i
+      limit = limit ? limit.to_i : nil
 
       params_to_send = { :use_homelink => use_homelink,
         :order => order_string_from_sort_in_function(sort_order),
