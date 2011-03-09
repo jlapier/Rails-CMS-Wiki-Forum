@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/inertialbit/acts_as_revisable.git
-  revision: ac928ff786fbf0deb415ee9d8e7034b4d4b031ac
+  revision: 8f119c9cc7355756a763649c591a543d04e73bda
   branch: rails3
   specs:
     acts_as_revisable (1.1.2)
@@ -45,12 +45,12 @@ GEM
     activesupport (3.0.3)
     acts_as_versioned (0.6.0)
       activerecord (~> 3.0.0.beta4)
-    arel (2.0.8)
+    arel (2.0.9)
     authlogic-oid (1.0.4)
       authlogic
     builder (2.1.2)
     cancan (1.5.1)
-    capybara (0.4.1.1)
+    capybara (0.4.1.2)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -59,8 +59,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.3)
-    celerity (0.8.7)
-    childprocess (0.1.6)
+    celerity (0.8.8)
+    childprocess (0.1.7)
       ffi (~> 0.6.3)
     cucumber (0.10.0)
       builder (>= 2.1.2)
@@ -153,7 +153,7 @@ GEM
       rspec (~> 2.5.0)
     ruby-openid (2.1.8)
     rubyzip (0.9.4)
-    selenium-webdriver (0.1.2)
+    selenium-webdriver (0.1.3)
       childprocess (~> 0.1.5)
       ffi (~> 0.6.3)
       json_pure
