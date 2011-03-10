@@ -40,7 +40,7 @@
     CKEDITOR.replace( 'wiki_page[body]',
       {
         uiColor : '#819033',
-        filebrowserUploadUrl : '<%= upload_handler_wiki_wiki_page_path(@wiki, @wiki_page) %>'
+        filebrowserUploadUrl : '<%= upload_handler_wiki_wiki_page_path(@wiki, @wiki_page, :authenticity_token => form_authenticity_token) %>'
         //filebrowserBrowseUrl : '<%= page_link_handler_wiki_wiki_page_path(@wiki, @wiki_page) %>'
       });
   //]]>
