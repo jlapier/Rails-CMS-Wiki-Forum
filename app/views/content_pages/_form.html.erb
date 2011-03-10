@@ -77,7 +77,7 @@
     CKEDITOR.replace( 'content_page[body]',
       {
         uiColor : '#819033',
-        filebrowserUploadUrl : '<%= upload_handler_content_page_path(@content_page) %>',
+        filebrowserUploadUrl : '<%= upload_handler_content_page_path(@content_page, :authenticity_token => form_authenticity_token) %>',
         toolbar : 'Mid'
       });
 
