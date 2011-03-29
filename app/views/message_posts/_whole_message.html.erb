@@ -1,10 +1,14 @@
 <tr>
   <td class="leftside">
     posted <%= post_time message.created_at  %> by
-    <strong><%#= link_to message.user.name, '#TODO_link_to_users_profile'  %><%= message.user.full_name %></strong>
-    <div style="padding: 2px 4px;">
-      <%=raw gravatar_for message.user, :size => 80 %>
-    </div>
+    <% if message.user %>
+      <strong><%#= link_to message.user.name, '#TODO_link_to_users_profile'  %><%= message.user.full_name %></strong>
+      <div style="padding: 2px 4px;">
+        <%=raw gravatar_for message.user, :size => 80 %>
+      </div>
+    <% else %>
+      <em>unknown (deleted) user</em>
+    <% end %>
   </td>
   <td>
     <div style="float:left"><a name="<%= message.id %>" href="#<%= message.id %>"><strong><%= message.subject %></strong></a></div>
