@@ -18,6 +18,7 @@
     
     <%= stylesheet_link_tag 'application', 'text_and_colors', 'main_elements',
         'error_messages', 'formtastic', 'formtastic_changes' %>
+    <%= stylesheet_link_tag "skins/#{@theme_skin}.css" %>
     
 		<link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :colors,
       :name => @theme_colors, :format => 'css') %>?<%= @custom_colors_timestamp %>" type="text/css" media="screen"/>
@@ -38,7 +39,6 @@
     <%= yield :javascript %>
   </head>
   <body>
-    <%#= Template.new(@layout_file).render_template(self) %>
     <%= render :file => @layout_file %>
   </body>
 </html>
