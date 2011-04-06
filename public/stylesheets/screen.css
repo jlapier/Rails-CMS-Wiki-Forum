@@ -394,6 +394,7 @@ div.select_popper_box ul li:hover {background:#EEE;}
 #event_end_on {width:50%
 ;}
 .enlarge {font-size:115%;}
+.category_label {background:#999;color:#FFF;border:1px solid #333;font-size:12px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:0 3px;}
 
 /* fancy-type */
 p + p {text-indent:2em;margin-top:-1.5em;}
