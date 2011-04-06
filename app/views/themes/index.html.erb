@@ -9,6 +9,11 @@
     </p>
 
     <p>
+      <strong>Skin:</strong>
+      <%= select_tag :theme_skin, options_for_select( theme_skins_list, @theme_skin ) %>
+    </p>
+
+    <p>
       <strong>Color scheme:</strong>
       <%= select_tag :theme_colors, options_for_select( ['custom'] + COLOR_SCHEMES.keys, @theme_colors ) %>
     </p>

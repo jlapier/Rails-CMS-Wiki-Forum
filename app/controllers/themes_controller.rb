@@ -48,6 +48,7 @@ class ThemesController < ApplicationController
     SiteSetting.write_setting('custom colors timestamp', Time.now.to_i)
     
     SiteSetting.write_setting 'theme layout', params[:theme_layout]
+    SiteSetting.write_setting 'theme skin', params[:theme_skin]
     SiteSetting.write_setting 'theme colors', params[:theme_colors]
     flash[:notice] = "Theme configuration updated."
     redirect_to :action => :index

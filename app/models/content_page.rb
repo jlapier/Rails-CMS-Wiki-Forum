@@ -104,6 +104,10 @@ class ContentPage < ActiveRecord::Base
     end
   end
 
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
+
   def body_for_display
     main = (body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
     if is_preview_only?
