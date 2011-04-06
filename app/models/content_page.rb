@@ -105,7 +105,7 @@ class ContentPage < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{name.parameterize}"
+    "#{id}-#{(name.presence || '').parameterize}"
   end
 
   def body_for_display

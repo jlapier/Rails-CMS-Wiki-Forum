@@ -8,11 +8,12 @@ describe "/content_pages/show.html.erb" do
   end
 
   before(:each) do
-    @content_page = stub_model(ContentPage,
+    @content_page = mock_model(ContentPage,
       :name => "value for name",
       :body_for_display => "value for body"
     )
-    @content_page.stub(:categories).and_return([stub_model(Category, :name => 'somecategory')])
+    #@content_page.stub(:name){ "value for name" }
+    @content_page.stub(:categories).and_return([mock_model(Category, :name => 'somecategory')])
     assign(:content_page, @content_page)
     view.stub!(:current_user).and_return(mock_user)
   end
