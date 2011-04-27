@@ -1,5 +1,7 @@
 class UserObserver < ActiveRecord::Observer
   def after_create(user)
-    Notifier.user_created(user).deliver
+    if User.count > 1
+      Notifier.user_created(user).deliver
+    end
   end
 end
