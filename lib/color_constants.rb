@@ -1,7 +1,21 @@
 module ColorConstants
-  COLOR_SCHEMES = {
+  COLOR_INDEXES = {
+    1 => 'top_menu_bg',
+    8 => 'top_menu_text'
+  }
 
-    'black and white' => %w(  #888888
+  COLOR_SCHEMES = {
+    'black and white' => %w(  #000066
+                              #FFFFFF
+                              #222222
+                              #FFFFFF
+                              #FFFFFF
+                              #FFFFFF
+                              #222222
+                              #FFFFFF
+                          ),
+
+    'grays' => %w(  #888888
                               #DDDDDD
                               #555555
                               #A8A8A8
