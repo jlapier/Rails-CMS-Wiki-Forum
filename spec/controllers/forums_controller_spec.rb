@@ -39,10 +39,16 @@ describe ForumsController do
   end
 
   describe "GET show" do
-    it "assigns the requested forum as @forum" do
+    before(:each) do
       Forum.stub!(:find).with("37").and_return(mock_forum)
+    end
+    it "assigns the requested forum as @forum" do
       get :show, :id => "37"
       assigns[:forum].should equal(mock_forum)
+    end
+    it "can render rss" do
+      get :show, :id => "37", :format => :rss
+      response.should render_template("show", :format => :rss)
     end
   end
 

@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+
   before_filter :require_admin_user, :except => [:index, :show]
   before_filter :get_forum, :only => [:show, :edit, :update, :destroy, :search]
   before_filter :require_forum_read_access, :only => [:show]
@@ -25,6 +26,7 @@ class ForumsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @forum }
+      format.rss
     end
   end
 
@@ -98,5 +100,9 @@ class ForumsController < ApplicationController
   protected
   def get_forum
     @forum ||= Forum.find(params[:id])
+  end
+  
+  def single_access_allowed?
+    action_name == 'show'
   end
 end

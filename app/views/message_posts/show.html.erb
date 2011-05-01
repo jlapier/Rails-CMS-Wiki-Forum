@@ -5,6 +5,10 @@
   <% end -%>
 </h1>
 
+<p class="small_text" style="text-align: right;">
+  <%= link_to_rss forum_url(@forum, :user_credentials => current_user.single_access_token, :format => :rss) %>
+</p>
+
 <% if @message_post %>
   <h2><%= @message_post.subject %></h2>
 <% end %>

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/forums/show.html.erb" do
   include ForumsHelper
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude', :full_name => 'Dude McDuder'}))
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :email => 'a@b', :name => 'dude', :full_name => 'Dude McDuder', :single_access_token => 'single access token'}))
   end
   
   before(:each) do
@@ -30,5 +30,6 @@ describe "/forums/show.html.erb" do
     rendered.should =~ (/messsub1/)
     rendered.should =~ (/messsub2/)
     rendered.should =~ (/Dude McDuder/)
+    rendered.should =~ (/single\+access\+token/)
   end
 end
