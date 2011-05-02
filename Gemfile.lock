@@ -45,6 +45,7 @@ GEM
     activesupport (3.0.3)
     acts_as_versioned (0.6.0)
       activerecord (~> 3.0.0.beta4)
+    annotate (2.4.0)
     arel (2.0.9)
     authlogic-oid (1.0.4)
       authlogic
@@ -181,6 +182,7 @@ DEPENDENCIES
   RedCloth
   acts_as_revisable!
   acts_as_versioned
+  annotate
   authlogic!
   authlogic-oid
   cancan
