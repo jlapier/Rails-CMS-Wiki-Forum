@@ -83,10 +83,6 @@ class ApplicationController < ActionController::Base
     Event.send :include, FileContainer
     EventsController.send :helper, FileAttachmentsHelper
   end
-  
-  protected
-  
-  public
 
   # checks to see if user is a member of a given access group - if not,
   # redirect to account controller
@@ -149,8 +145,7 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-
-  private
+  
     def get_menus
       @side_menu = ContentPage.get_side_menu
       @top_menu = ContentPage.get_top_menu
@@ -233,5 +228,52 @@ class ApplicationController < ActionController::Base
       File.open(File.join(actual_dir, file_name), 'wb') do |f|
         f.write(uploaded_file.read)
       end
+    end
+    
+    def save_asset_for(obj, asset)
+      rel_dir = asset_path_for(obj, :relative)
+      write_file(asset, rel_dir)
+      rel_dir
+    end
+    
+    def rm_asset_for(obj, asset)
+      file = File.join asset_path_for(obj), asset
+      File.exists?(file) and File.delete(file)
+    end
+    
+    def record_editing_user_for(obj)
+      unless obj.editing_user
+        obj.update_attributes :editing_user => current_user, :started_editing_at => Time.now
+      end
+    end
+    
+    def remove_editing_user_record_for(obj)
+      if obj.editing_user == current_user
+        obj.update_attributes :editing_user => nil, :started_editing_at => nil
+      end
+    end
+
+    def asset_path_prefix_for(obj)
+      case obj.class.to_s
+      when 'WikiPage'
+        'wiki_page'
+      when 'Blog::Post'
+        'blog_post'
+      else
+        obj.to_english
+      end
+    end
+
+    def asset_path_for(obj, path_type=:absolute)
+      if path_type == :absolute
+        return File.join Rails.root, 'public', asset_path_for(obj, :relative)
+      else path_type == :relative
+        prefix = asset_path_prefix_for(obj)
+        return File.join "#{prefix}_assets", "#{prefix}_#{obj.id}"
+      end
+    end
+
+    def list_assets_for(obj)
+      Dir[File.join(asset_path_for(obj), '*')].map { |f| File.basename(f) }
     end
 end

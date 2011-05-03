@@ -1,0 +1,24 @@
+<h1><%= link_to 'Blog:', blog_posts_path %> <%= @post.title %></h1>
+
+<%= wip_warning(@post) %>
+
+<%= render 'form' %>
+
+<h3>Assets in this Blog Post</h3>
+<% if @assets.empty? %>
+  <p><em>no assets found</em></p>
+<% else %>
+  <ul>
+    <% for asset in @assets %>
+      <li>
+        <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
+        <%= link_to "X", delete_asset_blog_post_path(@post, :asset => asset),
+              :confirm => "Really delete this file?", :method => :post,
+              :style => 'color:#F00' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= initialize_ckeditor('blog_post[body]', upload_handler_blog_post_path(@post)) %>
+<%= ckeditor_confirm_exit(un_edit_blog_post_path(@post)) %>

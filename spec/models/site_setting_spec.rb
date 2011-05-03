@@ -54,3 +54,18 @@ describe SiteSetting do
     read_val3.should == "override default"
   end
 end
+
+# == Schema Information
+#
+# Table name: site_settings
+#
+#  id                   :integer         not null, primary key
+#  setting_name         :string(255)
+#  setting_string_value :string(255)
+#  setting_text_value   :text
+#  setting_number_value :integer
+#  yamled               :boolean
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+

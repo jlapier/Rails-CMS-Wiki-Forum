@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: wikis
-#
-#  id          :integer       not null, primary key
-#  name        :string(255)   
-#  description :text          
-#  created_at  :datetime      
-#  updated_at  :datetime      
-# End Schema
-
 class Wiki < ActiveRecord::Base
   alias_attribute :title, :name
   has_many :wiki_pages
@@ -29,3 +17,15 @@ class Wiki < ActiveRecord::Base
     UserGroup.all_fix_wiki_access
   end
 end
+
+# == Schema Information
+#
+# Table name: wikis
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

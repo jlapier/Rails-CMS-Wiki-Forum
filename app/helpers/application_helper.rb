@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include CkeditorHelper
+  
   def top_menu
     @top_menu ? @top_menu.body_for_display : "TODO: create the top menu"
   end
@@ -86,7 +88,9 @@ module ApplicationHelper
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
-    end          
+    end
+    out += " | "
+    out += link_to("Blog", blog_posts_path)
     out += " | "
     out += link_to_events({:no_wrapper => true},
                                   {:link_text => 'Events'})

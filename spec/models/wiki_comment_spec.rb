@@ -111,3 +111,19 @@ describe WikiComment do
       <strong>someone</strong></span>did something</p>")
   end
 end
+
+# == Schema Information
+#
+# Table name: wiki_comments
+#
+#  id                 :integer         not null, primary key
+#  wiki_page_id       :integer
+#  user_id            :integer
+#  body               :text
+#  looking_at_version :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  about_wiki_page_id :integer
+#  wiki_id            :integer
+#
+

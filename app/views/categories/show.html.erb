@@ -1,4 +1,7 @@
-<h1>Pages in Category: <%= @category.name %></h1>
+
+<h1><%= link_to 'Categories:', categories_path %> <%= @category.name %></h1>
+
+<h2><%= link_to 'Pages', content_pages_path %></h2>
 
 <table cellspacing="2px" cellpadding="0" class="nice_table tablesorter">
   <thead>
@@ -29,11 +32,19 @@
   </tbody>
 </table>
 
+<h2><%= link_to 'Blog Posts', blog_posts_path %></h2>
+
+<%= render :partial => 'blog/posts/lead_in', :collection => @category.blog_posts,
+           :as => :post %>
+
 <% if is_admin? %>
   <p class="admin_links">
-    <%= link_to 'List of Pages', content_pages_path %> |
+    <span class="fake_button">
     <%= link_to 'List of Categories', categories_path %> |
+    <%= link_to 'List of Pages', content_pages_path %> |
+    <%= link_to 'List of Blog Posts', blog_posts_path %> |
     <%= link_to "Create a New Page in <em>#{@category.name}</em>".html_safe, new_content_page_path(:category_id => @category.id) %>
+    </span>
   </p>
 <% end %>
 

@@ -1,0 +1,9 @@
+<%= render :partial => 'blog/posts/author', :object => post.author %>
+
+<h1><%= link_to "Blog:", blog_posts_path %> <%= post.title %></h1>
+
+<%= link_to_delete_post(post) %> | <%= link_to_edit_post(post) %>
+
+<div>
+  <%= textilize_without_paragraph post.body %>
+</div>

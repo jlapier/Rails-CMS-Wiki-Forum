@@ -30,4 +30,3 @@ Feature: Create blog content
     And select a file "SomeFile.doc" from my computer
     And I press "OK"
     Then I should see a publicly accessible link to "SomeFile.doc" in the post body field
-    

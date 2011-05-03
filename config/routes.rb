@@ -33,7 +33,6 @@ RailsCMSWikiForum::Application.routes.draw do
   match 'themes/:action' => 'themes'
   match 'themes/:action/:name.:format' => 'themes'
 
-
   resources :site_settings do
     collection do
       get :admin
@@ -88,6 +87,17 @@ RailsCMSWikiForum::Application.routes.draw do
       post :add_users
       post :drop_user
       get :add_members
+    end
+  end
+  
+  namespace :blog do
+    get '/' => 'posts#index'
+    resources :posts do
+      member do
+        post :delete_asset
+        post :un_edit
+        post :upload_handler
+      end
     end
   end
 

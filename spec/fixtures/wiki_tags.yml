@@ -1,0 +1,10 @@
+
+# == Schema Information
+#
+# Table name: wiki_tags
+#
+#  id      :integer         not null, primary key
+#  name    :string(255)
+#  wiki_id :integer
+#
+

@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: forums
-#
-#  id                     :integer       not null, primary key
-#  title                  :string(255)   
-#  description            :text          
-#  position               :integer       
-#  moderator_only         :boolean       
-#  newest_message_post_id :integer       
-#  created_at             :datetime      
-#  updated_at             :datetime      
-# End Schema
-
 class Forum < ActiveRecord::Base
   alias_attribute :name, :title
   
@@ -35,3 +20,18 @@ class Forum < ActiveRecord::Base
     UserGroup.all_fix_forum_access
   end
 end
+
+# == Schema Information
+#
+# Table name: forums
+#
+#  id                     :integer         not null, primary key
+#  title                  :string(255)
+#  description            :text
+#  position               :integer
+#  moderator_only         :boolean
+#  newest_message_post_id :integer
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+

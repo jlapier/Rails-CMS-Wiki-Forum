@@ -11,3 +11,13 @@ describe WikiTag do
     WikiTag.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: wiki_tags
+#
+#  id      :integer         not null, primary key
+#  name    :string(255)
+#  wiki_id :integer
+#
+

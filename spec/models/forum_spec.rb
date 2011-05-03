@@ -14,3 +14,18 @@ describe Forum do
     Forum.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: forums
+#
+#  id                     :integer         not null, primary key
+#  title                  :string(255)
+#  description            :text
+#  position               :integer
+#  moderator_only         :boolean
+#  newest_message_post_id :integer
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+

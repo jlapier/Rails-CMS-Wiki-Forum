@@ -1,20 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: content_pages
-#
-#  id                 :integer       not null, primary key
-#  name               :string(255)   
-#  body               :text          
-#  special            :string(255)   
-#  created_at         :datetime      
-#  updated_at         :datetime      
-#  is_preview_only    :boolean       
-#  started_editing_at :datetime      
-#  editing_user_id    :integer       
-#  publish_on         :date          
-# End Schema
-
 require 'html_generator'
 class ContentPage < ActiveRecord::Base
   include HtmlGenerator
@@ -127,3 +110,20 @@ class ContentPage < ActiveRecord::Base
     self.is_preview_only = true if is_preview_only.nil?
   end
 end
+
+# == Schema Information
+#
+# Table name: content_pages
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  body               :text
+#  special            :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  is_preview_only    :boolean
+#  started_editing_at :datetime
+#  editing_user_id    :integer
+#  publish_on         :date
+#
+

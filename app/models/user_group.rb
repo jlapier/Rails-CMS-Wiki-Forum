@@ -2,16 +2,6 @@
 #
 #
 #
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: user_groups
-#
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  special :text(255)     
-# End Schema
-
 class UserGroup < ActiveRecord::Base
   SPECIAL_ACCESS = [ 'Wiki Reader', 'Wiki Editor', 'Forum Poster', 'Forum Moderator' ]
 
@@ -137,3 +127,13 @@ class UserGroup < ActiveRecord::Base
     self.special[:wikis].reject!  { |w_id, access| access == "none" }
   end
 end
+
+# == Schema Information
+#
+# Table name: user_groups
+#
+#  id      :integer         not null, primary key
+#  name    :string(255)
+#  special :text(255)
+#
+

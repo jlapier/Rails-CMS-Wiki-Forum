@@ -1,21 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: message_posts
-#
-#  id            :integer       not null, primary key
-#  subject       :string(255)   
-#  body          :text(16777215 
-#  forum_id      :integer       
-#  parent_id     :integer       
-#  user_id       :integer       
-#  to_user_id    :integer       
-#  thread_id     :integer       
-#  replied_to_at :datetime      
-#  created_at    :datetime      
-#  updated_at    :datetime      
-# End Schema
-
 class MessagePost < ActiveRecord::Base
   belongs_to :forum
   belongs_to :user
@@ -63,3 +45,21 @@ class MessagePost < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: message_posts
+#
+#  id            :integer         not null, primary key
+#  subject       :string(255)
+#  body          :text(16777215)
+#  forum_id      :integer
+#  parent_id     :integer
+#  user_id       :integer
+#  to_user_id    :integer
+#  thread_id     :integer
+#  replied_to_at :datetime
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

@@ -11,38 +11,15 @@
     <% end %>
   </p>
 
-  
-  <% if @wiki_page.new_record? %>
-    <p><em>Note: after creating this new wiki page, you will be able to edit the body</em></p>
-  <% else %>
-    <div class="small_text" style="border: 1px solid #666; background: #FFD; padding: 4px 8px; margin-bottom: 12px;">
-      To easily link to another wiki page, just use the format:<br/>
-      [[Title of Another Page]]
-    </div>
-    <%= f.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
-  <% end %>
-
-
-<p>
-  Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %><br/>
-  <em style="margin-left: 25px;">Common tags:</em>
-  <%= @wiki_tags[0..20].map(&:name).join(', ') %>
-</p>
+  <%= ckeditor_text_area(f) %>
 
   <p>
-    <%= f.submit "Save", :onclick => "needToConfirm = false;" %>
+    Tags (comma-separated): <%= f.text_field :wiki_tags_string, :size => 50 %><br/>
+    <em style="margin-left: 25px;">Common tags:</em>
+    <%= @wiki_tags[0..20].map(&:name).join(', ') %>
   </p>
-<% end %>
 
-<% unless @wiki_page.new_record? %>
-<script type="text/javascript">
-  //<![CDATA[
-    CKEDITOR.replace( 'wiki_page[body]',
-      {
-        uiColor : '#819033',
-        filebrowserUploadUrl : '<%= upload_handler_wiki_wiki_page_path(@wiki, @wiki_page, :authenticity_token => form_authenticity_token) %>'
-        //filebrowserBrowseUrl : '<%= page_link_handler_wiki_wiki_page_path(@wiki, @wiki_page) %>'
-      });
-  //]]>
-</script>
+  <p>
+    <%= ckeditor_confirm_exit_submit(f) %>
+  </p>
 <% end %>

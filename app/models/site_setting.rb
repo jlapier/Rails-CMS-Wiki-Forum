@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: site_settings
-#
-#  id                   :integer       not null, primary key
-#  setting_name         :string(255)   
-#  setting_string_value :string(255)   
-#  setting_text_value   :text          
-#  setting_number_value :integer       
-#  yamled               :boolean       
-#  created_at           :datetime      
-#  updated_at           :datetime      
-# End Schema
-
 class SiteSetting < ActiveRecord::Base
   validates_presence_of :setting_name
 
@@ -88,3 +73,18 @@ end
 
 
 SiteSetting.partial_updates = false
+
+# == Schema Information
+#
+# Table name: site_settings
+#
+#  id                   :integer         not null, primary key
+#  setting_name         :string(255)
+#  setting_string_value :string(255)
+#  setting_text_value   :text
+#  setting_number_value :integer
+#  yamled               :boolean
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
