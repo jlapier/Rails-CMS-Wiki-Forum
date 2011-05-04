@@ -42,6 +42,10 @@ describe MessagePostsController do
       get :show, :forum_id => "12", :id => "37"
       assigns[:message_post].should equal(mock_message_post)
     end
+    it "can render rss" do
+      get :show, :forum_id => "12", :id => "37", :format => :rss
+      response.should render_template("show", :format => :rss)
+    end
   end
 
   describe "GET new" do

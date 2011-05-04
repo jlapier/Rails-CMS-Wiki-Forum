@@ -5,7 +5,7 @@ describe "/message_posts/show.html.erb" do
 
   def mock_user(stubs={})
     @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true, :name => "dude", :full_name => 'Dude McDuder',
-          :email => "a@b"}))
+          :email => "a@b", :single_access_token => 'single access token'}))
   end
 
   before(:each) do
@@ -31,9 +31,10 @@ describe "/message_posts/show.html.erb" do
     view.stub!(:current_user).and_return(mock_user)
   end
 
-  it "renders attributes in some page not really used I think" do
+  it "renders a subject, body and single access token (for rss link)" do
     render
     rendered.should =~ (/value\ for\ subject/)
     rendered.should =~ (/value\ for\ body/)
+    rendered.should =~ (/single\+access\+token/)
   end
 end
