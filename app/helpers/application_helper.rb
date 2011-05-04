@@ -151,4 +151,8 @@ module ApplicationHelper
   def link_to_rss(path)
     link_to ("RSS feed "+image_tag("feed-icon.gif")).html_safe, path
   end
+  def nice_date(date)
+    return '' if date.nil?
+    "#{date.strftime('%A')} #{date.strftime('%B')} #{date.strftime('%d').to_i.ordinalize}, #{date.year}"
+  end
 end

@@ -127,4 +127,9 @@ describe ApplicationHelper do
     files = ["somefile.js", "some_engine/somefile.js", "other.js"]
     helper.uniq_filenames(files).should eql [files[0], files[2]]
   end
+  
+  it "can turn instances of Date to nice string. eg 'Sunday May 1st, 2011'" do
+    date = Date.new(2011, 5, 1)
+    helper.nice_date(date).should eq "Sunday May 1st, 2011"
+  end
 end

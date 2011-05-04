@@ -1,11 +1,13 @@
 <div style="padding: 15px;">
   <%= render :partial => 'blog/posts/author', :object => post.author %>
   
-  <h3><%= link_to post.title, blog_post_path(post) %></h3>
+  <h3 style="margin-bottom: 5px;"><%= link_to post.title, blog_post_path(post) %></h3>
 
-  <div style="padding: 10px;">    
+  <div style="padding: 10px;">
+    <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
+    
     <% last_p_index = (post.body.index('</p>') || 105) %>
-    <%= textilize_without_paragraph(post.body.truncate(last_p_index+5, :separator => "\n", :omission => '')) %>
+    <%=raw post.body.truncate(last_p_index+5, :separator => "\n", :omission => '') %>
 
     <p style="float: right; margin-right: 60px;"><span class="fake_button"><%= link_to_delete_post(post) %> | <%= link_to_edit_post(post) %></span> <%= link_to_read_more(post) %></p>
     
