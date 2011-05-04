@@ -3,7 +3,6 @@ module CkeditorHelper
     upload_path += "?authenticity_token=#{form_authenticity_token}"
     javascript_tag do
       %Q{CKEDITOR.replace('#{textarea_id}', {
-        uiColor: '#819033',
         filebrowserUploadUrl: '#{upload_path}'
       });}
     end
