@@ -270,5 +270,7 @@ describe Blog::PostsController do
       end
     end
   end
+  
+  it "allows only admins to publish blog posts"
 
 end

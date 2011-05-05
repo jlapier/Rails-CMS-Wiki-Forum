@@ -1,6 +1,6 @@
 <%= semantic_form_for @post do |form| %>
   <%= form.inputs do %>
-    <%= form.input :published %>
+    <%= form.input :published if is_admin? %>
     <%= form.input :category %>
     <%= form.input :title %>
     <%= ckeditor_text_area(form) %>
