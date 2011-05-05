@@ -90,11 +90,20 @@ module ApplicationHelper
               link_to( "Log In", new_user_session_path)
     end
     out += " | "
-    out += link_to("Blog", blog_posts_path)
+    out += link_to("Blog", path_to_blog_posts)
     out += " | "
     out += link_to_events({:no_wrapper => true},
                                   {:link_text => 'Events'})
     out.html_safe
+  end
+  
+  def path_to_blog_posts
+    if is_admin? # only let admin create/publish for now
+                 # not sure we want to weave blog permissions into UserGroup at this point
+      blog_posts_path 
+    else
+      blog_public_path
+    end      
   end
 
   def images_list

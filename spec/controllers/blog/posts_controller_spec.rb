@@ -17,9 +17,23 @@ describe Blog::PostsController do
     controller.stub(:current_user){ mock_user }
   end
 
+  describe "GET 'public'" do
+    before(:each) do
+      Blog::Post.stub_chain(:published, :order){ [subject] }
+    end
+    it "loads published @posts" do
+      get :public
+      assigns(:posts).should eq [subject]
+    end
+    it "renders blog/posts/public" do
+      get :public
+      response.should render_template("blog/posts/public")
+    end
+  end
+
   describe "GET 'index'" do
     it "loads @posts" do
-      Blog::Post.stub_chain(:order, :limit){ [subject] }
+      Blog::Post.stub(:order){ [subject] }
       get :index
       assigns(:posts).should eq [subject]
     end

@@ -1,11 +1,15 @@
 module Blog
   class PostsController < ApplicationController
-    before_filter :require_user, :except => :index
+    before_filter :require_user, :except => :public
 #    before_filter :require_post_read_access, :only => [:show]
 #    before_filter :require_post_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
 
+    def public
+      @posts = Post.published.order('created_at DESC')
+    end
+
     def index
-      @posts = Post.order('created_at DESC').limit(5)
+      @posts = Post.order('created_at DESC, published')
     end
 
     def new
