@@ -20,6 +20,7 @@ class MessagePostsController < ApplicationController
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @message_post }
+        format.rss
       end
     end
   end
@@ -98,5 +99,8 @@ class MessagePostsController < ApplicationController
   protected
   def get_forum
     @forum ||= Forum.find(params[:forum_id])
+  end
+  def single_access_allowed?
+    action_name == 'show'
   end
 end

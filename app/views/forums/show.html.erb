@@ -8,7 +8,10 @@
   <%= @users_with_access.map(&:full_name).join(', ') %>
 </p>
 
-<div style="float:right">
+<div style="float:right;">
+  <p class="small_text" style="text-align: right;">
+    <%= link_to_rss forum_url(@forum, :user_credentials => current_user.single_access_token, :format => :rss) %>
+  </p>
   <%= form_tag(search_forum_path(@forum),  :method => :get  ) do %>
     <%= text_field_tag :q, "quick search", :onfocus => "$('q').value='';" %>
     <%= submit_tag "Go" %>
@@ -35,3 +38,6 @@
   <%= render :partial => "/message_posts/message_form", :locals => { :message_post => @new_message_post } %>
 <% end -%>
 
+<p class="small_text">
+  Go to <a href="http://en.gravatar.com/">gravatar.com</a> to upload picture for your signetwork account. By doing so your photo will appear next to your discussion posts.
+</p>

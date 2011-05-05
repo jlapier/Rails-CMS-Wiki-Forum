@@ -144,4 +144,7 @@ module ApplicationHelper
       list.unshift("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
     end
   end
+  def link_to_rss(path)
+    link_to ("RSS feed "+image_tag("feed-icon.gif")).html_safe, path
+  end
 end
