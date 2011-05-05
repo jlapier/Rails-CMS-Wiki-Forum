@@ -16,13 +16,9 @@
       <td style="text-align: right; border-bottom: 2px solid #DDE; width:225px">
         <p class="small_text" style="color: #666;">Most recent:
           <% if forum.most_recent_post -%>
-            <%= link_to forum.most_recent_post.subject, :action => :thread,
-                  :thread_id => forum.most_recent_post.thread_id || forum.most_recent_post.id,
-                  :page => Message.last_page_number_for(
-                      :thread_id => forum.most_recent_post.thread_id || forum.most_recent_post.id),
-                  :anchor => "bottom" %><br/>
-            by <%= link_to forum.most_recent_post.user.name, :action => :log,
-                    :login => forum.most_recent_post.user.login %>
+            <%= link_to forum.most_recent_post.subject,
+                  forum_message_post_path(forum, forum.most_recent_post) %><br/>
+            by <%= forum.most_recent_post.user.name %>
             posted <%= post_time forum.most_recent_post.created_at %>
           <% else -%>
             <em>no messages</em>
