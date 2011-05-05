@@ -2,7 +2,7 @@
 
 <h1><%= link_to "Blog:", blog_posts_path %> <%= post.title %></h1>
 
-<span class="fake_button"><%= link_to_delete_post(post) %> | <%= link_to_edit_post(post) %></span>
+<span class="fake_button"><%= link_to_delete_post(post) %></span> <span class="fake_button"><%= link_to_edit_post(post) %></span>
 
 <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
 
