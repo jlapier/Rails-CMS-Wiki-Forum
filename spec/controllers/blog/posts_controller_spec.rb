@@ -3,10 +3,23 @@ require 'spec_helper'
 describe Blog::PostsController do
 
   subject{ mock_model(Blog::Post) }
+  
+  def mock_admin(stubs={})
+    stub_model(User, {:is_admin? => true})
+  end
+  
+  def mock_user(stubs={})
+    stub_model(User, {:is_admin? => false})
+  end
+  
+  before(:each) do
+    controller.stub(:require_user){ mock_user }
+    controller.stub(:current_user){ mock_user }
+  end
 
   describe "GET 'index'" do
     it "loads @posts" do
-      Blog::Post.stub(:limit){ [subject] }
+      Blog::Post.stub_chain(:order, :limit){ [subject] }
       get :index
       assigns(:posts).should eq [subject]
     end
@@ -93,6 +106,49 @@ describe Blog::PostsController do
     it "renders blog/posts/edit" do
       get :edit, :id => 1
       response.should render_template("blog/posts/edit")
+    end
+  end
+  
+  describe "PUT 'update' (:id => int, :blog_post => {})" do
+    let(:params){ {:some => 'attributes'} }
+    before(:each) do
+      subject.stub(:title){ 'Updating post' }
+      subject.stub(:update_attributes).with(params.stringify_keys){ false }
+      controller.stub(:remove_editing_user_record_for).with(subject)
+      Blog::Post.stub(:find).with(1){ subject }
+    end
+    it "loads a @post from :id" do
+      put :update, :id => 1, :blog_post => params
+      assigns(:post).should eq subject
+    end
+    it "updates the @post from :blog_post" do
+      subject.should_receive(:update_attributes).with(params.stringify_keys)
+      put :update, :id => 1, :blog_post => params
+    end
+    context "update succeeds :)" do
+      before(:each) do
+        subject.stub(:update_attributes){ true }
+      end
+      it "removes the editing user record for @post" do
+        controller.should_receive(:remove_editing_user_record_for).with(subject)
+        put :update, :id => 1, :blog_post => params
+      end
+      it "redirects to the blog post path w/ a flash[:notice]" do
+        put :update, :id => 1, :blog_post => params
+        response.should redirect_to blog_post_path(subject)
+        flash[:notice].should_not be_nil
+      end
+    end
+    context "update fails :(" do
+      it "loads @rel_dir and @assets for @post" do
+        put :update, :id => 1, :blog_post => params
+        assigns(:rel_dir).should eq "blog_post_assets/blog_post_#{subject.id}"
+        assigns(:assets).should be_kind_of Array
+      end
+      it "renders blog/posts/edit" do
+        put :update, :id => 1, :blog_post => params
+        response.should render_template("blog/posts/edit")
+      end
     end
   end
 

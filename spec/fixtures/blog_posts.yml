@@ -1,0 +1,6 @@
+published_post:
+  id: <%= Fixtures.identify :published_post %>
+  title: Published Post
+  body: "Unquestionably the biggest challenge facing any organization today is effectively locating, managing and analysing the constant stream of data."
+  author_id: <%= Fixtures.identify :john %>
+  published: true

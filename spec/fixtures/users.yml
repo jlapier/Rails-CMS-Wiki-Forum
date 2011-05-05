@@ -1,3 +1,24 @@
+admin:
+  login: admin
+  email: admin@test.com
+  first_name: Admin
+  last_name: Istrator
+  crypted_password: 4aefd3d0dcdb4ef9566a3060de2e3407d8333f56eb5d2a03cffa4b640734c1860f46bcdb3982ccf29b2abb4b9144666d1dea9d8716a964bd851db5845e2639c2
+  password_salt: tMdwHsfW0Dtz3gUSiYF
+  persistence_token: 8243b331ccb01cdcc8d78d8351a46b4534a0185c6b249a39d18d37f5eea99f3c773cda6aefd3e12115d78c0cf2c0c93773751249c22200a61d9b538bbba98e11
+  perishable_token: p8BdzCpF1JBsPYlqDxAz
+  is_admin: true
+  
+john:
+  login: john
+  email: john@test.com
+  first_name: John
+  last_name: Doe
+  crypted_password: 4aefd3d0dcdb4ef9566a3060de2e3407d8333f56eb5d2a03cffa4b640734c1860f46bcdb3982ccf29b2abb4b9144666d1dea9d8716a964bd851db5845e2639c2
+  password_salt: tMdwHsfW0Dtz3gUSiYF
+  persistence_token: 8243b331ccb01cdcc8d78d8351a46b4534a0185c6b249a39d18d37f5eea99f3c773cda6aefd3e12115d78c0cf2c0c93773751249c22200a61d9b538bbba98e11
+  perishable_token: p8BdzCpF1JBsPYlqDxAz
+  is_admin: false
 
 # == Schema Information
 #

@@ -6,7 +6,7 @@
   <div style="padding: 10px;">
     <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
     
-    <% last_p_index = (post.body.index('</p>') || 105) %>
+    <% last_p_index = (post.body.index('</p>', 700) || 700) %>
     <%=raw post.body.truncate(last_p_index+5, :separator => "\n", :omission => '') %>
 
     <p style="float: right; margin-right: 60px;"><span class="fake_button"><%= link_to_delete_post(post) %> | <%= link_to_edit_post(post) %></span> <%= link_to_read_more(post) %></p>

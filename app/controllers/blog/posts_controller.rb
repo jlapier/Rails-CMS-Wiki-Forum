@@ -1,7 +1,11 @@
 module Blog
   class PostsController < ApplicationController
+    before_filter :require_user, :except => :index
+#    before_filter :require_post_read_access, :only => [:show]
+#    before_filter :require_post_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
+
     def index
-      @posts = Post.limit(5)
+      @posts = Post.order('created_at DESC').limit(5)
     end
 
     def new
@@ -13,7 +17,8 @@ module Blog
       @post.author = current_user
       if @post.save
         respond_to do |format|
-          format.html{ redirect_to edit_blog_post_path(@post), :notice => "Saved post: #{@post.title}" }
+          append = current_user.is_admin? ? '' : ' Publication is pending moderator approval.'
+          format.html{ redirect_to edit_blog_post_path(@post), :notice => "Saved post: #{@post.title}.#{append}" }
         end
       else
         render :new
@@ -30,10 +35,13 @@ module Blog
     def update
       @post = Post.find params[:id]
       if @post.update_attributes params[:blog_post]
+        remove_editing_user_record_for @post
         respond_to do |format|
           format.html{ redirect_to blog_post_path(@post), :notice => "Updated post: #{@post.title}"}
         end
       else
+        @rel_dir = asset_path_for @post, :relative
+        @assets = list_assets_for @post
         render :edit
       end
     end

@@ -1,4 +1,6 @@
-
+category_some:
+  id: <%= Fixtures.identify :category_some %>
+  name: Some Wiki-provided Category
 # == Schema Information
 #
 # Table name: categories
