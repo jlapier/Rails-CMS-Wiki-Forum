@@ -13,6 +13,23 @@ describe Forum do
   it "should create a new instance given valid attributes" do
     Forum.create!(@valid_attributes)
   end
+  
+  it "finds the most recent message post in its collection" do
+    forum = Forum.create!(@valid_attributes)
+    msg1 = forum.message_posts.create!({
+      :subject => 'Subj 1',
+      :body => 'Bod 1',
+      :created_at => Date.new(2011, 5, 1),
+      :user_id => 1
+    })
+    msg2 = forum.message_posts.create!({
+      :subject => 'Subj 1',
+      :body => 'Bod 1',
+      :created_at => Date.current,
+      :user_id => 1
+    })
+    forum.most_recent_post.should eq msg2
+  end
 end
 
 # == Schema Information
