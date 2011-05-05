@@ -20,6 +20,7 @@ class MessagePostsController < ApplicationController
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @message_post }
+        format.atom
         format.rss
       end
     end
