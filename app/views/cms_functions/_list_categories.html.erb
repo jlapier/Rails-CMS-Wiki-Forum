@@ -1,0 +1,12 @@
+<ul>
+  <%= render(:partial => "cms_functions/homelink") if use_home_link %>
+
+  <% if categories.blank? %>
+    <li><em>No categories were found</em></li>
+  <% else %>
+    <% categories.each do |cat| %>
+      <li><a href="/categories/<%= cat.id %>"><%= cat.name %></a></li>
+      <%= link_to cat.name, category_path(cat) %>
+    <% end %>
+  <% end %>
+</ul>
