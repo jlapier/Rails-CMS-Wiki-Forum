@@ -23,6 +23,13 @@
   </thead>
   <tbody>
     <% @content_pages.each do |content_page| %>
+<% if @search_phrase %>
+<!--
+<%= strip_tags(content_page.body) %>
+<%= excerpt(strip_tags(content_page.body), @search_phrase, :radius => 75) %>
+<%= highlight(excerpt(strip_tags(content_page.body), @search_phrase, :radius => 75) || '', @search_phrase) %>
+-->
+<% end %>
       <tr>
         <td style="width:20%;">
           <%= link_to truncate(content_page.name, :length => 75), content_page %>

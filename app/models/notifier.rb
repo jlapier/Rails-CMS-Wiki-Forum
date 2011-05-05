@@ -11,8 +11,10 @@ class Notifier < ActionMailer::Base
   end
 
   def user_created(user, sent_at = Time.now)
+    admins = User.find_admins.map(&:email)
+    admins = 'root@localhost' if admins.empty?
     subject    "New user registered: #{user.fullname}"
-    recipients User.find_admins.map(&:email)
+    recipients admins
     from       SiteSetting.read_setting('site title')
     sent_on    sent_at
 
