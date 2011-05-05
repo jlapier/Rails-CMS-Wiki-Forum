@@ -12,7 +12,7 @@ class MessagePostsController < ApplicationController
   # GET /forums/1/message_posts/1
   # GET /forums/1/message_posts/1.xml
   def show
-    @message_post = @forum.message_posts.find(params[:id])
+    @message_post = MessagePost.find(params[:id]) #@forum.message_posts.find(params[:id])
     if @message_post.thread
       redirect_to forum_message_post_url(@forum, @message_post.thread, :anchor => @message_post.id)
     else
@@ -70,7 +70,7 @@ class MessagePostsController < ApplicationController
   # PUT /forums/1/message_posts/1
   # PUT /forums/1/message_posts/1.xml
   def update
-    @message_post = @forum.message_posts.find(params[:id])
+    @message_post = MessagePost.find(params[:id]) #@forum.message_posts.find(params[:id])
 
     respond_to do |format|
       if @message_post.update_attributes(params[:message_post])
@@ -87,7 +87,7 @@ class MessagePostsController < ApplicationController
   # DELETE /forums/1/message_posts/1
   # DELETE /forums/1/message_posts/1.xml
   def destroy
-    @message_post = @forum.message_posts.find(params[:id])
+    @message_post = MessagePost.find(params[:id]) #@forum.message_posts.find(params[:id])
     @message_post.destroy
 
     respond_to do |format|
