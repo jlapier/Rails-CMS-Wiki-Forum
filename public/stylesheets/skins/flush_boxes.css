@@ -5,7 +5,7 @@
 h1 { text-shadow: 1px 1px 4px #999; }
 
 #top_banner {
-  text-align:center; height: 100px;
+  text-align:center;
 }
 
 .base_content {
@@ -13,9 +13,9 @@ h1 { text-shadow: 1px 1px 4px #999; }
 }
 
 .header { 
-  border-width: 4px;
-  margin: 20px 0;
-  padding: 12px;
+  border-width: 1px;
+  margin: 0;
+  padding: 0;
   font-size: 150%;
 }
 
@@ -25,17 +25,16 @@ h1 { text-shadow: 1px 1px 4px #999; }
   margin: 0;
   text-align: center;
   list-style-type: none;
+  clear:both;
 }
 
-.header ul li a:link, .header ul li a:visited {  color: #DDD; text-decoration: none; }
-.header ul li a:hover {  color: #FFF; text-decoration: none; }
-
-.footer { margin: 30px 0; padding: 8px 12px; }
+.footer { margin: 0; padding: 8px 12px; }
 
 .side_pane {
   border-style: solid;
   border-width: 2px;
   padding: 10px;
+  margin-right: -10px;
 }
 
 .side_menu, .user_box { 
@@ -60,7 +59,9 @@ h1 { text-shadow: 1px 1px 4px #999; }
   margin-top: 20px;
 }
 
-
+.logo_box {
+  float:right;
+}
 
 /*    forum stuff    */
 

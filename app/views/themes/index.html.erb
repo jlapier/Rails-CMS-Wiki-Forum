@@ -15,28 +15,8 @@
 
     <p>
       <strong>Color scheme:</strong>
-      <%= select_tag :theme_colors, options_for_select( ['custom'] + COLOR_SCHEMES.keys, @theme_colors ) %>
+      <%= select_tag :theme_colors, options_for_select( theme_colors_list, @theme_colors ) %>
     </p>
-
-    <% if @theme_colors == 'custom' %>
-      <div style="float:left; width: 250px;">
-        <strong>Custom colors:</strong> &nbsp; 
-        <em>list one per line</em><br/>
-        <%= text_area_tag :custom_colors, @custom_colors.join("\n"), :cols => 70, :rows => 3,
-          :style => "vertical-align:middle; height: 160px; width: 200px;" %>
-      </div>
-    <% end %>
-      <table style="width: 180px;">
-        <tr>
-          <th colspan="2" style="text-align:center;">Current Colors</th>
-        </tr>
-        <% for hexcode in (@custom_colors.empty? ? COLOR_SCHEMES[@theme_colors] : @custom_colors) %>
-          <tr>
-            <td style="width: 100px; background: <%= hexcode %>"></td>
-            <td><%= hexcode %></td>
-          </tr>
-        <% end %>
-      </table>
     
     <p>
       <%= submit_tag "save changes" %>

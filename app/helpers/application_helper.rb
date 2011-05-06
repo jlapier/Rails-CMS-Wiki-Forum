@@ -105,6 +105,10 @@ module ApplicationHelper
     Dir[File.join(Rails.root, 'public', 'stylesheets', 'skins', '*.css')].map { |f| File.basename(f, '.css') }.sort
   end
 
+  def theme_colors_list
+    Dir[File.join(Rails.root, 'public', 'stylesheets', 'colors', '*.css')].map { |f| File.basename(f, '.css') }.sort
+  end
+
   def is_admin?
     current_user and current_user.is_admin?
   end

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="span-24">
+    <div class="header">
+      <div class="logo_box">
+        <%= logo_image %>
+      </div>
+      <%= top_menu %>
+    </div>
+  </div>
+
+  <div class="span-24 last">
+    <div class="base_content">
+      <%= render :partial => '/layouts/flash_boxes' %>
+      <%= yield %>
+    </div>
+  </div>
+
+  <div class="span-24 last">
+    <div class="footer">
+      <%= site_footer %>
+    </div>
+    <div class="user_box">
+      <%= user_box %>
+    </div>
+  </div>
+
+</div>

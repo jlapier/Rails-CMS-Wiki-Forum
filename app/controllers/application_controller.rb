@@ -157,14 +157,15 @@ class ApplicationController < ActionController::Base
     end
     
     def get_layout
-      @theme_base = SiteSetting.read_or_write_default_setting 'theme base', 'default'
       @theme_layout = SiteSetting.read_or_write_default_setting 'theme layout', 'default'
       @layout_file = File.join(Rails.root, "/themes/layouts/#{@theme_layout}.html.erb")
-      @theme_colors = SiteSetting.read_or_write_default_setting 'theme colors', 'black and white'
-      @custom_colors_timestamp = SiteSetting.read_or_write_default_setting 'custom colors timestamp', nil
-      @theme_skin = SiteSetting.read_or_write_default_setting 'theme skin', 'default'
       @css_override = SiteSetting.read_or_write_default_setting 'css override', nil
-      @css_override_timestamp = SiteSetting.read_or_write_default_setting 'css override timestamp', nil
+      if @css_override
+        @css_override_timestamp = SiteSetting.read_or_write_default_setting 'css override timestamp', nil
+      else
+        @theme_colors = SiteSetting.read_or_write_default_setting 'theme colors', 'black_and_white'
+        @theme_skin = SiteSetting.read_or_write_default_setting 'theme skin', 'default'
+      end
     end
 
     def current_user_session
