@@ -159,6 +159,7 @@ class ContentPagesController < ApplicationController
   def search
     @search_phrase = params[:q]
     @content_pages = ContentPage.search @search_phrase 
+    @categories = Category.search @search_phrase
     render :action => :index
   end
 
