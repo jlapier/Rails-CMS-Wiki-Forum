@@ -8,7 +8,7 @@
 </h1>
 
 <p class="small_text" style="text-align: right;">
-  <%= link_to_rss forum_message_post_url(@forum, @message_post, :user_credentials => current_user.single_access_token, :format => :atom) %>
+  <%= link_to_rss feed_forum_message_post_url(@forum, @message_post, current_user.single_access_token, :atom) %>
 </p>
 
 <table class="messages" style="margin-bottom:10px;">

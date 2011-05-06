@@ -1,6 +1,6 @@
-atom_feed(:url => forum_url(@forum, :user_credentials => current_user.single_access_token, :format => :atom)) do |feed|
+atom_feed(:url => feed_forum_url(@forum, current_user.single_access_token, :atom)) do |feed|
   feed.title(@forum.title) # required
-  feed.updated(Time.now.utc) # required
+  feed.updated(5.minutes.ago.utc) # required
   # feed.author # required unless each entry contains an author
 
   @forum.message_posts.each do |message_post|

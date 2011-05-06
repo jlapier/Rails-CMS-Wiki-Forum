@@ -35,6 +35,6 @@ describe "/message_posts/show.html.erb" do
     render
     rendered.should =~ (/value\ for\ subject/)
     rendered.should =~ (/value\ for\ body/)
-    rendered.should =~ (/single\+access\+token/)
+    rendered.should have_selector "a[href*=\"single%20access%20token/feed.atom\"]"
   end
 end
