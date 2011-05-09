@@ -5,7 +5,7 @@ class ContentPage < ActiveRecord::Base
   validates_presence_of :name
   has_and_belongs_to_many :categories
   belongs_to :editing_user, :class_name => 'User', :foreign_key => 'editing_user_id'
-  searchable_by :name, :body
+  searchable_by :name, :body, :categories => [:name]
   before_create :set_preview_only
 
   class << self

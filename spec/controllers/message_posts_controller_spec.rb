@@ -19,7 +19,8 @@ describe MessagePostsController do
     return @mock_message_posts if @mock_message_posts
     @mock_message_posts = mock('message_posts_proxy')
     @mock_message_posts.stub!(:paginate).and_return([mock_message_post].paginate)
-    @mock_message_posts.stub!(:find).with('37').and_return(mock_message_post)
+    #@mock_message_posts.stub!(:find).with('37').and_return(mock_message_post)
+    MessagePost.stub(:find).with('37'){ mock_message_post }
     @mock_message_posts
   end
 
@@ -146,7 +147,7 @@ describe MessagePostsController do
       it "redirects to the message_post" do
         mock_message_posts.stub!(:find).and_return(mock_message_post(:update_attributes => true))
         mock_message_post.stub!(:update_attributes => true)
-        put :update, :forum_id => "12", :id => "1"
+        put :update, :forum_id => "12", :id => "37"
         response.should redirect_to(forum_message_post_url(mock_forum, mock_message_post))
       end
     end

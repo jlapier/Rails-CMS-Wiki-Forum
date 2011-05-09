@@ -30,6 +30,6 @@ describe "/forums/show.html.erb" do
     rendered.should =~ (/messsub1/)
     rendered.should =~ (/messsub2/)
     rendered.should =~ (/Dude McDuder/)
-    rendered.should =~ (/single\+access\+token/)
+    rendered.should have_selector "a[href*=\"single%20access%20token/feed.atom\"]"
   end
 end

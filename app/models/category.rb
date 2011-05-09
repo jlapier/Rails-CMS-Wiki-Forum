@@ -3,6 +3,7 @@ class Category < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'Blog::Post'
   validates_presence_of :name
   validates_uniqueness_of :name
+  searchable_by :name
 
   class << self
     def find_or_create_by_name(name)

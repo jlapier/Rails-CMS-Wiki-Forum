@@ -84,6 +84,41 @@ describe ContentPage do
   end
 end
 
+describe "content page search functions" do
+  before(:each) do
+    category_1 = Category.create! :name => "Testing Category One"
+    category_2 = Category.create! :name => "Testing Category Two"
+    @cp1 = ContentPage.create! :name => "Page A", :body => "AAAA"
+    @cp1.categories << category_1
+    @cp1.save!
+    @cp2 = ContentPage.create! :name => "Page B", :body => "BBBB"
+    @cp2.categories << category_1
+    @cp2.categories << category_2
+    @cp2.save!
+  end
+
+  it "should find by page name" do
+    cps = ContentPage.search "Page"
+    cps.should == [@cp1, @cp2]
+    cps = ContentPage.search '"Page A"'
+    cps.should == [@cp1]
+  end
+
+  it "should find by page body" do
+    cps = ContentPage.search "AAA"
+    cps.should == [@cp1]
+  end
+
+  it "should find by category" do
+    cps = ContentPage.search "Testing"
+    cps.should == [@cp1, @cp2]
+    cps = ContentPage.search '"Category One"'
+    cps.should == [@cp1, @cp2]
+    cps = ContentPage.search '"Category Two"'
+    cps.should == [@cp2]
+  end
+end
+
 describe "content page ordered listings" do
   before(:each) do
     real_category = Category.create! :name => "Testing a Real Cat"
