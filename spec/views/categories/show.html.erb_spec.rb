@@ -5,6 +5,7 @@ describe "/categories/show.html.erb" do
   
   def mock_user(stubs={})
     @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
+        :logged_in? => true,
         :has_read_access_to? => true, :has_write_access_to? => true,
         :name => 'John', :email => 'john@text.com', :first_name => 'John',
         :last_name => 'Doe', :fullname => 'John Doe'}))

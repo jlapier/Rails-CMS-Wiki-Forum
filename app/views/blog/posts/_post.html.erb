@@ -1,8 +1,8 @@
 <%= render :partial => 'blog/posts/author', :object => post.author %>
 
-<h1><%= link_to "Blog:", blog_posts_path %> <%= post.title %></h1>
+<h1><%= link_to_blog_category_post(post) %></h1>
 
-<span class="fake_button"><%= link_to_delete_post(post) %></span> <span class="fake_button"><%= link_to_edit_post(post) %></span>
+<%= post_tools(post) %>
 
 <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
 

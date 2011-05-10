@@ -5,11 +5,11 @@ describe Blog::PostsController do
   subject{ mock_model(Blog::Post) }
   
   def mock_admin(stubs={})
-    stub_model(User, {:is_admin? => true})
+    stub_model(User, {:is_admin? => true, :logged_in? => true})
   end
   
   def mock_user(stubs={})
-    stub_model(User, {:is_admin? => false})
+    stub_model(User, {:is_admin? => false, :logged_in? => true})
   end
   
   before(:each) do
@@ -17,25 +17,22 @@ describe Blog::PostsController do
     controller.stub(:current_user){ mock_user }
   end
 
-  describe "GET 'public'" do
-    before(:each) do
-      Blog::Post.stub_chain(:published, :order){ [subject] }
-    end
-    it "loads published @posts" do
-      get :public
-      assigns(:posts).should eq [subject]
-    end
-    it "renders blog/posts/public" do
-      get :public
-      response.should render_template("blog/posts/public")
-    end
-  end
-
   describe "GET 'index'" do
-    it "loads @posts" do
+    before(:each) do
+      Blog::Post.stub(:order){ mock('Relation', {
+        :[] => subject,
+        :published => ['published']
+      }) }
+    end
+    it "loads all @posts for logged in users" do
       Blog::Post.stub(:order){ [subject] }
       get :index
       assigns(:posts).should eq [subject]
+    end
+    it "loads published @posts for anonymous users" do
+      controller.stub(:current_user){ nil }
+      get :index
+      assigns(:posts).should eq ['published']
     end
     it "renders blog/posts/index" do
       get :index

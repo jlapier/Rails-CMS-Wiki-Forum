@@ -1,15 +1,12 @@
 module Blog
   class PostsController < ApplicationController
-    before_filter :require_user, :except => :public
+    before_filter :require_user, :except => [:index, :show]
 #    before_filter :require_post_read_access, :only => [:show]
 #    before_filter :require_post_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
 
-    def public
-      @posts = Post.published.order('created_at DESC')
-    end
-
     def index
-      @posts = Post.order('created_at DESC, published')
+      @posts = Post.order("created_at DESC, published")
+      @posts = @posts.published unless current_user and current_user.logged_in?
     end
 
     def new
@@ -85,6 +82,9 @@ module Blog
 
     def show
       @post = Post.find params[:id]
+      unless (current_user and current_user.logged_in?) or @post.published
+        redirect_to blog_posts_path, :notice => "Not Found." and return
+      end
     end
   
     def destroy

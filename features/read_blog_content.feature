@@ -4,7 +4,7 @@ Feature: Read blog content
   I want to navigate and consume blog content in various ways
   
   Background: anonymous user is reading blog posts
-    Given I am viewing the public blog home page
+    Given I am viewing the blog home page
   
   Scenario: consume an rss subscription to all blog posts
     When I follow "Follow this blog"

@@ -98,12 +98,7 @@ module ApplicationHelper
   end
   
   def path_to_blog_posts
-    if is_admin? # only let admin create/publish for now
-                 # not sure we want to weave blog permissions into UserGroup at this point
-      blog_posts_path 
-    else
-      blog_public_path
-    end      
+    blog_posts_path
   end
 
   def images_list
@@ -163,5 +158,8 @@ module ApplicationHelper
   def nice_date(date)
     return '' if date.nil?
     "#{date.strftime('%A')} #{date.strftime('%B')} #{date.strftime('%d').to_i.ordinalize}, #{date.year}"
+  end
+  def fake_button(link)
+    content_tag :span, link, :class => 'fake_button'
   end
 end

@@ -97,6 +97,7 @@ RailsCMSWikiForum::Application.routes.draw do
   end
   
   namespace :blog do
+    get "/your_blog_name_here" => 'posts#index', :as => :posts
     resources :posts do
       member do
         post :delete_asset
@@ -104,7 +105,6 @@ RailsCMSWikiForum::Application.routes.draw do
         post :upload_handler
       end
     end
-    get "/your_blog_name_here" => 'posts#public', :as => :public
   end
 
   resource :user_session
