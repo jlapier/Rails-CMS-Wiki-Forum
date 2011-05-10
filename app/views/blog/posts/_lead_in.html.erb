@@ -2,12 +2,10 @@
   <%= render :partial => 'blog/posts/author', :object => post.author %>
   
   <h3 style="margin-bottom: 5px;"><%= link_to post.title, blog_post_path(post) %></h3>
-  
-  <p style="text-align: right;">
-    <%= post_tools(post) %>
-  </p>
 
   <div style="padding: 10px;">
+    <%= post_tools(post) %>
+    
     <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
     
     <%= truncated_post_body(post) %>
