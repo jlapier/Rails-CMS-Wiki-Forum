@@ -98,8 +98,10 @@ RailsCMSWikiForum::Application.routes.draw do
   
   namespace :blog do
     get "/your_blog_name_here" => 'posts#index', :as => :posts
-    resources :posts do
+    post "/your_blog_name_here" => 'posts#create', :as => :posts
+    resources :posts, :except => [:index] do
       member do
+        post :publish
         post :delete_asset
         post :un_edit
         post :upload_handler

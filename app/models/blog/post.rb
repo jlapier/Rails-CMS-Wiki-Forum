@@ -1,5 +1,7 @@
 module Blog
   class Post < ActiveRecord::Base
+    attr_accessible :category, :category_id, :title, :body
+    
     validates_presence_of :author_id, :title
     validates_uniqueness_of :title
     
@@ -9,6 +11,11 @@ module Blog
     belongs_to :category
     
     scope :published, where(:published => true)
+  public
+    def toggle_published
+      self.published = self.published ? false : true
+      self.save
+    end
   end
 end
 

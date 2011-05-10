@@ -160,6 +160,7 @@ module ApplicationHelper
     "#{date.strftime('%A')} #{date.strftime('%B')} #{date.strftime('%d').to_i.ordinalize}, #{date.year}"
   end
   def fake_button(link)
+    return '' if link.blank?
     content_tag :span, link, :class => 'fake_button'
   end
 end

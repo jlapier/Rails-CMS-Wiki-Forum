@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
 
   PUBLIC_RESOURCES = {
     Event => [:read],
-    FileAttachment => [:read, :download]
+    FileAttachment => [:read, :download],
+    Blog::Post => [:read]
   }
   
   # these actions are accessible by users not logged in; used for EventCalendar and FileShare engines
@@ -74,7 +75,6 @@ class ApplicationController < ActionController::Base
         # allow anonymous users to view/download files
         return true
       end
-      # attendees et al avail. to admin only
       return require_admin_user
     end
   end

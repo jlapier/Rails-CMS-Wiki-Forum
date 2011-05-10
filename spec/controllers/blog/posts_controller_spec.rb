@@ -15,6 +15,7 @@ describe Blog::PostsController do
   before(:each) do
     controller.stub(:require_user){ mock_user }
     controller.stub(:current_user){ mock_user }
+    controller.stub(:has_authorization?){ true }
   end
 
   describe "GET 'index'" do
@@ -162,18 +163,51 @@ describe Blog::PostsController do
       end
     end
   end
+  
+  describe "POST 'publish' (:id => int)" do
+    before(:each) do
+      subject.stub(:toggle_published)
+      subject.stub(:published){ false }
+      Blog::Post.stub(:find).with(1){ subject }
+    end
+    it "publishes the post loaded from :id" do
+      subject.should_receive(:toggle_published)
+      post :publish, :id => 1
+    end
+    it "redirects to the post path with a flash[:notice]" do
+      post :publish, :id => 1
+      response.should redirect_to blog_post_path(subject)
+      flash[:notice].should_not be_nil
+    end
+  end
 
   describe "GET 'show' (:id => int)" do
     before(:each) do
+      subject.stub(:published){ false }
       Blog::Post.stub(:find).with(1){ subject }
     end
-    it "loads @post from :id" do
-      get :show, :id => 1
-      assigns(:post).should eq subject
+    context "post is published or user is authenticated" do
+      before(:each) do
+        subject.stub(:published){ true }
+      end
+      it "loads @post from :id" do
+        get :show, :id => 1
+        assigns(:post).should eq subject
+      end
+      it "renders blog/posts/show" do
+        get :show, :id => 1
+        response.should render_template("blog/posts/show")
+      end
     end
-    it "renders blog/posts/show" do
-      get :show, :id => 1
-      response.should render_template("blog/posts/show")
+    context "post is NOT published and user is NOT authenticated" do
+      before(:each) do
+        controller.stub(:require_user){ false }
+        controller.stub(:current_user)
+      end
+      it "redirects to the blog posts path" do
+        get :show, :id => 1
+        response.should redirect_to blog_posts_path
+      end
     end
   end
   
@@ -182,13 +216,31 @@ describe Blog::PostsController do
       subject.stub(:title){ 'deleted' }
       Blog::Post.stub(:destroy){ subject }
     end
-    it "destroys the post of :id" do
-      Blog::Post.should_receive(:destroy).with(1){ subject }
-      delete :destroy, :id => 1
+    context "user is authorized" do
+      before(:each) do
+        controller.stub(:has_authorization?){ true }
+      end
+      it "destroys the post of :id" do
+        Blog::Post.should_receive(:destroy).with(1){ subject }
+        delete :destroy, :id => 1
+      end
+      it "redirects to blog_posts_path" do
+        delete :destroy, :id => 1
+        response.should redirect_to blog_posts_path
+      end
     end
-    it "redirects to blog_posts_path" do
-      delete :destroy, :id => 1
-      response.should redirect_to blog_posts_path
+    context "user is NOT authorized" do
+      before(:each) do
+        controller.stub(:has_authorization?){ false }
+      end
+      it "does NOT destroy any post" do
+        Blog::Post.should_not_receive(:destroy)
+        delete :destroy, :id => 1
+      end
+      it "redirects to the blog posts path" do
+        delete :destroy, :id => 1
+        response.should redirect_to blog_posts_path
+      end
     end
   end
   
@@ -267,7 +319,5 @@ describe Blog::PostsController do
       end
     end
   end
-  
-  it "allows only admins to publish blog posts"
 
 end

@@ -1,9 +1,24 @@
 module Blog
   class PostsController < ApplicationController
     before_filter :require_user, :except => [:index, :show]
-#    before_filter :require_post_read_access, :only => [:show]
-#    before_filter :require_post_write_access, :only => [:edit, :update, :destroy, :create, :delete_asset, :un_edit, :upload_handler]
+    before_filter :require_authorization, :except => [:index, :show]
+  private
+  
+    # find Post from params[:id] or new params[:blog_post]
+    def post
+      begin
+        @post ||= Post.find params[:id]
+      rescue ActiveRecord::RecordNotFound => e
+        @post = Post.new params[:blog_post]
+      end
+    end
 
+    def require_authorization
+      unless has_authorization? action_name.to_sym, post
+        redirect_to blog_posts_path, :notice => "Not Found." and return
+      end
+    end
+  public
     def index
       @posts = Post.order("created_at DESC, published")
       @posts = @posts.published unless current_user and current_user.logged_in?
@@ -82,7 +97,7 @@ module Blog
 
     def show
       @post = Post.find params[:id]
-      unless (current_user and current_user.logged_in?) or @post.published
+      unless @post.published or (current_user and current_user.logged_in?)
         redirect_to blog_posts_path, :notice => "Not Found." and return
       end
     end
@@ -91,6 +106,20 @@ module Blog
       post = Post.destroy params[:id]
       respond_to do |format|
         format.html{ redirect_to blog_posts_path, :notice => "Deleted post: #{post.title}" }
+      end
+    end
+    
+    def publish
+      post = Post.find params[:id]
+      if post.toggle_published
+        pre = post.published ? 'Published' : 'Unpublished'
+        msg = "#{pre} post: #{post.title}!"
+      else
+        pre = post.published ? 'Unpublication' : 'Publication'
+        msg = "#{pre} failed, please try again."
+      end
+      respond_to do |format|
+        format.html{ redirect_to blog_post_path(post), :notice => msg }
       end
     end
   end

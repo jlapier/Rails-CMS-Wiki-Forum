@@ -19,6 +19,7 @@ describe "/categories/show.html.erb" do
       :blog_posts => [stub_model(Blog::Post, :title => 'something', :body => 'more something', :author => mock_user)])
     assign(:category, @category)
     view.stub(:current_user).and_return(mock_user)
+    view.stub(:has_authorization?){ true }
   end
   
   it "renders category info" do

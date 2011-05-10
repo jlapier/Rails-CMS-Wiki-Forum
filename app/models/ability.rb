@@ -19,6 +19,7 @@ class Ability
   def setup_user(user)
     setup_forum_access(user)
     setup_wiki_access(user)
+    setup_blog_access(user)
     can :read, Event
     can :read, FileAttachment
     can :download, FileAttachment
@@ -68,6 +69,16 @@ class Ability
     can :update, MessagePost do |message_post|
       user.has_write_access_to?(message_post.forum) &&
       user.id == message_post.user_id
+    end
+  end
+  
+  def setup_blog_access(user)
+    can :read, Blog::Post do |post|
+      post.new_record? or post.published or user.is_admin? or user == post.author
+    end
+    can :create, Blog::Post
+    can :update, Blog::Post do |post|
+      user == post.author
     end
   end
 end
