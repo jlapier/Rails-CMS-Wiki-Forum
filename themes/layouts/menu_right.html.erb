@@ -1,20 +1,12 @@
 <div class="container">
   <div class="span-24 last">
-    <div class="top_menu bg_palette_1 text_palette_8">
+    <div class="top_menu">
       <%= top_menu %>
     </div>
   </div>
 
   <div class="span-18">
-    <% if flash[:notice] -%>
-      <div class="flash_message notice_message"><%= flash[:notice] %></div>
-    <% end -%>
-    <% if flash[:warning] -%>
-      <div class="flash_message warning_message"><%= flash[:warning] %></div>
-    <% end -%>
-    <% if flash[:error] -%>
-      <div class="flash_message error_message"><%= flash[:error] %></div>
-    <% end -%>
+    <%= flash_messages %>
 
     <div class="base_content">
       <%= yield %>
@@ -24,20 +16,19 @@
   <div class="span-6 last">
     <div class="logo_box"><%= logo_image %></div>
 
-    <div class="side_menu bg_palette_5 border_palette_5 text_palette_8">
+    <div class="side_menu">
       <%= side_menu %>
     </div>
     <br/><br/><br/>
-    <div class="side_menu bg_palette_5 border_palette_5 text_palette_8  user_box">
+    <div class="side_menu user_box">
       <%= user_box %>
     </div>
 
   </div>
 
   <div class="span-24 last">
-    <div class="footer bg_palette_1 text_palette_8">
+    <div class="footer">
       <%= site_footer %>
     </div>
   </div>
-
 </div>

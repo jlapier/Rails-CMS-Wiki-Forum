@@ -17,11 +17,10 @@
     <![endif]-->
     
     <%= stylesheet_link_tag 'application', 'text_and_colors', 'main_elements',
-        'error_messages', 'formtastic', 'formtastic_changes' %>
+        'error_messages', 'forums_wikis', 'formtastic', 'formtastic_changes' %>
     <%= stylesheet_link_tag "skins/#{@theme_skin}.css" %>
+    <%= stylesheet_link_tag "colors/#{@theme_colors}.css" %>
     
-		<link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :colors,
-      :name => @theme_colors, :format => 'css') %>?<%= @custom_colors_timestamp %>" type="text/css" media="screen"/>
     <% if @css_override %>
       <link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :css,
         :name => 'override', :format => 'css') %>?<%= @css_override_timestamp %>" type="text/css" media="screen"/>

@@ -15,6 +15,20 @@ module ApplicationHelper
     @site_title ||= SiteSetting.read_setting('site title') || "A Site"
   end
 
+  def flash_messages
+    out = ""
+    if flash[:notice]
+      out += "<div class=\"flash_message notice_message\">#{flash[:notice]}</div>"
+    end
+    if flash[:warning]
+      out += "<div class=\"flash_message warning_message\">#{flash[:warning]}</div>"
+    end
+    if flash[:error]
+      out += "<div class=\"flash_message error_message\">#{flash[:error]}</div>"
+    end
+    out.html_safe
+  end
+
   def page_title
     pre = case action_name
     when "edit" then "Editing "
@@ -103,6 +117,10 @@ module ApplicationHelper
 
   def theme_skins_list
     Dir[File.join(Rails.root, 'public', 'stylesheets', 'skins', '*.css')].map { |f| File.basename(f, '.css') }.sort
+  end
+
+  def theme_colors_list
+    Dir[File.join(Rails.root, 'public', 'stylesheets', 'colors', '*.css')].map { |f| File.basename(f, '.css') }.sort
   end
 
   def is_admin?

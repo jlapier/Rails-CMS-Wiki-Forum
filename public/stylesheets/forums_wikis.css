@@ -1,0 +1,59 @@
+
+/*    forum stuff    */
+
+table.forums { 
+  background: #DDE; 
+  width: 100%; 
+  border-spacing: 0px; 
+  border: 1px solid #DDE; 
+}
+table.forums tr { background: #F6F6FF;  }
+table.forums td { padding: 10px; font-size: 12px;  }
+table.forums strong { font-size: 18px; font-weight: bold; }
+table.forums strong a {border: none; }
+table.forums td.small_text { font-size: 10px; }
+
+table.messages { 
+  background: #A8A8A8; 
+  min-width: 600px; 
+  border-spacing: 4px; 
+  border-collapse: separate;
+}
+table.messages tr { background: #F9F9F9; border-spacing: 4px; }
+table.messages td { padding: 10px; font-size: 11px;  }
+table.messages li { font-size: 11px;  }
+table.messages strong { font-size: 12px; font-weight: bold; }
+table.messages td small_text { font-size: 10px; }
+table.messages blockquote { background: white; color: #333; border-left: 2px solid #999; padding-left: 6px;  }
+table.messages tr td.leftside { 
+  text-align: right; 
+  vertical-align: top; 
+  border-left: 3px solid #AAA;
+  background: #A8A8A8; 
+  font-size: 11px; 
+  width: 120px;
+}
+table.messages tr:hover td.leftside { border-left: 3px solid #817f73; }
+table.messages .lightgreen { color: #090; }
+
+
+
+/* wiki stuff */
+
+.wiki_page_version { background:white; padding: 12px; border: 1px #999 solid; }
+.wiki_page_version p { text-indent: 0; }
+.wiki_page_body { background:white; padding: 12px; border: 1px #999 solid; }
+.wiki_page_body p { text-indent: 0; }
+.wiki_comments { background:white; padding: 0px 12px; border: 1px #999 solid; }
+.wiki_comments p { font-size: 11px; text-indent: 0; }
+.wiki_comments textarea { font-size: 11px; width: 220px; }
+.wiki_comments input { font-size: 10px; border: 1px solid #999; background: #EEE; margin: 2px;}
+.wiki_chatter  { background:white; padding: 8px; border: 1px #999 solid; }
+.wiki_chatter p { text-indent: 0; margin: 0; }
+
+.wiki_top_links { float:right; vertical-align:middle; text-align:right; background: #EEE; border: 1px solid #999;
+    padding: 2px 8px 4px 8px; }
+.wiki_top_links a { border:none;text-decoration: none; }
+.wiki_top_links img { border:none;text-decoration: none; vertical-align:middle; }
+.wiki_top_links input { border:1px solid #999; }
+
