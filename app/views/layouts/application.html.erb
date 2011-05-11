@@ -18,12 +18,13 @@
     
     <%= stylesheet_link_tag 'application', 'text_and_colors', 'main_elements',
         'error_messages', 'forums_wikis', 'formtastic', 'formtastic_changes' %>
-    <%= stylesheet_link_tag "skins/#{@theme_skin}.css" %>
-    <%= stylesheet_link_tag "colors/#{@theme_colors}.css" %>
-    
+
     <% if @css_override %>
       <link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :css,
         :name => 'override', :format => 'css') %>?<%= @css_override_timestamp %>" type="text/css" media="screen"/>
+    <% else %>
+      <%= stylesheet_link_tag "colors/#{@theme_colors}.css" %>
+      <%= stylesheet_link_tag "skins/#{@theme_skin}.css" %>
     <% end %>
       
     <%= javascript_include_tag javascripts %>

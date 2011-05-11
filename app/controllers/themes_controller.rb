@@ -36,17 +36,6 @@ class ThemesController < ApplicationController
   end
 
   def update_theme_settings
-    expire_page "/themes/colors/custom.css"
-    
-    if params[:theme_colors] == 'custom' and @theme_colors != 'custom'
-      SiteSetting.write_setting 'custom colors', COLOR_SCHEMES[@theme_colors]
-    elsif params[:custom_colors]
-      SiteSetting.write_setting 'custom colors', params[:custom_colors].split("\n").map(&:strip)
-    else
-      SiteSetting.write_setting 'custom colors', nil
-    end
-    SiteSetting.write_setting('custom colors timestamp', Time.now.to_i)
-    
     SiteSetting.write_setting 'theme layout', params[:theme_layout]
     SiteSetting.write_setting 'theme skin', params[:theme_skin]
     SiteSetting.write_setting 'theme colors', params[:theme_colors]

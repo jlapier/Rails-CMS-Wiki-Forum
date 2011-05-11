@@ -1,19 +1,20 @@
 <div class="container">
   <div class="span-24 last">
-    <div class="top_menu">
+    <div class="header">
       <%= top_menu %>
     </div>
   </div>
 
-  <div class="span-6">
-    <div class="logo_box"><%= logo_image %></div>
+  <div class="column span-6">
+    <div class="side_pane">
+      <div class="logo_box"><%= logo_image %></div>
 
-    <div class="side_menu">
-      <%= side_menu %>
-    </div>
-    <br/><br/><br/>
-    <div class="side_menu user_box">
-      <%= user_box %>
+      <div class="side_menu">
+        <%= side_menu %>
+      </div>
+      <div class="user_box">
+        <%= user_box %>
+      </div>
     </div>
   </div>
 
@@ -21,6 +22,8 @@
     <%= flash_messages %>
 
     <div class="base_content">
+      <%= render :partial => '/layouts/flash_boxes' %>
+
       <%= yield %>
     </div>
   </div>

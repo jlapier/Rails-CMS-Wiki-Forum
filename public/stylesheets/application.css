@@ -37,6 +37,13 @@ input#user_openid_identifier, input#user_session_openid_identifier {
     font-weight: bold;
 }
 
+.top_menu ul li, .header ul li {
+  display: inline;
+  list-style-type: none;
+  padding: 0 5px;
+  margin: 0 5px;
+}
+
 .big_button {
   font-size: 16px;
   border: 1px solid #009;

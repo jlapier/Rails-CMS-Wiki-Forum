@@ -1,0 +1,54 @@
+body {
+  background: #EEE;
+  color: #333;
+}
+              
+.base_content { 
+  background: #FFF;
+  color: #333;
+  border: 1px solid #999;
+}
+
+.header { 
+  background: #FFF;
+  color: #333;
+  border: 1px solid #999;
+}
+
+.header ul {
+  background: #666;
+  color: #FFF;
+}
+
+.header ul li a:link, .header ul li a:visited {
+  color: #DDD; text-decoration: none; 
+}
+
+.header ul li a:hover { 
+  color: #FFF; text-decoration: none; 
+}
+
+
+.side_pane {
+  background: #999;
+  border: 1px solid #666;
+}
+
+.logo_box {
+}
+
+.side_menu { 
+  background: #EEE;
+  color: #333;
+}
+
+.user_box { 
+  background: #EEE;
+  color: #333;
+}
+
+.footer { 
+  background: #FFF;
+  color: #333;
+  border: 1px solid #999;
+}
