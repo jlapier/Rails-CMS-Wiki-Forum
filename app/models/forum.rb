@@ -18,7 +18,7 @@ class Forum < ActiveRecord::Base
   
   validates_presence_of :title
 
-  belongs_to :most_recent_post, :class_name => 'MessagePost', :foreign_key => :newest_message_post_id
+  #belongs_to :most_recent_post, :class_name => 'MessagePost', :foreign_key => :newest_message_post_id
   has_many :message_posts, :dependent => :destroy
 
   after_destroy :fix_group_access
@@ -29,6 +29,9 @@ class Forum < ActiveRecord::Base
     end
   end
 
+  def most_recent_post
+    message_posts.order('created_at DESC').limit(1).first
+  end
 
   private
   def fix_group_access

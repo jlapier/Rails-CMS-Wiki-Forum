@@ -13,6 +13,7 @@ class Category < ActiveRecord::Base
   has_and_belongs_to_many :content_pages
   validates_presence_of :name
   validates_uniqueness_of :name
+  searchable_by :name
 
   class << self
     def find_or_create_by_name(name)
