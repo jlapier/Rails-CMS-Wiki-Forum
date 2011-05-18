@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
@@ -9,11 +9,11 @@ gem 'acts_as_revisable', {
   :git => "git://github.com/inertialbit/acts_as_revisable.git",
   :branch => 'rails3'
 }
-gem 'authlogic', :git => 'http://github.com/binarylogic/authlogic.git'
+gem 'authlogic'
 gem 'authlogic-oid', :require => 'authlogic_openid'
 gem 'cancan'
-gem 'event_calendar_engine', '~> 0.2.11', :require => 'event_calendar'
-gem 'file_share', '~> 0.1.8'
+gem 'event_calendar_engine', '~> 0.2.14', :require => 'event_calendar'
+gem 'file_share', '~> 0.1.14'
 gem 'formtastic'
 gem 'RedCloth', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
@@ -28,6 +28,7 @@ group :development, :test do
   gem 'webrat'
   gem 'launchy'
   gem 'rcov'
+  gem 'database_cleaner'
 end
 
 group :production do
