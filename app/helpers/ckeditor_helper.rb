@@ -1,10 +1,7 @@
 module CkeditorHelper
-  def initialize_ckeditor(textarea_id, upload_path)
-    upload_path += "?authenticity_token=#{form_authenticity_token}"
+  def initialize_ckeditor(textarea_id, options)
     javascript_tag do
-      %Q{CKEDITOR.replace('#{textarea_id}', {
-        filebrowserUploadUrl: '#{upload_path}'
-      });}
+      %Q{CKEDITOR.replace('#{textarea_id}', #{options_for_javascript(options)});}
     end
   end
   

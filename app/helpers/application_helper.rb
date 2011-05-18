@@ -163,4 +163,14 @@ module ApplicationHelper
     return '' if link.blank?
     content_tag :span, link, :class => 'fake_button'
   end
+  # Graciously appropriated from rails
+  # File actionpack/lib/action_view/helpers/prototype_helper.rb, line 595
+  # Modified to wrap values in quotes and escape_javascript
+  def options_for_javascript(options)
+    if options.empty?
+      '{}'
+    else
+      "{#{options.keys.map { |k| "#{k}:'#{escape_javascript(options[k])}'" }.sort.join(', ')}}"
+    end
+  end
 end
