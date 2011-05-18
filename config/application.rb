@@ -8,10 +8,6 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module RailsCMSWikiForum
   class Application < Rails::Application
-    config.after_initialize do
-      Event.send :include, FileContainer
-      EventsController.send :helper, FileAttachmentsHelper
-    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
