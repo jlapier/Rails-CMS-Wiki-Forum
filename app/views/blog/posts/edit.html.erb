@@ -2,23 +2,32 @@
 
 <%= wip_warning(@post) %>
 
-<%= render 'form' %>
+<div class="span-14">
+  <h3>Content</h3>
+  <%= render 'form' %>
+</div>
 
-<h3>Assets in this Blog Post</h3>
-<% if @assets.empty? %>
-  <p><em>no assets found</em></p>
-<% else %>
-  <ul>
-    <% for asset in @assets %>
-      <li>
-        <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
-        <%= link_to "X", delete_asset_blog_post_path(@post, :asset => asset),
-              :confirm => "Really delete this file?", :method => :post,
-              :style => 'color:#F00' %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="span-3 last asset_list">
+  <h3>Uploads</h3>
+  <% if @assets.empty? %>
+    <p><em>no uploads found</em></p>
+  <% else %>
+    <ul>
+      <% for asset in @assets %>
+        <li>
+          <%= link_to asset, "/#{@rel_dir}/#{asset}" %> &nbsp;
+          <%= link_to "X", delete_asset_blog_post_path(@post, :asset => asset),
+                :confirm => "Really delete this file?", :method => :post,
+                :style => 'color:#F00' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>  
+</div>
 
-<%= initialize_ckeditor('blog_post[body]', upload_handler_blog_post_path(@post)) %>
+<%= initialize_ckeditor('blog_post[body]', {
+  :filebrowserUploadUrl => upload_handler_blog_post_path(@post, {
+    :authenticity_token => form_authenticity_token
+  })
+}) %>
 <%= ckeditor_confirm_exit(un_edit_blog_post_path(@post)) %>

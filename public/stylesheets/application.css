@@ -225,3 +225,10 @@ ul.events .closed:before { content: '+ ' }
 ul.events .closed:hover { text-decoration: underline; }
 ul.events .open:before { content: '- ' }
 .link_url { display:none; }
+
+.asset_list ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-right: 0;
+}
