@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.editorConfig = function( config )
 {
-  config.toolbar_TACS =
+  config.toolbar_Common =
   [
       ['Maximize'],
       ['Bold','Italic','Underline'],
@@ -16,7 +16,25 @@ CKEDITOR.editorConfig = function( config )
       ['Find','Replace'],
       ['Source']
   ];
+  config.toolbar_Mid =
+  [
+    ['Save', 'Preview'],
+    ['PasteText','PasteFromWord','-','Print', 'SpellChecker', 'SpellCheck'],
+    ['Find','Replace'],
+    ['NumberedList','BulletedList','-','Outdent','Indent'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+    ['ShowBlocks', 'Source', 'RemoveFormat', 'Maximize'],
+    '/',
+    ['Bold','Italic','Underline'],
+    ['Format','Font','FontSize','TextColor','BGColor'],
+    ['Link','Unlink','Image', 'Flash', 'Table']
+  ];
+  config.toolbar_Newbie = [
+    ['Bold','Italic', '-', 'NumberedList', 'BulletedList','-', 'Link',
+    'Unlink', 'SpellCheck', '-', 'PasteText', 'PasteFromWord']
+  ];
+  
 	config.uiColor = '#819033';
-	config.toolbar = 'TACS'
+	config.toolbar = 'Common'
   config.enterMode = CKEDITOR.ENTER_P;
 };
