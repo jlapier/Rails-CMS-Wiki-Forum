@@ -30,7 +30,7 @@
         <tr>
           <th colspan="2" style="text-align:center;">Current Colors</th>
         </tr>
-        <% for hexcode in (@custom_colors.empty? ? COLOR_SCHEMES[@theme_colors] : @custom_colors) %>
+        <% for hexcode in (@custom_colors.blank? ? (COLOR_SCHEMES[@theme_colors] || []) : @custom_colors) %>
           <tr>
             <td style="width: 100px; background: <%= hexcode %>"></td>
             <td><%= hexcode %></td>
