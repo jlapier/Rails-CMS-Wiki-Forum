@@ -26,22 +26,21 @@ class ContentPagesController < ApplicationController
   def show
     if !fragment_exist?({}) or (current_user and current_user.is_admin?)
       @content_page = ContentPage.find(params[:id])
-      if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
-        respond_to do |format|
-          format.html # show.html.erb
-          format.xml  { render :xml => @content_page }
-        end
-      else
-        flash[:warning] = "That page is currently unavailable."
-        redirect_to content_pages_path
-      end
     else
-      @content_page = ContentPage.select('layout, name').find(params[:id])
+      @content_page = ContentPage.select('layout, name, is_preview_only, publish_on').find(params[:id])
     end
     unless @content_page.layout.blank?
       @special_layout_file = File.join(Rails.root, "/themes/layouts/#{@content_page.layout}.html.erb")
     end
-    true
+    if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @content_page }
+      end
+    else
+      flash[:warning] = "That page is currently unavailable."
+      redirect_to content_pages_path
+    end
   end
 
   # GET /content_pages/new
