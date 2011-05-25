@@ -14,11 +14,14 @@ module CkeditorHelper
         end
       end
     else
-      out = content_tag :div, :style => 'border: 1px solid #666; background: #FFD;'+
-                                  ' padding: 4px 8px; margin-bottom: 12px;',
-                        :class => 'small_text' do
-        "To easily link to another #{form.object.to_english}, just use the format:<br />".html_safe +
-        "[[Title of Another Page]]"
+      out = ""
+      if form.object.kind_of? WikiPage
+        out += content_tag :div, :style => 'border: 1px solid #666; background: #FFD;'+
+                                    ' padding: 4px 8px; margin-bottom: 12px;',
+                          :class => 'small_text' do
+          "To easily link to another WikiPage, just use the format:<br />".html_safe +
+          "[[Title of Another Page]]"
+        end
       end
       out += form.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%;'
       out
