@@ -24,7 +24,7 @@ module CkeditorHelper
         end
       end
       out += form.text_area :body, :rows => 10, :cols => 80, :style => 'width: 90%;'
-      out
+      out.html_safe
     end
   end
   

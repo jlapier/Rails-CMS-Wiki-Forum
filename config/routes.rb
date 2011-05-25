@@ -43,7 +43,7 @@ RailsCMSWikiForum::Application.routes.draw do
   resource :dashboard do
     member do
       get :event_calendar
-      get :file_share
+      get :blog
     end
   end
 
@@ -99,6 +99,11 @@ RailsCMSWikiForum::Application.routes.draw do
   namespace :blog do
     get "/your_blog_name_here" => 'posts#index', :as => :posts
     post "/your_blog_name_here" => 'posts#create', :as => :posts
+    resources :comments, :except => [:index] do
+      member do
+        post :approve
+      end
+    end
     resources :posts, :except => [:index] do
       member do
         post :publish

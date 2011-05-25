@@ -1,0 +1,14 @@
+<h1>Blog</h1>
+
+<h2><%= pluralize(@pending_comments.count, "Pending Comments") %></h2>
+<% if @pending_comments.count > 0 %>
+<div class="comments">
+  <%= render :partial => "blog/comments/pending_comment", :collection => @pending_comments, :as => :comment %>
+</div>
+<% end %>
+
+<h2><%= pluralize(@published_posts.count, "Published Post")%></h2>
+
+<h2><%= pluralize(@draft_posts.count, "Draft Post") %></h2>
+
+<h2><%= pluralize(@approved_comments.count, "Approved Comments") %></h2>

@@ -100,6 +100,11 @@ module Blog
       unless @post.published or (current_user and current_user.logged_in?)
         redirect_to blog_posts_path, :notice => "Not Found." and return
       end
+      if current_user and current_user.logged_in? and current_user.is_admin?
+        @comments = @post.comments
+      else
+        @comments = @post.comments.approved
+      end
     end
   
     def destroy

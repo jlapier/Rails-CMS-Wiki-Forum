@@ -232,3 +232,9 @@ ul.events .open:before { content: '- ' }
   padding-left: 0;
   margin-right: 0;
 }
+.comments {
+  height: 175px;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-bottom:20px;
+}

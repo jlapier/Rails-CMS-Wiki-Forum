@@ -1,0 +1,10 @@
+<h3>Leave a Comment!</h3>
+<%= semantic_form_for(@comment ||= @post.comments.build) do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :post_id, :as => :hidden %>
+    <%= form.input :commenter_name, :label => "Name" %>
+    <%= form.input :commenter_email, :label => "Email" %>
+    <%= form.input :body, :label => "Comment" %>
+  <% end %>
+  <%= form.submit "Submit Comment" %>
+<% end %>

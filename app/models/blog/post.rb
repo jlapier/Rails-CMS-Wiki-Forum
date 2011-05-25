@@ -9,9 +9,14 @@ module Blog
     belongs_to :editing_user, :class_name => 'User'
     belongs_to :modifying_user, :class_name => 'User'
     belongs_to :category
+    has_many :comments
     
     scope :published, where(:published => true)
+    scope :draft, where(:published => false)
   public
+    def name
+      title
+    end
     def toggle_published
       self.published = self.published ? false : true
       self.save
