@@ -39,6 +39,6 @@
     <%= yield :javascript %>
   </head>
   <body>
-    <%= render :file => @layout_file %>
+    <%= render :file => (@special_layout_file || @layout_file) %>
   </body>
 </html>

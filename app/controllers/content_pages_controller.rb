@@ -4,6 +4,9 @@ class ContentPagesController < ApplicationController
 
   def home
     @content_page = ContentPage.get_front_page
+    unless @content_page.layout.blank?
+      @special_layout_file = File.join(Rails.root, "/themes/layouts/#{@content_page.layout}.html.erb")
+    end
     render :action => :show
   end
 
@@ -21,7 +24,7 @@ class ContentPagesController < ApplicationController
   # GET /content_pages/1
   # GET /content_pages/1.xml
   def show
-    if read_fragment({}).blank? or (current_user and current_user.is_admin?)
+    if !fragment_exist?({}) or (current_user and current_user.is_admin?)
       @content_page = ContentPage.find(params[:id])
       if @content_page.ready_for_publishing? or (current_user and current_user.is_admin?)
         respond_to do |format|
@@ -32,7 +35,13 @@ class ContentPagesController < ApplicationController
         flash[:warning] = "That page is currently unavailable."
         redirect_to content_pages_path
       end
+    else
+      @content_page = ContentPage.select('layout, name').find(params[:id])
     end
+    unless @content_page.layout.blank?
+      @special_layout_file = File.join(Rails.root, "/themes/layouts/#{@content_page.layout}.html.erb")
+    end
+    true
   end
 
   # GET /content_pages/new

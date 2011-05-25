@@ -39,6 +39,10 @@
 
   <% unless @content_page.special =~ /Menu/ %>
     <p>
+      Layout (optional, current default layout is <em><%= @theme_layout %></em>):
+      <%= f.select :layout, theme_layouts_list, :include_blank => true %>
+    </p>
+    <p>
       Categories: (check as many as you want)<br/>
       <% for category in Category.find(:all) %>
         <%= check_box_tag "content_page[category_ids][]", category.id,

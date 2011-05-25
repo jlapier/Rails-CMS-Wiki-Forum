@@ -155,7 +155,8 @@ class ApplicationController < ActionController::Base
       @side_menu = ContentPage.get_side_menu
       @top_menu = ContentPage.get_top_menu
     end
-    
+   
+    # note: these may get overridden in a controller, for example, content_pages
     def get_layout
       @theme_layout = SiteSetting.read_or_write_default_setting 'theme layout', 'default'
       @layout_file = File.join(Rails.root, "/themes/layouts/#{@theme_layout}.html.erb")

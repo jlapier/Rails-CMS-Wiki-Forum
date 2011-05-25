@@ -7,7 +7,7 @@ describe ContentPagesController do
   end
   
   def mock_content_page(stubs={})
-    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user}))
+    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user, :layout => nil}))
   end
 
   before do
@@ -28,6 +28,14 @@ describe ContentPagesController do
   describe "GET show" do
     it "assigns the requested content_page as @content_page" do
       ContentPage.stub!(:find).with("37").and_return(mock_content_page)
+      get :show, :id => "37"
+      assigns[:content_page].should equal(mock_content_page)
+    end
+  end
+
+  describe "GET show with layout" do
+    it "assigns the requested content_page as @content_page" do
+      ContentPage.stub!(:find).with("37").and_return(mock_content_page({:layout => "something"}))
       get :show, :id => "37"
       assigns[:content_page].should equal(mock_content_page)
     end
