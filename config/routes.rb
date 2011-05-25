@@ -65,9 +65,15 @@ RailsCMSWikiForum::Application.routes.draw do
 
   resources :forums do
     member do
+      #"/forums/1/jf892424thf984u082j309j233/feed.atom"
+      get "/:user_credentials/feed" => "forums#show", :as => :feed
       get :search
     end
-    resources :message_posts
+    resources :message_posts do
+      member do
+        get "/:user_credentials/feed" => "message_posts#show", :as => :feed
+      end
+    end
   end
 
   resource :account, :controller => 'users'

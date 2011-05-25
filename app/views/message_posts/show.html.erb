@@ -3,11 +3,13 @@
   <% if @forum %>
     <%= link_to @forum.title, @forum %>:
   <% end -%>
+  <%= @message_post.subject if @message_post %>
+  
 </h1>
 
-<% if @message_post %>
-  <h2><%= @message_post.subject %></h2>
-<% end %>
+<p class="small_text" style="text-align: right;">
+  <%= link_to_rss feed_forum_message_post_url(@forum, @message_post, current_user.single_access_token, :atom) %>
+</p>
 
 <table class="messages" style="margin-bottom:10px;">
   <%= render :partial => "whole_message", :locals => { :message => @message_post } %>
@@ -31,4 +33,8 @@
 <%= render :partial => "message_form", 
       :locals => { :message_post => MessagePost.new(:thread => @message_post, :subject => "RE: #{@message_post.subject}") } %>
 
+
+<p class="small_text">
+  Go to <a href="http://en.gravatar.com/">gravatar.com</a> to upload picture for your signetwork account. By doing so your photo will appear next to your discussion posts.
+</p>
 

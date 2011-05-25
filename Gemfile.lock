@@ -45,6 +45,7 @@ GEM
     activesupport (3.0.3)
     acts_as_versioned (0.6.0)
       activerecord (~> 3.0.0.beta4)
+    annotate (2.4.0)
     arel (2.0.9)
     authlogic-oid (1.0.4)
       authlogic
@@ -74,7 +75,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    event_calendar_engine (0.2.11)
+    event_calendar_engine (0.2.13)
       RedCloth
       RedCloth
       acts_as_revisable
@@ -106,7 +107,7 @@ GEM
     i18n (0.5.0)
     json (1.4.6)
     json_pure (1.5.1)
-    mail (2.2.15)
+    mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -118,8 +119,8 @@ GEM
     prarupa (0.1.2)
       RedCloth (~> 4.2)
       rdiscount (~> 1.6)
-    rack (1.2.1)
-    rack-mount (0.6.13)
+    rack (1.2.2)
+    rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
@@ -165,7 +166,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.24)
+    tzinfo (0.3.27)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -181,6 +182,7 @@ DEPENDENCIES
   RedCloth
   acts_as_revisable!
   acts_as_versioned
+  annotate
   authlogic!
   authlogic-oid
   cancan
