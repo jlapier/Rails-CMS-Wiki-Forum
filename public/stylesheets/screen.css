@@ -280,8 +280,6 @@ a.negative:hover, button.negative:hover {background-color:#fbe3e4;border:1px sol
 a.negative:active {background-color:#d12f19;border:1px solid #d12f19;color:#fff;}
 
 /* files */
-div.file_attachment {margin-bottom:10px;}
-p.file_attachment_description {float:right;max-width:70%;}
 
 /* events */
 .fc, .fc .fc-header, .fc .fc-content {font-size:1em;}
