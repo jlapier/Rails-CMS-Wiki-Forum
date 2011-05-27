@@ -21,6 +21,9 @@
 <% end %>
 
 <br/>
-
-<%= initialize_ckeditor('wiki_page[body]', upload_handler_wiki_wiki_page_path(@wiki, @wiki_page)) %>
+<%= initialize_ckeditor('wiki_page[body]', {
+  :filebrowserUploadUrl => upload_handler_wiki_wiki_page_path(@wiki, @wiki_page, {
+    :authenticity_token => form_authenticity_token
+  })
+}) %>
 <%= ckeditor_confirm_exit(un_edit_wiki_wiki_page_path(@wiki, @wiki_page)) %>

@@ -238,3 +238,8 @@ ul.events .open:before { content: '- ' }
   padding: 5px;
   margin-bottom:20px;
 }
+.posts .gravatar_wrapper, .post .gravatar_wrapper {
+  width: 150px;
+  float: right;
+  text-align: center;
+}

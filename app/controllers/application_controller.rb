@@ -21,11 +21,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user, :in_event_calendar?,
                 :in_file_share?, :has_authorization?
-  
+                
   before_filter :get_menus, :get_layout
   
-	private
-	
+	private	
 	# returns true if resource & action in question are designated as public
 	#   see #public_resource?
 	# returns false for anonymous requests to non public resources

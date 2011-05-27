@@ -8,14 +8,14 @@ module Blog
     validates_presence_of :commenter_id,
       :if => Proc.new{|comment| comment.commenter_name.blank? and comment.commenter_email.blank?}
     validates_format_of :status, :with => /(pending|approved|spam)/
-    validate :post_is_published
+    validate :post_published
     
     belongs_to :post
     
     scope :approved, where(:status => "approved")
     scope :pending, where(:status => "pending")
   private
-    def post_is_published
+    def post_published
       errors.add(:body, "Comment cannot be saved.") unless post.published
     end
   public
@@ -28,7 +28,17 @@ module Blog
     end
     def approve
       self[:status] = "approved"
-      save
+    end
+    def approved?
+      self[:status] == "approved"
+    end
+    def request_approval(current_user)
+      if current_user and current_user.logged_in?
+        approve
+        self[:commenter_id] = current_user.id
+      else
+        self[:status] = "pending"
+      end
     end
   end
   
@@ -38,9 +48,6 @@ module Blog
     def initialize(name, email)
       @name = name
       @email = email
-    end
-    def email
-      'some@test.com'
     end
   end
 end

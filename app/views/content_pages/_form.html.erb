@@ -72,7 +72,11 @@
 <% end %>
 
 <% unless @content_page.special =~ /Menu/ or @content_page.new_record? %>
-  <%= initialize_ckeditor('content_page[body]', upload_handler_content_page_path(@content_page)) %>
+  <%= initialize_ckeditor('content_page[body]', {
+    :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
+      :authenticity_token => form_authenticity_token
+    })
+  }) %>
   <script type="text/javascript">
     //<![CDATA[
         $('#content_page_publish_on').datepicker();

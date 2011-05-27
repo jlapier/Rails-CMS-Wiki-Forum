@@ -1,6 +1,4 @@
-<a onclick="alert('should this point to a user profile or should it load all posts by <%= author.name %>?');return false;" href="/blog/posts/by/<%= author.first_name %>:<%= author.last_name %>">
-  <p style="margin: 0 0 10px 10px; float:right; padding: 8px; text-align: center;">
+<a class="gravatar_wrapper" onclick="alert('should this point to a user profile or should it load all posts by <%= author.name %>?');return false;" href="/blog/posts/by/<%= author.first_name %>:<%= author.last_name %>">
     <%=raw gravatar_for author, :size => 50 %><br>
     <%= author.fullname %>
-  </p>
 </a>

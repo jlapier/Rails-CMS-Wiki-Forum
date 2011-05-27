@@ -3,7 +3,15 @@ published_post:
   title: Published Post
   body: "Unquestionably the biggest challenge facing any organization today is effectively locating, managing and analysing the constant stream of data."
   author_id: <%= Fixtures.identify :john %>
-  published: true
+  published: true  
+
+pending_post:
+  id: <%= Fixtures.identify :pending_post %>
+  title: Pending Post
+  body: ".atad fo maerts tnatsnoc eht gnisylana dna gniganam ,gnitacol ylevitceffe si yadot noitazinagro yna gnicaf egnellahc tseggib eht ylbanoitseuqnU"
+  author_id: <%= Fixtures.identify :john %>
+  published: false
+
 # == Schema Information
 #
 # Table name: blog_posts

@@ -2,8 +2,10 @@
 <%= semantic_form_for(@comment ||= @post.comments.build) do |form| %>
   <%= form.inputs do %>
     <%= form.input :post_id, :as => :hidden %>
+  <% unless current_user and current_user.logged_in? %>
     <%= form.input :commenter_name, :label => "Name" %>
     <%= form.input :commenter_email, :label => "Email" %>
+  <% end %>
     <%= form.input :body, :label => "Comment" %>
   <% end %>
   <%= form.submit "Submit Comment" %>

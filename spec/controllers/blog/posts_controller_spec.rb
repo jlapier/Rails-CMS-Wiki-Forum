@@ -184,6 +184,9 @@ describe Blog::PostsController do
   describe "GET 'show' (:id => int)" do
     before(:each) do
       subject.stub(:published){ false }
+      subject.stub(:comments){ mock('Relation', {
+        :approved => []
+      }) }
       Blog::Post.stub(:find).with(1){ subject }
     end
     context "post is published or user is authenticated" do
@@ -214,14 +217,15 @@ describe Blog::PostsController do
   describe "DELETE 'destroy' (:id => int)" do
     before(:each) do
       subject.stub(:title){ 'deleted' }
-      Blog::Post.stub(:destroy){ subject }
+      subject.stub(:destroy)
+      Blog::Post.stub(:find).with(1){ subject }
     end
     context "user is authorized" do
       before(:each) do
         controller.stub(:has_authorization?){ true }
       end
       it "destroys the post of :id" do
-        Blog::Post.should_receive(:destroy).with(1){ subject }
+        subject.should_receive(:destroy)
         delete :destroy, :id => 1
       end
       it "redirects to blog_posts_path" do
@@ -234,7 +238,7 @@ describe Blog::PostsController do
         controller.stub(:has_authorization?){ false }
       end
       it "does NOT destroy any post" do
-        Blog::Post.should_not_receive(:destroy)
+        subject.should_not_receive :destroy
         delete :destroy, :id => 1
       end
       it "redirects to the blog posts path" do

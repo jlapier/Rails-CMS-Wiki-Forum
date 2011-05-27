@@ -4,10 +4,10 @@ Feature: Publish blog content
   I want to publish blog content
 
   Scenario: publish a post
-    Given I am logged in as an admin user
-    And I am viewing the post "Pending Post"
-    When I press "Publish"
-    Then I should see "Post published!"
+    Given I am logged in as "admin" user "admin"
+    And I am on the blog post page for "Pending Post"
+    When I follow "Publish"
+    Then I should see "Published post: Pending Post"
     And the post "Pending Post" should be public
 
   Scenario: receive some notification when published posts are revised
@@ -16,7 +16,7 @@ Feature: Publish blog content
     Then all admin users should receive an email notification with a link to the post
     
   Scenario: revert a post to previous version
-    Given I am logged in as an admin user
+    Given I am logged in as "admin" user "admin"
     And I am viewing the post "Updated Post"
     When I press "Review Changes"
     Then I should see the previous version
