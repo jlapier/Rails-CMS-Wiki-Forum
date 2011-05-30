@@ -45,20 +45,30 @@ describe Blog::Post do
 end
 
 
+
 # == Schema Information
 #
 # Table name: blog_posts
 #
-#  id                 :integer         not null, primary key
-#  author_id          :integer
-#  category_id        :integer
-#  editing_user_id    :integer
-#  modifying_user_id  :integer
-#  title              :string(255)
-#  body               :text
-#  published          :boolean         default(FALSE)
-#  started_editing_at :datetime
-#  created_at         :datetime
-#  updated_at         :datetime
+#  id                         :integer         not null, primary key
+#  author_id                  :integer
+#  category_id                :integer
+#  editing_user_id            :integer
+#  modifying_user_id          :integer
+#  title                      :string(255)
+#  body                       :text
+#  published                  :boolean         default(FALSE)
+#  started_editing_at         :datetime
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  revisable_original_id      :integer
+#  revisable_branched_from_id :integer
+#  revisable_number           :integer         default(0)
+#  revisable_name             :string(255)
+#  revisable_type             :string(255)
+#  revisable_current_at       :datetime
+#  revisable_revised_at       :datetime
+#  revisable_deleted_at       :datetime
+#  revisable_is_current       :boolean         default(TRUE)
 #
 

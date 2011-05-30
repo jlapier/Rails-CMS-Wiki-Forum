@@ -56,13 +56,14 @@ describe Blog::Comment do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: blog_comments
 #
 #  id              :integer         not null, primary key
 #  post_id         :integer
-#  status          :string(255)
+#  status          :string(255)     default("pending")
 #  commenter_id    :integer
 #  commenter_email :string(255)
 #  commenter_name  :string(255)

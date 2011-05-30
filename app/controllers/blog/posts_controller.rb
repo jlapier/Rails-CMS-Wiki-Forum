@@ -20,6 +20,7 @@ module Blog
   
     def create
       post.author = current_user
+      post.modifying_user = current_user
       if post.save
         respond_to do |format|
           append = current_user.is_admin? ? '' : ' Publication is pending moderator approval.'
@@ -37,6 +38,7 @@ module Blog
     end
     
     def update
+      post.modifying_user = current_user
       if post.update_attributes params[:blog_post]
         remove_editing_user_record_for post
         respond_to do |format|
@@ -83,6 +85,30 @@ module Blog
         redirect_to blog_posts_path, :notice => "Not Found." and return
       end
       comments # load @comments
+    end
+    
+    def revisions
+      @revisions = post.revisions
+      redirect_to blog_post_path(post), :notice => "No Revisions Found." if @revisions.count < 1
+    end
+    
+    def revision
+      @revision = post.find_revision params[:revision_number]
+    end
+    
+    def revert
+      post.revert_to! params[:to], :revision_name => "Reverted to revision ##{params[:to]}", :modifying_user => current_user
+      redirect_to blog_post_path(post), :notice => "Reverted to revision ##{params[:to]}."
+    end
+    
+    def deleted
+      @deleted_posts = PostRevision.where("revisable_deleted_at is not null")
+    end
+    
+    def restore
+      @revision = PostRevision.find params[:revision_id]
+      @revision.restore
+      redirect_to blog_post_path(@revision.id), :notice => "Post recovered from the trash!"
     end
   
     def destroy

@@ -90,15 +90,11 @@ module ApplicationHelper
               link_to( "Log In", new_user_session_path)
     end
     out += " | "
-    out += link_to("Blog", path_to_blog_posts)
+    out += link_to("Blog", blog_posts_path)
     out += " | "
     out += link_to_events({:no_wrapper => true},
                                   {:link_text => 'Events'})
     out.html_safe
-  end
-  
-  def path_to_blog_posts
-    blog_posts_path
   end
 
   def images_list

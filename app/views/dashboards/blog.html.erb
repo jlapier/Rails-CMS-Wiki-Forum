@@ -4,14 +4,18 @@ approved_comment_heading = pluralize(@approved_comments.count, "Approved Comment
 draft_post_heading       = pluralize(@draft_posts.count, "Draft Post")
 published_post_heading   = pluralize(@published_posts.count, "Published Post")
 %>
+<p class="right">
+  <%= fake_button(link_to("Deleted Posts", deleted_blog_posts_path)) %>
+  <%= fake_button(link_to("New Post", new_blog_post_path)) %>
+</p>
 
 <h1>Blog</h1>
 
 <p>
   <%= fake_button(link_to(pending_comment_heading, :anchor => 'pending_comments')) %>
   <%= fake_button(link_to(draft_post_heading, :anchor => 'draft_posts')) %>
-  <%= fake_button(link_to(approved_comment_heading, :anchor => 'approved_comments')) %>
   <%= fake_button(link_to(published_post_heading, :anchor => 'published_posts')) %>
+  <%= fake_button(link_to(approved_comment_heading, :anchor => 'approved_comments')) %>
 </p>
 
 <h2><a name="pending_comments"></a><%= pending_comment_heading %></h2>

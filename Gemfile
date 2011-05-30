@@ -6,8 +6,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem "acts_as_versioned"
 gem 'acts_as_revisable', {
-  :git => "git://github.com/inertialbit/acts_as_revisable.git",
-  :branch => 'rails3'
+  :git => "git://github.com/inertialbit/acts_as_revisable.git"
 }
 gem 'authlogic'
 gem 'authlogic-oid', :require => 'authlogic_openid'

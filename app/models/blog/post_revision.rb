@@ -1,18 +1,14 @@
-published_post:
-  id: <%= Fixtures.identify :published_post %>
-  title: Published Post
-  body: "Unquestionably the biggest challenge facing any organization today is effectively locating, managing and analysing the constant stream of data."
-  author_id: <%= Fixtures.identify :john %>
-  published: true  
-
-pending_post:
-  id: <%= Fixtures.identify :pending_post %>
-  title: Pending Post
-  body: ".atad fo maerts tnatsnoc eht gnisylana dna gniganam ,gnitacol ylevitceffe si yadot noitazinagro yna gnicaf egnellahc tseggib eht ylbanoitseuqnU"
-  author_id: <%= Fixtures.identify :john %>
-  published: false
-
-
+module Blog
+  class PostRevision < ActiveRecord::Base
+    include DeletableInstanceMethods
+    
+    acts_as_revision :revisable_class_name => "Blog::Post"
+    
+    belongs_to :author, :class_name => 'User'
+    belongs_to :modifying_user, :class_name => 'User'
+    belongs_to :category
+  end
+end
 # == Schema Information
 #
 # Table name: blog_posts

@@ -5,11 +5,11 @@ describe Blog::PostsController do
   subject{ mock_model(Blog::Post) }
   
   def mock_admin(stubs={})
-    stub_model(User, {:is_admin? => true, :logged_in? => true})
+    @mock_admin ||= stub_model(User, {:is_admin? => true, :logged_in? => true})
   end
   
   def mock_user(stubs={})
-    stub_model(User, {:is_admin? => false, :logged_in? => true})
+    @mock_user ||= stub_model(User, {:is_admin? => false, :logged_in? => true})
   end
   
   before(:each) do
@@ -60,6 +60,7 @@ describe Blog::PostsController do
     before(:each) do
       subject.stub(:title){ 'new post' }
       subject.stub(:author=)
+      subject.stub(:modifying_user=)
       subject.stub(:save)
       Blog::Post.stub(:new){ subject }
     end
@@ -124,6 +125,7 @@ describe Blog::PostsController do
   describe "PUT 'update' (:id => int, :blog_post => {})" do
     let(:params){ {:some => 'attributes'} }
     before(:each) do
+      subject.stub(:modifying_user=)
       subject.stub(:title){ 'Updating post' }
       subject.stub(:update_attributes).with(params.stringify_keys){ false }
       controller.stub(:remove_editing_user_record_for).with(subject)
@@ -166,13 +168,19 @@ describe Blog::PostsController do
   
   describe "POST 'publish' (:id => int)" do
     before(:each) do
-      subject.stub(:toggle_published)
+      subject.stub(:title){ "Post TItle" }
+      subject.stub(:toggle_published){ true }
       subject.stub(:published){ false }
       Blog::Post.stub(:find).with(1){ subject }
     end
     it "publishes the post loaded from :id" do
       subject.should_receive(:toggle_published)
       post :publish, :id => 1
+    end
+    it "reflects failure in the message returned to the user" do
+      subject.stub(:toggle_published){ false }
+      post :publish, :id => 1
+      flash[:notice].should include("failed")
     end
     it "redirects to the post path with a flash[:notice]" do
       post :publish, :id => 1
@@ -321,6 +329,107 @@ describe Blog::PostsController do
         xhr :post, :un_edit, :id => 1
         response.body.should eq " "
       end
+    end
+  end
+  
+  describe "GET 'revisions' (:id => int)" do
+    before(:each) do
+      subject.stub(:revisions){ ['revisions'] }
+      Blog::Post.stub(:find).with(1){ subject }
+    end
+    it "loads @post from :id" do
+      get :revisions, :id => 1
+      assigns(:post).should eq subject
+    end
+    it "loads @revisions from @post" do
+      subject.should_receive(:revisions){ ['revisions'] }
+      get :revisions, :id => 1
+      assigns(:revisions).should eq ['revisions']
+    end
+    it "redirects to blog_post_path @post with :notice if no revisions are found" do
+      subject.stub(:revisions){ [] }
+      get :revisions, :id => 1
+      response.should redirect_to blog_post_path subject
+      flash[:notice].should_not be_blank
+    end
+    it "renders the revisions template if revisions are found" do
+      get :revisions, :id => 1
+      response.should render_template("blog/posts/revisions")
+    end
+  end
+  
+  describe "GET 'revision' (:id => int, :revision_number => int)" do
+    let(:post_revision){ mock_model(Blog::PostRevision) }
+    before(:each) do
+      subject.stub(:find_revision).with(2){ post_revision }
+      Blog::Post.stub(:find).with(1){ subject }
+    end
+    it "loads @post from :id" do
+      get :revision, :id => 1, :revision_number => 2
+      assigns(:post).should eq subject
+    end
+    it "loads @revision from @post and :revision_number" do
+      get :revision, :id => 1, :revision_number => 2
+      assigns(:revision).should eq post_revision
+    end
+    it "renders the revision template" do
+      get :revision, :id => 1, :revision_number => 2
+      response.should render_template("blog/posts/revision")
+    end
+  end
+  
+  describe "PUT 'revert' (:id => int, :to => int)" do
+    before(:each) do
+      subject.stub(:revert_to!).with(2, :revision_name => "Reverted to revision #2", :modifying_user => mock_user)
+      Blog::Post.stub(:find).with(1){ subject }
+    end
+    it "loads @post from :id" do
+      put :revert, :id => 1, :to => 2
+      assigns(:post).should eq subject
+    end
+    it "reverts post to :to" do
+      subject.should_receive(:revert_to!).with(2, :revision_name => "Reverted to revision #2", :modifying_user => mock_user)
+      put :revert, :id => 1, :to => 2
+    end
+    it "redirects to blog_post_path with :notice" do
+      put :revert, :id => 1, :to => 2
+      response.should redirect_to blog_post_path subject
+      flash[:notice].should_not be_blank
+    end
+  end
+  
+  describe "PUT 'restore' (:revision_id => int)" do
+    let(:post_revision){ mock_model(Blog::PostRevision) }
+    before(:each) do
+      post_revision.stub(:restore)
+      Blog::PostRevision.stub(:find).with(1){ post_revision }
+    end
+    it "loads @revision from :revision_id" do
+      put :restore, :revision_id => 1
+      assigns(:revision).should eq post_revision
+    end
+    it "restores the @revision" do
+      post_revision.should_receive(:restore)
+      put :restore, :revision_id => 1
+    end
+  end
+  
+  describe "GET 'deleted'" do
+    let(:post_revision) do
+      mock('Relation', {
+        :[] => []
+      })
+    end
+    before(:each) do
+      Blog::PostRevision.stub(:where).with("revisable_deleted_at is not null"){ post_revision }
+    end
+    it "loads @deleted_posts from PostRevision" do
+      get :deleted
+      assigns(:deleted_posts).should eq post_revision
+    end
+    it "renders the deleted template" do
+      get :deleted
+      response.should render_template("blog/posts/deleted")
     end
   end
 

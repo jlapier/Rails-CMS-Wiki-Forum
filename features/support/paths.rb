@@ -35,6 +35,10 @@ module NavigationHelpers
       p = Blog::Post.find_by_title($1)
       blog_post_path(p)
       
+    when /blog post revisions page for "(.*)"/
+      p = Blog::Post.find_by_title($1)
+      revisions_blog_post_path(p)
+      
     else
       begin
         page_name =~ /the (.*) page/

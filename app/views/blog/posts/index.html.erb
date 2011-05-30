@@ -1,6 +1,9 @@
 <h1>SIGnetwork Tech Topics</h1>
 
-<p style="border-top: #000066 solid 1px; text-align: right;"><%= link_to_new_post %></p>
+<p style="border-top: #000066 solid 1px; text-align: right;">
+  <%= link_to_blog_admin %>
+  <%= link_to_new_post %>
+</p>
 
 <div class="posts">
 <%= render :partial => 'blog/posts/lead_in', :collection => @posts,

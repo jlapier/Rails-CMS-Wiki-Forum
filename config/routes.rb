@@ -105,7 +105,14 @@ RailsCMSWikiForum::Application.routes.draw do
       end
     end
     resources :posts do
+      collection do
+        get :deleted
+        put 'revision/:revision_id' => 'posts#restore', :as => :restore
+      end
       member do
+        get :revisions
+        get 'revision/:revision_number' => 'posts#revision', :as => :revision
+        put :revert
         post :publish
         post :delete_asset
         post :un_edit

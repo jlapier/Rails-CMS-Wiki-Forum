@@ -1,0 +1,9 @@
+<h2><%= link_to "Blog Admin", blog_dashboard_path %>: Deleted Posts</h2>
+<% @deleted_posts.each do |revision| %>
+  <p>
+    On <%= revision.updated_at.strftime("%b %d %Y @%I:%M%P").downcase.capitalize %>
+    <%= revision.modifying_user.present? ? revision.modifying_user.name : 'someone' %>
+    deleted <%= revision.title %>
+    <%= fake_button(link_to "Recover", restore_blog_posts_path(revision.id), :confirm => "Restore #{revision.title} from the trash?", :method => :put) %>
+  </p>
+<% end %>

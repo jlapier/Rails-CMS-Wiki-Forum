@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/inertialbit/acts_as_revisable.git
-  revision: 8f119c9cc7355756a763649c591a543d04e73bda
-  branch: rails3
+  revision: 62776337c70b4ab3ebb0541a1011887953abd23b
   specs:
     acts_as_revisable (1.1.2)
 
