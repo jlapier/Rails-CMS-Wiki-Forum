@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/inertialbit/acts_as_revisable.git
-  revision: 8f119c9cc7355756a763649c591a543d04e73bda
+  revision: 0ca77d5c45920545699f83da05039971c7cfeb9c
   branch: rails3
   specs:
     acts_as_revisable (1.1.2)
@@ -39,14 +39,14 @@ GEM
     acts_as_versioned (0.6.0)
       activerecord (~> 3.0.0.beta4)
     annotate (2.4.0)
-    arel (2.0.9)
-    authlogic (3.0.2)
-      activerecord (~> 3.0.7)
-      activerecord (~> 3.0.7)
+    arel (2.0.10)
+    authlogic (3.0.3)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     authlogic-oid (1.0.4)
       authlogic
     builder (2.1.2)
-    cancan (1.6.4)
+    cancan (1.6.5)
     capybara (1.0.0.beta1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -57,15 +57,15 @@ GEM
     childprocess (0.1.9)
       ffi (~> 1.0.6)
     configuration (1.2.0)
-    cucumber (0.10.2)
+    cucumber (0.10.3)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
-      gherkin (>= 2.3.5)
+      gherkin (>= 2.3.8)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.5)
-    cucumber-rails (0.5.0)
+    cucumber-rails (0.5.1)
       capybara (>= 1.0.0.beta1)
-      cucumber (>= 0.10.2)
+      cucumber (>= 0.10.3)
       nokogiri (>= 1.4.4)
       rack-test (>= 0.5.7)
     database_cleaner (0.6.7)
@@ -82,7 +82,7 @@ GEM
       rails (~> 3.0.7)
       will_paginate (~> 3.0.pre2)
     factory_girl (1.3.3)
-    ffi (1.0.8)
+    ffi (1.0.9)
     file_share (0.1.15)
       file_share
       formtastic
@@ -91,7 +91,7 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
-    gherkin (2.3.8)
+    gherkin (2.3.10)
       json (>= 1.4.6)
     i18n (0.5.0)
     json (1.5.1)
@@ -111,7 +111,7 @@ GEM
     prarupa (0.1.2)
       RedCloth (~> 4.2)
       rdiscount (~> 1.6)
-    rack (1.2.2)
+    rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
@@ -136,11 +136,11 @@ GEM
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
       rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.0)
+    rspec-core (2.6.3)
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
-    rspec-rails (2.6.0)
+    rspec-rails (2.6.1)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
@@ -189,6 +189,7 @@ DEPENDENCIES
   launchy
   mysql
   rails (= 3.0.7)
+  rake (~> 0.8.7)
   rcov
   rspec-rails
   ruby-openid
