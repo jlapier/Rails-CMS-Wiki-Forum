@@ -125,6 +125,7 @@ describe Blog::PostsController do
   describe "PUT 'update' (:id => int, :blog_post => {})" do
     let(:params){ {:some => 'attributes'} }
     before(:each) do
+      subject.stub(:published)
       subject.stub(:modifying_user=)
       subject.stub(:title){ 'Updating post' }
       subject.stub(:update_attributes).with(params.stringify_keys){ false }
@@ -142,6 +143,11 @@ describe Blog::PostsController do
     context "update succeeds :)" do
       before(:each) do
         subject.stub(:update_attributes){ true }
+      end
+      it "notifies all admin users of the update IF post is published" do
+        subject.stub(:published){ true }
+        Notifier.should_receive(:published_blog_post_updated).with(subject, mock_user)
+        put :update, :id => 1
       end
       it "removes the editing user record for @post" do
         controller.should_receive(:remove_editing_user_record_for).with(subject)
@@ -177,15 +183,21 @@ describe Blog::PostsController do
       subject.should_receive(:toggle_published)
       post :publish, :id => 1
     end
-    it "reflects failure in the message returned to the user" do
-      subject.stub(:toggle_published){ false }
-      post :publish, :id => 1
-      flash[:notice].should include("failed")
+    context "publication fails :(" do
+      before(:each) do
+        subject.stub(:toggle_published){ false }
+      end
+      it "reflects failure in the message returned to the user" do
+        post :publish, :id => 1
+        flash[:notice].should include("failed")
+      end      
     end
-    it "redirects to the post path with a flash[:notice]" do
-      post :publish, :id => 1
-      response.should redirect_to blog_post_path(subject)
-      flash[:notice].should_not be_nil
+    context "publication succeeds :)" do
+      it "redirects to the post path with a flash[:notice]" do
+        post :publish, :id => 1
+        response.should redirect_to blog_post_path(subject)
+        flash[:notice].should_not be_nil
+      end
     end
   end
 

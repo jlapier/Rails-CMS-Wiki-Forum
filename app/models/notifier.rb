@@ -1,6 +1,13 @@
 class Notifier < ActionMailer::Base
   default_url_options[:host] = SiteSetting.read_setting('hostname') || 'localhost'
+  include Blog::PostsHelper
 
+private
+  def admins
+    @admins ||= User.find_admins.map(&:email)
+    @admins.empty? ? 'root@localhost' : @admins
+  end
+public
   def password_reset_instructions(user, sent_at = Time.now)
     subject    'Password Reset Instructions'
     recipients user.email
@@ -11,8 +18,6 @@ class Notifier < ActionMailer::Base
   end
 
   def user_created(user, sent_at = Time.now)
-    admins = User.find_admins.map(&:email)
-    admins = 'root@localhost' if admins.empty?
     subject    "New user registered: #{user.fullname}"
     recipients admins
     from       SiteSetting.read_setting('site title')
@@ -23,4 +28,15 @@ class Notifier < ActionMailer::Base
     @user = user
   end
 
+  def published_blog_post_updated(post, updating_user)
+    subject "Published Blog Post Updated [#{post.title.truncate(23)}]"
+    recipients admins
+    from SiteSetting.read_setting('site title')
+    
+    @publisher_name = "#{updating_user.first_name} #{updating_user.last_name}"
+    @post_title = post.title
+    @post_body = truncated_post_body(post)
+    @post_link = "Full Post: #{blog_post_url(post)}"
+    @admin_link = "Blog Admin: #{blog_dashboard_url}"
+  end
 end

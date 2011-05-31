@@ -40,6 +40,7 @@ module Blog
     def update
       post.modifying_user = current_user
       if post.update_attributes params[:blog_post]
+        Notifier.published_blog_post_updated(post, current_user) if post.published
         remove_editing_user_record_for post
         respond_to do |format|
           format.html{ redirect_to blog_post_path(post), :notice => "Updated post: #{post.title}"}
