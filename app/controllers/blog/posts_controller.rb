@@ -12,6 +12,7 @@ module Blog
     def index
       @posts = Post.order("created_at DESC, published")
       @posts = @posts.published unless current_user and current_user.logged_in?
+      @posts = @posts.by(params[:author_id]) if params[:author_id]
       
       respond_to do |format|
         format.html

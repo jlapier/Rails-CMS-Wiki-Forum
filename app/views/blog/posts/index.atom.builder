@@ -1,7 +1,8 @@
 atom_feed(:url => blog_posts_url(:atom)) do |feed|
-  feed.title("#{site_title} #{blog_title}") # required
+  feed.title("#{site_title} #{blog_title}") unless params[:author_id] # required
+  feed.title("#{site_title} #{blog_title} posts by #{@posts.first.author.first_name}") if params[:author_id]
+  
   feed.updated(5.minutes.ago.utc) # required
-  # feed.author # required unless each entry contains an author
 
   @posts.each do |post|
     thread_location = blog_post_url(post)

@@ -19,6 +19,13 @@ some_great_title:
   author_id: <%= Fixtures.identify :john %>
   published: true
 
+some_other_title:
+  id: <%= Fixtures.identify :some_other_title %>
+  title: Some Other Title
+  body: "The body for Some Other Title"
+  author_id: <%= Fixtures.identify :admin %>
+  published: true
+
 # == Schema Information
 #
 # Table name: blog_posts

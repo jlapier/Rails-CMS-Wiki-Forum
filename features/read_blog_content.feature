@@ -9,17 +9,16 @@ Feature: Read blog content
   Scenario: read a blog post
     Then I should see "Some Great Title"
     And I should see "The body for Some Great Title"
-    When I follow "Read more..."
+    When I follow "Read more..." within "div.posts div:nth-child(2)"
     Then I should be on the blog post page for "Some Great Title"
   
-  Scenario: consume an rss subscription to a specific blog author
-    When I subscribe to an author
-    Then I should be subscribed
-    And I should receive all posts by this author
-    And I should receive updates to any posts by this author
-    And I should receive comments to any posts by this author
+  Scenario: view all blog posts by a specific author
+    When I follow "John Doe"
+    Then I should be on the blog posts by "John Doe" page
+    And I should not see "Some Other Title"
+    And I should see "Some Great Title"
     
   Scenario: easily view sibling sub-categories of currently selected category
-    When I follow "Top Level Category"
+    When I have and follow "Top Level Category"
     Then I should see all the posts in the category "Top Level Category"
     And I should see links to all the sub-categories in the category "Top Level Category"

@@ -108,6 +108,7 @@ RailsCMSWikiForum::Application.routes.draw do
       collection do
         get :deleted
         put 'revision/:revision_id' => 'posts#restore', :as => :restore
+        get 'by/:author_id' => 'posts#index', :as => :by_author
       end
       member do
         get :revisions

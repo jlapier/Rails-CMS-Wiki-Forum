@@ -13,6 +13,7 @@ module Blog
     
     scope :published, where(:published => true)
     scope :draft, where(:published => false)
+    scope :by, lambda{|author_id| where(:author_id => author_id)}
     
     acts_as_revisable({
       :revision_class_name => "Blog::PostRevision",

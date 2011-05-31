@@ -38,7 +38,12 @@ module NavigationHelpers
     when /blog post revisions page for "(.*)"/
       p = Blog::Post.find_by_title($1)
       revisions_blog_post_path(p)
-      
+    
+    when /blog posts by "(.*)" page/
+      first, last = $1.split(" ")
+      u = User.find_by_first_name_and_last_name(first, last)
+      by_author_blog_posts_path(u.id)  
+    
     else
       begin
         page_name =~ /the (.*) page/

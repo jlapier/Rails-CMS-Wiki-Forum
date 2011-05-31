@@ -22,7 +22,8 @@ describe Blog::PostsController do
     before(:each) do
       Blog::Post.stub(:order){ mock('Relation', {
         :[] => subject,
-        :published => ['published']
+        :published => ['published'],
+        :by => ['author']
       }) }
     end
     it "loads all @posts for logged in users" do
@@ -34,6 +35,10 @@ describe Blog::PostsController do
       controller.stub(:current_user){ nil }
       get :index
       assigns(:posts).should eq ['published']
+    end
+    it "loads @posts.by an author given params[:author_id] is present" do
+      get :index, :author_id => 1
+      assigns(:posts).should eq ['author']
     end
     it "renders blog/posts/index" do
       get :index

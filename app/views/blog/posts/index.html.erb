@@ -1,7 +1,8 @@
 <p class="right">
   <%= link_to_blog_admin %>
   <%= link_to_new_post %>
-  <%= link_to_rss blog_posts_url(:atom) %>
+  <%= link_to_rss blog_posts_url(:atom) unless params[:author_id] %>
+  <%= link_to_rss by_author_blog_posts_url(params[:author_id], :atom) if params[:author_id] %>
 </p>
 
 <h1><%= site_title %> <%= blog_title %></h1>
