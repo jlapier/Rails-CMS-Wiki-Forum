@@ -4,8 +4,13 @@
 
   <%= form_tag( { :action => :update_site_settings } ) do  %>
     <p>
-      <strong>Title:</strong>
+      <strong>Site Title:</strong>
       <%= text_field_tag :site_title, site_title, :size => 70 %>
+    </p>
+    
+    <p>
+      <strong>Blog Title:</strong>
+      <span class="small_text"><%= site_title %></span> <%= text_field_tag :blog_title, blog_title, :size => 70 %>
     </p>
 
     <p>

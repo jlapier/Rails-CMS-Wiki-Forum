@@ -12,6 +12,11 @@ module Blog
     def index
       @posts = Post.order("created_at DESC, published")
       @posts = @posts.published unless current_user and current_user.logged_in?
+      
+      respond_to do |format|
+        format.html
+        format.atom
+      end
     end
 
     def new
@@ -86,6 +91,10 @@ module Blog
         redirect_to blog_posts_path, :notice => "Not Found." and return
       end
       comments # load @comments
+      respond_to do |format|
+        format.html
+        format.atom
+      end
     end
     
     def revisions

@@ -7,13 +7,21 @@ module Blog::PostsHelper
   def post_tools(post)
     out = ''
     if current_user and current_user.logged_in?
-      out += fake_button(link_to_edit_post(post)) + " "
+      if has_authorization? :update, post
+        out += fake_button(link_to_edit_post(post)) + " "
+      end
+      if has_authorization? :create, Blog::Post.new
+        out += link_to_new_post + " "
+      end
       if current_user.is_admin?
         out += " " + fake_button(link_to_publish_post(post)) + " "
         out += fake_button(link_to "Revision History", revisions_blog_post_path(post)) + " "
       end
-      out += fake_button(link_to_delete_post(post))
+      if has_authorization? :delete, post
+        out += fake_button(link_to_delete_post(post)) + " "
+      end
     end
+    out += link_to_rss blog_post_url(post, :atom)
     out.html_safe
   end
   def link_to_blog_category_post(post)

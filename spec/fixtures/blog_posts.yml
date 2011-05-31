@@ -12,6 +12,12 @@ pending_post:
   author_id: <%= Fixtures.identify :john %>
   published: false
 
+some_great_title:
+  id: <%= Fixtures.identify :some_great_title %>
+  title: Some Great Title
+  body: "The body for Some Great Title"
+  author_id: <%= Fixtures.identify :john %>
+  published: true
 
 # == Schema Information
 #

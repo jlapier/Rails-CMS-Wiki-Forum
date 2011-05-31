@@ -9,7 +9,7 @@ published_post_heading   = pluralize(@published_posts.count, "Published Post")
   <%= fake_button(link_to("New Post", new_blog_post_path)) %>
 </p>
 
-<h1>Blog</h1>
+<h1><%= link_to "Blog", blog_posts_path %></h1>
 
 <p>
   <%= fake_button(link_to(pending_comment_heading, :anchor => 'pending_comments')) %>

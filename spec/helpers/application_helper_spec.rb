@@ -30,7 +30,11 @@ describe ApplicationHelper do
   end
 
   it "should have a site title" do
-    helper.site_title.should == "A Site"
+    helper.site_title.should == "A Site [edit me in site settings]"
+  end
+  
+  it "should have a blog title" do
+    helper.blog_title.should == "Blog [edit me in site settings]"
   end
 
   it "should have a page title" do

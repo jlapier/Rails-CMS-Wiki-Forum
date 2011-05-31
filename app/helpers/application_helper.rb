@@ -14,7 +14,11 @@ module ApplicationHelper
   end
 
   def site_title
-    @site_title ||= SiteSetting.read_setting('site title') || "A Site"
+    @site_title ||= SiteSetting.read_setting('site title') || "A Site [edit me in site settings]"
+  end
+  
+  def blog_title
+    @blog_title ||= SiteSetting.read_setting('blog title') || "Blog [edit me in site settings]"
   end
 
   def page_title

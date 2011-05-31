@@ -80,5 +80,9 @@ class Ability
     can :update, Blog::Post do |post|
       user == post.author
     end
+    can :delete, Blog::Post do |post|
+      # todo: review delete permissions for blog posts
+      user == post.author and !post.published
+    end
   end
 end
