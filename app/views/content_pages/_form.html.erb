@@ -76,18 +76,15 @@
 <% end %>
 
 <% unless @content_page.special =~ /Menu/ or @content_page.new_record? %>
-<script type="text/javascript">
-  //<![CDATA[
-    CKEDITOR.replace( 'content_page[body]',
-      {
-        uiColor : '#819033',
-        filebrowserUploadUrl : '<%= upload_handler_content_page_path(@content_page, :authenticity_token => form_authenticity_token) %>',
-        toolbar : 'Mid'
-      });
-
-      $('#content_page_publish_on').datepicker();
-  //]]>
-</script>
-  <%# TODO: filebrowserBrowseUrl : '/something' %>
+  <%= initialize_ckeditor('content_page[body]', {
+    :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
+      :authenticity_token => form_authenticity_token
+    })
+  }) %>
+  <script type="text/javascript">
+    //<![CDATA[
+        $('#content_page_publish_on').datepicker();
+    //]]>
+  </script>
   <%# TODO: deal with uploads when page is not yet saved %>
 <% end %>

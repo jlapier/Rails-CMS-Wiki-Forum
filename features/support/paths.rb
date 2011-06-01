@@ -26,13 +26,24 @@ module NavigationHelpers
 
     when /the manage events page/
       '/dashboard/event_calendar'
-
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
-
+      
+    when /the edit blog post page for "(.*)"/
+      p = Blog::Post.find_by_title($1)
+      edit_blog_post_path(p)
+      
+    when /the blog post page for "(.*)"/
+      p = Blog::Post.find_by_title($1)
+      blog_post_path(p)
+      
+    when /blog post revisions page for "(.*)"/
+      p = Blog::Post.find_by_title($1)
+      revisions_blog_post_path(p)
+    
+    when /blog posts by "(.*)" page/
+      first, last = $1.split(" ")
+      u = User.find_by_first_name_and_last_name(first, last)
+      by_author_blog_posts_path(u.id)  
+    
     else
       begin
         page_name =~ /the (.*) page/

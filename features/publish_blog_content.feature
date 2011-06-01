@@ -3,22 +3,19 @@ Feature: Publish blog content
   As an admin user
   I want to publish blog content
 
-  Scenario: publish a post
-    Given I am logged in as an admin user
-    And I am viewing the post "Pending Post"
-    When I press "Publish"
-    Then I should see "Post published!"
-    And the post "Pending Post" should be public
-
-  Scenario: receive some notification when published posts are revised
-    Given one or more admin users exist
-    When a published post is revised
-    Then all admin users should receive an email notification with a link to the post
-    
   Scenario: revert a post to previous version
-    Given I am logged in as an admin user
-    And I am viewing the post "Updated Post"
-    When I press "Review Changes"
-    Then I should see the previous version
-    When I press "Revert"
-    Then I should see "Post reverted to version _x_."
+    Given I am logged in as "admin" user "admin"
+    And the post "Pending Post" has a revision history
+    And I am on the blog post page for "Pending Post"
+    When I follow "Revision History"
+    Then I should be on the blog post revisions page for "Pending Post"
+    When I follow "Revert"
+    Then I should see "Reverted to"
+    And I should be on the blog post page for "Pending Post"
+
+  Scenario: publish a post
+    Given I am logged in as "admin" user "admin"
+    And I am on the blog post page for "Pending Post"
+    When I follow "Publish"
+    Then I should see "Published post: Pending Post"
+    And the post "Pending Post" should be public

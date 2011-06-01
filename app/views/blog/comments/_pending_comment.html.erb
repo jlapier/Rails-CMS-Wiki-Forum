@@ -1,0 +1,13 @@
+<div style="padding: 10px;">
+  <p class="span-2" style="clear:both;">
+    <%=raw gravatar_for comment.commenter, :size => 50 %><br>
+    <%= comment.commenter.name %>
+  </p>
+  <p class="span-2" style="">
+    <%= link_to_approve_blog_comment(comment) %>
+    <%= link_to_delete_blog_comment(comment) %>
+  </p>
+  <p class="span-10 last" style="padding:5px;">
+    <%= comment.body %>
+  </p>
+</div>

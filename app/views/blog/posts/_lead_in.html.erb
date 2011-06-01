@@ -1,0 +1,18 @@
+<div style="padding: 15px;">
+  <%= render :partial => 'blog/posts/author', :object => post.author %>
+  
+  <h3 style="margin-bottom: 5px;"><%= "[Draft] " unless post.published %><%= link_to post.title, blog_post_path(post) %></h3>
+
+  <div style="padding: 10px;">
+    <%= post_tools(post) %>
+    
+    <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
+    
+    <%= truncated_post_body(post) %>
+
+    <p style="float: right; margin-right: 60px;">
+      <%= link_to_read_more(post) %>
+    </p>
+    
+  </div>
+</div>

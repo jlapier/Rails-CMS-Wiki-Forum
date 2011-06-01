@@ -2,32 +2,6 @@
 # has a special field called 'user defined fields' - should be a hash
 # a SiteSetting can be used to set up those fields
 
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: users
-#
-#  id                  :integer       not null, primary key
-#  created_at          :datetime      
-#  updated_at          :datetime      
-#  login               :string(255)   not null
-#  email               :string(255)   not null
-#  crypted_password    :string(255)   not null
-#  password_salt       :string(255)   not null
-#  persistence_token   :string(255)   not null
-#  perishable_token    :string(255)   not null
-#  login_count         :integer       default(0), not null
-#  last_request_at     :datetime      
-#  last_login_at       :datetime      
-#  current_login_at    :datetime      
-#  last_login_ip       :string(255)   
-#  current_login_ip    :string(255)   
-#  is_admin            :boolean       
-#  first_name          :string(255)   
-#  last_name           :string(255)   
-#  user_defined_fields :text          
-# End Schema
-
 class User < ActiveRecord::Base
   validates_presence_of :login, :email
 
@@ -137,3 +111,31 @@ end
 
 
 User.partial_updates = false
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                       :integer         not null, primary key
+#  created_at               :datetime
+#  updated_at               :datetime
+#  login                    :string(255)     not null
+#  email                    :string(255)     not null
+#  crypted_password         :string(255)     not null
+#  password_salt            :string(255)     not null
+#  persistence_token        :string(255)     not null
+#  perishable_token         :string(255)     not null
+#  login_count              :integer         default(0), not null
+#  last_request_at          :datetime
+#  last_login_at            :datetime
+#  current_login_at         :datetime
+#  last_login_ip            :string(255)
+#  current_login_ip         :string(255)
+#  is_admin                 :boolean
+#  first_name               :string(255)
+#  last_name                :string(255)
+#  user_defined_fields      :text
+#  requested_user_group_ids :string(255)
+#  single_access_token      :string(255)
+#
+

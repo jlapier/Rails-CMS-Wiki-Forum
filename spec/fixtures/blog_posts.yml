@@ -1,0 +1,54 @@
+published_post:
+  id: <%= Fixtures.identify :published_post %>
+  title: Published Post
+  body: "Unquestionably the biggest challenge facing any organization today is effectively locating, managing and analysing the constant stream of data."
+  author_id: <%= Fixtures.identify :john %>
+  published: true  
+
+pending_post:
+  id: <%= Fixtures.identify :pending_post %>
+  title: Pending Post
+  body: ".atad fo maerts tnatsnoc eht gnisylana dna gniganam ,gnitacol ylevitceffe si yadot noitazinagro yna gnicaf egnellahc tseggib eht ylbanoitseuqnU"
+  author_id: <%= Fixtures.identify :john %>
+  published: false
+
+some_great_title:
+  id: <%= Fixtures.identify :some_great_title %>
+  title: Some Great Title
+  body: "The body for Some Great Title"
+  author_id: <%= Fixtures.identify :john %>
+  published: true
+
+some_other_title:
+  id: <%= Fixtures.identify :some_other_title %>
+  title: Some Other Title
+  body: "The body for Some Other Title"
+  author_id: <%= Fixtures.identify :admin %>
+  published: true
+
+# == Schema Information
+#
+# Table name: blog_posts
+#
+#  id                         :integer         not null, primary key
+#  author_id                  :integer
+#  category_id                :integer
+#  editing_user_id            :integer
+#  modifying_user_id          :integer
+#  title                      :string(255)
+#  body                       :text
+#  published                  :boolean         default(FALSE)
+#  started_editing_at         :datetime
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  revisable_original_id      :integer
+#  revisable_branched_from_id :integer
+#  revisable_number           :integer         default(0)
+#  revisable_name             :string(255)
+#  revisable_type             :string(255)
+#  revisable_current_at       :datetime
+#  revisable_revised_at       :datetime
+#  revisable_deleted_at       :datetime
+#  revisable_is_current       :boolean         default(TRUE)
+#
+

@@ -33,7 +33,6 @@ RailsCMSWikiForum::Application.routes.draw do
   match 'themes/:action' => 'themes'
   match 'themes/:action/:name.:format' => 'themes'
 
-
   resources :site_settings do
     collection do
       get :admin
@@ -44,7 +43,7 @@ RailsCMSWikiForum::Application.routes.draw do
   resource :dashboard do
     member do
       get :event_calendar
-      get :file_share
+      get :blog
     end
   end
 
@@ -94,6 +93,32 @@ RailsCMSWikiForum::Application.routes.draw do
       post :add_users
       post :drop_user
       get :add_members
+    end
+  end
+  
+  namespace :blog do
+    get "/" => 'posts#index', :as => :posts
+    post "/" => 'posts#create', :as => :posts
+    resources :comments do
+      member do
+        post :approve
+      end
+    end
+    resources :posts do
+      collection do
+        get :deleted
+        put 'revision/:revision_id' => 'posts#restore', :as => :restore
+        get 'by/:author_id' => 'posts#index', :as => :by_author
+      end
+      member do
+        get :revisions
+        get 'revision/:revision_number' => 'posts#revision', :as => :revision
+        put :revert
+        post :publish
+        post :delete_asset
+        post :un_edit
+        post :upload_handler
+      end
     end
   end
 

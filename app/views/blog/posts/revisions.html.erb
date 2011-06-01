@@ -1,0 +1,11 @@
+<h2><%= link_to @post.title, blog_post_path %> Revision History</h2>
+<% @revisions.each do |revision| %>
+  <p>
+    On <%= revision.updated_at.strftime("%b %d %Y @%I:%M%P").downcase.capitalize %>
+    <%= revision.modifying_user.present? ? revision.modifying_user.name : 'someone' %>
+    <%= "#{revision.revision_name}" if revision.revision_name.present? %>
+    <%= "created revision ##{revision.revision_number}" unless revision.revision_name.present? %>
+    <%= fake_button(link_to "View", revision_blog_post_path(@post, revision.revision_number)) %>
+    <%= fake_button(link_to "Revert", revert_blog_post_path(revision.current_revision, :to => revision.revision_number), :method => :put, :confirm => "Revert Revision ##{revision.revision_number}?") %>
+  </p>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="post">
+  <%= render :partial => 'blog/posts/author', :object => post.author %>
+
+  <h1><%= link_to_blog_category_post(post) %></h1>
+
+  <%= post_tools(post) if post.current_revision == post %>
+
+  <p class="small_text"><em><%= nice_date(post.created_at) %></em></p>
+
+  <%=raw post.body %>
+</div>

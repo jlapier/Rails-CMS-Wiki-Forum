@@ -1,7 +1,7 @@
 Feature: Event calendar
 
   Background: I am logged in
-    Given I am logged in as "admin" user "joe"
+    Given I am logged in as "admin" user "admin"
 
   Scenario: create a new event spanning multiple days
     When I follow "Site Admin"

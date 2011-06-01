@@ -232,3 +232,21 @@ ul.events .closed:before { content: '+ ' }
 ul.events .closed:hover { text-decoration: underline; }
 ul.events .open:before { content: '- ' }
 .link_url { display:none; }
+
+.asset_list ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-right: 0;
+}
+.comments {
+  height: 175px;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-bottom:20px;
+}
+.posts .gravatar_wrapper, .post .gravatar_wrapper {
+  width: 150px;
+  float: right;
+  text-align: center;
+}

@@ -22,3 +22,6 @@ public/images/favorite.png
 coverage/
 .rvmrc
 public/files
+public/blog_post_assets/
+cuc_coverage/
+coverage.data

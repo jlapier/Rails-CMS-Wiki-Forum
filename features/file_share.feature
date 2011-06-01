@@ -1,7 +1,7 @@
 Feature: Manage file attachments
 
   Background: I am logged in
-    Given I am logged in as "admin" user "joe"
+    Given I am logged in as "admin" user "admin"
   
   Scenario: update file description  
     Given there is 1 existing file

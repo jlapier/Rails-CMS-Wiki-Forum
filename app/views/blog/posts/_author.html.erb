@@ -1,0 +1,4 @@
+<a class="gravatar_wrapper" href="<%= by_author_blog_posts_path(author.id) %>">
+    <%=raw gravatar_for author, :size => 50 %><br>
+    <%= author.fullname %>
+</a>

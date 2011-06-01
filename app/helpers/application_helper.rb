@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include CkeditorHelper
+  
   def top_menu
     @top_menu ? @top_menu.body_for_display : "TODO: create the top menu"
   end
@@ -12,7 +14,11 @@ module ApplicationHelper
   end
 
   def site_title
-    @site_title ||= SiteSetting.read_setting('site title') || "A Site"
+    @site_title ||= SiteSetting.read_setting('site title') || "A Site [edit me in site settings]"
+  end
+  
+  def blog_title
+    @blog_title ||= SiteSetting.read_setting('blog title') || "Blog [edit me in site settings]"
   end
 
   def flash_messages
@@ -100,7 +106,9 @@ module ApplicationHelper
     else
       out += link_to("Register", new_account_path) + " | " +
               link_to( "Log In", new_user_session_path)
-    end          
+    end
+    out += " | "
+    out += link_to("Blog", blog_posts_path)
     out += " | "
     out += link_to_events({:no_wrapper => true},
                                   {:link_text => 'Events'})
@@ -154,7 +162,8 @@ module ApplicationHelper
     list = [
       'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
       'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
-      'cms_wiki_forum_behaviors', '/ckeditor/ckeditor.js'
+      'cms_wiki_forum_behaviors', '/ckeditor/ckeditor.js',
+      '/ckeditor/adapters/jquery.js'
     ]
     unless Rails.env == 'production'
       list.unshift("jquery")
@@ -164,5 +173,23 @@ module ApplicationHelper
   end
   def link_to_rss(path)
     link_to ("RSS feed "+image_tag("feed-icon.gif")).html_safe, path
+  end
+  def nice_date(date)
+    return '' if date.nil?
+    "#{date.strftime('%A')} #{date.strftime('%B')} #{date.strftime('%d').to_i.ordinalize}, #{date.year}"
+  end
+  def fake_button(link)
+    return '' if link.blank?
+    content_tag :span, link, :class => 'fake_button'
+  end
+  # Graciously appropriated from rails
+  # File actionpack/lib/action_view/helpers/prototype_helper.rb, line 595
+  # Modified to wrap values in quotes and escape_javascript
+  def options_for_javascript(options)
+    if options.empty?
+      '{}'
+    else
+      "{#{options.keys.map { |k| "#{k}:'#{escape_javascript(options[k])}'" }.sort.join(', ')}}"
+    end
   end
 end

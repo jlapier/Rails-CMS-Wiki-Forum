@@ -1,0 +1,2 @@
+<h2><%= link_to @post.title, revisions_blog_post_path(@post) %> Revision #<%= @revision.revision_number %></h2>
+<%= render :partial => "blog/posts/post", :object => @revision %>

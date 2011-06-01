@@ -1,0 +1,14 @@
+<%= render :partial => "blog/posts/post", :object => @post %>
+<% if @post.published %>
+<h3><%= pluralize(@comments.count, 'Comment') %></h3>
+<% if @comments.count > 0 %>
+<div class="span-16 last comments">
+  <%= render :partial => "blog/comments/comment", :collection => @comments.all %>  
+</div>
+<% end %>
+<div class="span-16 last">
+  <%= render :partial => "blog/comments/form" %>
+</div>
+<% else %>
+<p class="notice">Comments may be submitted once this post is published.</p>
+<% end %>

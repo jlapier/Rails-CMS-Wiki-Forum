@@ -73,3 +73,21 @@ describe WikiPage do
     wp.errors.full_messages.should include("Title has already been taken")
   end
 end
+
+# == Schema Information
+#
+# Table name: wiki_pages
+#
+#  id                 :integer         not null, primary key
+#  title              :string(255)
+#  url_title          :string(255)
+#  modifying_user_id  :integer
+#  body               :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  version            :integer
+#  started_editing_at :datetime
+#  editing_user_id    :integer
+#  wiki_id            :integer
+#
+

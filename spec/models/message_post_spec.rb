@@ -18,3 +18,21 @@ describe MessagePost do
     MessagePost.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: message_posts
+#
+#  id            :integer         not null, primary key
+#  subject       :string(255)
+#  body          :text(16777215)
+#  forum_id      :integer
+#  parent_id     :integer
+#  user_id       :integer
+#  to_user_id    :integer
+#  thread_id     :integer
+#  replied_to_at :datetime
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

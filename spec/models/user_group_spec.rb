@@ -86,3 +86,13 @@ describe UserGroup do
     ug.forums.should ==  {"2"=>"write"}
   end
 end
+
+# == Schema Information
+#
+# Table name: user_groups
+#
+#  id      :integer         not null, primary key
+#  name    :string(255)
+#  special :text(255)
+#
+

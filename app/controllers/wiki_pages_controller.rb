@@ -50,11 +50,9 @@ class WikiPagesController < ApplicationController
   
   def edit
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    unless @wiki_page.editing_user
-      @wiki_page.update_attributes :editing_user => current_user, :started_editing_at => Time.now
-    end
-    @rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
-    @assets = Dir[File.join(Rails.root, 'public', @rel_dir, '*')].map { |f| File.basename(f) }
+    record_editing_user_for(@wiki_page)
+    @rel_dir = asset_path_for @wiki_page, :relative
+    @assets = list_assets_for @wiki_page
   end
   
   def new
@@ -88,9 +86,7 @@ class WikiPagesController < ApplicationController
   # called when someone willingly navigates away
   def un_edit
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    if @wiki_page.editing_user == current_user
-      @wiki_page.update_attributes :editing_user => nil, :started_editing_at => nil
-    end
+    remove_editing_user_record_for @wiki_page
 
     respond_to do |wants|
       wants.html do
@@ -133,12 +129,11 @@ class WikiPagesController < ApplicationController
     @wiki_pages = @wiki.wiki_pages.search @name_part
     @wiki_tags = @wiki.wiki_tags.search @name_part
   end
-
   
   def upload_handler
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    rel_dir = File.join "wiki_page_assets", "wiki_page_#{@wiki_page.id}"
-    write_file(params[:upload], rel_dir)
+
+    rel_dir = save_asset_for @wiki_page, params[:upload]
 
     render :text => "<html><body><script type=\"text/javascript\">" +
       "parent.CKEDITOR.tools.callFunction( #{params[:CKEditorFuncNum]}, '/#{rel_dir}/#{params[:upload].original_filename}' )" +
@@ -153,11 +148,10 @@ class WikiPagesController < ApplicationController
 
   def delete_asset
     @wiki_page = @wiki.wiki_pages.find params[:id]
-    file = File.join Rails.root, 'public', "wiki_page_assets", "wiki_page_#{@wiki_page.id}", params[:asset]
-    if File.exists?(file) and File.delete(file)
-      flash[:notice] = "#{File.basename(file)} deleted."
+    if rm_asset_for @wiki_page, params[:asset]
+      flash[:notice] = "#{params[:asset]} deleted."
     else
-      flash[:error] = "Unable to delete #{File.basename(file)}."
+      flash[:error] = "Unable to delete #{params[:asset]}."
     end
     redirect_to edit_wiki_wiki_page_path(@wiki, @wiki_page)
   end

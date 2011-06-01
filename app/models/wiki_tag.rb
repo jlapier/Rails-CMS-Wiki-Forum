@@ -1,13 +1,3 @@
-# == Schema Information
-# Schema version: 20100216214034
-#
-# Table name: wiki_tags
-#
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  wiki_id :integer       
-# End Schema
-
 class WikiTag < ActiveRecord::Base
   searchable_by :name
 
@@ -33,3 +23,13 @@ class WikiTag < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: wiki_tags
+#
+#  id      :integer         not null, primary key
+#  name    :string(255)
+#  wiki_id :integer
+#
+

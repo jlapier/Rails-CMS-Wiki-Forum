@@ -1,0 +1,47 @@
+<%
+pending_comment_heading  = pluralize(@pending_comments.count, "Pending Comments")
+approved_comment_heading = pluralize(@approved_comments.count, "Approved Comments")
+draft_post_heading       = pluralize(@draft_posts.count, "Draft Post")
+published_post_heading   = pluralize(@published_posts.count, "Published Post")
+%>
+<p class="right">
+  <%= fake_button(link_to("Deleted Posts", deleted_blog_posts_path)) %>
+  <%= fake_button(link_to("New Post", new_blog_post_path)) %>
+</p>
+
+<h1><%= link_to "Blog", blog_posts_path %></h1>
+
+<p>
+  <%= fake_button(link_to(pending_comment_heading, :anchor => 'pending_comments')) %>
+  <%= fake_button(link_to(draft_post_heading, :anchor => 'draft_posts')) %>
+  <%= fake_button(link_to(published_post_heading, :anchor => 'published_posts')) %>
+  <%= fake_button(link_to(approved_comment_heading, :anchor => 'approved_comments')) %>
+</p>
+
+<h2><a name="pending_comments"></a><%= pending_comment_heading %></h2>
+<% if @pending_comments.count > 0 %>
+<div class="comments">
+  <%= render :partial => "blog/comments/pending_comment", :collection => @pending_comments, :as => :comment %>
+</div>
+<% end %>
+
+<h2><a name="draft_posts"></a><%= draft_post_heading %></h2>
+<% if @draft_posts.count > 0 %>
+<div class="posts">
+  <%= render :partial => "blog/posts/lead_in", :collection => @draft_posts, :as => :post %>
+</div>
+<% end %>
+
+<h2><a name="published_posts"></a><%= published_post_heading %></h2>
+<% if @published_posts.count > 0 %>
+<div class="posts">
+  <%= render :partial => "blog/posts/lead_in", :collection => @published_posts, :as => :post %>
+</div>
+<% end %>
+
+<h2><a name="approved_comments"></a><%= approved_comment_heading %></h2>
+<% if @approved_comments.count > 0 %>
+<div class="comments">
+  <%= render @approved_comments %>
+</div>
+<% end %>

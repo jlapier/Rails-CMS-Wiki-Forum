@@ -1,19 +1,8 @@
 <h1><%= link_to @wiki.name, @wiki %>: Editing: <%= @wiki_page.title %></h1>
 
-<% if @wiki_page.editing_user and @wiki_page.editing_user != current_user %>
-  <div class="flash_message error_message">
-    <em>
-      <strong>Warning:</strong>
-      Someone else is already editing this page!
-    </em>
-    <br/>
-    <%= @wiki_page.editing_user.fullname %> started editing this page
-    <%= time_ago_in_words @wiki_page.started_editing_at %> ago.
-  </div>
-<% end %>
+<%= wip_warning(@wiki_page) %>
 
 <%= render :partial => 'form'  %>
-
 
 <h3>Assets in this Wiki Page</h3>
 <% if @assets.empty? %>
@@ -32,20 +21,9 @@
 <% end %>
 
 <br/>
-
-<script type="text/javascript">
-  var needToConfirm = true;
-
-  window.onbeforeunload = confirmExit;
-  function confirmExit() {
-    if (needToConfirm) {
-      return "You may have unsaved changes.";
-    }
-  }
-
-  window.onunload = function() {
-    if (needToConfirm) {
-      $.post('<%= un_edit_wiki_wiki_page_path @wiki, @wiki_page %>');
-    }
-  }
-</script>
+<%= initialize_ckeditor('wiki_page[body]', {
+  :filebrowserUploadUrl => upload_handler_wiki_wiki_page_path(@wiki, @wiki_page, {
+    :authenticity_token => form_authenticity_token
+  })
+}) %>
+<%= ckeditor_confirm_exit(un_edit_wiki_wiki_page_path(@wiki, @wiki_page)) %>
