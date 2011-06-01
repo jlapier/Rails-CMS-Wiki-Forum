@@ -62,6 +62,10 @@ module ApplicationHelper
       "#{pre}User Group: #{@user_group.name}"
     elsif @event
       "#{pre}Event: #{@event.name}"
+    elsif @post
+      "#{blog_title} - #{@post.title}"
+    elsif request.path.include? 'blog'
+      blog_title
     else
       controller_name.titleize
     end
