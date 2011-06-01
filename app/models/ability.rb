@@ -74,14 +74,13 @@ class Ability
   
   def setup_blog_access(user)
     can :read, Blog::Post do |post|
-      post.new_record? or post.published or user.is_admin? or user == post.author
+      post.published or user == post.author
     end
     can :create, Blog::Post
     can :update, Blog::Post do |post|
       user == post.author
     end
     can :delete, Blog::Post do |post|
-      # todo: review delete permissions for blog posts
       user == post.author and !post.published
     end
   end

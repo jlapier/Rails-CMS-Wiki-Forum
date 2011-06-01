@@ -1,6 +1,7 @@
 
 <h1><%= link_to 'Categories:', categories_path %> <%= @category.name %></h1>
 
+<% if @category.content_pages.count > 0 %>
 <h2><%= link_to 'Pages', content_pages_path %></h2>
 
 <table cellspacing="2px" cellpadding="0" class="nice_table tablesorter">
@@ -31,12 +32,13 @@
     <% end %>
   </tbody>
 </table>
-
+<% end %>
+<% if @category.blog_posts.count > 0 %>
 <h2><%= link_to 'Blog Posts', blog_posts_path %></h2>
 
 <%= render :partial => 'blog/posts/lead_in', :collection => @category.blog_posts,
            :as => :post %>
-
+<% end %>
 <% if is_admin? %>
   <p class="admin_links">
     <span class="fake_button">
