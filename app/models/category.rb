@@ -1,6 +1,8 @@
 class Category < ActiveRecord::Base
   has_and_belongs_to_many :content_pages
   has_many :blog_posts, :class_name => 'Blog::Post'
+  belongs_to :parent, :class_name => 'Category'
+  has_many :children, :class_name => 'Category', :foreign_key => 'parent_id'
   validates_presence_of :name
   validates_uniqueness_of :name
   searchable_by :name
@@ -13,6 +15,7 @@ class Category < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: categories
@@ -21,5 +24,6 @@ end
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  parent_id  :integer
 #
 

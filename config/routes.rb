@@ -58,7 +58,7 @@ RailsCMSWikiForum::Application.routes.draw do
     end
   end
 
-  resources :categories, :except => [:new, :edit]
+  resources :categories, :except => [:new]
 
   match '/tagcloud.:format' => 'wiki_pages#tagcloud'
 

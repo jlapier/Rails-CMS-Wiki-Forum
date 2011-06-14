@@ -20,7 +20,15 @@ describe Category do
     cat_again = Category.find_or_create_by_name(name)
     cat.should == cat_again
   end
+
+  it "should have a parent" do
+    par = Category.create!(:name => "parent cat")
+    ch = Category.create!(:name => "child cat", :parent => par)
+    ch.parent.should == par
+    par.children.should == [ch]
+  end
 end
+
 
 # == Schema Information
 #
@@ -30,5 +38,6 @@ end
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  parent_id  :integer
 #
 

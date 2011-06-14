@@ -1,20 +1,6 @@
 <h1>Listing categories</h1>
 
-<table>
-  <tr>
-    <th>Category</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @categories.each do |category| %>
-  <tr>
-    <td><%= category.name %></td>
-    <th><%= link_to pluralize(category.content_pages.count, 'page'), category %></th>
-    <td><%= link_to 'Delete', category, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => 'list', :locals => { :categories => @root_categories } %>
 
 <br />
 
@@ -24,6 +10,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.text_field :name %>
+    <%= f.select :parent_id, @categories.map {|c| [c.name, c.id]} %>
     <%= f.submit 'add category' %>
   </p>
 <% end %>

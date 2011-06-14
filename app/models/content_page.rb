@@ -111,6 +111,7 @@ class ContentPage < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: content_pages
@@ -125,5 +126,6 @@ end
 #  started_editing_at :datetime
 #  editing_user_id    :integer
 #  publish_on         :date
+#  layout             :string(255)
 #
 

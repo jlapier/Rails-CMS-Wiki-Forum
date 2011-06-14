@@ -250,3 +250,10 @@ ul.events .open:before { content: '- ' }
   float: right;
   text-align: center;
 }
+
+
+ul.category_list { 
+  list-style-type: none;
+}
+
+ul.category_list li { }

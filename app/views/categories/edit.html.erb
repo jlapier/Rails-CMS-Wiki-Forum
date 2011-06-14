@@ -1,0 +1,10 @@
+<h2>Edit Category</h2>
+
+<%= form_for(@category) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.text_field :name %>
+    <%= f.select :parent, @categories.map {|c| [c.name, c.id]} %>
+    <%= f.submit 'save category' %>
+  </p>
+<% end %>

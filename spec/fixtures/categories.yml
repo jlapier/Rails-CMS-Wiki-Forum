@@ -1,6 +1,7 @@
 category_some:
   id: <%= Fixtures.identify :category_some %>
   name: Some Wiki-provided Category
+
 # == Schema Information
 #
 # Table name: categories
@@ -9,5 +10,6 @@ category_some:
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  parent_id  :integer
 #
 

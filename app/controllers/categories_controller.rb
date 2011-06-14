@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   def index
     @category = Category.new
     @categories = Category.all
+    @root_categories = @categories.select { |cat| cat.parent_id.nil? }
 
     respond_to do |format|
       format.html # index.html.erb
