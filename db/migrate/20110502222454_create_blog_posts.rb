@@ -18,7 +18,7 @@ class CreateBlogPosts < ActiveRecord::Migration
     add_index :blog_posts, :editing_user_id
     add_index :blog_posts, :modifying_user_id
     add_index :blog_posts, :title
-    add_index :blog_posts, :body
+#    add_index :blog_posts, :body
   end
 
   def self.down
