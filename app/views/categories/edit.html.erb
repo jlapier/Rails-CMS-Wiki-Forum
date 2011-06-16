@@ -3,8 +3,8 @@
 <%= form_for(@category) do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.text_field :name %>
-    <%= f.select :parent, @categories.map {|c| [c.name, c.id]} %>
+    Category: <%= f.text_field :name %><br/>
+    Parent: <%= f.select :parent_id, @categories.map {|c| [c.name, c.id]}, :include_blank => true %><br/>
     <%= f.submit 'save category' %>
   </p>
 <% end %>

@@ -9,8 +9,8 @@
 <%= form_for(@category) do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.text_field :name %>
-    <%= f.select :parent_id, @categories.map {|c| [c.name, c.id]} %>
+    Category: <%= f.text_field :name %> &nbsp;
+    Parent: <%= f.select :parent_id, @categories.map {|c| [c.name, c.id]}, :include_blank => true %>
     <%= f.submit 'add category' %>
   </p>
 <% end %>

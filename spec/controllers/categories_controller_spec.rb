@@ -7,7 +7,7 @@ describe CategoriesController do
   end
 
   def mock_category(stubs={})
-    @mock_category ||= mock_model(Category, stubs.merge({:name => "whatev"}))
+    @mock_category ||= mock_model(Category, stubs.merge({:name => "whatev", :parent_id => nil}))
   end
 
   before do

@@ -25,6 +25,11 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def edit
+    @category = Category.find(params[:id])
+    @categories = Category.where(["id != ?", params[:id]])
+  end
+
   # POST /categories
   # POST /categories.xml
   def create
