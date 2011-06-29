@@ -43,19 +43,19 @@ describe ContentPage do
 
   it "should generate HTML from function ListCategories" do
     Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil}).and_return([@mock_category])
-    lines = ContentPage.function('ListCategories').split("\n")
-    lines[0].should == "<ul>"
-    lines[1].should == "<li><a href=\"/categories/1\">A Test Category</a></li>"
-    lines[2].should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/categories/1\">A Test Category</a></li>" +
+      "</ul>"
+    ContentPage.function('ListCategories').should == expected
   end
 
   it "should generate HTML from function ListCategories WithHome" do
     Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil}).and_return([@mock_category])
-    lines = ContentPage.function('ListCategories WithHome').split("\n")
-    lines[0].should == "<ul>"
-    lines[1].should == "<li><a href=\"/\">Home</a></li>"
-    lines[2].should == "<li><a href=\"/categories/1\">A Test Category</a></li>"
-    lines[3].should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/\">Home</a></li>" +
+      "<li><a href=\"/categories/1\">A Test Category</a></li>" +
+      "</ul>"
+    ContentPage.function('ListCategories WithHome').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category" do
@@ -64,10 +64,10 @@ describe ContentPage do
     @mock_category.stub!(:content_pages).and_return(mock_association_proxy)
     Category.should_receive(:find_by_name).with('A Test Category').and_return(@mock_category)
 
-    lines = ContentPage.function('ListPagesInCategory A Test Category').split("\n")
-    lines[0].should == "<ul>"
-    lines[1].should == "<li><a href=\"/content_pages/123\">Page ABC</a></li>"
-    lines[2].should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/123\">Page ABC</a></li>" + 
+      "</ul>"
+    ContentPage.function('ListPagesInCategory A Test Category').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category WithHome" do
@@ -76,11 +76,11 @@ describe ContentPage do
     @mock_category.stub!(:content_pages).and_return(mock_association_proxy)
     Category.should_receive(:find_by_name).with('A Test Category').and_return(@mock_category)
 
-    lines = ContentPage.function('ListPagesInCategory A Test Category WithHome').split("\n")
-    lines[0].should == "<ul>"
-    lines[1].should == "<li><a href=\"/\">Home</a></li>"
-    lines[2].should == "<li><a href=\"/content_pages/123\">Page ABC</a></li>"
-    lines[3].should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/\">Home</a></li>" +
+      "<li><a href=\"/content_pages/123\">Page ABC</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory A Test Category WithHome').should == expected
   end
 end
 
@@ -132,39 +132,39 @@ describe "content page ordered listings" do
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByDate" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDate').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDate').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByDateReverse" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDateReverse').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDateReverse').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByAlpha" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlpha').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlpha').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByAlphaReverse" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlphaReverse').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlphaReverse').should == expected
   end
 end
 
@@ -181,19 +181,19 @@ describe "content pages limited number of listings" do
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByDate Limit=2" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDate Limit=2').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp3.id}\">Page C from 7 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByDate Limit=2').should == expected
   end
 
   it "should generate HTML from function ListPagesInCategory A Test Category SortByAlpha Limit=2" do
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlpha Limit=2').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{@cp1.id}\">Page A from 9 days ago</a></li>" +
+      "<li><a href=\"/content_pages/#{@cp2.id}\">Page B from 5 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat SortByAlpha Limit=2').should == expected
   end
 end
 
@@ -208,10 +208,10 @@ describe "lists of content pages with published dates" do
       assert cp.save
     end
 
-    lines = ContentPage.function('ListPagesInCategory Testing a Real Cat').split("\n")
-    lines.shift.should == "<ul>"
-    lines.shift.should == "<li><a href=\"/content_pages/#{cp1.id}\">Page A from 9 days ago</a></li>"
-    lines.shift.should == "</ul>"
+    expected = "<ul>" +
+      "<li><a href=\"/content_pages/#{cp1.id}\">Page A from 9 days ago</a></li>" +
+      "</ul>"
+    ContentPage.function('ListPagesInCategory Testing a Real Cat').should == expected
   end
 end
 
