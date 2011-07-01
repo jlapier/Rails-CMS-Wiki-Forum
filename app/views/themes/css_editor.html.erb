@@ -1,9 +1,13 @@
 <h1>CSS Override</h1>
+<% if params[:name] %>
+  <h2>Overriding screen.css (base css file)</h2>
+<% end %>
 
 <p>Warning, setting CSS here will negate any theme CSS.</p>
 
 <div class="edit_content_box">
   <%= form_tag( { :action => :update_css } ) do  %>
+    <input type="hidden" name="name" value="<%= params[:name] %>"/>
     <p>
       <strong>CSS:</strong><br/>
       <%= text_area_tag :css, @css %>

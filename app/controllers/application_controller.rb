@@ -154,6 +154,10 @@ class ApplicationController < ActionController::Base
     def get_layout
       @theme_layout = SiteSetting.read_or_write_default_setting 'theme layout', 'default'
       @layout_file = File.join(Rails.root, "/themes/layouts/#{@theme_layout}.html.erb")
+      @css_screen_override = SiteSetting.read_or_write_default_setting 'css screen override', nil
+      if @css_screen_override
+        @css_screen_override_timestamp = SiteSetting.read_or_write_default_setting 'css screen override timestamp', nil
+      end
       @css_override = SiteSetting.read_or_write_default_setting 'css override', nil
       if @css_override
         @css_override_timestamp = SiteSetting.read_or_write_default_setting 'css override timestamp', nil

@@ -5,8 +5,13 @@
     <%= csrf_meta_tag %>
     <link rel="icon" type="image/png" href="/images/favorite.png"/>
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
-    
+   
+    <% if @css_screen_override -%>
+      <link rel="stylesheet" href="<%= url_for(:controller => '/themes', :action => :css,
+        :name => 'screen_override', :format => 'css') %>?<%= @css_screen_override_timestamp %>" type="text/css" media="screen"/>
+    <% else -%>
     <%= stylesheet_link_tag 'screen', :media => 'screen, projection' %>
+    <% end -%>
     <%= stylesheet_link_tag 'event_calendar/fullcalendar_changes', :media => 'screen, projection' %>
     <%= stylesheet_link_tag "file_share/plupload/screen", :media => "screen, projection" %>
     

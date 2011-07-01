@@ -17,19 +17,36 @@ class ThemesController < ApplicationController
   end
 
   def css_editor
-    @css = SiteSetting.read_setting('css override') ||
-      File.read( File.join(Rails.root, 'public', 'stylesheets', 'main_elements.css') )
+    if params[:name] == "screen"
+      @css = SiteSetting.read_setting('css screen override') ||
+        File.read( File.join(Rails.root, 'public', 'stylesheets', 'screen.css') )
+    else
+      @css = SiteSetting.read_setting('css override') || ''
+    end
   end
 
   def update_css
-    expire_page "/themes/css/override.css"
-    SiteSetting.write_setting('css override', params[:css])
-    SiteSetting.write_setting('css override timestamp', Time.now.to_i)
+    if params[:name] == "screen"
+      expire_page "/themes/css/screen_override.css"
+      SiteSetting.write_setting('css screen override', params[:css])
+      SiteSetting.write_setting('css screen override timestamp', Time.now.to_i)
+    else
+      expire_page "/themes/css/override.css"
+      SiteSetting.write_setting('css override', params[:css])
+      SiteSetting.write_setting('css override timestamp', Time.now.to_i)
+    end
     flash[:notice] = "CSS override updated."
-    redirect_to :action => :css_editor
+    redirect_to :action => :css_editor, :name => params[:name]
   end
 
   def css
+    if params[:name] == "screen_override"
+      @override = @css_screen_override
+      @timestamp = @css_screen_override_timestamp
+    else
+      @override = @css_override
+      @timestamp = @css_override_timestamp
+    end
   end
 
   def images
