@@ -175,6 +175,56 @@ ul.category_list li div.category_name { width: 50%; }
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
 
 
+/* menu */
+
+ul.top_menu { margin: 0; }
+
+ul.top_menu li {
+  display: inline;
+  margin: 0 0.5em;
+  position: relative;
+}
+
+ul.top_menu li a:link, ul.top_menu li a:visited {
+  padding: 0.5em;
+}
+ul.top_menu a:hover { text-decoration:none; }
+
+div.mega_menu {
+  z-index: 99;
+  position:absolute;
+  min-width: 200px;
+  top: 1.6em;
+  left: 0;
+  padding: 2px 15px 15px;
+  text-align: left;
+  border: 1px solid #333;
+  border-top: none;
+  -moz-box-shadow: 0px 5px 15px #999;
+  -webkit-box-shadow: 0px 5px 15px #999; 
+  box-shadow: 0px 5px 15px #999;
+  background: #7d7e7d; /* old browsers */
+  background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* ie */
+}
+
+.mega_menu h4 { 
+  font-family: sans-serif; 
+  color: #EEE; 
+  border-bottom: 1px solid #CCC;
+  font-size: 2em;
+  font-weight: normal;
+  margin-bottom: 0.6em;
+  margin-top: 0.3em;
+}
+.mega_menu ul { margin: 0 }
+.mega_menu ul li { display: list-item; list-style: none; margin: 0.5em 0 }
+.mega_menu img { vertical-align: middle; }
+
+a.menu_highlight { background: #333; }
+
+
 /* Month View, Basic Week View, Basic Day View
 ------------------------------------------------------------------------*/
 

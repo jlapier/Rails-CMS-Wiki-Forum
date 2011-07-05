@@ -42,7 +42,7 @@ describe ContentPage do
   end
 
   it "should generate HTML from function ListCategories" do
-    Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil}).and_return([@mock_category])
+    Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil, :conditions => 'parent_id IS NULL'}).and_return([@mock_category])
     expected = "<ul>" +
       "<li><a href=\"/categories/1\">A Test Category</a></li>" +
       "</ul>"
@@ -50,7 +50,7 @@ describe ContentPage do
   end
 
   it "should generate HTML from function ListCategories WithHome" do
-    Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil}).and_return([@mock_category])
+    Category.should_receive(:find).with(:all, {:order=>"name ASC", :limit => nil, :conditions => 'parent_id IS NULL'}).and_return([@mock_category])
     expected = "<ul>" +
       "<li><a href=\"/\">Home</a></li>" +
       "<li><a href=\"/categories/1\">A Test Category</a></li>" +

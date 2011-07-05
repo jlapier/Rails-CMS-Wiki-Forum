@@ -7,7 +7,7 @@ module HtmlGenerator
 
   module ClassMethods
     def list_categories_to_html(options = {})
-      categories = Category.find(:all, :order => options[:order], :limit => options[:limit], :conditions => "parent_id IS NULL")
+      categories = Category.find(:all, :order => options[:order], :limit => options[:limit], :conditions => "parent_id IS NULL", :include => :children)
       out = "<ul>"
 
       if options[:use_homelink]
@@ -18,7 +18,14 @@ module HtmlGenerator
         out += "<li><em>No categories were found</em></li>"
       else
         out += categories.map { |cat|
-          "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
+          if cat.children.empty?
+            "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
+          else
+            main_menu_link(cat.name, "cat_menu_#{cat.id}") +
+              "<div class=\"mega_menu cat_menu_i#{cat.id} menu_hidable\" style=\"display:none;\">" + 
+              list_pages_in_category_to_html(:other_params => cat.name) +
+              "</div>"
+          end
         }.join("")
       end
 
@@ -129,5 +136,13 @@ module HtmlGenerator
     def homelink
       "<li><a href=\"/\">Home</a></li>"
     end
+
+    def main_menu_link(link_text, menu_css_class, menu_id = nil)
+      <<-END
+        <a href="?toggle=#{menu_css_class}&hide=menu_hidable&show=menu_showable" 
+            class="menu_show_hide_link" id="#{menu_id}">#{link_text}</a>
+      END
+    end
+
   end
 end

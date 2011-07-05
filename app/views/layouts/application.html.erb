@@ -39,6 +39,7 @@
     <script type="text/javascript">
       jQuery(function($) {
         $('a.show_hide_link').attach(ShowHideLink);
+        $('a.menu_show_hide_link').attach(ShowHideLink, {my_highlight_class : 'menu_highlight'});
       });
     </script>
     <%= yield :javascript %>
