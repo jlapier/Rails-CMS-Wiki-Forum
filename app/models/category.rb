@@ -6,6 +6,7 @@ class Category < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   searchable_by :name
+  default_scope order('position, name')
 
   class << self
     def find_or_create_by_name(name)
@@ -13,6 +14,7 @@ class Category < ActiveRecord::Base
       cat || Category.create(:name => name)
     end
   end
+
 end
 
 

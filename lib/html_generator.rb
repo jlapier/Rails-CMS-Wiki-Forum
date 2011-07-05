@@ -7,7 +7,7 @@ module HtmlGenerator
 
   module ClassMethods
     def list_categories_to_html(options = {})
-      categories = Category.find(:all, :order => options[:order], :limit => options[:limit])
+      categories = Category.find(:all, :order => options[:order], :limit => options[:limit], :conditions => "parent_id IS NULL")
       out = "<ul>"
 
       if options[:use_homelink]

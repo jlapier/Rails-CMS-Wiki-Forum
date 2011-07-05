@@ -75,4 +75,14 @@ class CategoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+  def sort
+    categories = Category.find(params['cat'])
+    categories.each do |cat|
+      cat.position = params['cat'].index(cat.id.to_s) + 1
+      cat.save
+    end
+    render :nothing => true
+  end
 end

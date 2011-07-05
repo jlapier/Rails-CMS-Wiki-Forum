@@ -1,6 +1,6 @@
 <ul class="category_list">
   <% categories.each do |category| -%>
-    <li>
+    <li id="cat_<%= category.id %>">
       <div class="category_name"><%= category.name %></div>
       <div class="category_pages"><%= link_to pluralize(category.content_pages.count, 'page'), category %></div>
       <div class="category_edit"><%= link_to 'edit', edit_category_path(category) %></div>

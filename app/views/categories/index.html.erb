@@ -18,3 +18,30 @@
 <p class="admin_links">
   <%= link_to 'List of Pages', content_pages_path %>
 </p>
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+var someui;
+var someevent;
+var something;
+
+$(document).ready(function(){
+  $('.category_list').sortable({
+    update: function(event, ui){
+      var me = $(this);
+      console.log(me);
+      console.log(me.sortable('toArray'));
+      $.ajax({ 
+        type: 'post', 
+        data: me.sortable('serialize'), 
+        dataType: 'json', 
+        complete: function(request) { me.effect('highlight'); },
+        url: '/categories/sort'
+      });
+    },
+    placeholder: 'ui-state-highlight'
+  });
+});
+</script>
+<% end %>
