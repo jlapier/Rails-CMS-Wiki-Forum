@@ -23,7 +23,7 @@ module HtmlGenerator
           else
             main_menu_link(cat.name, "cat_menu_#{cat.id}") +
               "<div class=\"mega_menu cat_menu_i#{cat.id} menu_hidable\" style=\"display:none;\">" + 
-              list_pages_in_category_to_html(:other_params => cat.name) +
+              list_pages_in_category_to_html(:category => cat) +
               "</div>"
           end
         }.join("")
@@ -35,7 +35,7 @@ module HtmlGenerator
     alias_method :listcategories_to_html, :list_categories_to_html
 
     def list_pages_in_category_to_html(options = {})
-      category = Category.find_by_name options[:other_params]
+      category = options[:category] || Category.find_by_name(options[:other_params])
       out = "<ul>"
 
       if options[:use_homelink]
@@ -46,12 +46,15 @@ module HtmlGenerator
         pages = category.content_pages.find(:all,
           :conditions => ['is_preview_only = ? AND (publish_on IS NULL OR publish_on <= ?)', false, Date.today],
           :order => options[:order], :limit => options[:limit])
-        if pages.empty?
+        if pages.empty? and category.children.empty?
           out += "<li><em>No pages were found in the category: #{category.name}</em></li>"
         else
           out += pages.map { |page|
             "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
           }.join("")
+          unless category.children.empty?
+            out += category.children.map { |cat| list_pages_in_category_to_html(cat) }.join("")
+          end
         end
       else
         out += "<li><em>No category found: #{options[:other_params]}</em></li>"
