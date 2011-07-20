@@ -1,5 +1,5 @@
 <h1>CSS Override</h1>
-<% if params[:name] %>
+<% unless params[:name].blank? %>
   <h2>Overriding screen.css (base css file)</h2>
 <% end %>
 
