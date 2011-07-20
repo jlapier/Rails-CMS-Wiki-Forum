@@ -159,14 +159,15 @@ module ApplicationHelper
 	  uniq_filenames(
 	    host_javascripts + 
 	    event_calendar_javascript_includes + 
-	    file_share_javascript_includes
+	    file_share_javascript_includes + 
+      ['cms_wiki_forum_behaviors']
 	  )
   end
   def host_javascripts
     list = [
       'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
       'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
-      'cms_wiki_forum_behaviors', '/ckeditor/ckeditor.js',
+      '/ckeditor/ckeditor.js',
       '/ckeditor/adapters/jquery.js'
     ]
     unless Rails.env == 'production'

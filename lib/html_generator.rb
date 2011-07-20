@@ -21,10 +21,13 @@ module HtmlGenerator
           if cat.children.empty?
             "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
           else
-            main_menu_link(cat.name, "cat_menu_#{cat.id}") +
-              "<div class=\"mega_menu cat_menu_i#{cat.id} menu_hidable\" style=\"display:none;\">" + 
+            "<li>" + 
+            main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") +
+              "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" + 
+              "<h4>#{cat.name}</h4>" +
               list_pages_in_category_to_html(:category => cat) +
-              "</div>"
+              "</div>" +
+            "</li>"
           end
         }.join("")
       end
@@ -53,11 +56,11 @@ module HtmlGenerator
             "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
           }.join("")
           unless category.children.empty?
-            out += category.children.map { |cat| list_pages_in_category_to_html(cat) }.join("")
+            out += category.children.map { |cat| "<li><h5>#{cat.name}</h5></li>" + list_pages_in_category_to_html(:category => cat) }.join("")
           end
         end
       else
-        out += "<li><em>No category found: #{options[:other_params]}</em></li>"
+        out += "<li><em>No category found: #{options[:other_params] || options[:category]}</em></li>"
       end
 
       out += "</ul>"
@@ -140,9 +143,9 @@ module HtmlGenerator
       "<li><a href=\"/\">Home</a></li>"
     end
 
-    def main_menu_link(link_text, menu_css_class, menu_id = nil)
+    def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)
       <<-END
-        <a href="?toggle=#{menu_css_class}&hide=menu_hidable&show=menu_showable" 
+        <a href="#{base_url}?toggle=#{menu_css_class}&hide=menu_hidable" 
             class="menu_show_hide_link" id="#{menu_id}">#{link_text}</a>
       END
     end
