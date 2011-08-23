@@ -37,4 +37,5 @@ CKEDITOR.editorConfig = function( config )
 	config.uiColor = '#819033';
 	config.toolbar = 'Common'
   config.enterMode = CKEDITOR.ENTER_P;
+  config.skin = 'v2';
 };

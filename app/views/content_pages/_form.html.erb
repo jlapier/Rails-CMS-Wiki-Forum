@@ -79,7 +79,7 @@
   <%= initialize_ckeditor('content_page[body]', {
     :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
       :authenticity_token => form_authenticity_token
-    })
+    }), :toolbar => 'Mid', :height => '500px'
   }) %>
   <script type="text/javascript">
     //<![CDATA[
