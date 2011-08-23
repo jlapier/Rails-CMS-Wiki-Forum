@@ -24,10 +24,10 @@ CKEDITOR.editorConfig = function( config )
     ['NumberedList','BulletedList','-','Outdent','Indent'],
     ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
     ['ShowBlocks', 'Source', 'RemoveFormat', 'Maximize'],
+    ['Link','Unlink','Image', 'Flash', 'Table'],
     '/',
     ['Bold','Italic','Underline'],
-    ['Format','Font','FontSize','TextColor','BGColor'],
-    ['Link','Unlink','Image', 'Flash', 'Table']
+    ['Format','Font','FontSize','TextColor','BGColor']
   ];
   config.toolbar_Newbie = [
     ['Bold','Italic', '-', 'NumberedList', 'BulletedList','-', 'Link',
