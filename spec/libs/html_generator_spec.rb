@@ -174,5 +174,32 @@ describe HtmlGenerator do
       end
     end
   end
+
+  describe "when getting html for calendars" do
+    it "should work for a plain calendar" do
+      expected = <<-END
+        <div id="calendar" class="calendars"></div>
+        
+        <div style="clear:both"></div>
+        
+        <div id="event_quick_description" style="display:none"></div>
+        
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('#calendar').fullCalendar({ 
+            header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
+            editable: false, 
+            events: '/events', 
+            height: 500, 
+            aspectRatio: 1,
+            eventMouseover: updateEventDescription
+          });
+        });
+        </script>
+      END
+
+      DummyClass.calendar_to_html.should equal_without_whitespace expected
+    end
+  end
 end
 

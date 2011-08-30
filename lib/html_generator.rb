@@ -138,6 +138,54 @@ module HtmlGenerator
     end
     alias_method :searchbox_to_html, :search_box_to_html
 
+    def mini_calendar_to_html(options={})
+      #TODO - make options for changing id of calendar element
+      <<-END  
+        <link href="/stylesheets/minical.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+        <div id="minicalendar" class="calendars"></div>
+
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('#minicalendar').fullCalendar({ 
+            header: { left: 'prev,next', right: 'title' },
+            editable: false, 
+            events: '/events', 
+            eventMouseover: function(event, jsEvent, view) {
+                $(jsEvent.target).attr('title', event.title);
+              }
+          });
+        });
+        </script>
+      END
+    end
+    alias_method :minicalendar_to_html, :mini_calendar_to_html
+
+    def calendar_to_html(options={})
+      options[:height] ||= 500
+      #TODO - make options for changing id of calendar element
+      <<-END  
+        <div id="calendar" class="calendars"></div>
+
+        <div style="clear:both"></div>
+
+        <div id="event_quick_description" style="display:none"></div>
+
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('#calendar').fullCalendar({ 
+            header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
+            editable: false, 
+            events: '/events', 
+            height: #{options[:height]}, 
+            aspectRatio: 1,
+            eventMouseover: updateEventDescription
+          });
+        });
+        </script>
+      END
+    end
+
     private
     def homelink
       "<li><a href=\"/\">Home</a></li>"

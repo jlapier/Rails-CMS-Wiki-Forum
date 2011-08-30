@@ -1,0 +1,31 @@
+/* for mini version of full calendar */
+
+/* you may want to float this left or right */
+#minicalendar {
+    width: 200px;
+    margin: 0 auto;
+    font-size: 10px;
+    display: inline-block;
+}
+
+#minicalendar .fc-header-title h2 {
+    font-size: .9em;
+    white-space: normal !important;
+}
+#minicalendar .fc-view-month .fc-event, .fc-view-agendaWeek .fc-event {
+    font-size: 0;
+    overflow: hidden;
+    height: 2px;
+}
+#minicalendar .fc-view-agendaWeek .fc-event-vert {
+    font-size: 0;
+    overflow: hidden;
+    width: 2px !important;
+}
+#minicalendar .fc-agenda-axis {
+    width: 20px !important;
+    font-size: .7em;
+}
+#minicalendar .fc-button-content {
+    padding: 0;
+}
