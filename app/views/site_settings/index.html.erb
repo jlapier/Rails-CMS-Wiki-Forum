@@ -29,6 +29,16 @@
         :style => "vertical-align:middle; height: 60px; width: 80%; font-size: 90%;" %>
     </p>
     <p>
+      <strong>Special Footers:</strong><br/>
+      Blog:
+      <%= text_area_tag :inner_footer_blog, @inner_footer_blog, :cols => 80, :rows => 2,
+        :style => "vertical-align:middle; height: 40px; width: 80%; font-size: 90%;" %>
+      <br/>
+      Events:
+      <%= text_area_tag :inner_footer_events, @inner_footer_events, :cols => 80, :rows => 2,
+        :style => "vertical-align:middle; height: 40px; width: 80%; font-size: 90%;" %>
+    </p>
+    <p>
       <strong>Registration Password:</strong> (leave blank if none required)
       <%= text_field_tag :registration_password, @registration_password, :size => 80 %><br/>
       <em>Registration link:</em>

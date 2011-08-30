@@ -139,6 +139,17 @@ module ApplicationHelper
     current_user and current_user.is_admin?
   end
 
+  def inner_footer(type)
+    out = ""
+    ss = SiteSetting.read_setting("inner footer: #{type}")
+    unless ss.blank?
+      out += "<div class=\"#{type}_footer inner_footer\">"
+      out += ss
+      out += "</div>"
+    end
+    out.html_safe
+  end
+
   # TODO: change this to use the zoned plugin or something
 	def post_time(time)
 		if (Time.now - time) > 2600000
