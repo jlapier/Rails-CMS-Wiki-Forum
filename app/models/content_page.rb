@@ -99,6 +99,11 @@ class ContentPage < ActiveRecord::Base
     main.html_safe
   end
 
+  def aux_body_for_display
+    aux = (auxiliary_body || '').gsub( /(\[\[([^\]]*)\]\])/ ) { |s| ContentPage.function($2) }
+    aux.html_safe
+  end
+
   def ready_for_publishing?
     !is_preview_only? and (publish_on.blank? or publish_on <= Date.today)
   end
