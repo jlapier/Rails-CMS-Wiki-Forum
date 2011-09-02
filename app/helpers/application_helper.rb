@@ -119,18 +119,16 @@ module ApplicationHelper
     out.html_safe
   end
 
-  def auxiliary_content
-    if @content_page
-      @content_page.aux_body_for_display
-    end
-  end
-
   def images_list
     Dir[File.join(Rails.root, 'public', 'images', "*.{png,jpg,gif}")].map { |f| File.basename f }.sort
   end
 
   def theme_layouts_list
     Dir[File.join(Rails.root, 'themes', 'layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
+  end
+
+  def theme_page_layouts_list
+    Dir[File.join(Rails.root, 'themes', 'page_layouts', "*.html.erb")].map { |f| File.basename(f, '.html.erb') }.sort
   end
 
   def theme_skins_list

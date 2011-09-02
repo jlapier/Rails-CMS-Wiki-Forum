@@ -48,8 +48,12 @@
 
   <% unless @content_page.special =~ /Menu/ %>
     <p>
-      Layout (optional, current default layout is <em><%= @theme_layout %></em>):
+      Screen Layout (optional, current default layout is <em><%= @theme_layout %></em>):
       <%= f.select :layout, theme_layouts_list, :include_blank => true %>
+    </p>
+    <p>
+      Content Layout (layout of inner content):
+      <%= f.select :page_layout, theme_page_layouts_list %>
     </p>
     <p>
       Categories: (check as many as you want)<br/>

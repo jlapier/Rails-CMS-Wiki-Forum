@@ -26,6 +26,7 @@ class ContentPagesController < ApplicationController
   def show
     if !fragment_exist?({}) or (current_user and current_user.is_admin?)
       @content_page = ContentPage.find(params[:id])
+      @page_layout_file = File.join(Rails.root, "/themes/page_layouts/#{@content_page.page_layout || 'default'}")
     else
       @content_page = ContentPage.select('layout, name, is_preview_only, publish_on').find(params[:id])
     end

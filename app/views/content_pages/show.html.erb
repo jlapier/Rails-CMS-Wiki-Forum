@@ -10,15 +10,7 @@
 <% end %>
 
 <% cache do %>
-  <h1><%=h @content_page.name %></h1>
-
-  <%= @content_page.body_for_display %>
-
-  <% unless @content_page.categories.empty? %>
-    <p class="category_links">
-      Categories: <%=raw @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ') %>
-    </p>
-  <% end %>
+  <%= render :file => @page_layout_file %>
 <% end %>
 
 <% if is_admin? %>
