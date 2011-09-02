@@ -28,8 +28,13 @@ class ThemesController < ApplicationController
   def update_css
     if params[:name] == "screen"
       expire_page "/themes/css/screen_override.css"
-      SiteSetting.write_setting('css screen override', params[:css])
-      SiteSetting.write_setting('css screen override timestamp', Time.now.to_i)
+      if params[:css].strip.blank?
+        SiteSetting.write_setting('css screen override', nil)
+        SiteSetting.write_setting('css screen override timestamp', nil)
+      else
+        SiteSetting.write_setting('css screen override', params[:css])
+        SiteSetting.write_setting('css screen override timestamp', Time.now.to_i)
+      end
     else
       expire_page "/themes/css/override.css"
       SiteSetting.write_setting('css override', params[:css])

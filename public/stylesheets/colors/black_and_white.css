@@ -52,3 +52,11 @@ body {
   color: #333;
   border: 1px solid #999;
 }
+
+div.aux_content {
+  padding: 12px;
+  background: #EEE;
+  border: 1px solid #999;
+  margin: 12px;
+  border-radius: 10px;
+}
