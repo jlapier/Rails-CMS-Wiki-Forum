@@ -4,6 +4,7 @@ class ContentPagesController < ApplicationController
 
   def home
     @content_page = ContentPage.get_front_page
+    @page_layout_file = File.join(Rails.root, "/themes/page_layouts/#{@content_page.page_layout || 'default'}")
     unless @content_page.layout.blank?
       @special_layout_file = File.join(Rails.root, "/themes/layouts/#{@content_page.layout}.html.erb")
     end
