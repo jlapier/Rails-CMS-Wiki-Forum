@@ -13,7 +13,7 @@ module ContentPagesHelper
 
   def category_links
     if @content_page and not @content_page.categories.empty?
-      out = '<p class="category_links"> Categoories:'
+      out = '<p class="category_links"> Categories: '
       out += @content_page.categories.map { |cat| link_to(cat.name, cat) }.join(', ')
       out += '</p>'
       out.html_safe
