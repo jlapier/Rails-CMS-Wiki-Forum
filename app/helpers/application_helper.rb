@@ -181,7 +181,9 @@ module ApplicationHelper
   def host_javascripts
     list = [
       'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
-      'jquery.tablesorter.min.js', 'jquery-ui-1.7.2.custom.min.js',
+      'jquery.tablesorter.min.js',
+#      'jquery-ui-1.7.2.custom.min.js',
+      'jquery-ui-1.8.16.custom.min.js',
       '/ckeditor/ckeditor.js',
       '/ckeditor/adapters/jquery.js'
     ]
@@ -189,6 +191,7 @@ module ApplicationHelper
       list.unshift("jquery")
     else
       list.unshift("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
+# https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js
     end
   end
   def link_to_rss(path)
