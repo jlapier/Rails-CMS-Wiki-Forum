@@ -89,7 +89,7 @@ module ApplicationHelper
     other_links = []
     if current_user
       out += "Welcome, #{current_user.first_name}! "
-      if(options[:line_breaks])
+      if(options[:include_line_breaks])
         out += "<br />" 
       end
       out += link_to("My Account", account_path) + options[:link_separator].html_safe +
@@ -121,7 +121,7 @@ module ApplicationHelper
       other_links << link_to_events({:no_wrapper => true}, {:link_text => 'Events'})
     end
     unless other_links.empty?
-      if(options[:line_breaks])
+      if(options[:include_line_breaks])
         out += "<br/>" 
       else
         out += options[:link_separator]
