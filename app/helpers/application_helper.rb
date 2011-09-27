@@ -83,7 +83,7 @@ module ApplicationHelper
 
   def user_box(my_options={})
     options = { :include_line_breaks => true, :include_blog_link => true, :include_events_link => true,
-        :link_seperator => ' | '
+        :link_separator => ' | '
       }.merge(my_options)
     out = ""
     other_links = []
@@ -92,7 +92,7 @@ module ApplicationHelper
       if(options[:line_breaks])
         out += "<br />" 
       end
-      out += link_to("My Account", account_path) + options[:link_seperator].html_safe +
+      out += link_to("My Account", account_path) + options[:link_separator].html_safe +
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
@@ -111,7 +111,7 @@ module ApplicationHelper
         end
       end
     else
-      out += link_to("Register", new_account_path) + options[:link_seperator] +
+      out += link_to("Register", new_account_path) + options[:link_separator] +
               link_to( "Log In", new_user_session_path)
     end
     if options[:include_blog_link]
@@ -124,9 +124,9 @@ module ApplicationHelper
       if(options[:line_breaks])
         out += "<br/>" 
       else
-        out += options[:link_seperator]
+        out += options[:link_separator]
       end
-      out += other_links.join(options[:link_seperator])
+      out += other_links.join(options[:link_separator])
     end
     out.html_safe
   end
