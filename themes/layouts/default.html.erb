@@ -13,7 +13,10 @@
         <%= side_menu %>
       </div>
       <div class="user_box">
-        <%= user_box :include_line_breaks => false %>
+        <%# defaults:
+            user_box :include_line_breaks => true, :include_blog_link => true, 
+                :include_events_link => true, :link_seperator => ' | ' %>
+        <%= user_box %>
       </div>
     </div>
   </div>

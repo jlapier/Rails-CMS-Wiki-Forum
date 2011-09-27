@@ -91,17 +91,10 @@ module ApplicationHelper
       out += "Welcome, #{current_user.first_name}! "
       if(options[:line_breaks])
         out += "<br />" 
-      else
-        out += options[:link_seperator]
       end
-      out += link_to("My Account", account_path)  + options[:link_seperator] +
+      out += link_to("My Account", account_path) + options[:link_seperator].html_safe +
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
-      if(options[:line_breaks])
-        out += "<br/>" 
-      else
-        out += options[:link_seperator]
-      end
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
       if current_user.has_access_to_any_wikis?
         if current_user.wikis.size == 1
@@ -128,7 +121,12 @@ module ApplicationHelper
       other_links << link_to_events({:no_wrapper => true}, {:link_text => 'Events'})
     end
     unless other_links.empty?
-      out += options[:link_seperator] + other_links.join(options[:link_seperator])
+      if(options[:line_breaks])
+        out += "<br/>" 
+      else
+        out += options[:link_seperator]
+      end
+      out += other_links.join(options[:link_seperator])
     end
     out.html_safe
   end
