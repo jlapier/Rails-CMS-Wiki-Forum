@@ -81,16 +81,27 @@ module ApplicationHelper
     @site_footer.html_safe
   end
 
-  def user_box
-    #out = "#{pluralize User.logged_in.count, 'user'} currently logged in<br />\n"
+  def user_box(my_options={})
+    options = { :include_line_breaks => true, :include_blog_link => true, :include_events_link => true,
+        :link_seperator => ' | '
+      }.merge(my_options)
     out = ""
+    other_links = []
     if current_user
-      out += "Welcome, #{current_user.first_name}!<br />\n"
-      out += link_to("My Account", account_path)  + " | " +
+      out += "Welcome, #{current_user.first_name}! "
+      if(options[:line_breaks])
+        out += "<br />" 
+      else
+        out += options[:link_seperator]
+      end
+      out += link_to("My Account", account_path)  + options[:link_seperator] +
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
-      out += "<br/>"
-      other_links = []
+      if(options[:line_breaks])
+        out += "<br/>" 
+      else
+        out += options[:link_seperator]
+      end
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
       if current_user.has_access_to_any_wikis?
         if current_user.wikis.size == 1
@@ -106,16 +117,19 @@ module ApplicationHelper
           other_links << link_to('Forums', forums_path)
         end
       end
-      out += other_links.join(' | ')
     else
-      out += link_to("Register", new_account_path) + " | " +
+      out += link_to("Register", new_account_path) + options[:link_seperator] +
               link_to( "Log In", new_user_session_path)
     end
-    out += " | "
-    out += link_to("Blog", blog_posts_path)
-    out += " | "
-    out += link_to_events({:no_wrapper => true},
-                                  {:link_text => 'Events'})
+    if options[:include_blog_link]
+      other_links << link_to("Blog", blog_posts_path)
+    end
+    if options[:include_events_link]
+      other_links << link_to_events({:no_wrapper => true}, {:link_text => 'Events'})
+    end
+    unless other_links.empty?
+      out += options[:link_seperator] + other_links.join(options[:link_seperator])
+    end
     out.html_safe
   end
 
