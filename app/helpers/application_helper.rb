@@ -111,7 +111,7 @@ module ApplicationHelper
         end
       end
     else
-      out += link_to("Register", new_account_path) + options[:link_separator] +
+      out += link_to("Register", new_account_path) + options[:link_separator].html_safe +
               link_to( "Log In", new_user_session_path)
     end
     if options[:include_blog_link]
