@@ -40,8 +40,13 @@ class ThemesController < ApplicationController
       SiteSetting.write_setting('css override', params[:css])
       SiteSetting.write_setting('css override timestamp', Time.now.to_i)
     end
-    flash[:notice] = "CSS override updated."
-    redirect_to :action => :css_editor, :name => params[:name]
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "CSS override updated."
+        redirect_to :action => :css_editor, :name => params[:name]
+      end
+      format.js { render :nothing => true }
+    end
   end
 
   def css

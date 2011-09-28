@@ -6,16 +6,21 @@
 <p>Warning, setting CSS here will negate any theme CSS.</p>
 
 <div class="edit_content_box">
-  <%= form_tag( { :action => :update_css } ) do  %>
+  <%= form_tag( { :action => :update_css }, { :remote => true, :id => 'css_form' } ) do  %>
     <input type="hidden" name="name" value="<%= params[:name] %>"/>
     <p>
       <strong>CSS:</strong><br/>
       <%= text_area_tag :css, @css %>
     </p>
     <p>
-      <%= submit_tag "save changes" %>
+      <span class="loading" style="display:none"><em>saving...</em></span>
+      <%= submit_tag "save changes", :class => 'loading' %>
+      <span id="changes_made" style="display:none">
+        <em>changes to CSS will not be visible until page refresh</em>
+      </span>
     </p>
 <% end %>
+  <div id="response"></div>
 </div>
 
 
@@ -25,10 +30,13 @@
 </p>
 
 
-<script type="text/javascript" src="/codemirror/js/codemirror.js"></script>
-<script type="text/javascript" src="/codemirror/js/mirrorframe.js"></script>
+<script type="text/javascript" src="/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+<script type="text/javascript" src="/codemirror/mode/css/css.js"></script>
+<link rel="stylesheet" href="/codemirror/theme/default.css">
 
 <script type="text/javascript">
+/*
   var textarea = $('#css')[0];
   var editor = CodeMirror.fromTextArea("css", {
     parserfile: "parsecss.js",
@@ -37,5 +45,17 @@
     autoMatchParens: true,
     height: "350px"
   });
+  */
 
+  var myCodeMirror = CodeMirror.fromTextArea($('#css')[0]);
+  $(function($) {
+    var toggleLoading = function() { $(".loading").toggle() };
+
+    $("#css_form")
+      .bind("ajax:loading",  toggleLoading)
+      .bind("ajax:complete", toggleLoading)
+      .bind("ajax:success", function(data, status, xhr) {
+        $("#changes_made").show();
+      });
+  });
 </script>
