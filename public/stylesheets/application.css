@@ -171,7 +171,7 @@ a.delete_x:hover { color: #F33; text-decoration: none; border: none; }
 ul.category_list li:hover { background: #eee; }
 ul.category_list li li:hover { background: #f9f9f9; }
 ul.category_list li li li:hover { background: #e9e9e9; }
-ul.category_list li div { display: inline-block; width: 20%; }
+ul.category_list li div { display: inline-block; width: 15%; }
 ul.category_list li div.category_name { width: 50%; }
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
 

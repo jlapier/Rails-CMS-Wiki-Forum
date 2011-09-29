@@ -4,6 +4,7 @@
       <div class="category_name"><%= category.name %></div>
       <div class="category_pages"><%= link_to pluralize(category.content_pages.count, 'page'), category %></div>
       <div class="category_edit"><%= link_to 'edit', edit_category_path(category) %></div>
+      <div class="category_del"><%= link_to 'delete', category_path(category), :method => :delete %></div>
       <% child_cats = @categories.select { |cat| category.id == cat.parent_id } %>
       <%= render(:partial => 'list', :locals => { :categories => child_cats }) if child_cats.any? %>
     </li>
