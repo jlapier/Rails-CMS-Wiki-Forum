@@ -393,6 +393,9 @@ div.select_popper_box ul li:hover {background:#EEE;}
 ;}
 .enlarge {font-size:115%;}
 .category_label {background:#999;color:#FFF;border:1px solid #333;font-size:12px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:0 3px;}
+#event_mini_description {width: 250px;max-height:300px;background:#F9F9F9;padding: 4px 8px;border:1px solid #999;overflow:auto;font-size:0.9em;z-index:99;box-shadow:#999 0px 5px 5px;}
+#event_mini_description a {cursor:pointer; color:#900;text-decoration:none;font-weight:bold;}
+
 
 /* fancy-type */
 p + p {text-indent:2em;margin-top:-1.5em;}
