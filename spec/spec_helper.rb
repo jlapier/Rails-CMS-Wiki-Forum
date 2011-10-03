@@ -25,3 +25,16 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 end
+
+# for some reason I had to add this manually - it used to 
+# work to use paginate in arrays in rspec, but at some point it quit
+Array.class_eval do
+  def paginate(options={})   #(page = 1, per_page = 15)
+    page = options[:page] || 1
+    per_page = options[:per_page] || 15
+    WillPaginate::Collection.create(page, per_page, size) do |pager|
+      pager.replace self[pager.offset, pager.per_page].to_a
+    end
+  end
+end
+

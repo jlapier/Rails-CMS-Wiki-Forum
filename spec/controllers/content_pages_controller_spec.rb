@@ -7,7 +7,7 @@ describe ContentPagesController do
   end
   
   def mock_content_page(stubs={})
-    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user, :layout => nil}))
+    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user, :layout => nil, :page_layout => nil}))
   end
 
   before do
