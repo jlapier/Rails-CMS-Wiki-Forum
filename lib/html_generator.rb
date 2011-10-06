@@ -38,18 +38,23 @@ module HtmlGenerator
     alias_method :listcategories_to_html, :list_categories_to_html
 
     def list_events_to_html(options = {})
-      events = Event.all :order => options[:order], :limit => options[:limit]
-      if options[:other_params]
-        events.where :event_type => options[:other_params]
+      events = Event.where "start_on > ?", 1.week.ago
+      unless options[:other_params].blank?
+        events = events.where :event_type => options[:other_params]
       end
+      events = events.order("start_on ASC").limit(options[:limit])
       out = "<ul>"
 
       if events.empty?
         out += "<li><em>No events were found</em></li>"
       else
-        out += events.map { |event|
-          "<li><a href=\"/events/#{event.id}\">#{event.name}</a></li>"
-        }.join("")
+        events.each do |event|
+          date_string = event.start_on.strftime('%B %d')
+          if event.end_on and event.end_on.to_date != event.start_on.to_date
+            date_string += " - " + (event.start_on.month == event.end_on.month ? event.end_on.strftime('%d') : event.end_on.strftime('%B %d'))
+          end
+          out += "<li><a href=\"/events/#{event.id}\">#{date_string}: #{event.name}</a></li>"
+        end
       end
 
       out += "</ul>"

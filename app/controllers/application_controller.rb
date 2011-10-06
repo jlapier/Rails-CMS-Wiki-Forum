@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # these actions are accessible by users not logged in; used for EventCalendar and FileShare engines
   READ_ACTIONS = %w(index show search download)
 
-  before_filter :protect_event_calendar
+  before_filter :protect_event_calendar, :setup_events
   before_filter :protect_file_share
   
   before_filter :setup_file_share if Rails.env == 'development'
@@ -81,6 +81,20 @@ class ApplicationController < ActionController::Base
   def setup_file_share
     Event.send :include, FileContainer
     EventsController.send :helper, FileAttachmentsHelper
+  end
+
+  def setup_events
+    if in_event_calendar?
+      EventsController.send :cache_sweeper, :event_sweeper
+    end
+  end
+
+  def expire_content_page_caches
+    expire_fragment :controller => 'content_pages', :action => 'home'
+    ContentPage.find(:all).each do |content_page|
+      expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page
+      expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page.id.to_i
+    end
   end
 
   # checks to see if user is a member of a given access group - if not,

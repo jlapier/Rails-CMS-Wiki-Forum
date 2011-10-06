@@ -1,6 +1,6 @@
 class ContentPagesController < ApplicationController
   before_filter :require_admin_user, :except => [:home, :index, :show, :search]
-  before_filter :expire_caches, :only => [:update, :destroy, :delete_asset]
+  before_filter :expire_content_page_caches, :only => [:update, :destroy, :delete_asset]
 
   def home
     @content_page = ContentPage.get_front_page
@@ -173,12 +173,4 @@ class ContentPagesController < ApplicationController
     render :action => :index
   end
 
-  private
-  def expire_caches
-    expire_fragment :controller => 'content_pages', :action => 'home'
-    ContentPage.find(:all).each do |content_page|
-      expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page
-      expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page.id.to_i
-    end
-  end
 end

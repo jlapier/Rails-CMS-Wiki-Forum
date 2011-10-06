@@ -56,7 +56,7 @@ module RailsCMSWikiForum
     # config.active_record.schema_format = :sql
   
     # Activate observers that should always be running
-    config.active_record.observers = [:wiki_page_observer, :user_observer]
+    config.active_record.observers = [:wiki_page_observer, :user_observer, :event_sweeper]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

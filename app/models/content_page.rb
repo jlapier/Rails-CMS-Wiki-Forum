@@ -60,14 +60,14 @@ class ContentPage < ActiveRecord::Base
         :order => order_string_from_sort_in_function(sort_order),
         :limit => limit, :other_params => param }
 
-      begin
+#      begin
         self.send("#{function_name.downcase}_to_html", params_to_send)
-      rescue NameError
-        return "<em>Unknown function: #{function_name}</em>"
-      rescue => e
-        return "<em>Error in function: #{function_name}</em>" + 
-          "<span style=\"display:none;\">#{e.inspect}</span>"
-      end
+#      rescue NameError
+#        return "<em>Unknown function: #{function_name}</em>"
+#      rescue => e
+#        return "<em>Error in function: #{function_name}</em>" + 
+#          "<!-- #{e.inspect} -->"
+#      end
     end
 
     private
