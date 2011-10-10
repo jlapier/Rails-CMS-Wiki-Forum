@@ -6,11 +6,19 @@ describe ContentPagesController do
     @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
   end
   
-  def mock_content_page(stubs={})
-    @mock_content_page ||= mock_model(ContentPage, stubs.merge({:ready_for_publishing? => true, :name => 'whatever', :editing_user => mock_user, :layout => nil, :page_layout => nil}))
+  def mock_content_page(stubs={}, new_mock = false)
+    if @mock_content_page and !new_mock
+      @mock_content_page
+    else
+      @mock_content_page ||= mock_model(ContentPage, {
+        :ready_for_publishing? => true, :name => 'whatever', 
+        :editing_user => mock_user, :layout => nil, :page_layout => nil, 
+        :save => true, :update_attributes => true }.merge(stubs))
+    end
   end
 
   before do
+    ContentPage.stub!(:all).and_return([mock_content_page])
     ContentPage.should_receive(:get_side_menu).and_return(mock_model(ContentPage))
     ContentPage.should_receive(:get_top_menu).and_return(mock_model(ContentPage))
     controller.stub!(:current_user).and_return(mock_user)
@@ -75,9 +83,10 @@ describe ContentPagesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved content_page as @content_page" do
-        ContentPage.stub!(:new).with({'these' => 'params'}).and_return(mock_content_page(:save => false))
+        this_cp = mock_content_page( { :save => false }, true)
+        ContentPage.stub!(:new).with({'these' => 'params'}).and_return(this_cp)
         post :create, :content_page => {:these => 'params'}
-        assigns[:content_page].should equal(mock_content_page)
+        assigns[:content_page].should equal(this_cp)
       end
 
       it "re-renders the 'new' template" do

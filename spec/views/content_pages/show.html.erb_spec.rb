@@ -13,7 +13,7 @@ describe "/content_pages/show.html.erb" do
       :body_for_display => "value for body"
     )
     #@content_page.stub(:name){ "value for name" }
-    @content_page.stub(:categories).and_return([mock_model(Category, :name => 'somecategory')])
+    @content_page.stub(:categories).and_return([mock_model(Category, :name => 'somecategory', :parent => nil)])
     @page_layout_file = File.join(Rails.root, "/themes/page_layouts/default")
     assign(:content_page, @content_page)
     view.stub!(:current_user).and_return(mock_user)

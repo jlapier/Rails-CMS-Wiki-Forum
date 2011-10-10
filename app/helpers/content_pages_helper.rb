@@ -3,6 +3,18 @@ module ContentPagesHelper
     @content_page ? @content_page.name : ''
   end
 
+  def main_category(include_parents = true)
+    return unless @content_page and !@content_page.categories.empty?
+    main_cat = @content_page.categories.first
+    get_parent_categories(main_cat)
+  end
+
+  def get_parent_categories(cat)
+    out = (cat.parent ? get_parent_categories(cat.parent) : '') +
+      link_to(cat.name, cat) + ': '
+    out.html_safe
+  end
+
   def page_body
     @content_page ? @content_page.body_for_display : ''
   end

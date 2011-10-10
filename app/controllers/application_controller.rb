@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
 
   def expire_content_page_caches
     expire_fragment :controller => 'content_pages', :action => 'home'
-    ContentPage.find(:all).each do |content_page|
+    ContentPage.all.each do |content_page|
       expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page
       expire_fragment :controller => 'content_pages', :action => 'show', :id => content_page.id.to_i
     end
