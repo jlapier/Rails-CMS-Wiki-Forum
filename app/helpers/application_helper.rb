@@ -13,6 +13,17 @@ module ApplicationHelper
     "<img src=\"/images/#{site_logo}\" alt=\"logo\"/>".html_safe
   end
 
+  def search_box(options = {})
+    # TODO merge this with methods in in lib/html_generator
+    out = <<-END
+      <form action="/content_pages/search" method="get" name="site_search_box" id="site_search_box">
+        <input type="text" name="q" size="20">
+        <input type="submit" value="search">
+      </form>
+    END
+    out.html_safe
+  end
+
   def site_title
     @site_title ||= SiteSetting.read_setting('site title') || "A Site [edit me in site settings]"
   end
