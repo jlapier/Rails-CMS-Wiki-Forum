@@ -15,6 +15,15 @@ class Category < ActiveRecord::Base
     end
   end
 
+  def root
+    return self unless parent
+    next_parent = parent
+    while next_parent do
+      good_parent = next_parent
+      next_parent = next_parent.parent
+    end
+    good_parent
+  end
 end
 
 

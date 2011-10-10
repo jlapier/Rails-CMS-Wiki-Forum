@@ -1,6 +1,6 @@
 <div class="container">
   <div class="span-24 last">
-    <div class="header">
+    <div class="header <%= @content_page and !@content_page.categories.empty? ? "category_#{@content_page.categories.first.root.id}" : '' %> <%= controller.controller_name %>">
       <%= top_menu %>
     </div>
   </div>
