@@ -2,6 +2,9 @@
   <%= form.inputs do %>
     <%= form.input :category %>
     <%= form.input :title %>
+    <% if is_admin? -%>
+      <%= form.input :author %>
+    <% end -%>
     <%= ckeditor_text_area(form) %>
     <%= ckeditor_confirm_exit_submit(form) %>
   <% end %>

@@ -25,6 +25,8 @@
   <% end %>  
 </div>
 
+<div style="clear:both;"></div>
+
 <%= initialize_ckeditor('blog_post[body]', {
   :filebrowserUploadUrl => upload_handler_blog_post_path(@post, {
     :authenticity_token => form_authenticity_token
