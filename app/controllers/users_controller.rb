@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update, :upload_handler]
-  before_filter :require_admin_user, :only => [:index, :update_password, :password_reset, :destroy]
+  before_filter :require_admin_user, :only => [:index, :update_password, :password_reset, :destroy, :make_admin, :unmake_admin]
 
   def index
     @users = User.find(:all, :order => 'first_name ASC' )
@@ -62,6 +62,26 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+
+  def make_admin
+    @user = User.find(params[:id])
+    @user.is_admin = true
+    @user.save
+    flash[:notice] = "#{@user.fullname} is now an admin."
+    redirect_to users_path
+  end
+
+  def unmake_admin
+    @user = User.find(params[:id])
+    if @user != current_user
+      @user.is_admin = false
+      @user.save
+      flash[:notice] = "#{@user.fullname} is no longer an admin."
+    else
+      flash[:warning] = "You can't revoke your own admin rights. Get someone else to do it."
+    end
+    redirect_to users_path
   end
 
   def destroy

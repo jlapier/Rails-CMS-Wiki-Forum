@@ -20,6 +20,15 @@
       <td><%= link_to 'Edit', edit_user_path(user) %></td>
       <td><%= link_to 'Delete', user_path(user), :confirm => 'Are you sure you want to permanently delete this user account?',
                   :method => "delete" %></td>
+      <td>
+        <% if user.is_admin? %>
+          <%= link_to 'Revoke Admin', unmake_admin_user_path(user), :confirm => 'Are you sure you want to remove admin access from this user account?',
+                  :method => "post" %>
+        <% else %>
+          <%= link_to 'Make Admin', make_admin_user_path(user), :confirm => 'Are you sure you want to grant admin access to this user account?',
+                  :method => "post" %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

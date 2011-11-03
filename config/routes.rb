@@ -86,6 +86,8 @@ RailsCMSWikiForum::Application.routes.draw do
       end
       member do
         post :upload_handler
+        post :make_admin
+        post :unmake_admin
       end
   end
 
