@@ -274,7 +274,7 @@ describe Blog::PostsController do
   end
   
   describe "POST 'upload_handler' (:id => int, :upload => file)" do
-    let(:upload){fixture_file_upload('spec/fixtures/asset.txt', 'text/plain')}
+    let(:upload){fixture_file_upload('/asset.txt', 'text/plain')}
     before(:each) do
       Blog::Post.stub(:find).with(1){ subject }
       controller.stub(:save_asset_for).with(subject, upload)

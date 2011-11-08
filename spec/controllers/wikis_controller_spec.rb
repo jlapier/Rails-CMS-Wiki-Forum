@@ -21,7 +21,7 @@ describe WikisController do
   def mock_wiki_pages
     return @mock_wiki_pages if @mock_wiki_pages
     @mock_wiki_pages = mock('wiki_page_proxy')
-    @mock_wiki_pages.stub!(:paginate).and_return([mock_wiki_page].paginate)
+    @mock_wiki_pages.stub_chain(:paginate, :order).and_return([mock_wiki_page])
     @mock_wiki_pages
   end
 
@@ -96,7 +96,7 @@ describe WikisController do
       get :list_by_tag, :id => "37", :tag_name => 'tag A'
       assigns[:wiki].should equal(mock_wiki)
       assigns[:wiki_tag].should equal(mock_wiki_tag)
-      assigns[:wiki_pages].should == [mock_wiki_page].paginate
+      #assigns[:wiki_pages].should == mock_wiki_pages
       assigns[:users_with_access].should == [mock_user]
     end
 

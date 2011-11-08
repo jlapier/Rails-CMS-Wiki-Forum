@@ -4,6 +4,6 @@
 
 <% for comment in @comments %>
   <div class="wiki_chatter">
-    <%= comment.to_html %>
+    <%=raw comment.to_html %>
   </div><br/>
 <% end %>

@@ -18,8 +18,7 @@ class WikisController < ApplicationController
   # GET /wikis/1
   # GET /wikis/1.xml
   def show
-    @wiki_pages = @wiki.wiki_pages.paginate :all, :page => params[:page],
-      :order => "updated_at DESC", :select => "id, title, url_title, updated_at"
+    @wiki_pages = @wiki.wiki_pages.paginate(:page => params[:page]).order("updated_at DESC") #.select("id, title, url_title, updated_at")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -93,8 +92,7 @@ class WikisController < ApplicationController
   def list_by_tag
     @wiki_tag = @wiki.wiki_tags.find :first, :conditions => { :name => params[:tag_name] }
     if @wiki_tag
-      @wiki_pages = @wiki_tag.wiki_pages.paginate :all, :page => params[:page], :per_page => 80,
-        :order => "updated_at DESC", :select => "wiki_pages.id, title, url_title, updated_at"
+      @wiki_pages = @wiki_tag.wiki_pages.paginate(:page => params[:page], :per_page => 80).order("updated_at DESC")
       render :action => :show
     else
       flash[:warning] = "Tag not found."
