@@ -1,0 +1,29 @@
+<h1>Adding Attendees/Participants to Event: <%= @event.name %></h1>
+
+<%= form_tag add_attendees_event_path(@event) do %>
+  <table class="nice_table">
+    <tr>
+      <th>Name</th>
+      <th>Info</th>
+      <th></th>
+    </tr>
+
+  <% @participants.group_by(&:class).each do |type, participants|  %>
+    <tr>
+      <td colspan="3"><strong><%= type.to_s.titleize %></strong></td>
+    </tr>
+    <% participants.each do |participant| %>
+      <tr>
+        <td><%= participant.name %></td>
+        <td><%= participant.info %></td>
+        <td><%= check_box_tag "#{type.to_s.downcase}_ids[]", participant.id %></td>
+      </tr>
+    <% end %>
+  <% end %>
+    <tr>
+      <td colspan="3" style="text-align:right">
+        <%= submit_tag "add selected participants to this event" %>
+      </td>
+    </tr>
+  </table>
+<% end if has_authorization?(:add_attendees, @event) %>

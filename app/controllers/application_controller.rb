@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   PUBLIC_RESOURCES = {
-    Event => [:read],
+    EventCalendar::Event => [:read],
     FileAttachment => [:read, :download],
     Blog::Post => [:read]
   }
@@ -9,14 +9,14 @@ class ApplicationController < ActionController::Base
   # these actions are accessible by users not logged in; used for EventCalendar and FileShare engines
   READ_ACTIONS = %w(index show search download)
 
-  before_filter :protect_event_calendar, :setup_events
+  before_filter :protect_event_calendar
   before_filter :protect_file_share
   
   before_filter :setup_file_share if Rails.env == 'development'
   
   protect_from_forgery
 
-  helper EventCalendar::ApplicationHelper
+#  helper EventCalendar::EventsHelper
   helper FileShare::ApplicationHelper
 
   helper_method :current_user_session, :current_user, :in_event_calendar?,
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 	
   def in_event_calendar?
-    self.class.ancestors.include?(EventCalendar::ApplicationController)
+    raise
   end
   
   def in_file_share?
@@ -60,11 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   def protect_event_calendar
-    if in_event_calendar?
-      # allow all users to view events
-      unless controller_name == "events" && READ_ACTIONS.include?(action_name)
-        return require_admin_user
-      end
+    # allow all users to view events
+    unless controller_name == "events" && READ_ACTIONS.include?(action_name)
+      return require_admin_user
     end
   end
   
@@ -79,14 +77,8 @@ class ApplicationController < ActionController::Base
   end
   
   def setup_file_share
-    Event.send :include, FileContainer
-    EventsController.send :helper, FileAttachmentsHelper
-  end
-
-  def setup_events
-    if in_event_calendar?
-      EventsController.send :cache_sweeper, :event_sweeper
-    end
+    EventCalendar::Event.send :include, FileContainer
+    EventCalendar::EventsController.send :helper, FileAttachmentsHelper
   end
 
   def expire_content_page_caches
@@ -204,7 +196,7 @@ class ApplicationController < ActionController::Base
 
     def require_admin_user
       return false unless require_user
-      unless current_user.is_admin?
+      unless current_user and current_user.is_admin?
         flash[:error] = "You do not have permission to access that page."
         redirect_to account_path
         return false

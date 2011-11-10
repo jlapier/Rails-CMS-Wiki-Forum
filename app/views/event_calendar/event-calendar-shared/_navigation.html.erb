@@ -1,0 +1,14 @@
+  <h4>Manage Events</h4>
+  
+  <%= link_to_deleted_events %>
+  
+  <% if defined?(event) && !event.nil? && !event.new_record? %>
+  <hr />
+  
+  <%= link_to_add_event_attendees(event) %>
+  <%= link_to_edit_event(event) %>
+
+  <%= link_to_delete_event(event) %>
+  
+  <%= form_for_browse_event_revisions(event) %>
+  <% end %>

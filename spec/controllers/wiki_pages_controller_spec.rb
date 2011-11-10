@@ -2,11 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WikiPagesController do
 
-  def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
-        :has_read_access_to? => true, :has_write_access_to? => true}))
-  end
-
   def mock_wiki(stubs={})
     @mock_wiki ||= mock_model(Wiki, stubs.merge({:title => "some title", :wiki_pages => mock_wiki_pages,
         :wiki_tags => mock_wiki_tags }))

@@ -1,0 +1,19 @@
+<h4>Browse Revisions (<%= event.revisable_number %>)</h4>
+
+<% if event.revisions.empty? %>
+  <p><em>This is the first version of this event.</em></p>
+<% else %>
+  <%= form_tag event_revisions_path, :method => :get do %>
+    <select name="id">
+      <% event.revisions.each do |evr| %>
+        <option value="<%= evr.id %>">
+          Version <%= evr.revisable_number %>
+          (<%= evr.revisable_current_at.strftime "%m/%d/%y" %>)
+        </option>
+      <% end %>
+    </select>
+    <%= submit_tag "go"  %>
+  <% end %>
+<% end %>
+
+<p>current version modified on <%= event.updated_at %></p>

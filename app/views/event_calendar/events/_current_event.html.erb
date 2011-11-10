@@ -1,0 +1,4 @@
+<%- if current_event_counter == 0; then current_event_counter += 1; end -%>
+<div class="span-4<%= current_event_counter % 3 == 0 ? ' last' : '' %>">
+  <%= render current_event %>
+</div>

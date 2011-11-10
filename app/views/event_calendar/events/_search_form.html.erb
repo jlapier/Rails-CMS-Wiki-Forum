@@ -1,0 +1,7 @@
+<div>
+  <strong>Search Events:</strong>
+  <%= form_tag search_events_path, :method => :get, :style => 'display:inline' do %>
+    <%= text_field_tag 'q', params[:q] %>
+    <%= submit_tag 'go', :class => 'fake_button' %><br/>
+  <% end %>
+</div>

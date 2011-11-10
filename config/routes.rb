@@ -127,6 +127,33 @@ RailsCMSWikiForum::Application.routes.draw do
       end
     end
   end
+  
+  namespace :event_calendar do
+    resources :events do
+      collection do
+        get :search
+      end
+      resources :attendees
+      resources :links
+    end
+    resources :event_revisions do
+      member do
+        post :restore
+      end
+    end
+  end
+#    resources :events do
+#      collection do
+#        get :search
+#      end
+#      resources :attendees
+#      resources :links
+#    end
+#    resources :event_revisions do
+#      member do
+#        post :restore
+#      end
+#    end
 
   resource :user_session
   resources :password_resets

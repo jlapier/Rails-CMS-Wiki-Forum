@@ -1,0 +1,23 @@
+<ul class="events">
+  <% events.group_by(&:start_year).each do |year, years_events| %>
+  <li><%= year %>
+    <ul>      
+      <% years_events.group_by(&:start_month).each do |month, months_events| %>
+      <li><%= month %>
+        <ul>
+          <% months_events.each do |event| %>
+          <li>
+              <%= event_one_liner(event) %>
+              <%= link_to 'restore', restore_event_revision_path(event),
+                          :confirm => 'Are you sure you want to restore this deleted event?',
+                          :method => "post",
+                          :class => 'fake_button' %>
+          </li>
+          <% end %>
+        </ul>
+      </li>
+      <% end %>
+    </ul>
+  </li>
+  <% end %>
+</ul>  

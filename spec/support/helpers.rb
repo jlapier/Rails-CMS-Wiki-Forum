@@ -13,3 +13,16 @@ def spec_associations(associations, options={})
     end
   end  
 end
+
+def mock_event_revision(stubs={})
+  @event_revision ||= mock_model(EventCalendar::EventRevision, stubs)
+end
+def mock_event(stubs={})
+  @mock_event ||= mock_model(EventCalendar::Event, stubs)
+end
+
+def mock_user(stubs={})
+  @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true,
+      :has_read_access_to? => true, :has_write_access_to? => true}))
+end
+

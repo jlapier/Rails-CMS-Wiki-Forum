@@ -1,0 +1,3 @@
+<h1>Editing <%= link_to @event.name, event_path(@event) %> Link <%= link_to @link.name, @link.url %></h1>
+
+<%= render :partial => "form" if has_authorization?(:update, @link) %>

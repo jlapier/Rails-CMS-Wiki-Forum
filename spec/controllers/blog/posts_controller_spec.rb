@@ -8,11 +8,8 @@ describe Blog::PostsController do
     @mock_admin ||= stub_model(User, {:is_admin? => true, :logged_in? => true})
   end
   
-  def mock_user(stubs={})
-    @mock_user ||= stub_model(User, {:is_admin? => false, :logged_in? => true})
-  end
-  
   before(:each) do
+    mock_user :is_admin? => false, :logged_in? => true
     controller.stub(:require_user){ mock_user }
     controller.stub(:current_user){ mock_user }
     controller.stub(:has_authorization?){ true }

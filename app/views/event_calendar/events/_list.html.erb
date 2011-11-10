@@ -1,0 +1,8 @@
+<div class="span-9">
+  <h2>Current Events (<em><%= @current_events.count %></em>)</h2>
+  <%= render :partial => 'events/list_group', :locals => {:events => @current_events} %>
+</div>
+<div class="span-9 last">
+  <h2>Past Events (<em><%= @past_events.count %></em>)</h2>
+  <%= render :partial => 'events/list_group', :locals => {:events => @past_events} %>
+</div>

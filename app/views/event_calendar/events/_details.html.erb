@@ -1,0 +1,15 @@
+<p><%= event_details_link(details) %></p>
+<%- unless details.one_day? %>
+<%= event_abbrev_date(details) %>
+<%= textilize(details.location) %>
+<%= textilize(details.description) %>
+<%- else -%>
+<div class="span-6">
+<%= textilize(details.location) %>
+<%= textilize(details.description) %>
+</div>
+
+<div class="span-6 last">
+  <%= event_times(details) %>
+</div>
+<%- end -%>

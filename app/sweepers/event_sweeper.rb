@@ -1,5 +1,5 @@
 class EventSweeper < ActionController::Caching::Sweeper
-  observe Event
+  observe EventCalendar::Event
 
   def after_create(event)
     expire_content_page_caches

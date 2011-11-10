@@ -1,0 +1,32 @@
+<p class="zoom">
+  <strong>Date:</strong> <%= event_details.date %>
+  <%- if event_details.one_day? -%>
+  <br />
+  <strong>Time:</strong> <%= event_times(event_details) %>
+  <%- end -%>
+</p>
+<% unless event_details.presenters.blank? %>
+<p class="zoom">
+  <strong>Presenters</strong><br>
+  <%= textilize_without_paragraph event_details.presenters %>
+</p>
+<% end %>
+<% unless event_details.facilitators.blank? %>
+<p class="zoom">
+  <strong>Facilitators</strong><br>
+  <%= textilize_without_paragraph event_details.facilitators %>
+</p>
+<% end %>
+<% unless event_details.location.blank? %>
+<p class="zoom">
+  <strong>Location</strong><br>
+  <%= textilize_without_paragraph event_details.location %>
+</p>
+<% end %>
+
+<% unless event_details.description.blank? %>
+<p class="zoom">
+  <strong>Description/Other Details</strong><br>
+  <%= textilize_without_paragraph event_details.description %>
+</p>
+<% end %>

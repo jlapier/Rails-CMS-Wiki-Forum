@@ -1,0 +1,5 @@
+<p>
+  <%= one_day_list_event.start_on.strftime("%A") %> <%= one_day_list_event.start_day.ordinalize %>
+  [<%= link_to "click for full details", event_path(one_day_list_event) %>]
+</p>
+<p><%= event_times(one_day_list_event) %></p>

@@ -1,0 +1,8 @@
+<%= div_for_record(event) do -%>
+  <h1><%= link_to event.name, event_path(event) %> (<em><%= event.event_type %></em>)</h1>
+  
+  <%= render :partial => 'events/event_details', :object => event %>
+  
+  <p><strong>Materials/Resources</strong></p>
+  <%= render :partial => 'links/links' if event.current_revision? %>
+<% end %>

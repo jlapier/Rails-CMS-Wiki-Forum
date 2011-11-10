@@ -1,0 +1,32 @@
+<% if params[:event_type].blank? %>
+  <h1>All Events</h1>
+<% else %>
+  <h1>Events: <%= params[:event_type] %></h1>
+<% end %>
+
+<div class="span-16 last">
+  <div style="float:left"><%= render :partial => 'search_form' %></div>
+  <p style="float: right; text-align: center;">
+    <a href="#" class="fake_button view_events calendar">Calendar</a>
+    <a href="#" class="fake_button view_events list">List</a>
+    <%= link_to_new_event({}, {:class => 'fake_button'}) %>
+  </p>
+</div>
+
+<div style="clear:both;"></div>
+
+<div id="event_list" class="event_list">
+  <%= render :partial => 'list' %>
+</div>
+<div id="event_calendar" class="event_calendar" style="display: none;">
+  <%= render :partial => 'calendar' %>
+</div>
+
+<div style="float: right;">
+  <h2>Event Types</h2>
+  <%= event_type_legend("event_list") %>
+  <%= event_type_legend('event_calendar', 'display: none;') %>
+</div>
+
+<div id="event_mini_description" style="display:none"></div>
+

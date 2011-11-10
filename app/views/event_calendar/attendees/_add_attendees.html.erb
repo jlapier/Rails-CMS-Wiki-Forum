@@ -1,0 +1,32 @@
+<!--
+<h3>Attendees/Participants</h3>
+
+<% 
+#if @event.attendees.empty? 
+%>
+  <p><em>No attendees for this event.</em></p>
+<% 
+#else
+ %>
+    
+  form stub
+
+  <% @event.participants.group_by(&:class).map do |type, participants| %>
+    <h4><%= link_to(pluralize(participants.size, type.to_s), polymorphic_path(type)) %></h4>
+    <ol>
+    <% participants.each do |participant| %>
+      <% name_attr = participant.attribute_names.detect{|m_attr| m_attr =~ /name/} %>
+      <% if participant.respond_to?(:name) %>
+      <li><%= link_to(participant.send(name_attr), polymorphic_path(participant)) %></li>
+      <% elsif name_attr %>
+      <li><%= link_to(participant.name, polymorphic_path(participant)) %></li>
+      <% end %>
+    <% end %>
+    </ol>
+  <% end %>
+  
+  form stub end
+<% 
+#end
+ %>
+-->

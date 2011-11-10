@@ -1,0 +1,18 @@
+<%- 
+if @link.new_record?
+  submission_path = event_links_path(@event)
+  method = 'post'
+else
+  submission_path = event_link_path(@event, @link)
+  method = 'put'
+end
+-%>
+<%= semantic_form_for(@link, :html => {:class => 'dynamic', :id => 'link_dynamic_form'}, :url => submission_path, :method => 'put') do |form| %>
+  <%= form.inputs do %>
+    <input type="hidden" name="_method" value="<%= method %>">
+    <%= form.input :name, :hint => "Your External Resource" %>
+    <%= form.input :url, :label => 'URL', :hint => "some.domain.tld or http://some.dom..." %>
+    <%= form.input :description, :hint => 'Statistics, Analysis and News regarding the sudden and unexpected rise in the population of water molecules.' %>
+    <%= form.submit %> <input type="reset" class="cancel" value="Cancel">
+  <% end %>
+<% end %>

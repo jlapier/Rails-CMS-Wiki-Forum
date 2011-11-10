@@ -1,0 +1,3 @@
+<h1>New Event</h1>
+
+<%= render :partial => "form" if has_authorization?(:create, EventCalendar::Event.new) %>

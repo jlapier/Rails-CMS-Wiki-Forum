@@ -20,7 +20,7 @@ class Ability
     setup_forum_access(user)
     setup_wiki_access(user)
     setup_blog_access(user)
-    can :read, Event
+    can :read, EventCalendar::Event
     can :read, FileAttachment
     can :download, FileAttachment
   end

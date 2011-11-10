@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <!-- <link rel="icon" type="image/png" href="/images/favorite.png"/> -->
+  <title>Event Calendar</title>
+
+  <%= stylesheet_link_tag "#{event_calendar_asset_prefix}blueprint/screen", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "#{event_calendar_asset_prefix}blueprint/print", :media => "print" %>
+  
+  <!--[if lt IE 8]>
+    <%= stylesheet_link_tag "#{event_calendar_asset_prefix}blueprint/ie", :media => "screen, projection" %>
+  <![endif]-->
+  
+  <%= stylesheet_link_tag "#{event_calendar_asset_prefix}error_messages", 
+            "#{event_calendar_asset_prefix}formtastic", 
+            "#{event_calendar_asset_prefix}formtastic_changes",
+            "#{event_calendar_asset_prefix}fullcalendar_changes",
+            "#{event_calendar_asset_prefix}text_and_colors" %>
+            
+  <%= javascript_include_tag event_calendar_javascript_includes %>
+  <%= yield :javascript %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div class="container">
+    <div class="top-banner span-24 last">
+      <div class="header span-14">
+        <h1>Event Calendar</h1>
+      </div>
+    </div>
+
+    <div class="base_content span-20">
+      <%= render_flash %>
+      <div class="inner_content">
+        <%= yield %>
+      </div>
+    </div>
+
+    <div class="span-4 last">
+      <div id="main_menu">
+        <%= render_event_main_menu %>
+      </div>
+
+      <div class="sidebar">
+        <%= render_event_navigation(@event) %>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<p>
+  <% if EventCalendar::Event.where(:id => @event_revision.current_revision).count > 0 %>
+  <%= link_to "< Current Version", event_path(@event_revision.current_revision), :class => 'fake_button' %>
+  <% else %>
+  <%= link_to "< Browse Deleted", event_revisions_path, :class => 'fake_button' %>
+  <% end %>
+</p>
+
+<p style="float: right;" class="fake_button">Revision <%= @event_revision.revision_number %></p>
+
+<%= render :partial => 'events/event', :object => @event_revision %>
