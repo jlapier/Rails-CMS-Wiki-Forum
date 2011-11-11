@@ -1,5 +1,5 @@
 <p>
   <%= multi_day_list_event.start_on.strftime("%A") %> <%= multi_day_list_event.start_day.ordinalize %> - 
   <%= multi_day_list_event.end_on.strftime("%A") %> <%= multi_day_list_event.end_day.ordinalize %>
-  [<%= link_to "click for full details", event_path(multi_day_list_event) %>]
+  [<%= link_to "click for full details", event_calendar_event_path(multi_day_list_event) %>]
 </p>

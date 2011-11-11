@@ -1,15 +1,22 @@
-<p><%= event_details_link(details) %></p>
+<div class="span-12 last">
 <%- unless details.one_day? %>
-<%= event_abbrev_date(details) %>
-<%= textilize(details.location) %>
-<%= textilize(details.description) %>
+  <%= textilize(details.location) %>
+  <%= textilize(details.description) %>
 <%- else -%>
-<div class="span-6">
-<%= textilize(details.location) %>
-<%= textilize(details.description) %>
+  <%= textilize(details.location) %>
+  <%= textilize(details.description) %>
+  <p><%= event_times(details) %></p>
+<%- end -%>  
 </div>
 
-<div class="span-6 last">
-  <%= event_times(details) %>
+<%- if details.file_attachments.count > 0 || details.links.count > 0 -%>
+<%- 
+# ugly! maybe blocks will help here
+@event = details 
+-%>
+<div class="span-12 last">
+  <h3>Materials/Resources</h3>
+  <%= render details.links.all %>
+  <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>
 </div>
 <%- end -%>

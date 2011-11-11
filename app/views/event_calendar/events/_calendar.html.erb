@@ -13,7 +13,7 @@ $(document).ready(function()
     $('#calendar').fullCalendar({ 
       header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
       editable: false, 
-      events: '<%= events_path(:event_type => params[:event_type] || @event_type) %>', 
+      events: '<%= event_calendar_events_path(:event_type => params[:event_type] || @event_type) %>', 
       height: 500, 
       aspectRatio: 1,
       eventMouseover: updateEventDescription

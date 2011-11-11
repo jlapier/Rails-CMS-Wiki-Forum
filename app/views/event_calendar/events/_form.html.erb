@@ -1,4 +1,4 @@
-<% submission_path = @event.new_record? ? events_path : event_path(@event) %>
+<% submission_path = @event.new_record? ? event_calendar_events_path : event_calendar_event_path(@event) %>
 <div style="width: 550px;">
 <%= semantic_form_for(@event, :url => submission_path) do |form| %>
   <%= form.inputs do %>
