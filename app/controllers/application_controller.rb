@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
 	# returns false for anonymous requests to non public resources
 	# returns result from can? for authenticated requests to non public resources
 	def has_authorization?(*args)
+    puts "in has auth"
 	  return true if public_resource?(*args)
 	  return false unless current_user
 	  
@@ -61,7 +62,7 @@ class ApplicationController < ActionController::Base
 
   def protect_event_calendar
     # allow all users to view events
-    unless controller_name == "events" && READ_ACTIONS.include?(action_name)
+    if controller_name == "events" and not READ_ACTIONS.include?(action_name)
       return require_admin_user
     end
   end

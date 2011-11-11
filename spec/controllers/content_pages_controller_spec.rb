@@ -90,8 +90,10 @@ describe ContentPagesController do
       end
 
       it "re-renders the 'new' template" do
-        ContentPage.stub!(:new).and_return(mock_content_page(:save => false))
+        ContentPage.stub!(:new).and_return(mock_content_page)
+        mock_content_page.stub(:save).and_return(false)
         post :create, :content_page => {}
+        puts flash
         response.should render_template('new')
       end
     end
@@ -134,7 +136,8 @@ describe ContentPagesController do
       end
 
       it "re-renders the 'edit' template" do
-        ContentPage.stub!(:find).and_return(mock_content_page(:update_attributes => false))
+        ContentPage.stub!(:find).and_return(mock_content_page)
+        mock_content_page.stub(:update_attributes).and_return(false)
         put :update, :id => "1"
         response.should render_template('edit')
       end

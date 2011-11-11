@@ -7,6 +7,10 @@ describe Blog::CommentsController do
   let(:blog_post) do
     stub_model(Blog::Post)
   end
+  before(:each) do
+    controller.stub(:require_user){ mock_user }
+    controller.stub(:current_user){ mock_user }
+  end
   
   describe "requiring authorization" do
     before(:each) do

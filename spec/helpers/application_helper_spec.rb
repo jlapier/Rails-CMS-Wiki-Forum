@@ -55,7 +55,7 @@ describe ApplicationHelper do
 
   it "should have a user box with a log in link" do
     # avoid MethodMissing for link_to_events
-    helper.class.send :include, EventCalendar::ApplicationHelper
+    helper.class.send :include, EventCalendar::EventsHelper
     helper.stub(:current_user).and_return(nil)
     helper.user_box.should =~ (/Log In/)
     helper.user_box.should =~ (/Register/)
@@ -103,18 +103,18 @@ describe ApplicationHelper do
   end
   
   it "should have a user box with link to events calendar when the user is logged in" do
-    helper.class.send :include, EventCalendar::ApplicationHelper
+    helper.class.send :include, EventCalendar::EventsHelper
     helper.stub(:current_user).and_return(mock_admin_user)
     helper.user_box.should =~ /Events/
-    helper.user_box.should =~ /href="\/events"/
+    helper.user_box.should =~ /href="\/event_calendar\/events"/
   end
   
   it "should have a user box with link to events calendar when the user is logged out" do
-    helper.class.send :include, EventCalendar::ApplicationHelper
+    helper.class.send :include, EventCalendar::EventsHelper
     helper.stub(:current_user).and_return(nil)
     helper.stub(:public_resource?).and_return(true)
     helper.user_box.should =~ /Events/
-    helper.user_box.should =~ /href="\/events"/
+    helper.user_box.should =~ /href="\/event_calendar\/events"/
   end
 
   it "should give a list of images" do
