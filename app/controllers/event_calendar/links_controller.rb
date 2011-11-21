@@ -52,7 +52,7 @@ module EventCalendar
           flash[:notice] = "Link successfully created." unless request.xhr?
           respond{ redirect_to_event }
         rescue ActiveRecord::RecordInvalid
-          respond{ render 'events/show' and return }
+          respond{ render '/event_calendar/events/show' and return }
         end
       end
       def destroy

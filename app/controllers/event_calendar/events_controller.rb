@@ -21,7 +21,7 @@ module EventCalendar
             :className => event_type_css_class(event.event_type),
             :allDay => !event.one_day?,
             :brief => "<em>#{event.event_type}:</em> #{event.description}",
-            :details => render_to_string(:partial => 'events/details', :object => event)
+            :details => render_to_string(:partial => '/event_calendar/events/details', :object => event)
           }
         end
         json.to_json

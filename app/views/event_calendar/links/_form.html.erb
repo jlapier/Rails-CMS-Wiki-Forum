@@ -1,9 +1,9 @@
 <%- 
 if @link.new_record?
-  submission_path = event_links_path(@event)
+  submission_path = event_calendar_event_links_path(@event)
   method = 'post'
 else
-  submission_path = event_link_path(@event, @link)
+  submission_path = event_calendar_event_link_path(@event, @link)
   method = 'put'
 end
 -%>

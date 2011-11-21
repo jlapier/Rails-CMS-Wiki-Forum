@@ -1,14 +1,18 @@
+this is the right partial
 <% unless event.nil? %>
 <%= div_for_record(event) do -%>
+<p>hello!</p>
   <p style="float: right;">
     <%= links_to_edit_and_delete_event(event, {}, {:class => 'fake_button'}) if event.current_revision? %>
   </p>
   <h1><%= link_to_events({:no_wrapper => true}, {:link_text => "Events"}) %>: <%= event.name %> (<em><%= event.event_type %></em>)</h1>
   <div style="clear:both"></div>
-  <%= render :partial => 'events/event_details', :object => event %>
+  okay now event details partial
+  <%= render :partial => 'event_details', :object => event %>
+  do I ever get here?
   <%- if event.current_revision? && (event.links.count > 0 || event.file_attachments.count > 0) -%>
   <p><strong>Materials/Resources</strong></p>
   <%- end -%>
-  <%= render :partial => 'links/links' if event.current_revision? %>
+  <%= render :partial => 'event_calendar/links/links' if event.current_revision? %>
 <% end %>
 <% end %>
