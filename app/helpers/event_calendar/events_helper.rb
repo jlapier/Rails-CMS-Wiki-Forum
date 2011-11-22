@@ -268,16 +268,9 @@ module EventCalendar::EventsHelper
   
   def event_calendar_javascript_includes
     list = [
-      "#{event_calendar_asset_prefix}jquery.tablesorter.min.js",
-      "#{event_calendar_asset_prefix}jquery-ui-1.8.16.custom.min.js",
-      "#{event_calendar_asset_prefix}jquery.string.1.0-min.js",
-      "#{event_calendar_asset_prefix}jquery.clonePosition.js",
-      "#{event_calendar_asset_prefix}lowpro.jquery.js",
-      "#{event_calendar_asset_prefix}fullcalendar.js",
-      "#{event_calendar_asset_prefix}jquery.qtip-1.0.0-rc3.js",
-      "#{event_calendar_asset_prefix}rails",
-      "#{event_calendar_asset_prefix}event_calendar_behaviors.js",
-      "#{event_calendar_asset_prefix}event_calendar.js"
+      "fullcalendar.js",
+      "event_calendar_behaviors.js",
+      "event_calendar.js"
     ]
     unless Rails.env == 'production'
       list.unshift("#{event_calendar_asset_prefix}jquery")

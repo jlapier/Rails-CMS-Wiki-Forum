@@ -204,8 +204,9 @@ module ApplicationHelper
   def host_javascripts
     list = [
       'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
+      'jquery.clonePosition.js',
+      'jquery.qtip-1.0.0-rc3.js',
       'jquery.tablesorter.min.js',
-#      'jquery-ui-1.7.2.custom.min.js',
       'jquery-ui-1.8.16.custom.min.js',
       '/ckeditor/ckeditor.js',
       '/ckeditor/adapters/jquery.js'

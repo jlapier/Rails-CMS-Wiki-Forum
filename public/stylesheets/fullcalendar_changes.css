@@ -1,0 +1,43 @@
+/* resizable */
+/* taken directly from fullcalendar.css - here cuz blueprint's compress.rb
+  does not properly compress this style and it results in a syntax error
+  preventing subsequent styles from being defined */
+.fc .ui-resizable-handle {
+	display: block;
+	position: absolute;
+	z-index: 99999;
+	border: 0 !important; /* important overrides pre jquery ui 1.7 styles */
+	background: url(data:image/gif;base64,AAAA) !important; /* hover fix for IE */
+	}
+
+.fc td { text-align: center; }
+
+.fc-event a:link,
+.fc-event a:visited,
+.fc-event a:active {
+  color: white;
+}
+
+.conference_event,
+  .conference_event a:link,
+  .conference_event a:visited,
+  .conference_event a:active {
+  background-color: #0A0;
+  border-color: #090;
+}
+
+.meeting_event,
+  .meeting_event a:link,
+  .meeting_event a:visited,
+  .meeting_event a:active {
+  background-color: #C00;
+  border-color: #900;
+}
+
+.training_event,
+  .training_event a:link,
+  .training_event a:visited,
+  .training_event a:active {
+  background-color: #F30;
+  border-color: #003;
+}
