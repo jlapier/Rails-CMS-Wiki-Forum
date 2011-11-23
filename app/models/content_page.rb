@@ -39,6 +39,7 @@ class ContentPage < ActiveRecord::Base
       function_name, param = function_string.split(' ', 2)
       if param
         use_homelink = param.downcase.include?("withhome")
+        cascade_menu = param.downcase.include?("cascade")
         param.gsub!(/withhome/i, '')
         sort_match = param.downcase.match(/.*(sortby\S+).*/)
         if sort_match
@@ -57,6 +58,7 @@ class ContentPage < ActiveRecord::Base
       limit = limit ? limit.to_i : nil
 
       params_to_send = { :use_homelink => use_homelink,
+        :cascade => cascade_menu,
         :order => order_string_from_sort_in_function(sort_order),
         :limit => limit, :other_params => param }
 

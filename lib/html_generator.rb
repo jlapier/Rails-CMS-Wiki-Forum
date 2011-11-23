@@ -22,10 +22,10 @@ module HtmlGenerator
             "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
           else
             "<li>" + 
-            main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") +
+              main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") + 
               "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" + 
-              "<h4>#{cat.name}</h4>" +
-              list_pages_in_category_to_html(:category => cat) +
+                "<h4>#{cat.name}</h4>" +
+                list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade]) +
               "</div>" +
             "</li>"
           end
@@ -64,7 +64,9 @@ module HtmlGenerator
 
     def list_pages_in_category_to_html(options = {})
       category = options[:category] || Category.find_by_name(options[:other_params])
-      out = "<ul>"
+      out = ""
+
+      out += "<ul>"
 
       if options[:use_homelink]
         out += homelink
@@ -81,7 +83,12 @@ module HtmlGenerator
             "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
           }.join("")
           unless category.children.empty?
-            out += category.children.map { |cat| "<li><h5>#{cat.name}</h5></li>" + list_pages_in_category_to_html(:category => cat) }.join("")
+            category.children.each do |cat| 
+              out += "<li><h5><a class=\"menu_show_hide_link\" href=\"/categories/#{cat.id}?toggle=cat_menu_#{cat.id}&hide=inner_menu\">#{cat.name}</a></h5></li>" 
+              out += "<div style=\"display:none;\" class=\"cat_menu_#{cat.id} inner_menu\">" if options[:cascade]
+              out += list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade]) 
+              out += "</div>" if options[:cascade]
+            end
           end
         end
       else
@@ -173,7 +180,7 @@ module HtmlGenerator
         <script type="text/javascript">
         $(document).ready(function() {
           $('#minicalendar').fullCalendar({ 
-            header: { left: 'prev,next', right: 'title' },
+            header: { left: 'prev', right: 'next', center: 'title' },
             editable: false, 
             events: '/event_calendar/events', 
             eventMouseover: function(event, jsEvent, view) {
