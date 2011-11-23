@@ -150,7 +150,7 @@ module EventCalendar::EventsHelper
   end
   
   def link_to_event_revisions(wrapper_options={}, link_options={})
-    return unless has_authorization?(:read, EventRevision.new)
+    return unless has_authorization?(:read, EventCalendar::EventRevision.new)
     link_wrapper(event_calendar_event_revisions_path, {
       :no_wrapper => true
     }.merge!(wrapper_options), {
@@ -243,27 +243,23 @@ module EventCalendar::EventsHelper
 
   def form_for_browse_event_revisions(event)
     return unless has_authorization?(:update, event)
-    render :partial => 'events/browse_event_revisions', :locals => {
+    render :partial => '/event_calendar/events/browse_event_revisions', :locals => {
       :event => event
     }
   end
 
   def render_event_navigation(event=nil)
-    render :partial => 'event-calendar-shared/navigation', :locals => {
+    render :partial => '/event_calendar/event-calendar-shared/navigation', :locals => {
       :event => event
     }
   end
 
   def render_event_main_menu
-    render :partial => 'event-calendar-shared/main_menu'
+    render :partial => '/event_calendar/event-calendar-shared/main_menu'
   end
 
   def render_flash
-    render :partial => 'event-calendar-shared/flash', :object => flash
-  end
-  
-  def event_calendar_asset_prefix
-    'event_calendar/'
+    render :partial => '/event_calendar/event-calendar-shared/flash', :object => flash
   end
   
   def event_calendar_javascript_includes
@@ -272,10 +268,5 @@ module EventCalendar::EventsHelper
       "event_calendar_behaviors.js",
       "event_calendar.js"
     ]
-    unless Rails.env == 'production'
-      list.unshift("#{event_calendar_asset_prefix}jquery")
-    else
-      list.unshift("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
-    end
   end
 end

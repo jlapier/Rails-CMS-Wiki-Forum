@@ -8,7 +8,7 @@ module EventCalendar
         @link ||= if params[:id].present?
                     EventCalendar::Link.find(params[:id])
                   else
-                    event.links.build(params[:link])
+                    event.links.build(params[:link] || params[:event_calendar_link])
                   end
       end
       def load_resources

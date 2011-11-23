@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
 	# returns false for anonymous requests to non public resources
 	# returns result from can? for authenticated requests to non public resources
 	def has_authorization?(*args)
-    puts "in has auth"
 	  return true if public_resource?(*args)
 	  return false unless current_user
 	  

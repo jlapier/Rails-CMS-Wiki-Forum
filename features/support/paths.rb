@@ -15,7 +15,13 @@ module NavigationHelpers
       '/login'
 
     when /the event page for "(.*)"/
-      event_path(Event.find_by_name($1))
+      event_calendar_event_path(EventCalendar::Event.find_by_name($1))
+
+    when /the new event page/
+      '/event_calendar/events/new'
+
+    when /the events page/
+      '/event_calendar/events'
       
     when /the edit link page for "(.*)" "(.*)"/
       event = Event.find_by_name($1)
@@ -26,6 +32,9 @@ module NavigationHelpers
 
     when /the manage events page/
       '/dashboard/event_calendar'
+
+    when /the event revisions page/
+      '/event_calendar/event_revisions'
       
     when /the edit blog post page for "(.*)"/
       p = Blog::Post.find_by_title($1)

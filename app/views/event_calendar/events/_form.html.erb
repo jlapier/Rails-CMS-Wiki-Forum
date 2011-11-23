@@ -71,12 +71,12 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#event_event_type').attach(SelectPopper, <%= "#{EventCalendar::Event.existing_event_types.to_json}".html_safe %>);
+    $('#event_calendar_event_event_type').attach(SelectPopper, <%= "#{EventCalendar::Event.existing_event_types.to_json}".html_safe %>);
     
     $('form.formtastic fieldset ol li.text textarea').attach(TextareaExpander, 40, 300);
 
-    $('#event_start_date').datepicker();
-    $('#event_end_date').datepicker();
+    $('#event_calendar_event_start_date').datepicker();
+    $('#event_calendar_event_end_date').datepicker();
   });
 </script>
 

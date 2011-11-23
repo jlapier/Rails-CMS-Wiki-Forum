@@ -53,7 +53,7 @@ module HtmlGenerator
           if event.end_on and event.end_on.to_date != event.start_on.to_date
             date_string += " - " + (event.start_on.month == event.end_on.month ? event.end_on.strftime('%d') : event.end_on.strftime('%B %d'))
           end
-          out += "<li><a href=\"/events/#{event.id}\">#{date_string}: #{event.name}</a></li>"
+          out += "<li><a href=\"/event_calendar/events/#{event.id}\">#{date_string}: #{event.name}</a></li>"
         end
       end
 
@@ -175,7 +175,7 @@ module HtmlGenerator
           $('#minicalendar').fullCalendar({ 
             header: { left: 'prev,next', right: 'title' },
             editable: false, 
-            events: '/events', 
+            events: '/event_calendar/events', 
             eventMouseover: function(event, jsEvent, view) {
                 $(jsEvent.target).attr('title', event.title);
               }
@@ -201,7 +201,7 @@ module HtmlGenerator
           $('#calendar').fullCalendar({ 
             header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
             editable: false, 
-            events: '/events', 
+            events: '/event_calendar/events', 
             height: #{options[:height]}, 
             aspectRatio: 1,
             eventMouseover: updateEventDescription

@@ -2,7 +2,7 @@ module EventCalendar
   class EventsController < ApplicationController
     
     # before_filter :load_and_authorize_current_user, :except => [:index, :show]
-    before_filter :parse_dates_from_params, :only => [:create, :update]
+    before_filter :merge_params, :parse_dates_from_params, :only => [:create, :update]
     cache_sweeper :event_sweeper
     
     include EventsHelper
@@ -25,6 +25,10 @@ module EventCalendar
           }
         end
         json.to_json
+      end
+
+      def merge_params
+        params[:event].merge!(params[:event_calendar_event]) if params[:event_calendar_event]
       end
       
       def parse_dates_from_params

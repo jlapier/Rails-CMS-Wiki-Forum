@@ -189,7 +189,7 @@ describe HtmlGenerator do
           $('#calendar').fullCalendar({ 
             header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
             editable: false, 
-            events: '/events', 
+            events: '/event_calendar/events', 
             height: 500, 
             aspectRatio: 1,
             eventMouseover: updateEventDescription

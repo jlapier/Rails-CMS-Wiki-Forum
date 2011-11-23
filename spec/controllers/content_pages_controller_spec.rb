@@ -93,7 +93,6 @@ describe ContentPagesController do
         ContentPage.stub!(:new).and_return(mock_content_page)
         mock_content_page.stub(:save).and_return(false)
         post :create, :content_page => {}
-        puts flash
         response.should render_template('new')
       end
     end

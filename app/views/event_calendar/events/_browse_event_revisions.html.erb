@@ -3,7 +3,7 @@
 <% if event.revisions.empty? %>
   <p><em>This is the first version of this event.</em></p>
 <% else %>
-  <%= form_tag event_revisions_path, :method => :get do %>
+  <%= form_tag event_calendar_event_revisions_path, :method => :get do %>
     <select name="id">
       <% event.revisions.each do |evr| %>
         <option value="<%= evr.id %>">

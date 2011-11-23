@@ -44,14 +44,14 @@ Feature: Event calendar
 
   Scenario: update a multi day event
     Given I am on the event page for "Editable Event"
-    And I follow "update" within "div.event"
+    And I follow "update" within "div.event_calendar_event"
     And I fill in "Name" with "Updated Event"
     And I press "Update Event"
     Then I should see "Event was successfully updated."
 
   Scenario: update a single day event
     Given I am on the event page for "Linkable Event"
-    And I follow "update" within "div.event"
+    And I follow "update" within "div.event_calendar_event"
     And I fill in "Start date" with "02/23/2011"
     And I fill in "End date" with "02/23/2011"
     And I select "Pacific Time (US & Canada)" from "Timezone"
@@ -61,7 +61,7 @@ Feature: Event calendar
 
   Scenario: delete an event
     Given I am on the event page for "Editable Event"
-    And I follow "delete" within "div.event"
+    And I follow "delete" within "div.event_calendar_event"
     Then I should be on the events page
 
   Scenario: deleting then restoring an event

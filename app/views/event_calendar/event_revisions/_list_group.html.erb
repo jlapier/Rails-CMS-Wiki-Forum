@@ -8,7 +8,7 @@
           <% months_events.each do |event| %>
           <li>
               <%= event_one_liner(event) %>
-              <%= link_to 'restore', restore_event_revision_path(event),
+              <%= link_to 'restore', restore_event_calendar_event_revision_path(event),
                           :confirm => 'Are you sure you want to restore this deleted event?',
                           :method => "post",
                           :class => 'fake_button' %>
