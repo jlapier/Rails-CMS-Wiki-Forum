@@ -30,9 +30,11 @@ group :development, :test do
   gem 'launchy'
   gem 'rcov'
   gem 'database_cleaner'
+  # sorry to force mysql in dev/test, had to do some testing
+  gem 'mysql2', '~> 0.2.0'
 end
 
 group :production do
-  gem 'mysql2' #, '= 0.2.13'
+  gem 'mysql2', '~> 0.2.0'
 end
 
