@@ -302,6 +302,7 @@ ul.events .open:before { content: '- ' }
 
 ul.category_list { 
   list-style-type: none;
+  margin-left: 20px;
 }
 
 ul.category_list li { }

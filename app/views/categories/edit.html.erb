@@ -5,6 +5,10 @@
   <p>
     Category: <%= f.text_field :name %><br/>
     Parent: <%= f.select :parent_id, @categories.map {|c| [c.name, c.id]}, :include_blank => true %><br/>
+    <em>instead of showing a boring table when you land on this category page, you can redirect to an actual content page</em><br/>
+    Redirect to: <%= f.select :redirect_to_content_page_id, 
+      ContentPage.order("name").map {|cp| [cp.name, cp.id]},
+      :include_blank => true %><br/>
     <%= f.submit 'save category' %>
   </p>
 <% end %>

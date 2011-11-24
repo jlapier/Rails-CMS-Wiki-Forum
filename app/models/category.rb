@@ -3,6 +3,8 @@ class Category < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'Blog::Post'
   belongs_to :parent, :class_name => 'Category'
   has_many :children, :class_name => 'Category', :foreign_key => 'parent_id'
+  belongs_to :redirect_to_content_page, :class_name => 'ContentPage', 
+    :foreign_key => 'redirect_to_content_page_id'
   validates_presence_of :name
   validates_uniqueness_of :name
   searchable_by :name

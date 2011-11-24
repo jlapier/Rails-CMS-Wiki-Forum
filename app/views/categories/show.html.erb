@@ -39,7 +39,28 @@
 <%= render :partial => 'blog/posts/lead_in', :collection => @category.blog_posts,
            :as => :post %>
 <% end %>
+
+
+
 <% if is_admin? %>
+  <% if @category.redirect_to_content_page %>
+    <p>
+      <em>Note:</em> This category page redirects to:
+      <%= link_to @category.redirect_to_content_page.name,
+            @category.redirect_to_content_page %>
+    </p>
+  <% else %>
+    <p><em>Want this page to redirect to a real page?</em></p>
+  <% end %>
+  <%= form_for(@category) do |f| %>
+    <p>
+      Redirect to: <%= f.select :redirect_to_content_page_id, 
+        ContentPage.order("name").map {|cp| [cp.name, cp.id]},
+        :include_blank => true %>
+      <%= f.submit 'set' %>
+    </p>
+  <% end %>
+
   <p class="admin_links">
     <span class="fake_button">
     <%= link_to 'List of Categories', categories_path %> |

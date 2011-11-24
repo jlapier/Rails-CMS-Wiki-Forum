@@ -18,10 +18,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1.xml
   def show
     @category = Category.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @category }
+    if @category.redirect_to_content_page and params[:no_redirect].blank?
+      redirect_to @category.redirect_to_content_page
     end
   end
 
@@ -55,7 +53,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.update_attributes(params[:category])
         flash[:notice] = 'Category was successfully updated.'
-        format.html { redirect_to(@category) }
+        format.html { redirect_to(category_path(@category, :no_redirect => 1)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
