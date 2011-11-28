@@ -18,13 +18,13 @@ module HtmlGenerator
         out += "<li><em>No categories were found</em></li>"
       else
         out += categories.map { |cat|
-          if cat.children.empty?
+          if cat.children.empty? and cat.content_pages.count == 0
             "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
           else
             "<li>" + 
               main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") + 
-              "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" + 
-                "<h4>#{cat.name}</h4>" +
+              "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" +                 
+                (cat.content_pages.count == 0 ? '' : "<h4>#{cat.name}</h4>") +
                 list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade]) +
               "</div>" +
             "</li>"
