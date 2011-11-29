@@ -16,7 +16,8 @@ describe "/categories/show.html.erb" do
     @category = mock_model(Category,
       :name => "Name",
       :content_pages => [stub_model(ContentPage, :name => 'nothing', :body => 'more nothing')],
-      :blog_posts => [stub_model(Blog::Post, :title => 'something', :body => 'more something', :author => mock_user)])
+      :blog_posts => [stub_model(Blog::Post, :title => 'something', :body => 'more something', :author => mock_user)],
+      :redirect_to_content_page => nil, :redirect_to_content_page_id => nil)
     assign(:category, @category)
     view.stub(:current_user).and_return(mock_user)
     view.stub(:has_authorization?){ true }

@@ -4,6 +4,7 @@
   <%= form.inputs do %>
     <%= form.input :name, :hint => "the name of the event" %>
     <%= form.input :event_type, :hint => "conference, meeting, training, etc" %>
+    <%= form.input :topic, :hint => "this topic will show up in hover-over text" %>
     <li id="event_start_time_input" class="time optional">
       <input id="event_start_time_1i" type="hidden" value="<%= Date.current.year %>" name="event[start_time(1i)]">
       <fieldset>

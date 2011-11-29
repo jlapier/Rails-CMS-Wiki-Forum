@@ -7,7 +7,7 @@ describe CategoriesController do
   end
 
   def mock_category(stubs={})
-    @mock_category ||= mock_model(Category, stubs.merge({:name => "whatev", :parent_id => nil}))
+    @mock_category ||= mock_model(Category, stubs.merge({:name => "whatev", :parent_id => nil, :redirect_to_content_page => nil}))
   end
 
   before do
@@ -82,7 +82,7 @@ describe CategoriesController do
       it "redirects to the category" do
         Category.stub!(:find).and_return(mock_category(:update_attributes => true))
         put :update, :id => "1"
-        response.should redirect_to(category_url(mock_category))
+        response.should redirect_to(category_url(mock_category, :no_redirect => 1))
       end
     end
 

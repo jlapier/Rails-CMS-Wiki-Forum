@@ -20,7 +20,7 @@ module EventCalendar
             :url => event_calendar_event_path(event),
             :className => event_type_css_class(event.event_type),
             :allDay => !event.one_day?,
-            :brief => "<em>#{event.event_type}:</em> #{event.description}",
+            :brief => "<em>#{event.event_type}:</em> #{event.topic}",
             :details => render_to_string(:partial => '/event_calendar/events/details', :object => event)
           }
         end

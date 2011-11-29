@@ -12,6 +12,7 @@ describe EventCalendar::EventsController do
       :one_day? => true,
       :timezone => 'Pacific Time (US & Canada)',
       :description => 'Some Description',
+      :topic => 'Some Topic',
       :location => 'Some City',
       :links => mock('Relation', :build => mock_model(EventCalendar::Link)),
       :adjust_to_utc= => nil
