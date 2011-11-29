@@ -38,9 +38,14 @@ class ContentPage < ActiveRecord::Base
       function_string.gsub! "&nbsp;", " "
       function_name, param = function_string.split(' ', 2)
       if param
-        use_homelink = param.downcase.include?("withhome")
-        cascade_menu = param.downcase.include?("cascade")
-        param.gsub!(/withhome/i, '')
+        use_homelink    = param.downcase.include?("withhome")
+        use_eventslink  = param.downcase.include?("withevents")
+        use_bloglink    = param.downcase.include?("withblog")
+        cascade_menu    = param.downcase.include?("cascade")
+        puts "************************"
+        puts param
+        param.gsub!(/withhome|withevents|withblog/i, '')
+        puts param
         sort_match = param.downcase.match(/.*(sortby\S+).*/)
         if sort_match
           sort_order = sort_match[1]
@@ -57,10 +62,14 @@ class ContentPage < ActiveRecord::Base
       
       limit = limit ? limit.to_i : nil
 
-      params_to_send = { :use_homelink => use_homelink,
+      params_to_send = { 
+        :use_homelink => use_homelink,
+        :use_eventslink => use_eventslink,
+        :use_bloglink => use_bloglink,
         :cascade => cascade_menu,
         :order => order_string_from_sort_in_function(sort_order),
-        :limit => limit, :other_params => param }
+        :limit => limit, :other_params => param 
+      }
 
       begin
         self.send("#{function_name.downcase}_to_html", params_to_send)

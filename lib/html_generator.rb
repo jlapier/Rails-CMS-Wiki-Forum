@@ -10,9 +10,9 @@ module HtmlGenerator
       categories = Category.find(:all, :order => options[:order], :limit => options[:limit], :conditions => "parent_id IS NULL", :include => :children)
       out = "<ul>"
 
-      if options[:use_homelink]
-        out += homelink
-      end
+      out += homelink   if options[:use_homelink]
+      out += eventslink if options[:use_eventslink]
+      out += bloglink   if options[:use_bloglink]
 
       if categories.empty?
         out += "<li><em>No categories were found</em></li>"
@@ -221,6 +221,14 @@ module HtmlGenerator
     private
     def homelink
       "<li><a href=\"/\">Home</a></li>"
+    end
+
+    def eventslink
+      "<li><a href=\"/event_calendar/events\">Events Calendar</a></li>"
+    end
+
+    def bloglink
+      "<li><a href=\"/blog\">#{SiteSetting.read_or_write_default_setting('blog title','Blog')}</a></li>"
     end
 
     def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)
