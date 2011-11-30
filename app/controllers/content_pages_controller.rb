@@ -94,6 +94,9 @@ class ContentPagesController < ApplicationController
     respond_to do |format|
       if @content_page.update_attributes(params[:content_page])
         @content_page.update_attributes :editing_user => nil, :started_editing_at => nil
+        if params[:content_page][:category_ids].blank?
+          @content_page.categories = []
+        end
         if params[:new_category] and !params[:new_category].blank?
           cat = Category.find_or_create_by_name params[:new_category]
           @content_page.categories << cat
