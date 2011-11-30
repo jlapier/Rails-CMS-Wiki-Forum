@@ -1,5 +1,10 @@
 <h1>Listing categories</h1>
 
+<ul id="testlist">
+  <li>One</li>
+  <li>Two</li>
+</ul>
+
 <%= render :partial => 'list', :locals => { :categories => @root_categories } %>
 
 <br />
@@ -22,16 +27,10 @@
 
 <% content_for :javascript do %>
 <script type="text/javascript">
-var someui;
-var someevent;
-var something;
-
 $(document).ready(function(){
   $('.category_list').sortable({
     update: function(event, ui){
       var me = $(this);
-      console.log(me);
-      console.log(me.sortable('toArray'));
       $.ajax({ 
         type: 'post', 
         data: me.sortable('serialize'), 
