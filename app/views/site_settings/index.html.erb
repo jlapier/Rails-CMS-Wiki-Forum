@@ -49,6 +49,14 @@
       <% end %>
     </p>
     <p>
+      <strong>Custom Error Page:</strong>
+      <%= select_tag :error_page_id,  
+            options_for_select(
+                ContentPage.order("name").where(:is_preview_only => false).map {|cp| 
+                  [cp.name, cp.id]}, :selected => @error_page_id),
+            :include_blank => true %>
+    </p>
+    <p>
       <strong>Additional User Fields (comma separated):</strong>
       <%= text_area_tag :user_fields, @user_fields.join(', '), :cols => 70, :rows => 3,
         :style => "vertical-align:middle; height: 40px; width: 80%;" %>
@@ -61,11 +69,9 @@
 </div>
 
 <script type="text/javascript">
-  <%# TODO: write the jquery version of this %>
-  Event.observe(window, 'load', function() {
-    Event.addBehavior({
-      '#site_logo:change': function(e) { $('image_of_logo').src = '/images/' + e.element().value; }
-    });
+$(document).ready(function() {
+  $('#site_logo').bind('change', function() {
+    $('#image_of_logo').attr('src', '/images/' + this.value);
   });
-
+});
 </script>

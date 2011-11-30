@@ -1,4 +1,6 @@
 RailsCMSWikiForum::Application.routes.draw do
+  get "errors/routing"
+
   resources :wikis do
     member do
       get :tagcloud
@@ -160,4 +162,6 @@ RailsCMSWikiForum::Application.routes.draw do
   match '/register' => 'users#new', :as => :register
   match '/login' => 'user_sessions#new', :as => :login
   match '/' => 'content_pages#home'
+
+  match '*a', :to => 'errors#routing'
 end

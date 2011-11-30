@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with => :broken_link
 
   PUBLIC_RESOURCES = {
     EventCalendar::Event => [:read],
@@ -25,6 +26,19 @@ class ApplicationController < ActionController::Base
   before_filter :get_menus, :get_layout
   
 	private	
+  def broken_link
+    flash[:warning] = "The page you were looking for was not found."
+    error_page_id = SiteSetting.read_setting 'error page id'
+    if error_page_id
+      page = ContentPage.find error_page_id
+      if page and page.ready_for_publishing?
+        redirect_to page
+        return
+      end
+    end
+    redirect_to "/"
+  end
+
 	# returns true if resource & action in question are designated as public
 	#   see #public_resource?
 	# returns false for anonymous requests to non public resources

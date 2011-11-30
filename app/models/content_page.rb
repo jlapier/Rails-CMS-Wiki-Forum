@@ -42,8 +42,6 @@ class ContentPage < ActiveRecord::Base
         use_eventslink  = param.downcase.include?("withevents")
         use_bloglink    = param.downcase.include?("withblog")
         cascade_menu    = param.downcase.include?("cascade")
-        puts "************************"
-        puts param
         param.gsub!(/withhome|withevents|withblog/i, '')
         puts param
         sort_match = param.downcase.match(/.*(sortby\S+).*/)
