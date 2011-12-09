@@ -36,18 +36,7 @@
 <link rel="stylesheet" href="/codemirror/theme/default.css">
 
 <script type="text/javascript">
-/*
-  var textarea = $('#css')[0];
-  var editor = CodeMirror.fromTextArea("css", {
-    parserfile: "parsecss.js",
-    path: "/codemirror/js/",
-    stylesheet: "/codemirror/css/jscolors.css",
-    autoMatchParens: true,
-    height: "350px"
-  });
-  */
-
-  var myCodeMirror = CodeMirror.fromTextArea($('#css')[0]);
+  var myCodeMirror = CodeMirror.fromTextArea($('#css')[0], { lineNumbers: true });
   $(function($) {
     var toggleLoading = function() { $(".loading").toggle() };
 

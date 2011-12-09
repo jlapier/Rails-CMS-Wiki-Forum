@@ -19,9 +19,9 @@ module HtmlGenerator
       else
         out += categories.map { |cat|
           if cat.children.empty? and cat.content_pages.count == 0
-            "<li><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
+            "<li class=\"category_#{cat.id}\"><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
           else
-            "<li>" + 
+            "<li class=\"category_#{cat.id}\">" + 
               main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") + 
               "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" +                 
                 (cat.content_pages.count == 0 ? '' : "<h4>#{cat.name}</h4>") +
@@ -220,22 +220,20 @@ module HtmlGenerator
 
     private
     def homelink
-      "<li><a href=\"/\">Home</a></li>"
+      "<li class=\"homelink\"><a href=\"/\">Home</a></li>"
     end
 
     def eventslink
-      "<li><a href=\"/event_calendar/events\">Events Calendar</a></li>"
+      "<li class=\"eventslin class=\"bloglink\"k\"><a href=\"/event_calendar/events\">Events Calendar</a></li>"
     end
 
     def bloglink
-      "<li><a href=\"/blog\">#{SiteSetting.read_or_write_default_setting('blog title','Blog')}</a></li>"
+      "<li class=\"bloglink\"><a href=\"/blog\">#{SiteSetting.read_or_write_default_setting('blog title','Blog')}</a></li>"
     end
 
-    def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)
-      <<-END
-        <a href="#{base_url}?toggle=#{menu_css_class}&hide=menu_hidable" 
-            class="menu_show_hide_link" id="#{menu_id}">#{link_text}</a>
-      END
+    def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)      
+      "<a href=\"#{base_url}?toggle=#{menu_css_class}&hide=menu_hidable\" " + 
+        "class=\"menu_show_hide_link\" id=\"#{menu_id}\">#{link_text}</a>"
     end
 
   end
