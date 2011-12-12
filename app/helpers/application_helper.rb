@@ -93,7 +93,9 @@ module ApplicationHelper
   end
 
   def user_box(my_options={})
-    options = { :include_line_breaks => true, :include_blog_link => true, :include_events_link => true,
+    options = { :include_line_breaks => true, :include_blog_link => true, 
+        :include_events_link => true, :include_wiki_link => true,
+        :include_forum_link => true,
         :link_separator => ' | '
       }.merge(my_options)
     out = ""
@@ -107,14 +109,14 @@ module ApplicationHelper
               link_to("Logout", user_session_path, :method => :delete,
                   :confirm => "Are you sure you want to logout?")
       other_links << link_to('Site Admin', admin_site_settings_path) if current_user.is_admin?
-      if current_user.has_access_to_any_wikis?
+      if options[:include_wiki_link] and current_user.has_access_to_any_wikis?
         if current_user.wikis.size == 1
           other_links << link_to('Wiki', current_user.wikis.first)
         else
           other_links << link_to('Wikis', wikis_path)
         end
       end
-      if current_user.has_access_to_any_forums?
+      if options[:include_forum_link] and current_user.has_access_to_any_forums?
         if current_user.forums.size == 1
           other_links << link_to('Forum', current_user.forums.first)
         else
