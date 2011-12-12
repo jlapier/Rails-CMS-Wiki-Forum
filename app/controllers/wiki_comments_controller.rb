@@ -50,8 +50,9 @@ class WikiCommentsController < ApplicationController
         end
         format.js do
           render :update do |page|
-            page[:comments].replace_html :partial => '/wiki_pages/comments'
-            page[:comments].visual_effect :highlight
+            # page[:comments].replace_html :partial => '/wiki_pages/comments'
+            # page[:comments].visual_effect :highlight
+            page << "$('#comments').append('<p><em><strong>#{wiki_comment.user.first_name}</strong> said:</em> #{wiki_comment.body}</p>')"
           end
         end
       end
@@ -67,7 +68,7 @@ class WikiCommentsController < ApplicationController
         end
         format.js do
           render :update do |page|
-            page[:message].update "Unable to save comment. Errors: #{wiki_comment.errors.full_messages.join('; ')}"
+            page << "$('#message').html('Unable to save comment. Errors: #{wiki_comment.errors.full_messages.join('; ')}');"
           end
         end
       end
