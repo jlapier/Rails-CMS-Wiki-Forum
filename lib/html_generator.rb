@@ -38,7 +38,8 @@ module HtmlGenerator
     alias_method :listcategories_to_html, :list_categories_to_html
 
     def list_events_to_html(options = {})
-      events = EventCalendar::Event.where "start_on > ?", 1.week.ago
+      # TODO: make this an option so if you want it to go back more than a day, you can
+      events = EventCalendar::Event.where "start_on > ?", 1.day.ago
       unless options[:other_params].blank?
         events = events.where :event_type => options[:other_params]
       end
