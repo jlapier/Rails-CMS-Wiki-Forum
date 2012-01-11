@@ -105,6 +105,7 @@ describe ContentPagesController do
       it "updates the requested content_page" do
         ContentPage.should_receive(:find).with("37").and_return(mock_content_page)
         mock_content_page.should_receive(:update_attributes).with({'these' => 'params'})
+        mock_content_page.should_receive(:categories=).with([])
         put :update, :id => "37", :content_page => {:these => 'params'}
       end
 
@@ -125,6 +126,7 @@ describe ContentPagesController do
       it "updates the requested content_page" do
         ContentPage.should_receive(:find).with("37").and_return(mock_content_page)
         mock_content_page.should_receive(:update_attributes).with({'these' => 'params'})
+        mock_content_page.should_receive(:categories=).with([])
         put :update, :id => "37", :content_page => {:these => 'params'}
       end
 

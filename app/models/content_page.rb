@@ -43,7 +43,6 @@ class ContentPage < ActiveRecord::Base
         use_bloglink    = param.downcase.include?("withblog")
         cascade_menu    = param.downcase.include?("cascade")
         param.gsub!(/withhome|withevents|withblog/i, '')
-        puts param
         sort_match = param.downcase.match(/.*(sortby\S+).*/)
         if sort_match
           sort_order = sort_match[1]

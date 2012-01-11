@@ -44,7 +44,7 @@ describe ContentPage do
   it "should generate HTML from function ListCategories" do
     Category.should_receive(:find).with(:all, {:include => :children, :order=>"name ASC", :limit => nil, :conditions => 'parent_id IS NULL'}).and_return([@mock_category])
     expected = "<ul>" +
-      "<li><a href=\"/categories/1\">A Test Category</a></li>" +
+      "<li class=\"category_1\"><a href=\"/categories/1\">A Test Category</a></li>" +
       "</ul>"
     ContentPage.function('ListCategories').should == expected
   end
@@ -52,8 +52,8 @@ describe ContentPage do
   it "should generate HTML from function ListCategories WithHome" do
     Category.should_receive(:find).with(:all, {:include => :children, :order=>"name ASC", :limit => nil, :conditions => 'parent_id IS NULL'}).and_return([@mock_category])
     expected = "<ul>" +
-      "<li><a href=\"/\">Home</a></li>" +
-      "<li><a href=\"/categories/1\">A Test Category</a></li>" +
+      "<li class=\"homelink\"><a href=\"/\">Home</a></li>" +
+      "<li class=\"category_1\"><a href=\"/categories/1\">A Test Category</a></li>" +
       "</ul>"
     ContentPage.function('ListCategories WithHome').should == expected
   end
@@ -77,7 +77,7 @@ describe ContentPage do
     Category.should_receive(:find_by_name).with('A Test Category').and_return(@mock_category)
 
     expected = "<ul>" +
-      "<li><a href=\"/\">Home</a></li>" +
+      "<li class=\"homelink\"><a href=\"/\">Home</a></li>" +
       "<li><a href=\"/content_pages/123\">Page ABC</a></li>" +
       "</ul>"
     ContentPage.function('ListPagesInCategory A Test Category WithHome').should == expected

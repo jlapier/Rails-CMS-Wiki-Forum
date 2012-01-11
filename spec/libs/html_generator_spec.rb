@@ -20,10 +20,10 @@ describe HtmlGenerator do
 
       expected = <<-END
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/categories/1">Some category 1</a></li>
-          <li><a href="/categories/2">Some category 2</a></li>
-          <li><a href="/categories/3">Some category 3</a></li>
+          <li class=\"homelink\"><a href="/">Home</a></li>
+          <li class=\"category_1\"><a href="/categories/1">Some category 1</a></li>
+          <li class=\"category_2\"><a href="/categories/2">Some category 2</a></li>
+          <li class=\"category_3\"><a href="/categories/3">Some category 3</a></li>
         </ul>
       END
 
