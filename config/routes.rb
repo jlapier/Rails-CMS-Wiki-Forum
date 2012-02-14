@@ -157,10 +157,13 @@ RailsCMSWikiForum::Application.routes.draw do
 #      end
 #    end
 
-  resource :user_session
+  resource :user_session do
+    get :cas_login
+  end
   resources :password_resets
   match '/register' => 'users#new', :as => :register
   match '/login' => 'user_sessions#new', :as => :login
+  match '/cas_login' => 'user_sessions#cas_login', :as => :cas_login
   match '/' => 'content_pages#home'
 
   match '*a', :to => 'errors#routing'

@@ -13,6 +13,14 @@ GIT
   specs:
     acts_as_revisable (1.1.2)
 
+GIT
+  remote: git://github.com/thegekko/rubycas-client-rails.git
+  revision: fc2c5a5e1ce4951089ca5c994ae5678435cd4c7f
+  specs:
+    rubycas-client-rails (0.1.1)
+      rails (>= 3.0.0)
+      rubycas-client (>= 2.3.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -140,6 +148,8 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.7.0)
     ruby-openid (2.1.8)
+    rubycas-client (2.3.8)
+      activesupport
     rubyzip (0.9.5)
     selenium-webdriver (2.14.0)
       childprocess (>= 0.2.1)
@@ -188,6 +198,7 @@ DEPENDENCIES
   rcov
   rspec-rails
   ruby-openid
+  rubycas-client-rails!
   sqlite3-ruby
   webrat
   will_paginate (~> 3.0.pre2)

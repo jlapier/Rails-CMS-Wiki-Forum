@@ -1,5 +1,4 @@
 class ForumsController < ApplicationController
-
   before_filter :require_admin_user, :except => [:index, :show]
   before_filter :get_forum, :only => [:show, :edit, :update, :destroy, :search]
   before_filter :require_forum_read_access, :only => [:show]

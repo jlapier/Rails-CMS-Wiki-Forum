@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :broken_link
 
+  before_filter RubyCAS::GatewayFilter
+
   PUBLIC_RESOURCES = {
     EventCalendar::Event => [:read],
     FileAttachment => [:read, :download],
@@ -194,7 +196,15 @@ class ApplicationController < ActionController::Base
     
     def current_user
       return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.record
+      if session[:cas_user]
+        @current_user = User.find(:first, 
+            :conditions => ["LOWER(users.email) = ?", 
+              session[:cas_user].mb_chars.downcase])
+            # , 
+            # :include => [:user_collections, :main_role])
+      else
+        @current_user = current_user_session && current_user_session.record
+      end
     end
     
     def require_user

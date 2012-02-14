@@ -63,5 +63,17 @@ module RailsCMSWikiForum
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.rubycas.cas_base_url = 'http://auth.tadnet.org/'
+    config.rubycas.logger = Rails.logger
   end
 end
+
+module RubyCAS
+  class GatewayFilter < Filter
+    def self.use_gatewaying?
+      return true unless @@config[:use_gatewaying] == false
+    end
+  end
+end
+
