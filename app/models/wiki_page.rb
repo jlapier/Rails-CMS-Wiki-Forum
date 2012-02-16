@@ -85,20 +85,11 @@ class WikiPage < ActiveRecord::Base
   end
   
   def wiki_tags_string
-    wiki_tags.map(&:name).join(", ")
+    @wiki_tags_string || wiki_tags.map(&:name).join(", ")
   end
   
   def wiki_tags_string=(str)
-    self.wiki_tags.clear
-    str.split(",").each do |tag_name|
-      tag_name.strip!
-      unless tag_name.blank?
-        wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki.id})
-        wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki.id
-        self.wiki_tags << wt
-      end
-    end
-    self.wiki_tags.uniq!
+    @wiki_tags_string = str
   end
 
   def who_has_edited
@@ -112,7 +103,16 @@ class WikiPage < ActiveRecord::Base
   end
   
   def save_tags
-    
+    self.wiki_tags.clear
+    wiki_tags_string.split(",").each do |tag_name|
+      tag_name.strip!
+      unless tag_name.blank?
+        wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki.id})
+        wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki.id
+        self.wiki_tags << wt
+      end
+    end
+    self.wiki_tags.uniq!
   end
 end
 

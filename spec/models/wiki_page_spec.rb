@@ -17,8 +17,9 @@ describe WikiPage do
   it "should create and create tags" do
     wt = WikiTag.find_by_name "SomeTag A"
     wt.should be_nil
-    wp = WikiPage.create!(:title => "With tags", :modifying_user_id => 1, :wiki_tags_string => "SomeTag A, Tag B",
-      :wiki_id => @wiki.id)
+    @wiki.should_not be_nil
+    wp = WikiPage.create!(:title => "With tags", :modifying_user_id => 1, 
+        :wiki_tags_string => "SomeTag A, Tag B", :wiki => @wiki)
     wt = WikiTag.find_by_name "SomeTag A"
     wt.should_not be_nil
     wp.wiki_tags.count.should == 2
