@@ -31,7 +31,6 @@ group :development, :test do
   gem 'factory_girl'
   gem 'webrat'
   gem 'launchy'
-  gem 'rcov'
   gem 'database_cleaner'
   # sorry to force mysql in dev/test, had to do some testing
   gem 'mysql2', '~> 0.2.0'
