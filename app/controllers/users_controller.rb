@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def edit
     if params[:id]
       require_admin_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:id], :include => :user_groups)
     else
       @user = @current_user
     end
