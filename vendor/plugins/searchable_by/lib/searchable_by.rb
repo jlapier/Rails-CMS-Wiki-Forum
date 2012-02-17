@@ -69,9 +69,9 @@ module Offtheline
           search_options = options.reject { |k,v| [:require_all, :narrow_fields].include? k.to_sym }
           if options.include?(:page)
             # I think this will help us fail if will_paginate is not installed
-            gem 'mislav-will_paginate'
+#            gem 'mislav-will_paginate'
             # take out require_all option when calling paginate
-            paginate :all, search_options
+            paginate search_options
           else
             # take out require_all option when calling find
             find :all, search_options

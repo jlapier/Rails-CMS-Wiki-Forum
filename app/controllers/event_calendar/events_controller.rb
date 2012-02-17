@@ -88,8 +88,9 @@ module EventCalendar
 
     def search
       @events = EventCalendar::Event.search(params[:q], {
-        # :narrow_fields => params[:fields] ? params[:fields].keys : nil
-      }).paginate :page => params[:page]
+        # :narrow_fields; => params[:fields] ? params[:fields].keys : nil
+        :page => (params[:page] || 1)
+      }) #.paginate :page => params[:page]
       @link = EventCalendar::Link.new
     end
     

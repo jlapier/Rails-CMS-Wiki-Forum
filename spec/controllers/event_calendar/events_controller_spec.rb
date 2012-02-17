@@ -28,6 +28,7 @@ describe EventCalendar::EventsController do
     subject.stub(:find).with("37"){ event }
     subject.stub_chain(:past, :order){ ['past'] }
     subject.stub_chain(:current, :order){ ['current'] }
+    subject.stub(:search).with("test", {}) { [event] }
   end
   
     describe "GET index" do
@@ -38,6 +39,17 @@ describe EventCalendar::EventsController do
       it "assigns current events as @current_events" do
         get :index
         assigns(:current_events).should eq ['current']
+      end
+    end
+
+    describe "GET search" do
+      it "assigns events as @events" do
+        get :search, :q => "test"
+        assigns(:events).should eq [event]
+      end
+      it "renders the search page" do
+        get :search, :q => "test"
+        response.should render_template('search')
       end
     end
     
