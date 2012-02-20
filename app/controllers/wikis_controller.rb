@@ -1,13 +1,13 @@
 class WikisController < ApplicationController
   before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag]
-  before_filter :get_wiki, :except => [:new, :create, :index]
+  before_filter :get_wiki, :except => [:new, :create, :index, :sort, :set_sort]
   before_filter :require_wiki_read_access, :only => [:show, :tag_index, :tagcloud, :list_by_tag]
 
 
   # GET /wikis
   # GET /wikis.xml
   def index
-    @wikis = Wiki.find :all, :order => "name"
+    @wikis = Wiki.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,10 +15,23 @@ class WikisController < ApplicationController
     end
   end
 
+  def sort
+    @wikis = Wiki.order("position, name")
+  end
+
+  def set_sort
+    wikis = Wiki.find(params['wiki'])
+    wikis.each do |wiki|
+      wiki.position = params['wiki'].index(wiki.id.to_s) + 1
+      wiki.save
+    end
+    render :nothing => true
+  end
+
   # GET /wikis/1
   # GET /wikis/1.xml
   def show
-    @wiki_pages = @wiki.wiki_pages.paginate(:page => params[:page]).order("updated_at DESC") #.select("id, title, url_title, updated_at")
+    @wiki_pages = @wiki.wiki_pages.paginate(:page => params[:page]).order("title") #.select("id, title, url_title, updated_at")
 
     respond_to do |format|
       format.html # show.html.erb

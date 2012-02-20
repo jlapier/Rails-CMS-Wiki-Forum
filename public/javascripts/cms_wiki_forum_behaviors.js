@@ -37,6 +37,7 @@ ShowHideLink = $.klass({
   },
 
   onclick: function(e) {
+    console.log('clicked')
     if(this.toggleClassName) {
       $('.'+this.toggleClassName).toggle();
       if(this.hideClassName) {

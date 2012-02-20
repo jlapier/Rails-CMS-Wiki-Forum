@@ -4,13 +4,8 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_comments
   has_many :wiki_tags
 
+  default_scope order('position, name')
   after_destroy :fix_group_access
-
-  class << self
-    def all_wikis
-      find :all, :order => 'name'
-    end
-  end
 
   private
   def fix_group_access

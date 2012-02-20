@@ -36,6 +36,8 @@ table.messages tr td.leftside {
 table.messages tr:hover td.leftside { border-left: 3px solid #817f73; }
 table.messages .lightgreen { color: #090; }
 
+ol.forums li { cursor: move; }
+ol.forums li:hover { background: #eee; }
 
 
 /* wiki stuff */
@@ -57,3 +59,5 @@ table.messages .lightgreen { color: #090; }
 .wiki_top_links img { border:none;text-decoration: none; vertical-align:middle; }
 .wiki_top_links input { border:1px solid #999; }
 
+ol.wikis li { cursor: move; }
+ol.wikis li:hover { background: #eee; }

@@ -6,18 +6,20 @@
 <p>
   <strong>Grants Forum Access:</strong><br/>
 
-  <% Forum.all_forums.each do |forum| %>
+  <% Forum.all.each do |forum| %>
     <%= forum.title %>:
-    <%= select_tag "user_group[forum_access][#{forum.id}]", options_for_select(['none', 'write', 'read'],
+    <%= select_tag "user_group[forum_access][#{forum.id}]", 
+            options_for_select(['none', 'write', 'read'],
             @user_group.grants_access_to_forum?(forum)) %>
     <br/>
   <% end %>
   <br/>
 
   <strong>Grants Wiki Access:</strong><br/>
-  <% Wiki.all_wikis.each do |wiki| %>
+  <% Wiki.all.each do |wiki| %>
      <%= wiki.title %>: 
-     <%= select_tag "user_group[wiki_access][#{wiki.id}]", options_for_select(['none', 'write', 'read'],
+     <%= select_tag "user_group[wiki_access][#{wiki.id}]", 
+            options_for_select(['none', 'write', 'read'],
             @user_group.grants_access_to_wiki?(wiki)) %>
     <br/>
   <% end %>

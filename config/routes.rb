@@ -5,6 +5,10 @@ RailsCMSWikiForum::Application.routes.draw do
     member do
       get :tagcloud
     end
+    collection do
+      get :sort
+      post :set_sort
+    end
     resources :wiki_pages do
       collection do
         post :live_search
@@ -69,6 +73,10 @@ RailsCMSWikiForum::Application.routes.draw do
   match '/tagcloud.:format' => 'wiki_pages#tagcloud'
 
   resources :forums do
+    collection do
+      get :sort
+      post :set_sort
+    end
     member do
       #"/forums/1/jf892424thf984u082j309j233/feed.atom"
       get "/:user_credentials/feed" => "forums#show", :as => :feed

@@ -1,0 +1,50 @@
+<h1>Wikis - Sort</h1>
+
+<p>Click and drag to sort.</p>
+
+<ol class="wikis">
+  <% for wiki in @wikis %>
+    <li id="wiki_<%= wiki.id %>">
+      <%= wiki.title %>
+      <%= link_to 'edit', edit_wiki_path(wiki) %>
+    </li>
+  <% end %>
+</ol>
+   
+<br />
+
+<p>
+  <%= link_to 'back to wikis', wikis_path %> | 
+  <%= link_to 'create a new wiki', new_wiki_path %>
+</p>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('ol.wikis').sortable({
+    update: function(event, ui){
+      var me = $(this);
+      $.ajax({ 
+        type: 'post', 
+        data: me.sortable('serialize'), 
+        dataType: 'json', 
+        complete: function(request) { me.effect('highlight'); },
+        url: '/wikis/set_sort'
+      });
+    },
+    placeholder: 'ui-state-highlight'
+  });
+
+  $('ol.wikis li a').hide();
+  $('ol.wikis li').bind({
+    mouseover: function() { 
+      $(this).find('a').show();
+    },
+    mouseout: function() {
+      $(this).find('a').hide();
+    }
+  });
+});
+
+</script>
+<% end %>

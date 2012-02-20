@@ -66,7 +66,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#get_emails_form').attach(Remote, {
+    $('#get_emails_form').attach(Remote.Form, {
       dataType: 'json',
       success : function(data) {
         $('#email_list textarea').text(data.join('; '));

@@ -1,0 +1,11 @@
+<ul>
+  <% UserGroup.all.each do |ug| %>
+    <li>
+      <%= select_tag "forum[group_access][#{ug.id}]", 
+                options_for_select(['none', 'write', 'read'],
+                ug.grants_access_to_forum?(@forum.id))  %> 
+      <%= ug.name %>
+    </li>
+  <% end %>
+</ul>
+

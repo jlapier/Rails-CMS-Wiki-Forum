@@ -26,15 +26,6 @@
         </p>
       </td>
     </tr>
-    <% if is_admin? %>
-    <tr>
-      <td class="small_text" colspan="2">
-        <%= link_to 'edit details of this forum', edit_forum_path(forum) %> |
-        <%= link_to 'delete this forum', forum, :method => :delete,
-              :confirm => 'Are you sure you want to delete this forum and all the messages in it?' %>
-      </td>
-    </tr>
-    <% end %>
   <% end -%>
 </table>
 
@@ -42,5 +33,8 @@
 <br />
 
 <% if is_admin? %>
+<p>
+  <%= link_to 'change forum list order', sort_forums_path %> | 
   <%= link_to 'create a new forum', new_forum_path %>
+</p>
 <% end %>

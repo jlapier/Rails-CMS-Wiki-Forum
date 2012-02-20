@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  rescue_from ActiveRecord::RecordNotFound, :with => :broken_link
+#  rescue_from ActiveRecord::RecordNotFound, :with => :broken_link
 
   PUBLIC_RESOURCES = {
     EventCalendar::Event => [:read],
@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
 
   def require_forum_read_access
     if require_user
-      unless current_user.has_read_access_to?(@forum)
+      unless current_user.is_admin? or current_user.has_read_access_to?(@forum)
         flash[:notice] = "You do not have permission to view that forum."
         redirect_to forums_url
       end

@@ -3,17 +3,31 @@ class ForumsController < ApplicationController
   before_filter :require_admin_user, :except => [:index, :show]
   before_filter :get_forum, :only => [:show, :edit, :update, :destroy, :search]
   before_filter :require_forum_read_access, :only => [:show]
-  before_filter :require_forum_write_access, :only => [:edit, :update, :destroy]
+#before_filter :require_forum_write_access, :only => [:edit, :update, :destroy]
 
   # GET /forums
   # GET /forums.xml
   def index
     @forums = Forum.all
+    @recent_messages = MessagePost.order('updated_at DESC').limit(10)
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @forums }
     end
+  end
+
+  def sort
+    @forums = Forum.order("position, title")
+  end
+
+  def set_sort
+    forums = Forum.find(params['forum'])
+    forums.each do |forum|
+      forum.position = params['forum'].index(forum.id.to_s) + 1
+      forum.save
+    end
+    render :nothing => true
   end
 
   # GET /forums/1

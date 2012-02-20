@@ -3,7 +3,7 @@
 #
 #
 class UserGroup < ActiveRecord::Base
-  SPECIAL_ACCESS = [ 'Wiki Reader', 'Wiki Editor', 'Forum Poster', 'Forum Moderator' ]
+  SPECIAL_ACCESS = ['Wiki Reader', 'Wiki Editor', 'Forum Poster', 'Forum Moderator']
 
   # stored as an Array - list of indexes of SPECIAL_ACCESS
   serialize :special, Hash
@@ -52,6 +52,12 @@ class UserGroup < ActiveRecord::Base
     self.special ||= {}
     self.special[:forums] ||= {}
     special[:forums]
+  end
+
+  def add_forum(forum, access)
+    self.special ||= {}
+    self.special[:forums] ||= {}
+    self.special[:forums][forum.id.to_s] = access
   end
 
   # not actually wikis, but a hash of wiki ids and access
