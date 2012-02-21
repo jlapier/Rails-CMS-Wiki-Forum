@@ -35,6 +35,8 @@ table.messages tr td.leftside {
 }
 table.messages tr:hover td.leftside { border-left: 3px solid #817f73; }
 table.messages .lightgreen { color: #090; }
+div.message_body table { border-collapse: collapse; border: 1px solid #DDD; }
+div.message_body table td { border: 1px solid #DDD; }
 
 ol.forums li { cursor: move; }
 ol.forums li:hover { background: #eee; }
@@ -68,3 +70,6 @@ ul.recent_discussions div.date_and_forum { display: inline-block; width: 30%; fo
 
 ol.wikis li { cursor: move; }
 ol.wikis li:hover { background: #eee; }
+
+.wiki_page_body table { border-collapse: collapse; border: 1px solid #DDD; }
+.wiki_page_body table td { border: 1px solid #DDD; }

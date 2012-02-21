@@ -15,7 +15,9 @@
     <% if current_user == message.user -%>
       <div style="float:right">[<%= link_to "edit", edit_forum_message_post_path(@forum, message) %>]</div>
     <% end -%>
-    <div style="clear:both; padding-top:3px;"><%=raw message.body %></div>
+    <div style="clear:both; padding-top:3px;" class="message_body">
+      <%=raw message.body %>
+    </div>
     <% if message.updated_at > message.created_at -%>
       <div><em>Last Edit: <%= post_time message.updated_at %></em></div>
     <% end -%>

@@ -9,11 +9,10 @@ CKEDITOR.editorConfig = function( config )
   [
       ['Maximize'],
       ['Bold','Italic','Underline'],
-      ['Link','Unlink','Anchor'],
-      ['NumberedList','BulletedList'],
-      ['Outdent','Indent'],
-      ['JustifyLeft','JustifyCenter','JustifyRight','Format'],
+      ['Link','Unlink','Anchor','NumberedList','BulletedList'],
+      ['Outdent','Indent','JustifyLeft','JustifyCenter','JustifyRight','Format'],
       ['Find','Replace'],
+      ['Image', 'Table'],
       ['Source']
   ];
   config.toolbar_Mid =
