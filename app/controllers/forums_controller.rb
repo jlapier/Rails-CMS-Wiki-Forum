@@ -9,7 +9,10 @@ class ForumsController < ApplicationController
   # GET /forums.xml
   def index
     @forums = Forum.all
-    @recent_messages = MessagePost.order('updated_at DESC').limit(10)
+    unless current_user.is_admin?
+      @forums = @forums.select { |f| current_user.has_read_access_to?(f) }
+    end
+    @recent_messages = MessagePost.where(:forum_id => @forums.map(&:id)).order('updated_at DESC').limit(10)
 
     respond_to do |format|
       format.html # index.html.erb

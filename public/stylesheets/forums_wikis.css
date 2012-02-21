@@ -39,6 +39,13 @@ table.messages .lightgreen { color: #090; }
 ol.forums li { cursor: move; }
 ol.forums li:hover { background: #eee; }
 
+ul.recent_discussions { list-style-type: none; padding-left: 0; margin: 0; }
+ul.recent_discussions li { padding: 2px 4px; }
+ul.recent_discussions li:nth-child(even) { background: #EEE; }
+ul.recent_discussions li:nth-child(odd) { background: #F9F9FF; }
+ul.recent_discussions div.subject { display: inline-block; width: 69%; }
+ul.recent_discussions div.date_and_forum { display: inline-block; width: 30%; font-size: 80% }
+
 
 /* wiki stuff */
 
