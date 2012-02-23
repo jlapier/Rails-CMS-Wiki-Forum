@@ -8,35 +8,39 @@ describe "/forums/index.html.erb" do
   end
 
   before(:each) do
-    @message1 = stub_model(MessagePost, {
-      :subject => 'Subject 1',
-      :body => 'I am Message 1',
-      :user => mock_user,
-      :created_at => Date.yesterday
-    })
-    @message2 = stub_model(MessagePost, {
-      :subject => '2 Subject',
-      :body => '2 Message am I',
-      :user => mock_user,
-      :created_at => 2.days.ago
-    })
-    @forums = [
-      stub_model(Forum,
+    @forum1 = stub_model(Forum,
         :title => "value for title 1",
         :description => "value for description 1",
         :position => 1,
         :moderator_only => false,
         :most_recent_post => @message1
-      ),
-      stub_model(Forum,
+    )
+    @forum2 = stub_model(Forum,
         :title => "value for title 2",
         :description => "value for description 2",
         :position => 1,
         :moderator_only => false,
         :most_recent_post => @message2
-      )
-    ]
+    )
+    @message1 = stub_model(MessagePost, {
+      :subject => 'Subject 1',
+      :body => 'I am Message 1',
+      :user => mock_user,
+      :created_at => Date.yesterday,
+      :updated_at => Date.yesterday,
+      :forum => @forum1
+    })
+    @message2 = stub_model(MessagePost, {
+      :subject => '2 Subject',
+      :body => '2 Message am I',
+      :user => mock_user,
+      :created_at => 2.days.ago,
+      :updated_at => 2.days.ago,
+      :forum => @forum1
+    })
+    @forums = [ @forum1, @forum2 ]
     assign(:forums, @forums)
+    assign(:recent_messages, [@message1, @message2])
     view.stub!(:current_user).and_return(mock_user)
   end
 

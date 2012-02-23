@@ -28,7 +28,7 @@ describe EventCalendar::EventsController do
     subject.stub(:find).with("37"){ event }
     subject.stub_chain(:past, :order){ ['past'] }
     subject.stub_chain(:current, :order){ ['current'] }
-    subject.stub(:search).with("test", {}) { [event] }
+    subject.stub(:search).with("test", { :page => 1}) { [event] }
   end
   
     describe "GET index" do
