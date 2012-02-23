@@ -27,16 +27,21 @@ class ApplicationController < ActionController::Base
   
 	private	
   def broken_link
-    flash[:warning] = "The page you were looking for was not found."
-    error_page_id = SiteSetting.read_setting 'error page id'
-    if error_page_id
-      page = ContentPage.find error_page_id
-      if page and page.ready_for_publishing?
-        redirect_to page
-        return
+    if request.url =~ /content_page_assets/
+      render :status => 404
+    else
+      logger.info "Broken link: #{request.url}"
+      flash[:warning] = "The page you were looking for was not found. (#{request.url})"
+      error_page_id = SiteSetting.read_setting 'error page id'
+      if error_page_id
+        page = ContentPage.find error_page_id
+        if page and page.ready_for_publishing?
+          redirect_to page
+          return
+        end
       end
+      redirect_to "/"
     end
-    redirect_to "/"
   end
 
 	# returns true if resource & action in question are designated as public
