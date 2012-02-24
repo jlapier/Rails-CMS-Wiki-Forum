@@ -1,0 +1,4 @@
+<% value_class = file_container_option.class.to_s -%>
+<% value = file_container_option.id -%>
+<% selected_txt = selected == "#{value_class}_#{value}" ? ' selected="selected" ' : '' %>
+<option value="<%= value_class -%>_<%= value -%>"<%= selected_txt %>><%= file_container_option.name %></option>

@@ -165,6 +165,12 @@ RailsCMSWikiForum::Application.routes.draw do
 #      end
 #    end
 
+  resources :file_attachments do
+    member do
+      get :download
+    end
+  end
+
   resource :user_session
   resources :password_resets
   match '/register' => 'users#new', :as => :register

@@ -31,6 +31,7 @@ describe Blog::PostsController do
     it "loads published @posts for anonymous users" do
       controller.stub(:current_user){ nil }
       get :index
+      response.status.should == 200
       assigns(:posts).should eq ['published']
     end
     it "loads @posts.by an author given params[:author_id] is present" do

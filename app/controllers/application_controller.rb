@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   helper FileShare::ApplicationHelper
 
   helper_method :current_user_session, :current_user, :in_event_calendar?,
-                :in_file_share?, :has_authorization?
+                :has_authorization?
                 
   before_filter :get_menus, :get_layout
   
@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
   end
   
   def in_file_share?
-    self.class.ancestors.include?(FileShare::ApplicationController)
+    raise
   end
 
   def protect_event_calendar
@@ -86,11 +86,8 @@ class ApplicationController < ActionController::Base
   end
   
   def protect_file_share
-    if in_file_share?
-      if controller_name == 'file_attachments' && READ_ACTIONS.include?(action_name)
-        # allow anonymous users to view/download files
-        return true
-      end
+    # allow anonymous users to view/download files
+    if controller_name == 'file_attachments' and not READ_ACTIONS.include?(action_name)
       return require_admin_user
     end
   end

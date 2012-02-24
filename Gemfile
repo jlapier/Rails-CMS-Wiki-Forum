@@ -15,7 +15,7 @@ gem 'cancan'
 # gem 'event_calendar_engine', '~> 0.2.14', :require => 'event_calendar'
 
 #gem 'file_share', '~> 0.1.14'
-gem 'file_share', :git => 'git://github.com/TACSUO/file_share.git'
+#gem 'file_share', :git => 'git://github.com/TACSUO/file_share.git'
 
 gem 'formtastic'
 gem 'RedCloth', :require => 'redcloth'

@@ -1,0 +1,22 @@
+id = @file_attachment.id
+attachable_name = @file_attachment.attachable.present? ? @file_attachment.attachable.name : 'orphanage'
+if @file_attachment.valid?
+  page << %Q{
+    var original_container = $('#file_attachment_#{id}_file_container').text();
+    $('#file_attachment_dynamic_form').hide();
+    $('#file_attachment_#{id}_file_container').text("#{escape_javascript(@file_attachment.file_container)}");
+    $('#file_attachment_#{id}_name a').text('#{escape_javascript(@file_attachment.name)}');
+    $('#file_attachment_#{id}_description').text('#{escape_javascript(@file_attachment.description)}');
+    $('#file_attachment_#{id}').effect('highlight', {
+      color: '#C3D9FF'
+    }, 2500);
+    
+    if( original_container !== $('#file_attachment_#{id}_file_container').text() ) {
+      $('<p style="background:#C3D9FF;"><em>Moved to #{attachable_name}</em></p>').insertBefore($('#file_attachment_#{id}_name'));
+    }
+  }
+else
+  page << %Q{
+    alert("The file could not be updated.");
+  }
+end

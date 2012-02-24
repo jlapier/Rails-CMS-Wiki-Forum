@@ -1,0 +1,24 @@
+<% if defined?(container) && container.present? %>
+  <% new_file_attachment = FileAttachment.new(:attachable => container) %>
+<% else %>
+  <% new_file_attachment = FileAttachment.new %>
+<% end %>
+<% semantic_form_for new_file_attachment, :html => { :multipart => true } do |f| %>
+
+  <%= 
+  # todo replace f.error_messages
+  #f.error_messages
+  %>
+
+  <% f.inputs do %>
+    <% if new_file_attachment.attachable.present? %>
+    <%= f.input :attachable_id, :as => :hidden %>
+    <%= f.input :attachable_type, :as => :hidden %>
+    <% end %>
+    <%= f.input :name, :label => 'Name' %>
+    <%= f.input :description, :label => 'Description' %>
+    <%= f.input :uploaded_file, :as => :file, :label => 'Filepath' %>
+  <% end %>
+
+  <%= f.buttons %>
+<% end if has_authorization?(:create, FileAttachment.new) %>

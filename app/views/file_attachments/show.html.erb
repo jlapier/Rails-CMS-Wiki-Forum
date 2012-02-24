@@ -1,0 +1,5 @@
+<h2><%= link_to_download_file_attachment(@file_attachment) %></h2>
+<%= link_to_attachable(@file_attachment.attachable) %>
+<%= description_display(@file_attachment) %>
+
+<%= links_to_edit_and_delete_file_attachment(file_attachment) %>

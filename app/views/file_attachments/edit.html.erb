@@ -1,0 +1,24 @@
+<p><%= link_to_attachable_or_file_attachments(@file_attachment.attachable) %></p>
+
+<%= content_tag :div do %>
+  <%= semantic_form_for @file_attachment do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :name, :hint => 'something memorable' %>
+      <li id="file_attachment_container_input" class="select required">
+        <label for="file_attachment_container">
+          <%= FileContainer.types.join(' / ')%>
+        </label>
+        <select id="file_container_select" name="file_attachment[file_container]">
+          <%= render({
+            :partial => 'file_container_select',
+            :locals => {
+              :selected => "#{@file_attachment.attachable_type}_#{@file_attachment.attachable_id}"
+            }
+          }) %>
+        </select>
+      </li>
+      <%= form.input :description, :hint => "of file contents, purpose, etc" %>
+    <% end %>
+    <%= form.buttons %>
+  <% end %>
+<% end if has_authorization?(:update, @file_attachment) %>

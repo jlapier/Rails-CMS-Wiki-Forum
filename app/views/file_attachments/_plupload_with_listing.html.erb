@@ -1,0 +1,148 @@
+<% orphans ||= [] %>
+<% files ||= [] %>
+<% content_for(:javascript) do %>
+  <script type="text/javascript">
+  jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    }
+  });
+  function bindCallbacks(plupload) {
+    plupload.bind('FileUploaded', function(up, file, response) {
+      var element_selector = '';
+      if( $('#file_container_select').val() &&
+        $("#"+$('#file_container_select').val())[0] ) {
+          element_selector = "#" + $('#file_container_select').val();
+      } else if( $("#orphans")[0] ) {
+        element_selector = "#orphans"
+      } else if( $("#files")[0] ) {
+        element_selector = "#files"
+      }
+      $(element_selector).append(response.response);
+  	});
+  	plupload.bind('UploadProgress', function() {
+      if( plupload.files.length == plupload.total.failed + plupload.total.uploaded ) {
+        $('span.plupload_upload_status').hide();
+        $('div.plupload_buttons').show();
+      }
+  	});
+  	plupload.bind('UploadFile', function(up, file) {
+  	  attachable_params = $('#file_container_select').val().split('_');
+  	  $.extend(up.settings.multipart_params, {
+  	    attachable_id: attachable_params[1],
+  	    attachable_type: attachable_params[0]
+  	  });
+  	});
+  }
+  // Convert divs to queue widgets when the DOM is ready
+  $(function() {
+  	// Setup html5 version
+  	$("#multiple_uploads").pluploadQueue({
+  		// General settings
+  		runtimes : 'html5', // use only html5
+  		url : '<%= file_attachments_path %>',
+  		dragdrop: false,
+  		setup: bindCallbacks,
+  		multipart: true,
+  		multipart_params: {
+  		  authenticity_token: '<%= form_authenticity_token %>'
+  		},
+  		required_features: 'multipart', // disable uploader if html5+multipart not available - webkit doesn't support html5+multipart
+  		max_file_size : '50mb',
+  		unique_names : true,
+
+  		// Resize images on clientside if we can
+  		resize : {width : 320, height : 240, quality : 90},
+
+  		// Specify what files to browse for
+  		filters : [
+  			{title : "Image files", extensions : "jpg,gif,png,svg"},
+  			{title : "Zip files", extensions : "zip"},
+  			{title : "PDF documents", extensions : "pdf"},
+  			{title : "Word documents", extensions : "doc"},
+  			{title : "Power Point presentations", extensions : "ppt"},
+  			{title : "Excel spreadsheets", extensions : "xls"},
+  			{title : "Plain text files", extensions : "txt"}
+  		],
+
+  		// Flash settings
+  		// flash_swf_url : '/plupload/js/plupload.flash.swf'
+  	});
+  });
+  
+  $(window).load(function() {
+    <% if !params[:std].nil? %>
+      $('#linker').hide();
+      $('#unlinker').show();
+      $('#file_block').show();
+    <% else %>
+      $('#linker').show();
+      $('#unlinker').hide();
+      $('#file_block').hide();
+    <% end %> 
+  });
+  </script>
+  
+  
+<% end %>
+
+<%= render :partial => 'file_attachments/file_attachments', :locals => {
+  :orphans => orphans,
+  :files => files
+} %>
+
+<% if has_authorization?(:create, FileAttachment.new) %>
+
+<p id="linker" class="upload_block_linker" style="display:none; text-align: right;">
+  <a href="<%= url_for(:controller => controller_name, :action => action_name) %>?show=upload_files_block&toggle=upload_block_unlinker&hide=upload_block_linker" class="show_hide_link fake_button">Upload Files</a>
+</p>
+<p id="unlinker" class="upload_block_unlinker" style="display:none; text-align: right;">
+  <%= link_to "Cancel", url_for({
+    :controller => controller_name,
+    :action => action_name,
+    # show=upload_files_block&toggle=upload_block_unlinker&hide=upload_block_linker
+    :show => 'upload_block_linker',
+    :toggle => 'upload_block_unlinker',
+    :hide => 'upload_files_block'    
+  }), :class => 'show_hide_link fake_button' %>
+</p>
+
+<div id="file_block" class="upload_files_block" style="">
+  <h4>Upload Files<hr /></h4>
+
+  <p>
+    <%= link_to_unless params[:std] == '1', "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1), :class => 'fake_button' %>
+    <%= link_to_if params[:std] == '1', "Several at once", url_for(:controller => controller_name, :action => action_name, :std => 0), :class => 'fake_button' %>
+  </p>
+
+  <% if instance_variable_defined?("@#{controller_name.singularize}") %>
+  <% instance = instance_variable_get("@#{controller_name.singularize}") %>
+  <%= hidden_field_tag 'file_attachment[file_container]', "#{instance.class}_#{instance.id}", {
+    :id => 'file_container_select'
+  } %>
+  <% elsif !FileContainer.types.empty? %>
+  <p>
+    <select id="file_container_select" name="file_attachment[file_container]">
+      <%= render({
+        :partial => 'file_attachments/file_container_select',
+        :locals => {
+          :selected => "#{params[:attachable_type]}_#{params[:attachable_id]}"
+        }
+      }) %>
+    </select>
+  </p>
+  <% end %>
+
+  <% if params[:std] && params[:std] == '1' %>
+  <div id="single_upload" style="width: 33%;">
+    <%= render :partial => 'file_attachments/upload_form', :locals => {:container => instance} if defined?(instance) %>
+    <%= render :partial => 'file_attachments/upload_form' unless defined?(instance) %>
+  </div>
+  <% elsif params[:std].nil? || params[:std] == '0' %>
+  <div id="multiple_uploads">
+    You browser doesn't support native upload. Try Firefox 3 or Safari 4.
+  </div>
+  <% end %>
+</div>
+
+<% end %>
