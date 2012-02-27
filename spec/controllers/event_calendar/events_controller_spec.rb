@@ -111,8 +111,8 @@ describe EventCalendar::EventsController do
       let :params do 
         {
           :event => {
-            :start_date => Date.yesterday.to_s,
-            :end_date => Date.tomorrow.to_s
+            :start_date => Date.yesterday.strftime("%m/%d/%Y"),
+            :end_date => Date.tomorrow.strftime("%m/%d/%Y")
           }
         }
       end
@@ -158,8 +158,8 @@ describe EventCalendar::EventsController do
         {
           :id => "37",
           :event => {
-            :start_date => Date.yesterday.to_s,
-            :end_date => Date.tomorrow.to_s
+            :start_date => Date.yesterday.strftime("%m/%d/%Y"),
+            :end_date => Date.tomorrow.strftime("%m/%d/%Y")
           }
         }
       end

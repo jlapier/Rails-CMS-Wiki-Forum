@@ -43,10 +43,13 @@ module EventCalendar
         end_hour = params[:event].delete :"end_time(4i)"
         end_min = params[:event].delete :"end_time(5i)"
         if params[:event][:start_date].present?
-          start_date = Date.parse(params[:event][:start_date])
+          # date is in format: MM/DD/YYYY
+          m, d, y = params[:event][:start_date].split("/").map(&:to_i)
+          start_date = Date.new y, m, d
           params[:event][:start_on] = Time.utc(start_date.year, start_date.month, start_date.day, start_hour, start_min)
           if params[:event][:end_date].present?
-            end_date = Date.parse(params[:event][:end_date])
+            m, d, y = params[:event][:end_date].split("/").map(&:to_i)
+            end_date = Date.new y, m, d
           else
             end_date = start_date
           end
