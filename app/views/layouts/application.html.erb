@@ -47,6 +47,9 @@
     <%= yield :javascript %>
   </head>
   <body>
+    <% if is_admin? -%>
+      <%= render :partial => "/layouts/admin_bar" %>
+    <% end -%>
     <%= render :file => (@special_layout_file || @layout_file) %>
   </body>
 </html>

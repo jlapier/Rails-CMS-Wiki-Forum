@@ -2,7 +2,7 @@
   <%= render :file => @page_layout_file %>
 <% end %>
 
-<% if is_admin? %>
+<% content_for :admin_bar do %>
   <% unless @content_page.publish_on.nil? %>
     <div style="float:right; text-align:right;">
       <% if @content_page.publish_on <= Date.today %>
@@ -19,3 +19,4 @@
     <%= link_to 'List of Categories', categories_path %>
   </p>
 <% end %>
+
