@@ -232,12 +232,12 @@ module EventCalendar::EventsHelper
     link_to_edit_event(event, {
       :no_wrapper => true
     }.merge!(wrapper_options), {
-      :link_text => 'update'
-    }.merge!(link_options)) + " " +
+      :link_text => 'Edit this Event'
+    }.merge!(link_options)) + " | " +
     link_to_delete_event(event, {
       :no_wrapper => true
     }.merge!(wrapper_options), {
-      :link_text => 'delete'
+      :link_text => 'Delete this Event'
     }.merge!(link_options))
   end
 

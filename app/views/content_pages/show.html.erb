@@ -6,17 +6,15 @@
   <% unless @content_page.publish_on.nil? %>
     <div style="float:right; text-align:right;">
       <% if @content_page.publish_on <= Date.today %>
-        <em>Publish on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+        <em>Publish date: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
       <% else %>
-        <em class="highlight">To be published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
+        <em class="highlight">This page will be published on: <%= @content_page.publish_on.strftime("%m/%d/%Y") %></em>
       <% end %>
     </div>
   <% end %>
-  <p>
-    <%= link_to 'Edit this Page', edit_content_page_path(@content_page) %> |
-    <%= link_to 'Create a New Page', new_content_page_path %> |
-    <%= link_to 'List of Pages', content_pages_path %> |
-    <%= link_to 'List of Categories', categories_path %>
-  </p>
+  <%= link_to 'Edit this Page', edit_content_page_path(@content_page) %> |
+  <%= link_to 'Create a New Page', new_content_page_path %> |
+  <%= link_to 'List of Pages', content_pages_path %> |
+  <%= link_to 'List of Categories', categories_path %>
 <% end %>
 

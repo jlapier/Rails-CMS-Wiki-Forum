@@ -1,0 +1,6 @@
+<% content_for :admin_bar do %>
+  <%= link_to_new_event %>
+  <% if @event %>
+    | <%= links_to_edit_and_delete_event(@event) if @event.current_revision? %>
+  <% end %>
+<% end %>
