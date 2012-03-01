@@ -33,7 +33,7 @@
     </div>
   <% end %>
 
-  <p>
+  <div>
     <% if @content_page.new_record? %>
       <em>Note: after creating this new page, you will be able to edit the body</em>
     <% else %>
@@ -46,7 +46,7 @@
         <%= f.text_area :auxiliary_body, :rows => 10, :cols => 80, :style => 'width: 90%' %>
       </div>
     <% end -%>
-  </p>
+  </div>
 
   <% unless @content_page.special =~ /Menu/ %>
     <p>
@@ -62,7 +62,8 @@
       <% for category in Category.find(:all) %>
         <%= check_box_tag "content_page[category_ids][]", category.id,
               (@content_page.categories.include?(category) or
-                (params[:category_id] and params[:category_id].to_i == category.id) ) %>
+              (params[:category_id] and params[:category_id].to_i == category.id) ),
+              :id => "category_ids_#{category.id}" %>
         <%= category.name %><br/>
       <% end %>
       New category: <%= text_field_tag "new_category" %>
@@ -91,20 +92,23 @@
 <% end %>
 
 <% unless @content_page.special =~ /Menu/ or @content_page.new_record? %>
-  <%= initialize_ckeditor('content_page[body]', {
-    :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
-      :authenticity_token => form_authenticity_token
-    }), :toolbar => 'Mid', :height => '500px'
-  }) %>
-  <%= initialize_ckeditor('content_page[auxiliary_body]', {
-    :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
-      :authenticity_token => form_authenticity_token
-    }), :toolbar => 'Mid', :height => '250px'
-  }) %>
-  <script type="text/javascript">
-    //<![CDATA[
-        $('#content_page_publish_on').datepicker();
-    //]]>
-  </script>
+  <% content_for :javascript do %>
+    <%= initialize_ckeditor('content_page[body]', {
+      :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
+        :authenticity_token => form_authenticity_token
+      }), :toolbar => 'Mid', :height => '500px'
+    }) %>
+    <%= initialize_ckeditor('content_page[auxiliary_body]', {
+      :filebrowserUploadUrl => upload_handler_content_page_path(@content_page, {
+        :authenticity_token => form_authenticity_token
+      }), :toolbar => 'Mid', :height => '250px'
+    }) %>
+
+    <script type="text/javascript">
+      //<![CDATA[
+          $('#content_page_publish_on').datepicker();
+      //]]>
+    </script>
+  <% end %>
   <%# TODO: deal with uploads when page is not yet saved %>
 <% end %>

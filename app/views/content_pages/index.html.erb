@@ -57,11 +57,9 @@
   </tbody>
 </table>
 
-<% if is_admin? %>
-<p class="admin_links">
+<% content_for :admin_bar do %>
   <%= link_to 'Create a New Page', new_content_page_path %> |
   <%= link_to 'List of Categories', categories_path %>
-</p>
 <% end %>
 
 

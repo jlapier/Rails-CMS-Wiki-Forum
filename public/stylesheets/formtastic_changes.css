@@ -17,6 +17,7 @@ form.formtastic li {
   margin-right: 40px;
 }
 
+form.formtastic fieldset { overflow: hidden; }
 form.formtastic fieldset ol li { vertical-align:top; }
 form.formtastic fieldset ol li label { width: 30%; }
 form.formtastic fieldset ol li.url input { width: 67%; }
@@ -39,3 +40,4 @@ form.dynamic {
 #event_start_on { width: 50% }
 #event_end_on_input label { width: 49% }
 #event_end_on { width: 50% }
+

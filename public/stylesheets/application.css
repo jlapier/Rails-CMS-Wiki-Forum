@@ -67,6 +67,35 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   color: #F00;
 }
 
+#admin_bar { 
+  color: #FFF;
+  font-size: 10px;
+  margin: 0; 
+  padding: 2px 8px;
+  background: #777;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+#admin_bar p { margin: 0; }
+
+#admin_bar a:link, #admin_bar a:visited {
+  text-shadow: #000 0.1em 0.1em 0.2em;
+  font-family: Verdana, sans-serif;
+  color: #EEE;
+  text-decoration: none;
+}
+
+#admin_bar a:hover {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+#admin_bar em.highlight { 
+  background: #FF9;
+  color: #933;
+  padding: 2px;
+}
 
 .link_box a:link, .link_box a:visited { color: #009; }
 .link_box a:hover { color: #00F; }
@@ -102,7 +131,8 @@ table.nice_table td input, table.nice_table td select { font-size: 11px; border:
 
 th.sorted_by { background: #99C; }
 
-ul.side_by_side li { display: inline; padding-right: 20px; }
+ul.side_by_side li { display: inline; padding-right: 20px; line-height: 250% }
+ul.side_by_side li a { white-space: nowrap; }
 ul.side_by_side li img { vertical-align: middle; }
 
 #tagCloud {

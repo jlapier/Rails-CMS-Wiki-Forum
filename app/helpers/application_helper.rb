@@ -198,20 +198,25 @@ module ApplicationHelper
 	def javascripts
 	  uniq_filenames(
 	    host_javascripts + 
-	    event_calendar_javascript_includes + 
-	    file_share_javascript_includes + 
-      ['cms_wiki_forum_behaviors']
+      behaviors +
+      ['app.js']
 	  )
   end
   def host_javascripts
     list = [
-      'rails', 'lowpro.jquery.js', 'jquery.string.1.0-min.js',
+      'rails', 'lowpro.jquery.js', 
+      'jquery.string.1.0-min.js',
       'jquery.clonePosition.js',
       'jquery.qtip-1.0.0-rc3.js',
       'jquery.tablesorter.min.js',
       'jquery-ui-1.8.16.custom.min.js',
       '/ckeditor/ckeditor.js',
-      '/ckeditor/adapters/jquery.js'
+      '/ckeditor/adapters/jquery.js',
+      'http://www.google.com/jsapi',
+#      '/javascripts/plupload/gears_init',
+      '/javascripts/plupload/plupload.min.js',
+      '/javascripts/plupload/jquery.plupload.queue.js',
+      'fullcalendar.js'
     ]
     unless Rails.env == 'production'
       list.unshift("jquery")
@@ -220,6 +225,14 @@ module ApplicationHelper
 # https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js
     end
   end
+
+  def behaviors
+    %w{ checkbox_toggle event_view quick_zoom textarea_expander
+        collapsable fs_dynamic_form select_popper
+        ec_dynamic_form magic_buttons show_hide_link
+    }.map { |b| "/javascripts/behaviors/#{b}.js" }
+  end
+
   def link_to_rss(path)
     link_to ("RSS feed "+image_tag("feed-icon.gif")).html_safe, path
   end

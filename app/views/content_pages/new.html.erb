@@ -2,4 +2,6 @@
 
 <%= render :partial => 'form'  %>
 
-<p>[<%= link_to 'Back to List of Pages', content_pages_path %>]</p>
+<% content_for :admin_bar do %>
+  <%= link_to 'Back to List of Pages', content_pages_path %>
+<% end %>

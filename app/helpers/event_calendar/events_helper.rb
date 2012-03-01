@@ -232,12 +232,12 @@ module EventCalendar::EventsHelper
     link_to_edit_event(event, {
       :no_wrapper => true
     }.merge!(wrapper_options), {
-      :link_text => 'update'
-    }.merge!(link_options)) + " " +
+      :link_text => 'Edit this Event'
+    }.merge!(link_options)) + " | " +
     link_to_delete_event(event, {
       :no_wrapper => true
     }.merge!(wrapper_options), {
-      :link_text => 'delete'
+      :link_text => 'Delete this Event'
     }.merge!(link_options))
   end
 
@@ -260,13 +260,5 @@ module EventCalendar::EventsHelper
 
   def render_flash
     render :partial => '/event_calendar/event-calendar-shared/flash', :object => flash
-  end
-  
-  def event_calendar_javascript_includes
-    list = [
-      "fullcalendar.js",
-      "event_calendar_behaviors.js",
-      "event_calendar.js"
-    ]
   end
 end

@@ -15,10 +15,9 @@
   </p>
 <% end %>
 
-<p class="admin_links">
+<% content_for :admin_bar do %>
   <%= link_to 'List of Pages', content_pages_path %>
-</p>
-
+<% end %>
 
 <% content_for :javascript do %>
 <script type="text/javascript">

@@ -9,7 +9,6 @@
   <p style="float: right; text-align: center;">
     <a href="#" class="fake_button view_events calendar">Calendar</a>
     <a href="#" class="fake_button view_events list">List</a>
-    <%= link_to_new_event({}, {:class => 'fake_button'}) %>
   </p>
 </div>
 
@@ -30,3 +29,4 @@
 
 <div id="event_mini_description" style="display:none"></div>
 
+<%= render :partial => 'admin_links' %>
