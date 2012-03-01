@@ -41,6 +41,11 @@ describe EventCalendar::Event do
   it "should create a new instance given valid attributes" do
     EventCalendar::Event.create!(@valid_attributes)
   end
+
+  it "should export to ics from new instance" do
+    event = EventCalendar::Event.create!(@valid_attributes)
+    event.to_ics.should =~ /BEGIN:VCALENDAR/
+  end
   
   it "must start before it can end" do
     event = EventCalendar::Event.new(@valid_attributes)

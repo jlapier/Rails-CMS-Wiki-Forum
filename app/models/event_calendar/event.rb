@@ -70,5 +70,47 @@ module EventCalendar
       def to_s
         "#{name} (#{start_on} #{end_on ? ' - ' + end_on.to_s : ''})"
       end
+
+      def to_ics
+        return @ics if @ics
+        rical = RiCal.Calendar do |cal|
+          cal.event do |event|
+            event.summary = name
+            event.description = "#{name} (#{event_type}): #{topic}:\n#{description}"
+            event.dtstart = start_on
+            event.dtend = end_on ? end_on : start_on
+            event.location = location
+            event.url = "http://#{SiteSetting.read_setting('hostname')}/event_calendar/events/#{id}"
+          end
+        end
+        @ics = rical.to_s
+      end
   end
 end
+
+# 
+#  create_table "event_calendar_events", :force => true do |t|
+#    t.string   "name"
+#    t.string   "event_type"
+#    t.datetime "start_on"
+#    t.datetime "end_on"
+#    t.text     "location"
+#    t.text     "description"
+#    t.text     "notes"
+#    t.datetime "created_at"
+#    t.datetime "updated_at"
+#    t.integer  "revisable_original_id"
+#    t.integer  "revisable_branched_from_id"
+#    t.integer  "revisable_number",           :default => 0
+#    t.string   "revisable_name"
+#    t.string   "revisable_type"
+#    t.datetime "revisable_current_at"
+#    t.datetime "revisable_revised_at"
+#    t.datetime "revisable_deleted_at"
+#    t.boolean  "revisable_is_current",       :default => true
+#    t.string   "timezone"
+#    t.text     "presenters"
+#    t.text     "facilitators"
+#    t.string   "topic"
+#  end
+#

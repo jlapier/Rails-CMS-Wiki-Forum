@@ -107,6 +107,7 @@ module EventCalendar
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @event }
+        format.ics { render :text => @event.to_ics }
       end
     end
 

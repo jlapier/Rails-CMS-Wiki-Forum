@@ -1,5 +1,11 @@
 <% unless event.nil? %>
 <%= div_for_record(event) do -%>
+  <div style="float:right" class="small_text feed_links">
+    <%= link_to( (image_tag("icons/calendar_view_day.png") + 
+          " add to my Calendar (e.g. Outlook)").html_safe,
+          event_calendar_event_path(event, :format => 'ics') ) %>
+  </div>
+
   <h1><%= link_to_events({:no_wrapper => true}, {:link_text => "Events"}) %>: <%= event.name %> (<em><%= event.event_type %></em>)</h1>
   <div style="clear:both"></div>
   <%= render :partial => 'event_calendar/events/event_details', :object => event %>

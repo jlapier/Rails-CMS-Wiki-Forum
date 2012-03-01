@@ -22,6 +22,8 @@ gem 'RedCloth', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"
 
+gem 'ri_cal'
+
 group :development, :test do
   gem 'annotate'
   gem 'acts_as_fu'
