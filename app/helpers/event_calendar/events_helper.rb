@@ -261,12 +261,4 @@ module EventCalendar::EventsHelper
   def render_flash
     render :partial => '/event_calendar/event-calendar-shared/flash', :object => flash
   end
-  
-  def event_calendar_javascript_includes
-    list = [
-      "fullcalendar.js",
-      "event_calendar_behaviors.js",
-      "event_calendar.js"
-    ]
-  end
 end

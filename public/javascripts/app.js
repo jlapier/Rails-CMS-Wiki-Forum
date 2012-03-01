@@ -20,8 +20,10 @@ var updateEventDescription = function(event, jsEvent) {
 
 
 jQuery(function($) {
+  $('body').bind('click', function() { $('.menu_hidable').hide() });
   $('ul.events').attach(Collapsible);
   $('a.show_hide_link').attach(ShowHideLink);
+  $('a.menu_show_hide_link').attach(ShowHideLink, {my_highlight_class : 'menu_highlight'});
   $('a.view_events').attach(EventView);
   $('div.links').attach(MagicButtons);
   $('div.links').attach(ecDynamicForm, {

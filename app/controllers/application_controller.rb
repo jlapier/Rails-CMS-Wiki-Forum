@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   
 	private	
   def broken_link
-    if request.url =~ /content_page_assets/
+    if request.url =~ /(content_page_assets|.js)/
       render :status => 404
     else
       logger.info "Broken link: #{request.url}"

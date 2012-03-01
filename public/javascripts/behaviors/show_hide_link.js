@@ -1,23 +1,3 @@
-TextareaExpander = $.klass({
-  initialize: function(pixelsToGrowBy, maxHeight) {
-    this.pixelsToGrowBy = (typeof pixelsToGrowBy == 'undefined') ? 20 : pixelsToGrowBy;
-    this.maxHeight = (typeof maxHeight == 'undefined') ? 999 : maxHeight;
-    // run it once to blow up any textareas on first page load
-    this.onkeypress();
-  },
-
-  onkeypress: function(e) {
-    var curr_h = this.element.height();
-    var scroll_h = this.element[0].scrollHeight;
-    while(curr_h < scroll_h && curr_h < this.maxHeight) {
-      this.element.css( { 'height': (curr_h + this.pixelsToGrowBy) + 'px' });
-      curr_h = this.element.height();
-      scroll_h = this.element[0].scrollHeight;
-    }
-  }
-});
-
-
 ShowHideLink = $.klass({
   initialize: function(options) {
     options = options || {};
@@ -38,9 +18,13 @@ ShowHideLink = $.klass({
 
   onclick: function(e) {
     console.log('clicked')
+    console.log(this.toggleClassName);
     if(this.toggleClassName) {
+      console.log($('.'+this.toggleClassName));
       $('.'+this.toggleClassName).toggle();
+      console.log('okay toggled');
       if(this.hideClassName) {
+        console.log('got to hide');
         $('.'+this.hideClassName).not('.'+this.toggleClassName).hide();
       }
       if(this.showClassName) {
@@ -62,6 +46,7 @@ ShowHideLink = $.klass({
       eval(this.callAfter);
     }
     if(this.hideMe) {
+      console.log('hide me;');
       this.element.hide();
     }
     this.element.blur();

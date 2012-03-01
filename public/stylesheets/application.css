@@ -67,6 +67,26 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   color: #F00;
 }
 
+#admin_bar { 
+  font-size: 10px;
+  margin: 0; 
+  padding: 0px 16px;
+  background: #666;
+  border-bottom: 1px solid #000;
+}
+
+#admin_bar p { margin: 0; }
+
+#admin_bar a:link, #admin_bar a:visited {
+  font-family: Verdana, sans-serif;
+  color: #DDD;
+  text-decoration: none;
+}
+
+#admin_bar a:hover {
+  color: #FFF;
+  text-decoration: underline;
+}
 
 .link_box a:link, .link_box a:visited { color: #009; }
 .link_box a:hover { color: #00F; }
