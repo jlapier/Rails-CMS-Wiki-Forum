@@ -97,6 +97,7 @@ class MessagePostsController < ApplicationController
   end
 
 
+
   protected
   def get_forum
     @forum ||= Forum.find(params[:forum_id])

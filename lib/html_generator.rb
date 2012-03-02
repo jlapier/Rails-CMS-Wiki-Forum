@@ -160,6 +160,24 @@ module HtmlGenerator
     end
     alias_method :linkcategory_to_html, :link_category_to_html
 
+    def recent_message_posts_to_html(options = {})
+      # TODO: maybe set this up to poll every few minutes
+      id = options[:id] ||= "recent_messages"
+      
+      <<-END
+        <div id="#{id}" class="recent_messages_box">
+          <em>please log in to view recent messages from the forums</em>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            CMSApp.getRecentMessages( $('##{id}') );
+          });
+        </script>
+      END
+    end
+    alias_method :recentmessageposts_to_html, :recent_message_posts_to_html
+
+
     def search_box_to_html(options = {})
       # TODO make an option to include category dropdown - :with_category_list
       <<-END

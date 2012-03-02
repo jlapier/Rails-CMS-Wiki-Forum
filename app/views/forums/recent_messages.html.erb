@@ -1,0 +1,19 @@
+
+<h2>Recent Discussions</h2>
+
+<ul class="recent_discussions">
+<% @recent_messages.each do |message_post| %>
+  <li>
+    <div class="subject">
+      <%= link_to message_post.subject, 
+          forum_message_post_path(message_post.forum, message_post) %> by
+      <%= message_post.user.name %>
+      <em>(<%= pluralize message_post.child_posts.count, "reply" %>)</em>
+    </div>
+    <div class="date_and_forum">
+      <em><%= post_time message_post.updated_at %></em>
+      on <%= link_to message_post.forum.name, message_post.forum %> 
+    </div>
+  </li>
+<% end %>
+</ul>

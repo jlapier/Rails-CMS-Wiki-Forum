@@ -115,6 +115,19 @@ class ForumsController < ApplicationController
     @message_posts = @forum.message_posts.search_forums(@search_term).paginate
   end
 
+  def recent_messages
+    @forums = Forum.all
+    unless current_user.is_admin?
+      @forums = @forums.select { |f| current_user.has_read_access_to?(f) }
+    end
+    @recent_messages = MessagePost.where(:forum_id => @forums.map(&:id)).order('updated_at DESC').limit(10)
+    respond_to do |format|
+      format.html
+      format.json { render :json => @recent_messages.to_json }
+    end
+  end
+
+
   protected
   def get_forum
     @forum ||= Forum.find(params[:id])

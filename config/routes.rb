@@ -75,6 +75,7 @@ RailsCMSWikiForum::Application.routes.draw do
   resources :forums do
     collection do
       get :sort
+      get :recent_messages
       post :set_sort
     end
     member do

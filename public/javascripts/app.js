@@ -47,3 +47,34 @@ $.fn.clearForm = function() {
       this.selectedIndex = -1;
   });
 };
+
+
+var CMSApp = {
+  getRecentMessages : function(container) {
+    $.getJSON('/forums/recent_messages', function(data) {
+        var message_ul = $('<ul/>', { 'class' : 'recent_discussions' });
+        var items = [];
+
+        $.each(data, function(key, val) {
+          var m_post = val.message_post
+          console.log(key)
+          console.log(val)
+          var s_div = $('<div/>', { 'class' : 'subject' });
+          var link = $('<a/>', { html: m_post.subject, 
+            href: '/forums/' + m_post.forum_id + '/message_posts/' + m_post.id } );
+          s_div.append(link);
+          s_div.append(' by ' + m_post.poster);
+
+          d_div = $('<div/>', { 'class' : 'date_and_forum',
+            html:'<em>' + m_post.post_time + '</em> on ' + m_post.forum_name});
+          
+          var li = $('<li/>');
+          li.append(s_div);
+          li.append(d_div);
+          message_ul.append(li);
+        });
+
+        container.html(message_ul);
+    });
+  }
+}

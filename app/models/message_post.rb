@@ -13,6 +13,8 @@ class MessagePost < ActiveRecord::Base
 
   acts_as_stripped :subject
 
+  include ActionView::Helpers::DateHelper 
+
   class << self
     def search_forums(term)
       # uses search from "searchable_by"
@@ -43,6 +45,29 @@ class MessagePost < ActiveRecord::Base
         self.subject = nil
       end
     end
+  end
+
+  def as_json(options = {})
+    options ||= {}
+    super(options.merge(
+      :methods => [:poster, :forum_name, :post_time]))
+  end
+
+  def poster
+    user.name
+  end
+
+  def forum_name
+    forum.name
+  end
+
+  def post_time
+		if (Time.now - created_at) > 2600000
+			created_at.strftime "on %b %d, %Y"
+		else
+			time_ago_in_words(created_at) + " ago"
+		end
+    
   end
 end
 
