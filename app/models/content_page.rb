@@ -70,8 +70,9 @@ class ContentPage < ActiveRecord::Base
 
       begin
         self.send("#{function_name.downcase}_to_html", params_to_send)
-      rescue NameError
-        return "<em>Unknown function: #{function_name}</em>"
+      rescue NameError => e
+        return "<em>Unknown function: #{function_name}</em>" + 
+          "<!-- #{e.inspect} -->"
       rescue => e
         return "<em>Error in function: #{function_name}</em>" + 
           "<!-- #{e.inspect} -->"

@@ -44,15 +44,16 @@ module HtmlGenerator
         events = events.where :event_type => options[:other_params]
       end
       events = events.order("start_on ASC").limit(options[:limit])
-      out = "<ul>"
+      out = '<ul class="event_list_in_page">'
 
       if events.empty?
         out += "<li><em>No events were found</em></li>"
       else
         events.each do |event|
-          date_string = event.start_on.strftime('%B %d')
+          date_string = event.start_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(event.start_on.day)}")
           if event.end_on and event.end_on.to_date != event.start_on.to_date
-            date_string += " - " + (event.start_on.month == event.end_on.month ? event.end_on.strftime('%d') : event.end_on.strftime('%B %d'))
+            date_string += " - " + (event.start_on.month == event.end_on.month ? ActiveSupport::Inflector.ordinalize(event.end_on.day) : 
+                event.end_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(event.end_on.day)}"))
           end
           out += "<li><a href=\"/event_calendar/events/#{event.id}\">#{date_string}: #{event.name}</a></li>"
         end
@@ -141,7 +142,7 @@ module HtmlGenerator
       page = ContentPage.find_by_name page_name
 
       if page
-        "<a href=\"/content_pages/#{page.id}\">#{page.name}</a>"
+        "<a href=\"/content_pages/#{page.to_param}\">#{page.name}</a>"
       else
         "<em>No page found named: #{page_name}</em>"
       end
