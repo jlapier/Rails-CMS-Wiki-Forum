@@ -28,7 +28,7 @@
       </fieldset>
     </li>
     <%= form.input :start_date, :required => false, :as => :string,
-          :input_html => { :value => @event.start_date.to_s(:american) } %>
+          :input_html => { :value => @event.start_date ? @event.start_date.to_s(:american) : '' } %>
     <li id="event_end_time_input" class="time optional">
       <input id="event_end_time_1i" type="hidden" value="<%= Date.current.year %>" name="event[end_time(1i)]">
       <fieldset>
@@ -52,7 +52,7 @@
       </fieldset>
     </li>
     <%= form.input :end_date, :required => false, :as => :string,
-          :input_html => { :value => @event.end_date.to_s(:american) } %>
+          :input_html => { :value => @event.end_date ? @event.end_date.to_s(:american) : '' } %>
     <%= form.input :timezone, :as => :time_zone, :priority_zones => /^(Eastern|Central|Mountain|Pacific) Time/ %>
     <%= form.input :facilitators, :hint => 'eg Sally Resonant, DSM WRRC' %>
     <%= form.input :presenters, :hint => 'eg Jane Doe, DSM WRRC' %>

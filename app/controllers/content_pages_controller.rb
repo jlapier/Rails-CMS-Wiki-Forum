@@ -48,7 +48,7 @@ class ContentPagesController < ApplicationController
   # GET /content_pages/new
   # GET /content_pages/new.xml
   def new
-    @content_page = ContentPage.new
+    @content_page = ContentPage.new :page_layout => "default"
 
     respond_to do |format|
       format.html # new.html.erb
