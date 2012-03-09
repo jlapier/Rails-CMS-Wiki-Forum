@@ -50,12 +50,7 @@ module HtmlGenerator
         out += "<li><em>No events were found</em></li>"
       else
         events.each do |event|
-          date_string = event.start_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(event.start_on.day)}")
-          if event.end_on and event.end_on.to_date != event.start_on.to_date
-            date_string += " - " + (event.start_on.month == event.end_on.month ? ActiveSupport::Inflector.ordinalize(event.end_on.day) : 
-                event.end_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(event.end_on.day)}"))
-          end
-          out += "<li><a href=\"/event_calendar/events/#{event.id}\">#{date_string}: #{event.name}</a></li>"
+          out += "<li><a href=\"/event_calendar/events/#{event.id}\">#{event.human_display_date}: #{event.name}</a></li>"
         end
       end
 

@@ -78,5 +78,14 @@ module EventCalendar
       "#{start_on.in_time_zone(timezone).strftime('%A, %B %d')} - "+
       "#{end_on.in_time_zone(timezone).strftime('%A, %B %d %Y')}"
     end
+
+    def human_display_date
+      date_string = start_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(start_on.day)}")
+      if end_on and end_on.to_date != start_on.to_date
+        date_string += " - " + (start_on.month == end_on.month ? ActiveSupport::Inflector.ordinalize(end_on.day) : 
+            end_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(end_on.day)}"))
+      end
+      
+    end
   end
 end
