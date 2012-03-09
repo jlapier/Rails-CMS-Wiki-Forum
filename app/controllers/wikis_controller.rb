@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
-  before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag]
-  before_filter :get_wiki, :except => [:new, :create, :index, :sort, :set_sort]
+  before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag, :recent_comments]
+  before_filter :get_wiki, :except => [:new, :create, :index, :sort, :set_sort, :recent_comments]
   before_filter :require_wiki_read_access, :only => [:show, :tag_index, :tagcloud, :list_by_tag]
 
 
@@ -117,6 +117,19 @@ class WikisController < ApplicationController
   def tagcloud
     @wiki_tags = @wiki.wiki_tags
     render :json => @wiki_tags.map {|wt| { 'tag' => wt.name, 'freq' => wt.wiki_pages_count } }
+  end
+
+  def recent_comments
+    @wikis = Wiki.all
+    unless current_user.is_admin?
+      @wikis = @wikis.select { |w| current_user.has_read_access_to?(w) }
+    end
+    @recent_comments = WikiComment.where(:wiki_id => @wikis.map(&:id)).order('updated_at DESC').limit(10)
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @recent_comments.to_json }
+    end
   end
 
 

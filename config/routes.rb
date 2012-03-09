@@ -7,6 +7,7 @@ RailsCMSWikiForum::Application.routes.draw do
     end
     collection do
       get :sort
+      get :recent_comments
       post :set_sort
     end
     resources :wiki_pages do

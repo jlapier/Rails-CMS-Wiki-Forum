@@ -73,3 +73,9 @@ ol.wikis li:hover { background: #eee; }
 
 .wiki_page_body table { border-collapse: collapse; border: 1px solid #DDD; }
 .wiki_page_body table td { border: 1px solid #DDD; }
+
+ul.recent_wiki_comments { list-style-type: none; padding-left: 0; margin: 0; }
+ul.recent_wiki_comments li { padding: 2px 4px; }
+ul.recent_wiki_comments li:nth-child(even) { background: #EEE; }
+ul.recent_wiki_comments li:nth-child(odd) { background: #F9F9FF; }
+ul.recent_wiki_comments li div.wiki_chatter { border: none; background: transparent; }

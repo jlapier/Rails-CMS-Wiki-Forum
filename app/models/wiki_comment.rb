@@ -65,6 +65,12 @@ class WikiComment < ActiveRecord::Base
     end
   end
 
+  def as_json(options = {})
+    options ||= {}
+    super(options.merge(
+      :methods => [:to_html]))
+  end
+
 
   # used to make grouping easier: day this comment was created
   def day

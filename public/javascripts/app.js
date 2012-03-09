@@ -18,6 +18,9 @@ var updateEventDescription = function(event, jsEvent) {
     my: "left top", at: "center bottom", of: $(jsEvent.target) });
 }
 
+function htmlDecode(value){ 
+  return $('<div/>').html(value).text(); 
+}
 
 jQuery(function($) {
   $('body').bind('click', function() { $('.menu_hidable').hide() });
@@ -57,8 +60,6 @@ var CMSApp = {
 
         $.each(data, function(key, val) {
           var m_post = val.message_post
-          console.log(key)
-          console.log(val)
           var s_div = $('<div/>', { 'class' : 'subject' });
           var link = $('<a/>', { html: m_post.subject, 
             href: '/forums/' + m_post.forum_id + '/message_posts/' + m_post.id } );
@@ -75,6 +76,25 @@ var CMSApp = {
         });
 
         container.html(message_ul);
+    });
+  },
+
+  getRecentWikiComments : function(container) {
+    $.getJSON('/wikis/recent_comments', function(data) {
+        var comments_ul = $('<ul/>', { 'class' : 'recent_wiki_comments' });
+        var items = [];
+
+        $.each(data, function(key, val) {
+          var w_c = val.wiki_comment;
+          var w_c_div = $('<div/>', { 'class' : 'wiki_chatter', 
+            html : w_c.to_html });
+          
+          var li = $('<li/>');
+          li.append(w_c_div);
+          comments_ul.append(li);
+        });
+
+        container.html(comments_ul);
     });
   }
 }

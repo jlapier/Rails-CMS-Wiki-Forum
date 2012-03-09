@@ -85,6 +85,7 @@ class WikiCommentsController < ApplicationController
     end
   end
 
+
   private
 
   def get_wiki

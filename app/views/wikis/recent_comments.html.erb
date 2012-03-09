@@ -1,0 +1,7 @@
+<h1><%= link_to "All Wikis", wikis_path %>: Recent Comments and Changes</h1>
+
+<% for comment in @recent_comments %>
+  <div class="wiki_chatter">
+    <%=raw comment.to_html %>
+  </div><br/>
+<% end %>
