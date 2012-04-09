@@ -178,6 +178,7 @@ DEPENDENCIES
   ri_cal
   rspec-rails
   ruby-openid
+  rubyzip
   sqlite3-ruby
   webrat
   will_paginate (~> 3.0.pre2)

@@ -23,6 +23,7 @@ gem 'ruby-openid', :require => 'openid'
 gem "will_paginate", "~> 3.0.pre2"
 
 gem 'ri_cal'
+gem 'rubyzip'
 
 group :development, :test do
   gem 'annotate'
