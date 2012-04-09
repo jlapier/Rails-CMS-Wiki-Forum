@@ -85,7 +85,7 @@ module EventCalendar
         date_string += " - " + (start_on.month == end_on.month ? ActiveSupport::Inflector.ordinalize(end_on.day) : 
             end_on.strftime("%B #{ActiveSupport::Inflector.ordinalize(end_on.day)}"))
       end
-      
+      date_string
     end
   end
 end
