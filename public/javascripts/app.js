@@ -53,8 +53,39 @@ $.fn.clearForm = function() {
 
 
 var CMSApp = {
-  getRecentMessages : function(container) {
-    $.getJSON('/forums/recent_messages', function(data) {
+  messagePostView: function(m_post, wrapper_element) {
+    var wrapper = wrapper_element || $('<li/>');
+
+    var s_div = $('<div/>', { 'class' : 'subject' });
+    var link = $('<a/>', { html: m_post.subject, 
+      href: '/forums/' + m_post.forum_id + '/message_posts/' + m_post.id } );
+    s_div.append(link);
+    s_div.append(' by ' + m_post.poster);
+
+    var d_div = $('<div/>', { 'class' : 'date_and_forum',
+      html:'<em>' + m_post.post_time + '</em>'});
+    
+    wrapper.append(s_div);
+    wrapper.append(d_div);
+    return wrapper;
+  },
+
+  getRecentMessages: function(container, forum_id) {
+    $.getJSON('/forums/'+forum_id+'/recent_messages', function(data) {
+        var message_ul = $('<ul/>', { 'class' : 'recent_discussions' });
+        var items = [];
+
+        $.each(data, function(key, val) {
+          var li = CMSApp.messagePostView(val.message_post);
+          message_ul.append(li);
+        });
+
+        container.html(message_ul);
+    });
+  },
+
+  getRecentMessagesFromAll : function(container) {
+    $.getJSON('/forums/all_recent_messages', function(data) {
         var message_ul = $('<ul/>', { 'class' : 'recent_discussions' });
         var items = [];
 

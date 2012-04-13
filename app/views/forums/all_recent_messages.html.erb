@@ -12,6 +12,7 @@
     </div>
     <div class="date_and_forum">
       <em><%= post_time message_post.updated_at %></em>
+      on <%= link_to message_post.forum.name, message_post.forum %> 
     </div>
   </li>
 <% end %>

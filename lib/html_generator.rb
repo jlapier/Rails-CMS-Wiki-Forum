@@ -156,7 +156,8 @@ module HtmlGenerator
     end
     alias_method :linkcategory_to_html, :link_category_to_html
 
-    def recent_message_posts_to_html(options = {})
+    # show recent messages in all forums the user has access to
+    def all_recent_message_posts_to_html(options = {})
       # TODO: maybe set this up to poll every few minutes
       id = options[:id] ||= "recent_messages"
       
@@ -166,7 +167,27 @@ module HtmlGenerator
         </div>
         <script type="text/javascript">
           $(document).ready(function() {
-            CMSApp.getRecentMessages( $('##{id}') );
+            CMSApp.getRecentMessagesFromAll( $('##{id}') );
+          });
+        </script>
+      END
+    end
+    alias_method :allrecentmessageposts_to_html, :all_recent_message_posts_to_html
+
+    # show just the recent threads of one forum
+    def recent_message_posts_to_html(options = {})
+      # TODO: maybe set this up to poll every few minutes
+      id = options[:id] ||= "recent_messages"
+      forum_title = options[:other_params]
+      forum = Forum.find_by_title(forum_title)
+      
+      <<-END
+        <div id="#{id}" class="recent_messages_box">
+          <em>please log in to view recent messages from the forums</em>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            CMSApp.getRecentMessages( $('##{id}'), #{forum.id} );
           });
         </script>
       END

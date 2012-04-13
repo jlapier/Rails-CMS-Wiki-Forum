@@ -76,13 +76,14 @@ RailsCMSWikiForum::Application.routes.draw do
   resources :forums do
     collection do
       get :sort
-      get :recent_messages
+      get :all_recent_messages
       post :set_sort
     end
     member do
       #"/forums/1/jf892424thf984u082j309j233/feed.atom"
       get "/:user_credentials/feed" => "forums#show", :as => :feed
       get :search
+      get :recent_messages
     end
     resources :message_posts do
       member do
