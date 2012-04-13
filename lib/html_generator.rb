@@ -159,7 +159,7 @@ module HtmlGenerator
     # show recent messages in all forums the user has access to
     def all_recent_message_posts_to_html(options = {})
       # TODO: maybe set this up to poll every few minutes
-      id = options[:id] ||= "recent_messages"
+      id = options[:id] ||= "all_recent_messages"
       
       <<-END
         <div id="#{id}" class="recent_messages_box">
