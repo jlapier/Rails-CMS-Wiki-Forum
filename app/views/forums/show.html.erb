@@ -1,9 +1,7 @@
-<% if is_admin? %>
-  <div style="float:right" class="small_text">
-        <%= link_to 'edit details of this forum', edit_forum_path(@forum) %> |
-        <%= link_to 'delete this forum', @forum, :method => :delete,
+<% content_for :admin_bar do %>
+  <%= link_to 'edit details of this forum', edit_forum_path(@forum) %> |
+  <%= link_to 'delete this forum', @forum, :method => :delete,
               :confirm => 'Are you sure you want to delete this forum and all the messages in it?' %>
-  </div>
 <% end %>
 
 <h1><%= link_to "Forums", forums_path %>: <%= @forum.title %></h1>
@@ -47,5 +45,5 @@
 <% end -%>
 
 <p class="small_text">
-  Go to <a href="http://en.gravatar.com/">gravatar.com</a> to upload picture for your signetwork account. By doing so your photo will appear next to your discussion posts.
+  Go to <a href="http://en.gravatar.com/">gravatar.com</a> to upload picture for your account. By doing so your photo will appear next to your discussion posts.
 </p>

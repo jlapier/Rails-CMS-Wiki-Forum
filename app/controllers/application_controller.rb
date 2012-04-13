@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
 
   def require_forum_write_access
     if require_user
-      unless current_user.has_write_access_to?(@forum)
+      unless current_user.is_admin? or current_user.has_write_access_to?(@forum)
         flash[:notice] = "You do not have post or edit in that forum."
         redirect_to forums_url
       end

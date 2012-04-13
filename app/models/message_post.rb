@@ -3,7 +3,7 @@ class MessagePost < ActiveRecord::Base
   belongs_to :user
   belongs_to :thread, :class_name => 'MessagePost', :foreign_key => 'thread_id', :include => :user
 
-  has_many :child_posts, :class_name => 'MessagePost', :foreign_key => 'thread_id', :include => :user
+  has_many :child_posts, :class_name => 'MessagePost', :foreign_key => 'thread_id', :include => :user, :dependent => :destroy
 
   validates_presence_of :subject, :body, :user_id
 

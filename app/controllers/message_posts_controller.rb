@@ -91,6 +91,7 @@ class MessagePostsController < ApplicationController
     @message_post.destroy
 
     respond_to do |format|
+      flash[:notice] = "Post '#{@message_post.subject}' deleted."
       format.html { redirect_to(@forum) }
       format.xml  { head :ok }
     end
