@@ -107,6 +107,10 @@ GEM
       activesupport (= 3.0.10)
       bundler (~> 1.0)
       railties (= 3.0.10)
+    rails-erd (0.4.5)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+      ruby-graphviz (~> 0.9.18)
     railties (3.0.10)
       actionpack (= 3.0.10)
       activesupport (= 3.0.10)
@@ -130,8 +134,9 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
+    ruby-graphviz (0.9.21)
     ruby-openid (2.1.8)
-    rubyzip (0.9.6.1)
+    rubyzip (0.9.7)
     selenium-webdriver (2.19.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
@@ -174,6 +179,7 @@ DEPENDENCIES
   launchy
   mysql2 (~> 0.2.0)
   rails (= 3.0.10)
+  rails-erd
   rake
   ri_cal
   rspec-rails

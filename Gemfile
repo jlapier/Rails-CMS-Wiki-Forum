@@ -31,6 +31,7 @@ group :development, :test do
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'rspec-rails'
+  gem 'rails-erd'
   gem 'factory_girl'
   gem 'webrat'
   gem 'launchy'
