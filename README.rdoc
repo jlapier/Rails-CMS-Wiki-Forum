@@ -7,6 +7,8 @@ This is a pretty standard Rails app that you might use as a starting point for a
 * Content Management System - Pages organized by Categories, in-page functions which can auto-generate lists and links; uses CKeditor for Rich Text Editing
 * Wikis - Multiple Wikis can be created, each with it's own Pages and Tags; uses CKeditor for Rich Text Editing (minimal interface)
 * Forums - Multiple Forums can be created, each with it's own Topics and Posts; uses CKeditor for Rich Text Editing (minimal interface)
+* Events Calendar - allows start and end date/time, file attachments, links
+* Blog - create blog articles, allow comments
 * User Group System - Multiple user groups can be created and read/write permissions to Wikis and Forums can be set by Group
 * Basic Theme Support
 * Admin interface allows you to change layout, change base colors, and edit CSS directly
