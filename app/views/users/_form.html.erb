@@ -35,16 +35,20 @@
       <% unless @user.requested_user_group_ids.empty? %>
         <tr>
           <td>
-            <%= form.label 'Requested Group Membership' %>:<br/>
+            <%= form.label 'Current Group Membership' %>:<br/>
             <span class="tiny_text">
-              <span class="darkred">red</span> means requested group access not yet granted<br/>
-              <span class="darkgreen">green</span> means requested group access was granted<br/>
+              <span class="darkred">red</span> means requested group access 
+                <em>not yet granted</em><br/>
+              <span class="darkgreen">green</span> means requested group access 
+                was granted<br/>
+              <span class="darkblue">blue</span> means group access was 
+                <em>not requested</em> but granted anyway<br/>
             </span>
           </td>
           <td>
-            <% @user.requested_user_groups.each do |user_group| %>
-              <span class="<%= @user.user_groups.include?(user_group) ? 'darkgreen' : 'darkred' %>">
-                <%= user_group.name %><br/>
+            <% (@user.requested_user_groups + @user.user_groups).uniq.each do |ug| %>
+              <span class="<%= color_by_group_status(@user.group_status(ug)) %>">
+                <%= ug.name %><br/>
               </span>
             <% end %>
           </td>

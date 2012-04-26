@@ -96,7 +96,24 @@ class User < ActiveRecord::Base
   end
 
   def requested_user_groups
-    requested_user_group_ids.map { |g_id| UserGroup.find(:first, :conditions => { :id => g_id }) }.compact
+    @requested_user_groups ||= requested_user_group_ids.map { |g_id| 
+      UserGroup.find(:first, :conditions => { :id => g_id }) }.compact
+  end
+
+  # I don't know how else to put this, so I'll put it like so:
+  # 1 -> user requested to be in this group and is in it
+  # 0 -> user did not request, but is in it anyway
+  # -1 -> user requested membership but does not have it
+  def group_status(group)
+    if user_groups.include?(group)
+      if requested_user_groups.include?(group)
+        1
+      else
+        0
+      end
+    else
+      -1
+    end
   end
 
   private
