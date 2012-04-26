@@ -1,4 +1,4 @@
-<div class="span-12 last">
+<div>
 <p>
   <strong>Topic:</strong> <%= details.topic %>
 </p>
@@ -17,7 +17,7 @@
 # ugly! maybe blocks will help here
 @event = details 
 -%>
-<div class="span-12 last">
+<div>
   <h3>Materials/Resources</h3>
   <%= render :partial => '/event_calendar/links/link', :collection => details.links.all %>
   <%= render :partial => 'file_attachments/file_attachment', :collection => details.file_attachments %>

@@ -307,9 +307,10 @@ a.menu_highlight { background: #333; }
 }
 
 ul.events, ul.events ul { list-style: none; }
-ul.events .closed:before { content: '+ ' }
+ul.events .closed:before { content: url('/images/icons/bullet_arrow_right.png') }
+ul.events .closed { color: #006; }
 ul.events .closed:hover { text-decoration: underline; }
-ul.events .open:before { content: '- ' }
+ul.events .open:before { content: url('/images/icons/bullet_arrow_down.png') }
 .link_url { display:none; }
 
 .asset_list ul {

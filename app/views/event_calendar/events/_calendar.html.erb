@@ -4,7 +4,20 @@
 
 <div style="clear:both"></div>
 
-<div id="event_quick_description" class="span-12" style="display:none"></div>
+<div id="event_quick_description" class="span-10">
+  <p style="font-size: 1.2em; color: #999;">
+    <em>mouse over an event for more details</em>
+  </p>
+</div>
+
+<div class="span-6 last">
+  <br/>
+  <h2 style="text-align:center">Event Types</h2>
+  <%= event_type_legend("event_list") %>
+  <%= event_type_legend('event_calendar', 'display: none;') %>
+</div>
+
+<div style="clear:both"></div>
 
 <% content_for :javascript do %>
 <script type="text/javascript">
