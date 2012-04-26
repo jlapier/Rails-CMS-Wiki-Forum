@@ -84,6 +84,7 @@ input#user_openid_identifier, input#user_session_openid_identifier {
   font-family: Verdana, sans-serif;
   color: #EEE;
   text-decoration: none;
+  padding: 0 4px;
 }
 
 #admin_bar a:hover {

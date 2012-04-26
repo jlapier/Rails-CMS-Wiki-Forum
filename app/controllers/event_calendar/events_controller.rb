@@ -175,5 +175,21 @@ module EventCalendar
         format.xml  { head :ok }
       end
     end
+
+
+    def manage_event_types
+      @event_types = EventCalendar::Event.event_types
+    end
+
+    def update_event_type
+      if params[:old].present? and params[:new].present?
+        EventCalendar::Event.where(:event_type => params[:old]).update_all(
+            :event_type => params[:new])
+        flash[:notice] = "Changed #{params[:old]} to #{params[:new]}."
+      else
+        flash[:warning] = "Missing event type."
+      end
+      redirect_to :action => :manage_event_types
+    end
   end
 end

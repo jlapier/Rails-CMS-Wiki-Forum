@@ -145,6 +145,8 @@ RailsCMSWikiForum::Application.routes.draw do
     resources :events do
       collection do
         get :search
+        get :manage_event_types
+        post :update_event_type
       end
       resources :attendees
       resources :links

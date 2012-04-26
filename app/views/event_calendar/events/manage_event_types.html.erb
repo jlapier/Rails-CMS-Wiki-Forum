@@ -1,0 +1,24 @@
+<h1>Manage Event Types</h1>
+
+<p>Need to consolidate some event types?</p>
+
+<%= form_tag( { :action => :update_event_type }, { :method => :post } ) do %>
+  Change <%= select_tag :old, options_for_select(@event_types) %>
+  to <%= select_tag :new, options_for_select(@event_types) %>
+  <%= submit_tag "Go!" %>
+<% end %>
+
+<br/><br/>
+
+<h3>Current Event Types and Counts</h3>
+
+<ul>
+  <% @event_types.each do |et| %>
+    <li>
+      <%= et %> 
+      (<%= pluralize EventCalendar::Event.where(:event_type => et).count, 'event' %>)
+    </li>
+  <% end %>
+</ul>
+
+<%= render :partial => 'admin_links' %>
