@@ -77,8 +77,9 @@ module EventCalendar::EventsHelper
       next unless us_zone =~ /Pacific|Mountain|Central|Eastern/
       key = time.in_time_zone(us_zone).strftime("%Z")
       key = timezone_in_words(key.strip)
-      # out[key] = time.in_time_zone(us_zone).strftime(format)
-      out << [key, time.in_time_zone(us_zone).strftime(TIME_BASE)]
+      t = time.in_time_zone(us_zone)
+      # this little shenanigan is for getting rid of the 0 before the hour
+      out << [key, t.strftime("#{t.hour % 12}:%M %p")]
     end
     out.reverse
   end
@@ -106,6 +107,7 @@ module EventCalendar::EventsHelper
     t = []
     event_times = times_with_zones(event)
     event_times.first.each_with_index do |z_t, i|
+      puts z_t.inspect
       t << "#{z_t.last} - #{event_times.last[i].last} " + content_tag(:em, z_t.first)
     end
     t.join(" / ").html_safe

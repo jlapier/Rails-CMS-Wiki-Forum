@@ -1,7 +1,5 @@
 <%= render :partial => 'event', :locals => { :event => @event } %>
 
-<%= inner_footer("events") %> 
-
 <% if current_user || @event.file_attachments.any? %>
 <div style="clear:both">
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {
@@ -12,3 +10,5 @@
 <%= form_for_browse_event_revisions(@event) %>
 
 <%= render :partial => 'admin_links' %>
+
+<%= inner_footer("events") %> 
