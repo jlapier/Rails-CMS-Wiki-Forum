@@ -56,7 +56,10 @@
     <%= form.input :timezone, :as => :time_zone, :priority_zones => /^(Eastern|Central|Mountain|Pacific) Time/ %>
     <%= form.input :facilitators, :hint => 'eg Sally Resonant, DSM WRRC' %>
     <%= form.input :presenters, :hint => 'eg Jane Doe, DSM WRRC' %>
-    <%= form.input :location, :required => false, :hint => 'eg Portland, Oregon USA or http://some.webinar.org', :label => 'Location' %>
+    <%= form.input :location, :required => false, 
+          :hint =>  'to created a clickable link, use the form' +
+                    '"Link text (click me!)":http://some.webinar.org', 
+          :label => 'Location' %>
     <%= form.input :description, :required => false, :label => 'Description' %>
     <% unless @event.new_record? %>
       <%= form.input :notes, :required => false, :label => 'Notes' %>
