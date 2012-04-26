@@ -55,6 +55,9 @@ class UserGroup < ActiveRecord::Base
   end
 
   def add_forum(forum, access)
+    if forum.new_record?
+      raise "no forum ID found!"
+    end
     self.special ||= {}
     self.special[:forums] ||= {}
     self.special[:forums][forum.id.to_s] = access

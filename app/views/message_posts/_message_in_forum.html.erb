@@ -19,7 +19,7 @@
         <%= link_to message.most_recent_reply.subject, forum_message_post_path(@forum, message),
               :page => MessagePost.last_page_number_for(:thread_id => message),
               :anchor => "bottom" %> <br/>
-        <em><%= message.most_recent_reply.user.name %></em>
+        <em><%= message.most_recent_reply.try(:user).try(:name) or 'unknown user' %></em>
         <em><%= post_time message.most_recent_reply.created_at %></em>
       <% else -%>
         <em>no replies</em>

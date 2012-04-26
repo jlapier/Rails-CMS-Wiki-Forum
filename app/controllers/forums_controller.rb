@@ -72,7 +72,7 @@ class ForumsController < ApplicationController
     respond_to do |format|
       if @forum.save
         flash[:notice] = "Forum #{@forum.name} was successfully created."
-        format.html { redirect_to forums_path }
+        format.html { redirect_to edit_forum_path(@forum) }
         format.xml  { render :xml => @forum, :status => :created, :location => @forum }
       else
         format.html { render :action => "new" }

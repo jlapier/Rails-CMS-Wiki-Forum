@@ -15,12 +15,16 @@
       <td><%= f.label :description %>:</td>
       <td><%= f.text_area :description, :rows => 5, :cols => 80, :style => "height: 100px;" %></td>
     </tr>
+    <% if @forum.new_record? %>
+    <tr><td></td><td><em>After you create this forum, you can set the group access.</em></td></tr>
+    <% else %>
     <tr>
       <td><%= f.label :group_access %>:</td>
       <td>
         <%= render :partial => 'group_access' %>
       </td>
     </tr>
+    <% end %>
     <tr>
       <td></td>
       <td><%= submit_tag @forum.new_record? ? "Make this Forum!" : "Save Changes" %></td>

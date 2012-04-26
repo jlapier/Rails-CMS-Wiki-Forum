@@ -41,7 +41,7 @@
     <div class="subject">
       <%= link_to message_post.subject, 
           forum_message_post_path(message_post.forum, message_post) %> by
-      <%= message_post.user.name %>
+      <%= message_post.user ? message_post.user.name : 'unknown user' %>
       <em>(<%= pluralize message_post.child_posts.count, "reply" %>)</em>
     </div>
     <div class="date_and_forum">
@@ -54,9 +54,7 @@
 
 <br />
 
-<% if is_admin? %>
-<p>
+<% content_for :admin_bar do %>
   <%= link_to 'change forum list order', sort_forums_path %> | 
   <%= link_to 'create a new forum', new_forum_path %>
-</p>
 <% end %>
