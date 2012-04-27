@@ -10,7 +10,7 @@ var updateEventDescription = function(event, jsEvent) {
   $("#event_mini_description").empty();
   $("#event_mini_description").append(
       $('<div/>', { style : 'float:right' }).append(
-        $('<a/>', { text : 'X', onclick : '$("#event_mini_description").hide()' })
+        $('<a/>', { text : 'X', onclick : '$("#event_mini_description").hide()', href : '#' })
       )
   ).append(event.brief);
   $("#event_mini_description").show();

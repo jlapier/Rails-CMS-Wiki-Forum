@@ -107,7 +107,6 @@ module EventCalendar::EventsHelper
     t = []
     event_times = times_with_zones(event)
     event_times.first.each_with_index do |z_t, i|
-      puts z_t.inspect
       t << "#{z_t.last} - #{event_times.last[i].last} " + content_tag(:em, z_t.first)
     end
     t.join(" / ").html_safe
