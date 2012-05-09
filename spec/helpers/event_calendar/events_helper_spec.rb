@@ -5,14 +5,14 @@ describe EventCalendar::EventsHelper do
     it "returns times" do
       time = Time.now
       helper.time_with_zones(time).should eq [
-        ["Eastern", time.in_time_zone("Eastern Time (US & Canada)").strftime(TIME_BASE)],
-        ["Central", time.in_time_zone("Central Time (US & Canada)").strftime(TIME_BASE)],
-        ["Mountain", time.in_time_zone("Mountain Time (US & Canada)").strftime(TIME_BASE)],
-        ["Pacific", time.in_time_zone("Pacific Time (US & Canada)").strftime(TIME_BASE)]
+        ["Eastern", time.in_time_zone("Eastern Time (US & Canada)").strftime(TIME_BASE).gsub(/^0/, '')],
+        ["Central", time.in_time_zone("Central Time (US & Canada)").strftime(TIME_BASE).gsub(/^0/, '')],
+        ["Mountain", time.in_time_zone("Mountain Time (US & Canada)").strftime(TIME_BASE).gsub(/^0/, '')],
+        ["Pacific", time.in_time_zone("Pacific Time (US & Canada)").strftime(TIME_BASE).gsub(/^0/, '')]
       ]
     end
   end
-  
+
   describe "open_if_current_month..." do
     let(:month_names) do
       %w(January February March April May June July August September October
