@@ -21,9 +21,9 @@ module HtmlGenerator
           if cat.children.empty? and cat.content_pages.count == 0
             "<li class=\"category_#{cat.id}\"><a href=\"/categories/#{cat.id}\">#{cat.name}</a></li>"
           else
-            "<li class=\"category_#{cat.id}\">" + 
-              main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") + 
-              "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" +                 
+            "<li class=\"category_#{cat.id}\">" +
+              main_menu_link("/categories/#{cat.id}", cat.name, "cat_menu_#{cat.id}") +
+              "<div class=\"mega_menu cat_menu_#{cat.id} menu_hidable\" style=\"display:none;\">" +
                 (cat.content_pages.count == 0 ? '' : "<h4>#{cat.name}</h4>") +
                 list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade]) +
               "</div>" +
@@ -80,10 +80,10 @@ module HtmlGenerator
             "<li><a href=\"/content_pages/#{page.id}\">#{page.name}</a></li>"
           }.join("")
           unless category.children.empty?
-            category.children.each do |cat| 
-              out += "<li><h5><a class=\"menu_show_hide_link\" href=\"/categories/#{cat.id}?toggle=cat_menu_#{cat.id}&hide=inner_menu\">#{cat.name}</a></h5></li>" 
+            category.children.each do |cat|
+              out += "<li><h5><a class=\"menu_show_hide_link\" href=\"/categories/#{cat.id}?toggle=cat_menu_#{cat.id}&hide=inner_menu\">#{cat.name}</a></h5></li>"
               out += "<div style=\"display:none;\" class=\"cat_menu_#{cat.id} inner_menu\">" if options[:cascade]
-              out += list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade]) 
+              out += list_pages_in_category_to_html(:category => cat, :cascade => options[:cascade])
               out += "</div>" if options[:cascade]
             end
           end
@@ -95,7 +95,7 @@ module HtmlGenerator
       out += "</ul>"
       out
     end
-    alias_method :listpagesincategory_to_html, :list_pages_in_category_to_html 
+    alias_method :listpagesincategory_to_html, :list_pages_in_category_to_html
 
     def tree_categories_to_html(options = {})
       categories = \
@@ -137,7 +137,7 @@ module HtmlGenerator
       page = ContentPage.find_by_name page_name
 
       if page
-        "<a href=\"/content_pages/#{page.to_param}\">#{page.name}</a>"
+        "<a href=\"/content_pages/#{page.id}\">#{page.name}</a>"
       else
         "<em>No page found named: #{page_name}</em>"
       end
@@ -160,7 +160,7 @@ module HtmlGenerator
     def all_recent_message_posts_to_html(options = {})
       # TODO: maybe set this up to poll every few minutes
       id = options[:id] ||= "all_recent_messages"
-      
+
       <<-END
         <div id="#{id}" class="recent_messages_box">
           <em>please log in to view recent messages from the forums</em>
@@ -180,7 +180,7 @@ module HtmlGenerator
       id = options[:id] ||= "recent_messages"
       forum_title = options[:other_params]
       forum = Forum.find_by_title(forum_title)
-      
+
       <<-END
         <div id="#{id}" class="recent_messages_box">
           <em>please log in to view recent messages from the forums</em>
@@ -197,7 +197,7 @@ module HtmlGenerator
     def recent_wiki_comments_to_html(options = {})
       # TODO: maybe set this up to poll every few minutes
       id = options[:id] ||= "recent_wiki_comments"
-      
+
       <<-END
         <div id="#{id}" class="recent_messages_box">
           <em>please log in to view recent wiki activity</em>
@@ -225,17 +225,17 @@ module HtmlGenerator
 
     def mini_calendar_to_html(options={})
       #TODO - make options for changing id of calendar element
-      <<-END  
+      <<-END
         <link href="/stylesheets/minical.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
         <div id="minicalendar" class="calendars"></div>
 
         <script type="text/javascript">
         $(document).ready(function() {
-          $('#minicalendar').fullCalendar({ 
+          $('#minicalendar').fullCalendar({
             header: { left: 'prev', right: 'next', center: 'title' },
-            editable: false, 
-            events: '/event_calendar/events', 
+            editable: false,
+            events: '/event_calendar/events',
             eventMouseover: function(event, jsEvent, view) {
                 $(jsEvent.target).attr('title', event.title);
               }
@@ -249,7 +249,7 @@ module HtmlGenerator
     def calendar_to_html(options={})
       options[:height] ||= 500
       #TODO - make options for changing id of calendar element
-      <<-END  
+      <<-END
         <div id="calendar" class="calendars"></div>
 
         <div style="clear:both"></div>
@@ -258,11 +258,11 @@ module HtmlGenerator
 
         <script type="text/javascript">
         $(document).ready(function() {
-          $('#calendar').fullCalendar({ 
+          $('#calendar').fullCalendar({
             header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
-            editable: false, 
-            events: '/event_calendar/events', 
-            height: #{options[:height]}, 
+            editable: false,
+            events: '/event_calendar/events',
+            height: #{options[:height]},
             aspectRatio: 1,
             eventMouseover: updateEventDescription
           });
@@ -284,8 +284,8 @@ module HtmlGenerator
       "<li class=\"bloglink\"><a href=\"/blog\">#{SiteSetting.read_or_write_default_setting('blog title','Blog')}</a></li>"
     end
 
-    def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)      
-      "<a href=\"#{base_url}?toggle=#{menu_css_class}&hide=menu_hidable\" " + 
+    def main_menu_link(base_url, link_text, menu_css_class, menu_id = nil)
+      "<a href=\"#{base_url}?toggle=#{menu_css_class}&hide=menu_hidable\" " +
         "class=\"menu_show_hide_link\" id=\"#{menu_id}\">#{link_text}</a>"
     end
 

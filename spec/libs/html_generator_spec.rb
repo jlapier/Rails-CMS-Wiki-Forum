@@ -179,18 +179,18 @@ describe HtmlGenerator do
     it "should work for a plain calendar" do
       expected = <<-END
         <div id="calendar" class="calendars"></div>
-        
+
         <div style="clear:both"></div>
-        
+
         <div id="event_quick_description" style="display:none"></div>
-        
+
         <script type="text/javascript">
         $(document).ready(function() {
-          $('#calendar').fullCalendar({ 
+          $('#calendar').fullCalendar({
             header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
-            editable: false, 
-            events: '/event_calendar/events', 
-            height: 500, 
+            editable: false,
+            events: '/event_calendar/events',
+            height: 500,
             aspectRatio: 1,
             eventMouseover: updateEventDescription
           });
