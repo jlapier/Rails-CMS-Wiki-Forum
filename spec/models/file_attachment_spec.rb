@@ -49,9 +49,9 @@ describe FileAttachment do
   end
 
   it "should know whether its file actually exists" do
-    File.stub(:exists?).with("#{@path}/somefile.txt"){ true }
+    File.stub(:exists?).with(@file_attachment.full_path){ true }
     @file_attachment.file_saved?.should be_true
-    File.stub(:exists?).with("#{@path}/somefile.txt"){ false }
+    File.stub(:exists?).with(@file_attachment.full_path){ false }
     @file_attachment.file_saved?.should be_false
   end
 
