@@ -29,7 +29,7 @@ Feature: Event calendar
     Then I should see "Event was successfully created."
     And I should see "Some implied event ending (Conference)"
     And I should see "Date: Saturday, February 26 2011"
-    And I should see "Time: 02:30 PM - 03:30 PM Eastern / 01:30 PM - 02:30 PM Central / 12:30 PM - 01:30 PM Mountain / 11:30 AM - 12:30 PM Pacific"
+    And I should see "Time: 2:30 PM - 3:30 PM Eastern / 1:30 PM - 2:30 PM Central / 12:30 PM - 1:30 PM Mountain / 11:30 AM - 12:30 PM Pacific"
 
   Scenario: create a new event w/ only an explicit start date
     Given I am on the new event page
@@ -40,34 +40,34 @@ Feature: Event calendar
     Then I should see "Event was successfully created."
     And I should see "Some implied start and end time"
     And I should see "Date: Friday, March 04 2011"
-    And I should see "Time: 09:00 AM - 10:00 AM Eastern / 08:00 AM - 09:00 AM Central / 07:00 AM - 08:00 AM Mountain / 06:00 AM - 07:00 AM Pacific"    
+    And I should see "Time: 9:00 AM - 10:00 AM Eastern / 8:00 AM - 9:00 AM Central / 7:00 AM - 8:00 AM Mountain / 6:00 AM - 7:00 AM Pacific"
 
   Scenario: update a multi day event
     Given I am on the event page for "Editable Event"
-    And I follow "update" within "div.event_calendar_event"
+    And I follow "Edit this Event" within "#admin_bar"
     And I fill in "Name" with "Updated Event"
     And I press "Update Event"
     Then I should see "Event was successfully updated."
 
   Scenario: update a single day event
     Given I am on the event page for "Linkable Event"
-    And I follow "update" within "div.event_calendar_event"
+    And I follow "Edit this Event" within "#admin_bar"
     And I fill in "Start date" with "02/23/2011"
     And I fill in "End date" with "02/23/2011"
     And I select "Pacific Time (US & Canada)" from "Timezone"
     And I press "Update Event"
     Then I should be on the event page for "Linkable Event"
-    And I should see "Time: 09:00 AM - 10:00 AM Eastern / 08:00 AM - 09:00 AM Central / 07:00 AM - 08:00 AM Mountain / 06:00 AM - 07:00 AM Pacific"
+    And I should see "Time: 9:00 AM - 10:00 AM Eastern / 8:00 AM - 9:00 AM Central / 7:00 AM - 8:00 AM Mountain / 6:00 AM - 7:00 AM Pacific"
 
   Scenario: delete an event
     Given I am on the event page for "Editable Event"
-    And I follow "delete" within "div.event_calendar_event"
+    And I follow "Delete this Event" within "#admin_bar"
     Then I should be on the events page
 
   Scenario: deleting then restoring an event
     Given I am on the event page for "Restorable Event"
-    Then I should see "Time: 09:00 AM - 10:00 AM Eastern / 08:00 AM - 09:00 AM Central / 07:00 AM - 08:00 AM Mountain / 06:00 AM - 07:00 AM Pacific"
-    And I follow "delete"
+    Then I should see "Time: 9:00 AM - 10:00 AM Eastern / 8:00 AM - 9:00 AM Central / 7:00 AM - 8:00 AM Mountain / 6:00 AM - 7:00 AM Pacific"
+    And I follow "Delete this Event" within "#admin_bar"
     Then I should be on the events page
     When I go to the manage events page
     And I follow "Browse Deleted Events"
@@ -79,4 +79,4 @@ Feature: Event calendar
     When I follow "restore"
     Then I should be on the event page for "Restorable Event"
     And I should see "Date: Friday, February 04 2011"
-    And I should see "Time: 09:00 AM - 10:00 AM Eastern / 08:00 AM - 09:00 AM Central / 07:00 AM - 08:00 AM Mountain / 06:00 AM - 07:00 AM Pacific"
+    And I should see "Time: 9:00 AM - 10:00 AM Eastern / 8:00 AM - 9:00 AM Central / 7:00 AM - 8:00 AM Mountain / 6:00 AM - 7:00 AM Pacific"

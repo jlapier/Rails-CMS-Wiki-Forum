@@ -14,7 +14,7 @@ describe ForumsController do
   def mock_message_post(stubs={})
     @mock_message_post ||= mock_model(MessagePost, stubs.merge({}))
   end
-  
+
   def mock_message_posts
     return @mock_message_posts if @mock_message_posts
     @mock_message_posts = mock('message_posts_proxy')
@@ -80,7 +80,7 @@ describe ForumsController do
       it "redirects to the created forum" do
         Forum.stub!(:new).and_return(mock_forum(:save => true))
         post :create, :forum => {}
-        response.should redirect_to(forums_url)
+        response.should redirect_to(edit_forum_path(mock_forum))
       end
     end
 

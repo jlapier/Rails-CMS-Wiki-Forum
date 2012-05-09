@@ -1,6 +1,6 @@
 module ApplicationHelper
   include CkeditorHelper
-  
+
   def top_menu
     @top_menu ? @top_menu.body_for_display : "TODO: create the top menu"
   end
@@ -27,7 +27,7 @@ module ApplicationHelper
   def site_title
     @site_title ||= SiteSetting.read_setting('site title') || "A Site [edit me in site settings]"
   end
-  
+
   def blog_title
     @blog_title ||= SiteSetting.read_setting('blog title') || "Blog [edit me in site settings]"
   end
@@ -93,7 +93,7 @@ module ApplicationHelper
   end
 
   def user_box(my_options={})
-    options = { :include_line_breaks => true, :include_blog_link => true, 
+    options = { :include_line_breaks => true, :include_blog_link => true,
         :include_events_link => true, :include_wiki_link => true,
         :include_forum_link => true,
         :link_separator => ' | '
@@ -103,7 +103,7 @@ module ApplicationHelper
     if current_user
       out += "Welcome, #{current_user.first_name}! "
       if(options[:include_line_breaks])
-        out += "<br />" 
+        out += "<br />"
       end
       out += link_to("My Account", account_path) + options[:link_separator].html_safe +
               link_to("Logout", user_session_path, :method => :delete,
@@ -135,7 +135,7 @@ module ApplicationHelper
     end
     unless other_links.empty?
       if(options[:include_line_breaks])
-        out += "<br/>" 
+        out += "<br/>"
       else
         out += options[:link_separator]
       end
@@ -197,14 +197,15 @@ module ApplicationHelper
   end
 	def javascripts
 	  uniq_filenames(
-	    host_javascripts + 
+	    host_javascripts +
       behaviors +
       ['app.js']
 	  )
   end
   def host_javascripts
     list = [
-      'rails', 'lowpro.jquery.js', 
+      'h5bp-plugins',
+      'rails', 'lowpro.jquery.js',
       'jquery.string.1.0-min.js',
       'jquery.clonePosition.js',
       'jquery.qtip-1.0.0-rc3.js',

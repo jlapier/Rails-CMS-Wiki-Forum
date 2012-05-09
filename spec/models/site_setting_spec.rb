@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SiteSetting do
   before(:each) do
+    Rails.cache.clear
     @valid_attributes = {
       :setting_name => "value for setting_name",
       :setting_string_value => "value for setting_string_value",

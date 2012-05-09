@@ -8,7 +8,7 @@ module EventCalendar::EventsHelper
     ].
     join(" ").html_safe
   end
-  
+
   def event_abbrev_date(event)
     if event.one_day?
       "(<em>#{event.start_on.strftime("%a")} #{event.start_day.ordinalize}</em>)".html_safe
@@ -16,24 +16,24 @@ module EventCalendar::EventsHelper
       "(<em>#{event.start_on.strftime("%a")} #{event.start_day.ordinalize} - #{event.end_on.strftime("%a")} #{event.end_day.ordinalize}</em>)".html_safe
     end
   end
-  
+
   def event_details_link(event)
     path = "event_calendar_#{event.deleted? ? 'event_revision_path' : 'event_path'}"
     "<span class=\"fake_button\">#{link_to('Details', send(path, event))}</span>".html_safe
   end
-  
+
   def event_type_label(event_type)
     "<span class=\"category_label #{event_type_css_class(event_type)}\">#{h(event_type)}</span>".html_safe
   end
-  
+
   def event_type_css_class(event_type)
     css_class = event_type.parameterize('_').downcase
     h("#{css_class}_event")
   end
-  
+
   def event_type_legend(wrapper_css_class, wrapper_css_style='')
     return '' unless @event_types.any?
-    
+
     content_tag :ul, :class => "#{wrapper_css_class} legend", :style => wrapper_css_style do
       @event_types.map do |event_type|
         css_class = event_type_css_class(event_type)
@@ -50,11 +50,11 @@ module EventCalendar::EventsHelper
   def tag_for_record(tag, record, *args, &block)
     content_tag_for(tag, record, *args){ yield }
   end
-  
+
   def link_wrapper(path, wrapper_options={}, link_options={})
     tag       = wrapper_options.delete(:tag) || :p
     link_text = link_options.delete(:link_text) || path
-  
+
     unless wrapper_options.delete(:no_wrapper)
       return content_tag(tag, wrapper_options) do
         link_to(link_text, path, link_options)
@@ -63,14 +63,14 @@ module EventCalendar::EventsHelper
       return link_to(link_text, path, link_options)
     end
   end
-  
+
   def open_if_current_month(month, closed_or_open)
     # setting closed_or_open='closed' in args does not seem to work when a
     # nil val is passed as the closed_or_open arg
     closed_or_open = closed_or_open.blank? ? 'closed' : closed_or_open
     Date.current.strftime("%B") == month ? 'open' : closed_or_open
   end
-  
+
   def time_with_zones(time=Time.now)
     out = []
     ActiveSupport::TimeZone.us_zones.map(&:name).each do |us_zone|
@@ -78,12 +78,11 @@ module EventCalendar::EventsHelper
       key = time.in_time_zone(us_zone).strftime("%Z")
       key = timezone_in_words(key.strip)
       t = time.in_time_zone(us_zone)
-      # this little shenanigan is for getting rid of the 0 before the hour
-      out << [key, t.strftime("#{t.hour % 12}:%M %p")]
+      out << [key, t.strftime(TIME_BASE).gsub(/^0/, '')]
     end
     out.reverse
   end
-      
+
   def timezone_in_words(zone)
     pac_regex = /^P(S|D)T$/
     mnt_regex = /^M(S|D)T$/
@@ -102,7 +101,7 @@ module EventCalendar::EventsHelper
       zone
     end
   end
-  
+
   def event_times(event)
     t = []
     event_times = times_with_zones(event)
@@ -111,14 +110,14 @@ module EventCalendar::EventsHelper
     end
     t.join(" / ").html_safe
   end
-  
+
   def times_with_zones(event)
     [
       time_with_zones(event.start_time),
       time_with_zones(event.end_time)
     ]
   end
-  
+
   def hour_options
     [
       ['6 AM','6'],
@@ -138,18 +137,18 @@ module EventCalendar::EventsHelper
       ['8 PM','20']
     ]
   end
-  
+
   def minute_options
     ['00', '15', '30', '45']
   end
-  
+
   def link_to_events(wrapper_options={}, link_options={})
     return unless has_authorization?(:read, EventCalendar::Event.new)
     link_wrapper(event_calendar_events_path, wrapper_options, link_options.reverse_merge!({
       :link_text => 'Event Calendar'
     }))
   end
-  
+
   def link_to_event_revisions(wrapper_options={}, link_options={})
     return unless has_authorization?(:read, EventCalendar::EventRevision.new)
     link_wrapper(event_calendar_event_revisions_path, {
@@ -188,7 +187,7 @@ module EventCalendar::EventsHelper
       :link_text => "Edit <em>#{h(event.name)}</em>".html_safe
     }.merge!(link_options))
   end
-  
+
   def link_to_new_link(event, wrapper_options={}, link_options={})
     return unless has_authorization?(:create, EventCalendar::Link.new)
     link_wrapper(new_event_calendar_event_link_path(event), wrapper_options, {
@@ -196,7 +195,7 @@ module EventCalendar::EventsHelper
       :class => 'fake_button'
     }.merge!(link_options))
   end
-  
+
   def link_to_edit_link(event, link, wrapper_options={}, link_options={})
     return unless has_authorization?(:update, link)
     link_wrapper(edit_event_calendar_event_link_path(event, link), {
@@ -205,7 +204,7 @@ module EventCalendar::EventsHelper
       :link_text => "update"
     }.merge!(link_options))
   end
-  
+
   def link_to_delete_link(event, link, wrapper_options={}, link_options={})
     return unless has_authorization?(:delete, link)
     link_wrapper(event_calendar_event_link_path(event, link), {
@@ -227,7 +226,7 @@ module EventCalendar::EventsHelper
       :method => "delete"
     }.merge!(link_options))
   end
-  
+
   def links_to_edit_and_delete_event(event, wrapper_options={}, link_options={})
     return unless has_authorization?(:delete, event) || has_authorization?(:update, event)
     link_to_edit_event(event, {
