@@ -33,6 +33,6 @@ Set up like any other Rails app.
 
 * copy config/database-example.yml to config/database.yml and edit as necessary
 * run: rake db:create
-* run: rake db:migrate
-* start with script/server (or mongrel or thin or passenger or whatever)
+* run: rake db:schema:load
+* start with rails server (or mongrel or thin or passenger or whatever)
 * first user to get created is made an administrator
