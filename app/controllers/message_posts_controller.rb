@@ -53,7 +53,8 @@ class MessagePostsController < ApplicationController
         flash[:notice] = "Posted: #{@message_post.subject}"
         format.html do
           if @message_post.thread
-            redirect_to forum_message_post_url(@forum, @message_post.thread, :anchor => @message_post.id,
+               @message_post.thread.update_attribute(:updated_at, Time.now)
+              redirect_to forum_message_post_url(@forum, @message_post.thread, :anchor => @message_post.id,
               :page => @message_post.thread.child_posts.last_page_number_for)
           else
             redirect_to forum_message_post_url(@forum, @message_post)
