@@ -1,3 +1,4 @@
+<% @followers ||= []%>
 <% if current_user -%>
   <div id="message_box">
     <% opts = message_post.new_record? ? { :url => forum_message_posts_path(@forum) } : { :url => forum_message_post_path(@forum, message_post), :method => :put } %>
@@ -5,6 +6,9 @@
       <%= f.error_messages %>
       <%= f.hidden_field(:forum_id) %>
       <%= f.hidden_field(:thread_id) %>
+      <%if( !message_post.new_record? || !@followers.include?(current_user) )%>
+     	 <p>Email updates to me: <%= f.check_box :email_forum_activity, :value => 1 %></p>
+      <%end%>
       <p>Subject: <%= f.text_field :subject %></p>
       <p><%= f.text_area :body, :cols => 60, :rows => 10 %></p>
       <p><%= submit_tag "Post it!" %></p>
