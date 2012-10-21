@@ -110,7 +110,7 @@ class MessagePostsController < ApplicationController
     posts = @message_post.posts_with_followers
     posts.each do |post|
       if post.user == current_user
-          post.update_attribute(:email_forum_activity, 0)
+          post.update_attribute(:to_user_id, 0)
       end
     end
     respond_to do |format|

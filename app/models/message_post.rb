@@ -79,8 +79,8 @@ class MessagePost < ActiveRecord::Base
   end 
   
   def posts_with_followers
-     posts = self.child_posts.find :all, :conditions=>'email_forum_activity = 1', :include => :user
-   if(self.email_forum_activity)
+     posts = self.child_posts.find :all, :conditions=>'to_user_id = 1', :include => :user
+   if(self.to_user_id)
       posts << self
    end  
    return posts

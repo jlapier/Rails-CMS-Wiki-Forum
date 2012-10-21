@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   end
   
   def following_posts
-   return self.message_posts.find :all, :conditions=>'email_forum_activity = 1'
+   return self.message_posts.find :all, :conditions=>'to_user_id = 1'
   end
   
   def deliver_password_reset_instructions!

@@ -7,7 +7,7 @@
       <%= f.hidden_field(:forum_id) %>
       <%= f.hidden_field(:thread_id) %>
       <%if( !message_post.new_record? || !@followers.include?(current_user) )%>
-     	 <p>Email updates to me: <%= f.check_box :email_forum_activity, :value => 1 %></p>
+     	 <p>Email updates to me: <%= f.check_box :to_user_id, :value => 1 %></p>
       <%end%>
       <p>Subject: <%= f.text_field :subject %></p>
       <p><%= f.text_area :body, :cols => 60, :rows => 10 %></p>
