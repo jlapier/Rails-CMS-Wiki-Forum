@@ -31,7 +31,8 @@
 
 <h3>Reply to this thread:</h3>
 <%= render :partial => "message_form", 
-      :locals => { :message_post => MessagePost.new(:thread => @message_post, :subject => "RE: #{@message_post.subject}") } %>
+      :locals => { :message_post => MessagePost.new(:thread => @message_post, :subject => "RE: #{@message_post.subject}"), :followers => [@followers] } 
+%>
 
 
 <p class="small_text">
@@ -44,4 +45,12 @@
   <%= link_to 'delete this message thread', forum_message_post_path(@forum, @message_post), :method => :delete,
               :confirm => 'Are you sure you want to delete this thread and all the messages in it?' %>
 <% end %>
+<br />
+
+<h3>Following this Thread</h3>
+<ul>
+ <% for user in @followers -%>
+    <li><%= user.full_name%> <%if user == current_user%>(<%= link_to 'stop following', stop_following_forum_message_post_path(@forum, @message_post), :method => :post %>)<%end%></li>
+  <% end -%>
+</ul>
 

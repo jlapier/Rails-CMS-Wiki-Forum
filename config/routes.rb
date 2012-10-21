@@ -88,6 +88,7 @@ RailsCMSWikiForum::Application.routes.draw do
     resources :message_posts do
       member do
         get "/:user_credentials/feed" => "message_posts#show", :as => :feed
+        post :stop_following
       end
     end
   end

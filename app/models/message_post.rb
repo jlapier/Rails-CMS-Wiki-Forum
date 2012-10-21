@@ -33,8 +33,7 @@ class MessagePost < ActiveRecord::Base
 
   # only for threads
   def most_recent_reply
-    @most_recent_reply ||= child_posts.find :first, :order => "message_posts.created_at DESC",
-      :include => :user
+    @most_recent_reply ||= child_posts.find :first, :order => "message_posts.created_at DESC", :include => :user
   end
 
   def fix_blank_subject
@@ -50,7 +49,7 @@ class MessagePost < ActiveRecord::Base
   def as_json(options = {})
     options ||= {}
     super(options.merge(
-      :methods => [:poster, :forum_name, :post_time]))
+      :methods => [:poster, :forum_name, :post_time, :most_recent_reply_post_time]))
   end
 
   def poster
@@ -69,6 +68,39 @@ class MessagePost < ActiveRecord::Base
 		end
     
   end
+
+  def most_recent_reply_post_time
+     recent_reply = self.most_recent_reply
+     if(recent_reply)
+       return recent_reply.created_at.strftime "on %b %d, %Y"
+     else
+        return self.post_time
+     end
+  end 
+  
+  def posts_with_followers
+     posts = self.child_posts.find :all, :conditions=>'to_user_id = 1', :include => :user
+   if(self.to_user_id)
+      posts << self
+   end  
+   return posts
+  end
+  
+  def followers
+   posts = self.posts_with_followers
+   unique_followers = []
+   unique_posts = []
+   posts.each do |comment|
+    unless unique_posts.find{|c| c.user_id == comment.user_id}
+      unique_posts << comment
+      unique_followers << comment.user
+    end
+  end
+
+   return unique_followers
+  end
+  
+  
 end
 
 # == Schema Information

@@ -39,4 +39,20 @@ public
     @post_link = "Full Post: #{blog_post_url(post)}"
     @admin_link = "Blog Admin: #{blog_dashboard_url}"
   end
+  
+  def email_follower(post, follower)
+    subject "[eFrog - #{post.thread.forum.title.truncate(23)}]  #{post.subject.truncate(23)}"
+    recipients follower.email
+    from     SiteSetting.read_setting('site email') || 'root'
+    content_type "text/html"
+    sent_on    Time.now
+    
+    @follower   =   follower.full_name
+    @thread     =   post.thread
+    @post_title =   ActionController::Base.helpers.sanitize(post.subject)
+    @post_body  =   ActionController::Base.helpers.sanitize(post.body)
+    @forum      =   @thread.forum
+    @link       =   forum_message_post_url(@forum, @thread)
+  end
+  
 end

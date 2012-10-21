@@ -89,6 +89,10 @@ class User < ActiveRecord::Base
     @forums ||=  Forum.find(user_groups.map { |g| g.forums.keys }.flatten.uniq)
   end
   
+  def following_posts
+   return self.message_posts.find :all, :conditions=>'to_user_id = 1'
+  end
+  
   def deliver_password_reset_instructions!
     # authlogic provides this:
     reset_perishable_token!
