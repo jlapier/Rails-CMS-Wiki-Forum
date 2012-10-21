@@ -90,16 +90,14 @@ var CMSApp = {
         var items = [];
 
         $.each(data, function(key, val) {
-          var m_post = val.message_post
+          var m_post = val.message_post;
           var s_div = $('<div/>', { 'class' : 'subject' });
           var link = $('<a/>', { html: m_post.subject, 
             href: '/forums/' + m_post.forum_id + '/message_posts/' + m_post.id } );
           s_div.append(link);
           s_div.append(' by ' + m_post.poster);
-
           d_div = $('<div/>', { 'class' : 'date_and_forum',
-            html:'<em>' + m_post.post_time + '</em> on ' + m_post.forum_name});
-          
+          html:'<em>' + m_post.most_recent_reply_post_time + '</em> on ' + m_post.forum_name});
           var li = $('<li/>');
           li.append(s_div);
           li.append(d_div);
